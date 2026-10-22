@@ -1,0 +1,26 @@
+name: Android APK de prueba
+on:
+  workflow_dispatch:
+  push:
+    paths: ['app-movil.zip', '.github/workflows/android-apk.yml']
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+      - name: Preparar proyecto
+        run: unzip -q app-movil.zip && cd app-movil && npm ci && npx cap sync android && chmod +x android/gradlew
+      - name: Compilar APK
+        working-directory: app-movil/android
+        run: ./gradlew assembleDebug
+      - uses: actions/upload-artifact@v4
+        with:
+          name: notyet-android-apk
+          path: app-movil/android/app/build/outputs/apk/debug/*.apk
