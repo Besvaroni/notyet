@@ -8,7 +8,12 @@
 <style>html{color-scheme:light dark}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 </head>
 <body>
-<title>Not Yet</title>
+<meta name="description" content="NotYet frena un segundo antes de pagar: espera 24 horas, busca más barato o pregunta a tu gente. Cada capricho que no compras va a tus destinos y suma puntos. Sin conectar tu banco.">
+<link rel="canonical" href="https://besvaroni.github.io/notyet/">
+<meta property="og:type" content="website"><meta property="og:site_name" content="NotYet"><meta property="og:title" content="NotYet - Decide mejor antes de pagar"><meta property="og:description" content="NotYet frena un segundo antes de pagar: espera 24 horas, busca más barato o pregunta a tu gente. Cada capricho que no compras va a tus destinos y suma puntos. Sin conectar tu banco."><meta property="og:url" content="https://besvaroni.github.io/notyet/"><meta property="og:image" content="https://besvaroni.github.io/notyet/notyet-logo.png"><meta property="og:locale" content="es_ES">
+<meta name="twitter:card" content="summary"><meta name="robots" content="index,follow">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"NotYet","applicationCategory":"FinanceApplication","operatingSystem":"Web, Android, iOS","inLanguage":"es","url":"https://besvaroni.github.io/notyet/","description":"NotYet frena un segundo antes de pagar: espera 24 horas, busca más barato o pregunta a tu gente. Cada capricho que no compras va a tus destinos y suma puntos. Sin conectar tu banco.","sameAs":["https://www.linkedin.com/company/notyet-app"]}</script>
+<title>NotYet - Decide mejor antes de pagar | Ahorro frente a compras por impulso</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -781,7 +786,14 @@ img.logo.favi{mix-blend-mode:multiply}
 .lroll .lstage figure.on{opacity:1;transform:none}
 .lroll .lstage figure img{max-width:170px;max-height:52px;width:auto;height:52px}
 .lroll .lstage figcaption{font-size:.74rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.lroll .lstrip{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:2px}
+.lroll .lstrip{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;padding:8px 2px}
+.lroll .lstrip button{transition:transform .45s cubic-bezier(.2,.8,.2,1.2),opacity .3s,box-shadow .3s!important}
+.lroll .lstrip button.on{transform:scale(1.35)!important;opacity:1;z-index:1}
+.lroll .lstage figure.on img{animation:lzoom .9s cubic-bezier(.2,.8,.2,1)}
+@keyframes lzoom{0%{transform:scale(.7)}55%{transform:scale(1.18)}100%{transform:scale(1)}}
+.lroll .lcap,.lroll>p{text-align:center}
+.dashprev{font-size:.8rem;font-weight:700;background:var(--amber-soft);color:var(--fg);border-radius:12px;padding:8px 11px;margin:0 0 4px}
+@media (prefers-reduced-motion:reduce){.lroll .lstage figure.on img{animation:none}}
 .lroll .lstrip::-webkit-scrollbar{display:none}
 .lroll .lstrip button{flex:none;width:34px;height:34px;border-radius:10px;background:var(--bg2);display:inline-flex;align-items:center;justify-content:center;opacity:.6;transition:opacity .2s,transform .2s}
 .lroll .lstrip button.on{opacity:1;transform:scale(1.08);box-shadow:inset 0 0 0 2px var(--brand)}
@@ -936,7 +948,7 @@ img.logo.favi{mix-blend-mode:multiply}
 
 <header class="nav">
   <div class="nav-in">
-    <a class="brand" href="#producto" data-view="producto"><svg aria-hidden="true"><use href="#logoMark"/></svg>Not Yet</a>
+    <a class="brand" href="#producto" data-view="producto"><svg aria-hidden="true"><use href="#logoMark"/></svg>NotYet</a>
     <div class="seg" role="tablist" aria-label="Sección">
       <button role="tab" id="tab-producto" aria-selected="true" data-view="producto" type="button">Producto</button>
       <button role="tab" id="tab-negocio" aria-selected="false" data-view="negocio" type="button">Negocio</button>
@@ -955,7 +967,7 @@ img.logo.favi{mix-blend-mode:multiply}
   <div class="wrap center">
     <p class="eyebrow rise" style="color:var(--teal)">Tu dinero, tus decisiones</p>
     <h1 class="h-hero rise" style="margin-top:16px">Decide mejor<br><span class="grad-text">antes de pagar.</span></h1>
-    <p class="lead rise">Not Yet te frena un segundo, pregunta a tu gente y convierte cada capricho que descartas en un paso hacia lo que de verdad quieres. Sin conectar tu banco. Sin vigilarte.</p>
+    <p class="lead rise">NotYet te frena un segundo, pregunta a tu gente y convierte cada capricho que descartas en un paso hacia lo que de verdad quieres. Sin conectar tu banco. Sin vigilarte.</p>
     <div class="ctas rise">
       <button class="btn grad" type="button" data-open="beta">Probar gratis</button>
       <a class="btn outline-light" href="#demo">Ver la demo</a>
@@ -965,7 +977,7 @@ img.logo.favi{mix-blend-mode:multiply}
         <div class="fcard reveal"><b id="fcSkip">6 compras descartadas</b><span id="fcSaved">Este mes, 476,99 € que siguen en tu cuenta</span><div class="mini" aria-hidden="true"><i style="height:30%"></i><i style="height:55%"></i><i style="height:40%"></i><i style="height:100%"></i><i style="height:65%"></i><i style="height:20%"></i><i style="height:80%"></i></div></div>
         <div class="fcard reveal"><b id="fcLevel">Nivel 3: Estratega</b><span id="fcPts">371 puntos. Cada "no" suma, y cambiar el destino cuesta la racha</span></div>
       </div>
-      <div class="ph" id="heroPh" aria-label="Demo de la app de Not Yet">
+      <div class="ph" id="heroPh" aria-label="Demo de la app de NotYet">
         <div class="isl"></div>
         <div class="scr">
           <div class="hs app on" data-hs="home"><div class="st"><span>9:41</span><span>Octubre</span></div><div class="body" id="hpHome"></div></div><div class="tabs" role="tablist" aria-label="Pestañas de la demo"><button class="tb on" type="button" data-go="home"><i></i>Inicio</button><button class="tb" type="button" data-go="explorar"><i></i>Explorar</button><button class="tb" type="button" data-go="comite"><i></i>Comité</button><button class="tb" type="button" data-go="habitos"><i></i>Hábitos</button><button class="tb" type="button" data-go="pareja"><i></i>Pareja</button><button class="tb" type="button" data-go="ia"><i></i>Pregunta</button></div>
@@ -982,7 +994,7 @@ img.logo.favi{mix-blend-mode:multiply}
           <div class="dim" id="heroDim"></div>
           <div class="sheet" id="heroSheet">
             <div class="grab"></div>
-            <h4>Not Yet: espera un momento</h4>
+            <h4>NotYet: espera un momento</h4>
             <p class="q" id="heroQ">Zapatillas de running Pegasus 41, Nike, 139,99 €.</p>
             <div class="facts" id="heroFacts"></div>
             <div id="heroOpts" style="display:flex;flex-direction:column;gap:6px">
@@ -1008,7 +1020,7 @@ img.logo.favi{mix-blend-mode:multiply}
   <div class="wrap">
     <p class="eyebrow center reveal">Mucho más que esperar</p>
     <h2 class="h2 center reveal" style="margin-top:12px">Un compañero para decidir,<br>no un recordatorio.</h2>
-    <p class="lead center reveal" style="margin-top:16px">Esperar 24 horas es fácil de copiar. Lo difícil es que cada decisión te acerque a algo que quieres, que no lo hagas solo y que te apetezca volver.</p>
+    <p class="lead center reveal" style="margin:16px auto 0;max-width:62ch">Esperar 24 horas es fácil de copiar. Lo difícil es que cada decisión te acerque a algo que quieres, que no lo hagas solo y que te apetezca volver.</p>
     <div class="bento">
       <article class="bcard w4 reveal">
         <span class="chip green" style="align-self:flex-start">Gratis</span>
@@ -1019,7 +1031,7 @@ img.logo.favi{mix-blend-mode:multiply}
       <article class="bcard reveal">
         <span class="chip coral" style="align-self:flex-start">Plus</span>
         <h3>El comité, en vivo</h3>
-        <p>Creas el grupo en la app e invitas con un enlace. Tus amigos votan desde su móvil: comprar, esperar o más barato. Not Yet resume.</p>
+        <p>Creas el grupo en la app e invitas con un enlace. Tus amigos votan desde su móvil: comprar, esperar o más barato. NotYet resume.</p>
         <div class="vis pad0" id="bentoChat"></div>
       </article>
       <article class="bcard w3 reveal">
@@ -1047,7 +1059,7 @@ img.logo.favi{mix-blend-mode:multiply}
       </article>
       <article class="bcard w3 dark reveal">
         <span class="chip" style="align-self:flex-start;background:rgba(255,255,255,.1);color:#fff">Pareja</span>
-        <h3>Not Yet para parejas</h3>
+        <h3>NotYet para parejas</h3>
         <p>Una meta compartida y reglas propias: las compras de más de 150 € se consultan. Cada uno conserva su autonomía: la otra persona opina, no bloquea.</p>
         <div class="vis">
           <div class="vrow"><span class="av">A</span><span class="av" style="margin-left:-8px;background:var(--coral)">S</span><span style="flex:1;font-weight:700;margin-left:6px">Viaje a París</span><span class="mono">1.137 € de 1.800 €</span></div>
@@ -1057,7 +1069,7 @@ img.logo.favi{mix-blend-mode:multiply}
       <article class="bcard w3 reveal">
         <span class="chip ghost" style="align-self:flex-start">Siempre</span>
         <h3>Sin banco, sin vigilancia</h3>
-        <p>No conectamos tu cuenta ni leemos tu navegación. Tú registras lo que quieres, cuando quieres, y "Comprar igualmente" está siempre a un clic. Not Yet no es un censor: a veces concluye que comprar tiene sentido.</p>
+        <p>No conectamos tu cuenta ni leemos tu navegación. Tú registras lo que quieres, cuando quieres, y "Comprar igualmente" está siempre a un clic. NotYet no es un censor: a veces concluye que comprar tiene sentido.</p>
       </article>
     </div>
   </div>
@@ -1086,12 +1098,12 @@ img.logo.favi{mix-blend-mode:multiply}
         <div class="xtext" data-x="explorar">
           <span class="chip" style="align-self:flex-start">Gratis</span>
           <h3>Pruébalo con cualquier cosa.</h3>
-          <ul><li>42 productos de ejemplo en 14 categorías: una chaqueta de Zara, un iPhone, un patinete, una PlayStation, un vuelo a Roma, una cena de Glovo, una barbacoa.</li><li>El icono real de cada tienda, cargado desde su web, y lo que te diría Not Yet.</li><li>¿Falta una categoría? La creas al apuntar: automóvil, agricultura, lo que registres cuenta.</li><li>Desde ahí entras en el freno, el análisis, el comité, los hábitos y la pareja.</li></ul>
+          <ul><li>42 productos de ejemplo en 14 categorías: una chaqueta de Zara, un iPhone, un patinete, una PlayStation, un vuelo a Roma, una cena de Glovo, una barbacoa.</li><li>El icono real de cada tienda, cargado desde su web, y lo que te diría NotYet.</li><li>¿Falta una categoría? La creas al apuntar: automóvil, agricultura, lo que registres cuenta.</li><li>Desde ahí entras en el freno, el análisis, el comité, los hábitos y la pareja.</li></ul>
         </div>
         <div class="xtext" data-x="comite">
           <span class="chip coral" style="align-self:flex-start">Plus</span>
           <h3>Tus grupos deciden contigo, en vivo.</h3>
-          <ul><li>Creas el grupo en la app e invitas con un enlace: amigos de siempre, gym, curro, familia.</li><li>El chat se llena en directo: "Nerea está escribiendo...". Votan comprar, esperar o buscar más barato.</li><li>Not Yet resume sin decidir por ti, y la comunidad te dice si quien ya lo compró se arrepintió.</li><li>Para compartir fuera: WhatsApp, Telegram, SMS, correo, Teams o el menú del móvil (Instagram, TikTok...).</li></ul>
+          <ul><li>Creas el grupo en la app e invitas con un enlace: amigos de siempre, gym, curro, familia.</li><li>El chat se llena en directo: "Nerea está escribiendo...". Votan comprar, esperar o buscar más barato.</li><li>NotYet resume sin decidir por ti, y la comunidad te dice si quien ya lo compró se arrepintió.</li><li>Para compartir fuera: WhatsApp, Telegram, SMS, correo, Teams o el menú del móvil (Instagram, TikTok...).</li></ul>
         </div>
         <div class="xtext" data-x="objetivo">
           <span class="chip green" style="align-self:flex-start">Gratis</span>
@@ -1124,7 +1136,7 @@ img.logo.favi{mix-blend-mode:multiply}
                 <div style="font-weight:700">Zapatillas de running Pegasus 41</div><div class="mono" style="font-weight:700;font-size:16px">139,99 €</div>
               </div>
               <div class="dim on"></div>
-              <div class="sheet up"><div class="grab"></div><h4>Not Yet: espera un momento</h4><div class="facts"><div class="g">◎ 126 € más cerca de París</div><div class="b">⏱ 11,7 horas de tu trabajo</div><div class="r">● 2 registros de deporte este mes</div><div class="b">◉ Comunidad: 3 de 7 lo volverían a comprar</div><div class="g">★ Si no lo compras: +24 puntos</div></div>
+              <div class="sheet up"><div class="grab"></div><h4>NotYet: espera un momento</h4><div class="facts"><div class="g">◎ 126 € más cerca de París</div><div class="b">⏱ 11,7 horas de tu trabajo</div><div class="r">● 2 registros de deporte este mes</div><div class="b">◉ Comunidad: 3 de 7 lo volverían a comprar</div><div class="g">★ Si no lo compras: +24 puntos</div></div>
                 <div class="opt"><i class="i-a">⏱</i><span>Me espero 24 horas</span></div><div class="opt"><i class="i-b">€</i><span>Buscar más barato</span></div><div class="opt"><i class="i-c">?</i><span>Preguntar al comité</span></div><p class="skip">Comprar igualmente</p></div>
             </div>
           </div>
@@ -1206,7 +1218,7 @@ img.logo.favi{mix-blend-mode:multiply}
           </div>
           <div class="screen s-brake" data-s="brake">
             <div class="card">
-              <h3>Not Yet: espera un momento</h3>
+              <h3>NotYet: espera un momento</h3>
               <div class="row"><span id="bName"></span><b id="bPrice"></b></div>
               <div class="facts" id="bFacts"></div>
               <div class="saybox" id="bSay"></div>
@@ -1255,6 +1267,7 @@ img.logo.favi{mix-blend-mode:multiply}
       </div>
       <aside class="dash reveal" aria-label="Tu mes, datos simulados">
         <div class="dash-head"><span class="eyebrow">Tu mes</span><span class="chip blue">Plus</span></div>
+        <p class="dashprev" id="dashPrev"></p>
         <div class="tkwrap"><div class="tk" id="dashTk"></div></div>
         <div id="dashScore"></div>
         <div class="kpis">
@@ -1282,8 +1295,8 @@ img.logo.favi{mix-blend-mode:multiply}
     <div class="how-grid">
       <div class="steps">
         <div class="step active" data-step="1"><span class="num">01</span><h3>Envías lo que quieres comprar.</h3><p>Una foto, un enlace o el nombre. Por WhatsApp, desde la extensión de Chrome o desde la app. No hace falta instalar nada para empezar.</p></div>
-        <div class="step" data-step="2"><span class="num">02</span><h3>Not Yet lo evalúa y lo apunta.</h3><p>Registra el importe que estás pensando gastar, lo traduce a horas de trabajo si quieres y te recuerda tu objetivo.</p></div>
-        <div class="step" data-step="3"><span class="num">03</span><h3>Eliges.</h3><p>Comprar, esperar 24 horas, comparar alternativas o pedir opinión a tu comité. Not Yet no bloquea nunca.</p></div>
+        <div class="step" data-step="2"><span class="num">02</span><h3>NotYet lo evalúa y lo apunta.</h3><p>Registra el importe que estás pensando gastar, lo traduce a horas de trabajo si quieres y te recuerda tu objetivo.</p></div>
+        <div class="step" data-step="3"><span class="num">03</span><h3>Eliges.</h3><p>Comprar, esperar 24 horas, comparar alternativas o pedir opinión a tu comité. NotYet no bloquea nunca.</p></div>
         <div class="step" data-step="4"><span class="num">04</span><h3>Mañana, un recordatorio.</h3><p>Al día siguiente te pregunta si lo sigues queriendo. Si compras, días después te pregunta si te arrepientes.</p></div>
         <div class="step" data-step="5"><span class="num">05</span><h3>Tu panel aprende contigo.</h3><p>El ticket del mes, tus puntos, tu calendario de impulsos y el progreso hacia tus destinos. Solo con lo que tú registras.</p></div>
       </div>
@@ -1291,9 +1304,9 @@ img.logo.favi{mix-blend-mode:multiply}
         <div class="ph sm" aria-hidden="true">
           <div class="isl"></div>
           <div class="scr pscreens" id="howPhone">
-            <div class="app active" data-ps="1"><div class="st"><span>9:41</span><span>WhatsApp</span></div><div class="body"><div class="msg me in" style="max-width:92%;align-self:flex-end"><b>Tú</b>Zapatillas Nike Pegasus, 139,99 €</div><div class="msg in" style="max-width:92%"><b>Not Yet</b>Apuntado: 140 €. ¿Lo necesitas o te apetece?</div></div></div>
-            <div class="app" data-ps="2"><div class="st"><span>9:41</span><span>Not Yet</span></div><div class="body"><div class="acard"><div class="lbl" style="color:var(--muted)">Estás pensando gastar</div><div class="big">140 €</div><div class="sub">11,7 horas de tu trabajo</div></div><div class="acard" style="background:var(--green-soft);color:var(--green)"><b>Si no las compras, 140 € más cerca de Lisboa</b></div><div class="acard" style="background:var(--coral-soft);color:var(--coral)"><b>Llevas 2 compras de deporte este mes</b></div></div></div>
-            <div class="app" data-ps="3"><div class="st"><span>9:41</span><span>Not Yet</span></div><div class="body" style="justify-content:flex-end"><div class="opt" style="background:var(--surface);border-radius:12px;padding:9px 11px;font-weight:700;display:flex;gap:8px;align-items:center"><i class="i-a" style="width:26px;height:26px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-style:normal">⏱</i>Me espero 24 horas</div><div class="opt" style="background:var(--surface);border-radius:12px;padding:9px 11px;font-weight:700;display:flex;gap:8px;align-items:center"><i class="i-b" style="width:26px;height:26px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-style:normal">€</i>Buscar más barato</div><div class="opt" style="background:var(--surface);border-radius:12px;padding:9px 11px;font-weight:700;display:flex;gap:8px;align-items:center"><i class="i-c" style="width:26px;height:26px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-style:normal">?</i>Preguntar al comité</div><p class="tiny center">Comprar igualmente</p></div></div>
+            <div class="app active" data-ps="1"><div class="st"><span>9:41</span><span>WhatsApp</span></div><div class="body"><div class="msg me in" style="max-width:92%;align-self:flex-end"><b>Tú</b>Zapatillas Nike Pegasus, 139,99 €</div><div class="msg in" style="max-width:92%"><b>NotYet</b>Apuntado: 140 €. ¿Lo necesitas o te apetece?</div></div></div>
+            <div class="app" data-ps="2"><div class="st"><span>9:41</span><span>NotYet</span></div><div class="body"><div class="acard"><div class="lbl" style="color:var(--muted)">Estás pensando gastar</div><div class="big">140 €</div><div class="sub">11,7 horas de tu trabajo</div></div><div class="acard" style="background:var(--green-soft);color:var(--green)"><b>Si no las compras, 140 € más cerca de Lisboa</b></div><div class="acard" style="background:var(--coral-soft);color:var(--coral)"><b>Llevas 2 compras de deporte este mes</b></div></div></div>
+            <div class="app" data-ps="3"><div class="st"><span>9:41</span><span>NotYet</span></div><div class="body" style="justify-content:flex-end"><div class="opt" style="background:var(--surface);border-radius:12px;padding:9px 11px;font-weight:700;display:flex;gap:8px;align-items:center"><i class="i-a" style="width:26px;height:26px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-style:normal">⏱</i>Me espero 24 horas</div><div class="opt" style="background:var(--surface);border-radius:12px;padding:9px 11px;font-weight:700;display:flex;gap:8px;align-items:center"><i class="i-b" style="width:26px;height:26px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-style:normal">€</i>Buscar más barato</div><div class="opt" style="background:var(--surface);border-radius:12px;padding:9px 11px;font-weight:700;display:flex;gap:8px;align-items:center"><i class="i-c" style="width:26px;height:26px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-style:normal">?</i>Preguntar al comité</div><p class="tiny center">Comprar igualmente</p></div></div>
             <div class="app" data-ps="4"><div class="st"><span>9:41</span><span>Mañana</span></div><div class="body"><div class="acard"><div class="lbl" style="color:var(--muted)">Han pasado 24 horas</div><div style="font-weight:800;font-size:16px">¿Sigues queriendo las zapatillas?</div><div class="tiny">Si no: +24 puntos y 126 € más cerca de París</div><div class="vrow" style="margin-top:6px;gap:6px"><span class="chip green" style="font-size:10px">No las compro</span><span class="chip ghost" style="font-size:10px">Las compro</span></div></div></div></div>
             <div class="app" data-ps="5"><div class="st"><span>9:41</span><span>Octubre</span></div><div class="body" id="howTk"></div></div>
           </div>
@@ -1310,7 +1323,7 @@ img.logo.favi{mix-blend-mode:multiply}
     <div class="facts">
       <div class="fact reveal"><b>Sin cuenta bancaria</b><p>Registras lo que tú quieres. No leemos tus movimientos ni tu navegación.</p></div>
       <div class="fact reveal"><b>Tus datos, contigo</b><p>En el prototipo todo se guarda en tu navegador. Si algún día hay cuentas, te diremos qué guardamos, cuánto tiempo y para qué.</p></div>
-      <div class="fact reveal"><b>Nunca te bloqueamos</b><p>"Comprar igualmente" está siempre a un clic. Y a veces Not Yet te dirá: cómpratelo, pero mejor.</p></div>
+      <div class="fact reveal"><b>Nunca te bloqueamos</b><p>"Comprar igualmente" está siempre a un clic. Y a veces NotYet te dirá: cómpratelo, pero mejor.</p></div>
       <div class="fact reveal"><b>Sin comisiones ocultas</b><p>Ninguna tienda paga por salir primero. El orden es el precio, nada más.</p></div>
     </div>
   </div>
@@ -1335,7 +1348,7 @@ img.logo.favi{mix-blend-mode:multiply}
       </article>
       <article class="plan featured reveal">
         <span class="ribbon">El que probaríamos primero</span>
-        <div class="name">Not Yet Plus</div>
+        <div class="name">NotYet Plus</div>
         <div class="amount">2,99 € <small>al mes</small></div>
         <div class="who">Para quien quiere que cada "no" cuente para algo.</div>
         <ul>
@@ -1348,7 +1361,7 @@ img.logo.favi{mix-blend-mode:multiply}
         <button class="btn grad" type="button" data-open="plus">Probar Plus</button>
       </article>
       <article class="plan reveal">
-        <div class="name">Not Yet Pareja</div>
+        <div class="name">NotYet Pareja</div>
         <div class="amount">3,99 € <small>al mes</small></div>
         <div class="who">Para dos personas con una meta en común.</div>
         <ul>
@@ -1369,17 +1382,17 @@ img.logo.favi{mix-blend-mode:multiply}
     <h2 class="h2 center reveal">Preguntas frecuentes.</h2>
     <div class="faq reveal">
       <details><summary>¿El comité funciona por WhatsApp?</summary><div class="a">No hace falta. Creas tus grupos dentro de la app, invitas con un enlace y cada miembro vota desde su móvil. WhatsApp queda como opción para quien prefiera mandar la pregunta por ahí. En el prototipo los votos de los grupos se simulan: todavía no hay servidor detrás.</div></details>
-      <details><summary>¿De dónde salen las reseñas de "mereció la pena"?</summary><div class="a">Del detector de arrepentimientos: días después de comprar, Not Yet pregunta a cada persona si lo usa o se arrepiente. Con muchos usuarios, esas respuestas se agregan por producto (sin nombres) y te dicen si quien ya lo compró lo volvería a comprar. En la demo son simuladas.</div></details>
+      <details><summary>¿De dónde salen las reseñas de "mereció la pena"?</summary><div class="a">Del detector de arrepentimientos: días después de comprar, NotYet pregunta a cada persona si lo usa o se arrepiente. Con muchos usuarios, esas respuestas se agregan por producto (sin nombres) y te dicen si quien ya lo compró lo volvería a comprar. En la demo son simuladas.</div></details>
       <details><summary>¿"Buscar más barato" compara de verdad?</summary><div class="a">Hoy te lleva directamente a los resultados de ese producto en cada sitio (Google Shopping, idealo, Amazon y eBay de barato a caro, Wallapop, Vinted, Back Market y tiendas por categoría) y, en Amazon, a su historial de precios. El análisis de "lo que te compensa" con nuevo, reacondicionado y segunda mano es simulado en la demo; el barrido automático necesita fuentes de datos con licencia y está explicado en la vista Negocio.</div></details>
       <details><summary>¿Para qué sirven los puntos?</summary><div class="a">Para que volver apetezca. Cada "no" suma, hay niveles e insignias, y el destino se bloquea al crearlo para que no te hagas trampas. Las recompensas de marcas no existen todavía: si llegan, será con acuerdos reales y sin convertir el ahorro en gasto.</div></details>
       <details><summary>¿Hay una IA? ¿De quién?</summary><div class="a">En la app hay un "Pregúntale" que responde con tus compras, tu bote, tu tope y tus destinos. Dentro de claude.ai usa tu propia cuenta de Claude, con tu permiso. Fuera, eliges en Ajustes la IA donde estés dado de alta (Claude, OpenAI o Gemini) y pegas tu clave, que se queda en tu navegador; sin clave, responde por reglas. Nunca recomienda productos financieros concretos ni promete rentabilidades: no es asesoramiento.</div></details>
-      <details><summary>¿Por qué algunos logos se ven menos nítidos?</summary><div class="a">Sin configurar nada, el logo es el icono que cada marca publica para su web (hasta 128 píxeles), y algunas marcas lo publican pequeño. Con una clave gratuita de Brandfetch, pegada abajo en "Logos", se cargan los logotipos oficiales en alta resolución y sin fondo. Not Yet nunca dibuja ni copia un logotipo.</div></details>
-      <details><summary>¿De dónde salen los logos?</summary><div class="a">Not Yet no dibuja ni copia logotipos: son propiedad de cada marca. Sin configurar nada, enseña el icono que cada marca publica en su web, cargado desde su dominio y sin caja blanca. Con una clave gratuita de Brandfetch (abajo del todo) los logos salen en alta calidad y con fondo transparente, cargados desde ese servicio. En ambos casos conviene que un abogado confirme el uso antes de publicar.</div></details>
-      <details><summary>¿Por qué veo el icono de cada tienda?</summary><div class="a">Es el icono que la propia tienda publica en su web, cargado desde su dominio, para identificar dónde se compra. Not Yet no redibuja ni copia logotipos, y citar una marca no significa que exista relación comercial con ella.</div></details>
-      <details><summary>¿Tengo que instalar una app?</summary><div class="a">No para empezar. Puedes usar Not Yet por WhatsApp o con la extensión de Chrome. La app añade el panel completo, el comité y los hábitos.</div></details>
-      <details><summary>¿Not Yet ve mi cuenta bancaria o mis compras?</summary><div class="a">No. No se conecta a tu banco ni a tus cuentas de las tiendas. Solo sabe lo que tú le cuentas: lo que estás pensando comprar y lo que decides.</div></details>
-      <details><summary>¿Me va a prohibir comprar?</summary><div class="a">Nunca. "Comprar igualmente" está siempre a un clic. Y cuando una compra encaja con tu presupuesto, Not Yet te lo dirá y te ayudará a comprarla mejor.</div></details>
-      <details><summary>¿Qué es el comité de compras?</summary><div class="a">Una votación privada con uno de tus grupos (amigos, gym, curro, familia) o con tu pareja: comprar, esperar o buscar más barato. Cada uno justifica su voto y Not Yet resume las opiniones. Nadie decide por ti.</div></details>
+      <details><summary>¿Por qué algunos logos se ven menos nítidos?</summary><div class="a">Sin configurar nada, el logo es el icono que cada marca publica para su web (hasta 128 píxeles), y algunas marcas lo publican pequeño. Con una clave gratuita de Brandfetch, pegada abajo en "Logos", se cargan los logotipos oficiales en alta resolución y sin fondo. NotYet nunca dibuja ni copia un logotipo.</div></details>
+      <details><summary>¿De dónde salen los logos?</summary><div class="a">NotYet no dibuja ni copia logotipos: son propiedad de cada marca. Sin configurar nada, enseña el icono que cada marca publica en su web, cargado desde su dominio y sin caja blanca. Con una clave gratuita de Brandfetch (abajo del todo) los logos salen en alta calidad y con fondo transparente, cargados desde ese servicio. En ambos casos conviene que un abogado confirme el uso antes de publicar.</div></details>
+      <details><summary>¿Por qué veo el icono de cada tienda?</summary><div class="a">Es el icono que la propia tienda publica en su web, cargado desde su dominio, para identificar dónde se compra. NotYet no redibuja ni copia logotipos, y citar una marca no significa que exista relación comercial con ella.</div></details>
+      <details><summary>¿Tengo que instalar una app?</summary><div class="a">No para empezar. Puedes usar NotYet por WhatsApp o con la extensión de Chrome. La app añade el panel completo, el comité y los hábitos.</div></details>
+      <details><summary>¿NotYet ve mi cuenta bancaria o mis compras?</summary><div class="a">No. No se conecta a tu banco ni a tus cuentas de las tiendas. Solo sabe lo que tú le cuentas: lo que estás pensando comprar y lo que decides.</div></details>
+      <details><summary>¿Me va a prohibir comprar?</summary><div class="a">Nunca. "Comprar igualmente" está siempre a un clic. Y cuando una compra encaja con tu presupuesto, NotYet te lo dirá y te ayudará a comprarla mejor.</div></details>
+      <details><summary>¿Qué es el comité de compras?</summary><div class="a">Una votación privada con uno de tus grupos (amigos, gym, curro, familia) o con tu pareja: comprar, esperar o buscar más barato. Cada uno justifica su voto y NotYet resume las opiniones. Nadie decide por ti.</div></details>
       <details><summary>¿Las marcas y los precios de la demo son reales?</summary><div class="a">Las marcas y tiendas se citan solo como ejemplo de dónde salta el freno. Los precios, las alternativas y las personas de la demostración son simulados: en la versión real los precios saldrían de comparadores y la gente serían tus amigos de verdad.</div></details>
       <details><summary>¿Qué incluye cada plan?</summary><div class="a">Gratis: freno, espera de 24 horas, recordatorios y contador básico. Plus: objetivos, comité ilimitado, informe de hábitos y análisis de productos. Pareja: todo Plus para dos, con metas, votaciones y presupuesto compartidos.</div></details>
     </div>
@@ -1393,8 +1406,7 @@ img.logo.favi{mix-blend-mode:multiply}
     <p class="lead reveal" style="margin-top:16px">Piénsatelo antes de meterlo en el carrito. El logo es un dibujo propio, no copia ningún icono existente, y funciona en claro, en oscuro y como icono de app.</p>
     <div class="ltoggle reveal" role="group" aria-label="Versión del logo"><button type="button" aria-pressed="true" data-logo="logoMark">Cerebro y carrito</button><button type="button" aria-pressed="false" data-logo="logoHand">Mano y carrito</button></div>
     <div class="logo-grid">
-      <div class="lcard reveal"><span class="wm"><svg class="lg-use" aria-hidden="true"><use href="#logoMark"/></svg>Not Yet</span><span class="tiny">Sobre fondo claro</span></div>
-      <div class="lcard dark reveal"><span class="wm"><svg class="lg-use" aria-hidden="true"><use href="#logoMark"/></svg>Not Yet</span><span class="tiny">Sobre fondo oscuro</span></div>
+      <div class="lcard dark reveal"><span class="wm"><svg class="lg-use" aria-hidden="true"><use href="#logoMark"/></svg>NotYet</span></div>
       <div class="lcard reveal"><svg aria-hidden="true"><use href="#logoIcon"/></svg><span class="tiny">Icono de la app y de la extensión de Chrome</span></div>
     </div>
     <div class="swatches reveal" aria-label="Colores de la marca">
@@ -1407,7 +1419,7 @@ img.logo.favi{mix-blend-mode:multiply}
       <div class="sw"><i style="background:#FF5A5F"></i>Comité<b>#FF5A5F</b></div>
       <div class="sw"><i style="background:#FFFDF7"></i>Recibo<b>#FFFDF7</b></div>
     </div>
-    <div class="namebox reveal"><b>Nombre: "Not Yet", provisional</b><p>El nombre definitivo llevará un doble sentido detrás, lo que la marca te dice sin decirlo. Mientras tanto, "Not Yet" aparece como texto en la web, la app y la extensión, así que cambiarlo es un buscar y reemplazar.</p></div>
+    <div class="namebox reveal"><b>Nombre: "NotYet", provisional</b><p>El nombre definitivo llevará un doble sentido detrás, lo que la marca te dice sin decirlo. Mientras tanto, "NotYet" aparece como texto en la web, la app y la extensión, así que cambiarlo es un buscar y reemplazar.</p></div>
   </div>
 </section>
 
@@ -1430,7 +1442,7 @@ img.logo.favi{mix-blend-mode:multiply}
   <div class="wrap center">
     <p class="eyebrow">Propuesta de producto y negocio - Octubre de 2026 - v4</p>
     <h1 class="h2" style="margin-top:14px">Un compañero para decidir,<br>no un recordatorio.</h1>
-    <p class="lead" style="margin:16px auto 0">La oportunidad de Not Yet no está en recordar que esperes 24 horas: eso es fácil de copiar y existen alternativas gratuitas. Está en ayudarte a decidir, implicarte en un reto y dejarte ahorrar acompañado, sin instalar otra app ni conectar tu banco. Todas las cifras son escenarios ilustrativos.</p>
+    <p class="lead" style="margin:16px auto 0">La oportunidad de NotYet no está en recordar que esperes 24 horas: eso es fácil de copiar y existen alternativas gratuitas. Está en ayudarte a decidir, implicarte en un reto y dejarte ahorrar acompañado, sin instalar otra app ni conectar tu banco. Todas las cifras son escenarios ilustrativos.</p>
   </div>
 </section>
 
@@ -1444,7 +1456,7 @@ img.logo.favi{mix-blend-mode:multiply}
         <div></div><div class="h">Dificultad baja</div><div class="h">Dificultad media</div><div class="h">Dificultad alta</div>
         <div class="rl">Impacto alto</div>
         <div class="cell top"><span class="pill">2. Objetivo personal de ahorro</span></div>
-        <div class="cell top"><span class="pill first">1. Comité de compras</span><span class="pill">4. Informe de hábitos</span><span class="pill">5. Not Yet para parejas</span></div>
+        <div class="cell top"><span class="pill first">1. Comité de compras</span><span class="pill">4. Informe de hábitos</span><span class="pill">5. NotYet para parejas</span></div>
         <div class="cell top"><span class="pill">3. Análisis de producto con fuentes reales</span></div>
         <div class="rl">Impacto medio</div>
         <div class="cell"><span class="tiny">Horas de trabajo que cuesta (ya lo hace la competencia)</span></div>
@@ -1457,21 +1469,21 @@ img.logo.favi{mix-blend-mode:multiply}
       <div class="ncard"><div class="pills"><span class="chip green">Impacto alto</span><span class="chip ghost">Dificultad baja</span></div><b>2. Objetivo personal de ahorro</b><p>Cada compra descartada acerca al usuario a un viaje, una boda o cualquier meta. Da un motivo para volver.</p></div>
       <div class="ncard"><div class="pills"><span class="chip blue">Impacto alto</span><span class="chip ghost">Dificultad alta</span></div><b>3. Análisis de producto con fuentes reales</b><p>Resumir reseñas, identificar problemas de calidad y comprobar precios. Tiene valor comercial, aunque ya hay competidores con funciones parecidas. Precios y reseñas, siempre de fuentes verificables.</p></div>
       <div class="ncard"><div class="pills"><span class="chip blue">Impacto alto</span><span class="chip ghost">Dificultad media</span></div><b>4. Informe personal de hábitos</b><p>"Tus compras más impulsivas ocurren los domingos por la noche". Basado en los registros del propio usuario, aporta valor recurrente.</p></div>
-      <div class="ncard"><div class="pills"><span class="chip">Impacto alto</span><span class="chip ghost">Dificultad media</span></div><b>5. Not Yet para parejas</b><p>Objetivos compartidos, presupuestos de caprichos y votaciones consensuadas. Puede justificar un plan a un precio superior al individual.</p></div>
+      <div class="ncard"><div class="pills"><span class="chip">Impacto alto</span><span class="chip ghost">Dificultad media</span></div><b>5. NotYet para parejas</b><p>Objetivos compartidos, presupuestos de caprichos y votaciones consensuadas. Puede justificar un plan a un precio superior al individual.</p></div>
       <div class="ncard" style="background:var(--navy);color:var(--navy-fg);border-color:var(--navy)"><b>Lo que lanzaríamos primero</b><p style="color:var(--navy-muted)">Solo tres cosas: espera de 24 horas, comité y objetivo de ahorro. El resto se añade cuando los usuarios demuestren que lo necesitan.</p></div>
     </div>
     <p class="eyebrow" style="margin-top:48px">Las otras diez ideas</p>
     <div class="ideas">
-      <details><summary>6. ¿Cuántas horas de tu vida cuesta?</summary><div class="a">Introduces cuánto ganas por hora y Not Yet traduce el precio en tiempo de trabajo: 240 € pueden ser 20 horas a 12 € netos la hora. Hace tangible el coste sin juzgar. Ya existe en competidores, así que no diferencia por sí sola.</div></details>
+      <details><summary>6. ¿Cuántas horas de tu vida cuesta?</summary><div class="a">Introduces cuánto ganas por hora y NotYet traduce el precio en tiempo de trabajo: 240 € pueden ser 20 horas a 12 € netos la hora. Hace tangible el coste sin juzgar. Ya existe en competidores, así que no diferencia por sí sola.</div></details>
       <details><summary>7. El radar de falsas ofertas</summary><div class="a">Comprobar el historial de precios cuando exista una fuente fiable: "El precio actual es 89 €; estuvo a 79 € hace tres semanas". Evita la urgencia artificial. Necesita datos históricos fiables y no debe prometer cobertura de todas las tiendas.</div></details>
       <details><summary>8. El detector de arrepentimientos</summary><div class="a">Unos días después de comprar, pregunta si estás satisfecho, si lo has devuelto o si no lo has usado. Con el tiempo detecta patrones basados solo en tus respuestas.</div></details>
       <details><summary>9. Modo nocturno y momentos de riesgo</summary><div class="a">Pausas más largas en determinadas horas o categorías: si sueles comprar tecnología por la noche, 24 horas de pausa en esas compras. Personalización sin acceso a tu banco ni vigilar tu navegación.</div></details>
-      <details><summary>10. El detector de suscripciones olvidadas</summary><div class="a">Envías una captura o un recibo y Not Yet identifica renovaciones y periodos de prueba, y te recuerda las fechas. Nunca afirma haber cancelado nada: solo prepara las instrucciones.</div></details>
+      <details><summary>10. El detector de suscripciones olvidadas</summary><div class="a">Envías una captura o un recibo y NotYet identifica renovaciones y periodos de prueba, y te recuerda las fechas. Nunca afirma haber cancelado nada: solo prepara las instrucciones.</div></details>
       <details><summary>11. El pacto de ahorro en pareja</summary><div class="a">Dos personas comparten una meta y acuerdan reglas: las compras de más de 150 € se consultan. Cada uno conserva su autonomía; la otra persona opina, no bloquea.</div></details>
       <details><summary>12. El modo "no me vendas la moto"</summary><div class="a">Analiza una página en busca de contadores de urgencia, descuentos difíciles de comprobar o costes poco visibles. Habla de señales y evidencia; no acusa a una tienda sin pruebas.</div></details>
       <details><summary>13. Un reto colectivo de ahorro</summary><div class="a">"Este mes vamos a evitar 1.000 € de compras innecesarias entre todos", con progresos bajo seudónimo. Sin mostrar gastos personales ni confundir ahorro estimado con dinero ingresado.</div></details>
-      <details><summary>14. "Cómpratelo, pero mejor"</summary><div class="a">Not Yet no siempre recomienda no comprar. Si el producto encaja con el presupuesto, ayuda a encontrar la alternativa adecuada, un descuento verificable o el momento oportuno. Reconocer cuándo comprar tiene sentido da credibilidad.</div></details>
-      <details><summary>15. El presupuesto flexible de caprichos</summary><div class="a">Decides que dispones de 100 € al mes para compras no esenciales y Not Yet te dice cuánto margen queda. Disfrutar sin culpa, sin conexión bancaria.</div></details>
+      <details><summary>14. "Cómpratelo, pero mejor"</summary><div class="a">NotYet no siempre recomienda no comprar. Si el producto encaja con el presupuesto, ayuda a encontrar la alternativa adecuada, un descuento verificable o el momento oportuno. Reconocer cuándo comprar tiene sentido da credibilidad.</div></details>
+      <details><summary>15. El presupuesto flexible de caprichos</summary><div class="a">Decides que dispones de 100 € al mes para compras no esenciales y NotYet te dice cuánto margen queda. Disfrutar sin culpa, sin conexión bancaria.</div></details>
     </div>
   </div>
 </section>
@@ -1493,7 +1505,7 @@ img.logo.favi{mix-blend-mode:multiply}
         </tbody>
       </table>
     </div>
-    <p class="tiny" style="margin-top:12px">Contraste recogido en la revisión previa de producto; conviene verificar cada nombre antes de citarlo públicamente. En esta conversación se comprobaron además Not Yet, Buy or Bye y SpendLock.</p>
+    <p class="tiny" style="margin-top:12px">Contraste recogido en la revisión previa de producto; conviene verificar cada nombre antes de citarlo públicamente. En esta conversación se comprobaron además NotYet, Buy or Bye y SpendLock.</p>
     <p class="quote">La combinación que merece la pena investigar: WhatsApp + votación privada + objetivos compartidos + aprendizaje de hábitos + experiencia adaptada al consumidor español. Tampoco se puede asegurar que sea inédita sin una investigación más exhaustiva.</p>
   </div>
 </section>
@@ -1507,8 +1519,8 @@ img.logo.favi{mix-blend-mode:multiply}
         <thead><tr><th>Plan</th><th>Qué incluye</th><th class="n">Precio al mes</th></tr></thead>
         <tbody>
           <tr><td>Gratis</td><td>Freno, recordatorios y registro básico limitado</td><td class="n">0 €</td></tr>
-          <tr><td>Not Yet Plus</td><td>Objetivos, estadísticas, análisis de productos y funciones avanzadas</td><td class="n">2,99 €</td></tr>
-          <tr><td>Not Yet Pareja</td><td>Metas compartidas, votaciones privadas y presupuestos conjuntos</td><td class="n">3,99 €</td></tr>
+          <tr><td>NotYet Plus</td><td>Objetivos, estadísticas, análisis de productos y funciones avanzadas</td><td class="n">2,99 €</td></tr>
+          <tr><td>NotYet Pareja</td><td>Metas compartidas, votaciones privadas y presupuestos conjuntos</td><td class="n">3,99 €</td></tr>
         </tbody>
       </table>
     </div>
@@ -1597,9 +1609,9 @@ img.logo.favi{mix-blend-mode:multiply}
   <div class="wrap">
     <p class="eyebrow">6. Para empresas y bancos: el laboratorio</p>
     <h2 class="h2" style="margin-top:12px;max-width:24ch">Quién paga, qué gana y qué le cuesta.</h2>
-    <p class="lead" style="margin-top:16px">Not Yet no le cobra a la gente que frena: le cobra a quien gana con que frene. Hay una página aparte, el Laboratorio, con un teléfono que recorre las nueve funciones paso a paso (las siete que existen y dos ideas: el bote en tu banco y las bonificaciones de empresas y marcas), un modelo con la aritmética a la vista para un banco, una empresa o una marca, ocho integraciones posibles y la tabla de dónde vive cada dato.</p>
+    <p class="lead" style="margin-top:16px">NotYet no le cobra a la gente que frena: le cobra a quien gana con que frene. Hay una página aparte, el Laboratorio, con un teléfono que recorre las nueve funciones paso a paso (las siete que existen y dos ideas: el bote en tu banco y las bonificaciones de empresas y marcas), un modelo con la aritmética a la vista para un banco, una empresa o una marca, ocho integraciones posibles y la tabla de dónde vive cada dato.</p>
     <div class="cols3">
-      <div class="ncard"><div class="pills"><span class="chip">Idea</span></div><b>Un banco: el bote en una hucha</b><p>Lo que el cliente no gasta se traspasa el día 1 a una hucha y el banco lo bonifica. Dinero que se queda en el banco y un cliente joven que abre la app cada semana. Not Yet no toca el dinero: lo mueve el banco con permiso del cliente.</p></div>
+      <div class="ncard"><div class="pills"><span class="chip">Idea</span></div><b>Un banco: el bote en una hucha</b><p>Lo que el cliente no gasta se traspasa el día 1 a una hucha y el banco lo bonifica. Dinero que se queda en el banco y un cliente joven que abre la app cada semana. NotYet no toca el dinero: lo mueve el banco con permiso del cliente.</p></div>
       <div class="ncard"><div class="pills"><span class="chip">Idea</span></div><b>Una empresa: Plus como bienestar financiero</b><p>La empresa paga la suscripción a su plantilla, como ya paga formación o seguro médico, y ve solo cifras agregadas con un mínimo de cincuenta personas por cifra. Nunca datos de una persona.</p></div>
       <div class="ncard"><div class="pills"><span class="chip">Idea</span></div><b>Una marca o tienda: premiar comprar pensado</b><p>Descuento que solo se activa si el cliente esperó 24 horas y lo sigue queriendo, comisión de afiliación en segunda mano y reacondicionado, y el freno dentro de la caja de la propia tienda para reducir devoluciones.</p></div>
     </div>
@@ -1614,11 +1626,11 @@ img.logo.favi{mix-blend-mode:multiply}
     <h2 class="h2" style="margin-top:12px;max-width:22ch">Lo que puede salir caro si no se mira antes.</h2>
     <div class="cols2">
       <div class="warn"><b>Los costes y las reglas de WhatsApp</b><p>La plataforma oficial cobra por mensaje según categoría y país, y tiene reglas para los mensajes fuera de la ventana de atención de 24 horas. Un recordatorio programado al día siguiente puede necesitar una plantilla aprobada y tener coste. Hay que comprobarlo en la documentación oficial de precios y en la política de mensajería antes de fijar precios.</p></div>
-      <div class="warn"><b>No añadir IA por añadir IA</b><p>El valor no está en que Not Yet converse mucho, sino en que el usuario tome una decisión mejor con poco esfuerzo. Si se procesan fotos, enlaces y patrones de compra, hay que definir desde el principio qué datos se guardan, cuánto tiempo y con qué consentimiento.</p></div>
+      <div class="warn"><b>No añadir IA por añadir IA</b><p>El valor no está en que NotYet converse mucho, sino en que el usuario tome una decisión mejor con poco esfuerzo. Si se procesan fotos, enlaces y patrones de compra, hay que definir desde el principio qué datos se guardan, cuánto tiempo y con qué consentimiento.</p></div>
     </div>
     <p class="eyebrow" style="margin-top:48px">El producto que lanzaríamos</p>
     <div class="cols2" style="margin-top:16px">
-      <div class="ncard"><b>Cómo funciona</b><p>1. Envías por WhatsApp una foto, un enlace o el nombre de lo que quieres comprar. 2. Not Yet te ayuda a evaluarlo y registra el importe. 3. Eliges: comprar, esperar 24 horas, comparar o pedir opinión. 4. Al día siguiente, un recordatorio cuando la plataforma y el consentimiento lo permitan. 5. Tu panel: compras descartadas, hábitos y progreso hacia tus objetivos.</p></div>
+      <div class="ncard"><b>Cómo funciona</b><p>1. Envías por WhatsApp una foto, un enlace o el nombre de lo que quieres comprar. 2. NotYet te ayuda a evaluarlo y registra el importe. 3. Eliges: comprar, esperar 24 horas, comparar o pedir opinión. 4. Al día siguiente, un recordatorio cuando la plataforma y el consentimiento lo permitan. 5. Tu panel: compras descartadas, hábitos y progreso hacia tus objetivos.</p></div>
       <div class="ncard"><b>Con qué empezar</b><p>Solo tres funciones: espera de 24 horas, votación social y objetivo de ahorro. Las demás se añaden si los usuarios demuestran que las necesitan. Para llegar a 2.000 € al mes con menos usuarios, estudiar el plan Pareja y las licencias a empresas antes que miles de suscriptores a 1,99 €.</p></div>
     </div>
     <p class="eyebrow" style="margin-top:48px">Nivel de confianza</p>
@@ -1634,9 +1646,8 @@ img.logo.favi{mix-blend-mode:multiply}
 
 <footer>
   <div class="wrap">
-    <span>Not Yet - prototipo - Octubre de 2026</span>
+    <span>NotYet - prototipo - Octubre de 2026</span>
     <span>Las marcas y productos de la demostración se citan solo como ejemplo; precios, personas y cifras son simulados.</span>
-    <form id="logoKeyForm" class="lkform"><label for="logoKeyIn">Logos en alta calidad: pega tu clave gratuita de Brandfetch (developers.brandfetch.com) y se guarda solo en este navegador</label><div><input id="logoKeyIn" maxlength="64" placeholder="client ID" autocomplete="off"><button class="btn ghost small" type="submit">Guardar</button></div></form>
     <a href="laboratorio.html" target="_blank" rel="noopener" style="text-decoration:underline">Laboratorio: el teléfono función a función y el modelo para empresas y bancos</a>
   </div>
 </footer>
@@ -1793,12 +1804,12 @@ setInterval(() => { if (document.hidden || matchMedia("(prefers-reduced-motion: 
 const NETS_INFO = { WhatsApp: ["#25D366", "#E9F8EE"], Telegram: ["#2AABEE", "#E8F5FD"], Instagram: ["#E1306C", "#FDEEF4"], TikTok: ["#161823", "#F2F2F4"], Facebook: ["#1877F2", "#E7F0FD"], X: ["#111111", "#F2F2F2"], Teams: ["#5B5FC7", "#EEEEFB"], Slack: ["#4A154B", "#F4ECF5"], Snapchat: ["#FFFC00", "#FFFDE0"], LinkedIn: ["#0A66C2", "#E8F1FB"], SMS: ["#17A35A", "#E6F7EE"], Correo: ["#5C6478", "#EEF1F7"], Copiar: ["#5C6478", "#EEF1F7"] };
 const NET_NOTEXT = ["Instagram", "TikTok", "Snapchat", "Slack"];
 const netMembers = (group) => (group.members || []).map((m) => Array.isArray(m) ? m[0] : m);
-function netReplies(group) { const m = netMembers(group); return [{ who: m[0] || "Ana", text: "Vale, te voto en la app ahora mismo", v: "Esperar" }, { who: m[1] || "Dani", text: "Yo esperaría a las rebajas, te lo pongo en Not Yet", v: "Esperar" }, { who: m[2] || m[0] || "Pau", text: "Si lo vas a usar de verdad, cómpralo. Votado", v: "Comprar" }].slice(0, Math.max(2, Math.min(3, m.length || 3))); }
+function netReplies(group) { const m = netMembers(group); return [{ who: m[0] || "Ana", text: "Vale, te voto en la app ahora mismo", v: "Esperar" }, { who: m[1] || "Dani", text: "Yo esperaría a las rebajas, te lo pongo en NotYet", v: "Esperar" }, { who: m[2] || m[0] || "Pau", text: "Si lo vas a usar de verdad, cómpralo. Votado", v: "Comprar" }].slice(0, Math.max(2, Math.min(3, m.length || 3))); }
 function netChatHTML(net, group, item, replies, typing) {
   const [c, soft] = NETS_INFO[net] || NETS_INFO.Correo, m = netMembers(group);
-  const text = `¿Me compro esto? ${item.name}, ${eur(item.price || 0, 2)}${item.shop ? " en " + item.shop : ""}. Votad en Not Yet: comprar, esperar o más barato. notyet.app/v/${String(group.id || "grupo").replace(/[^a-z0-9]/gi, "").slice(-4) || "grp"}`;
+  const text = `¿Me compro esto? ${item.name}, ${eur(item.price || 0, 2)}${item.shop ? " en " + item.shop : ""}. Votad en NotYet: comprar, esperar o más barato. notyet.app/v/${String(group.id || "grupo").replace(/[^a-z0-9]/gi, "").slice(-4) || "grp"}`;
   const t0 = Date.now();
-  return `<div class="netchat" data-net="${esc(net)}" style="--nc:${c};--ns:${soft}"><div class="nh">${favImg(net, "", 64) || `<span class="ini">${esc(net.slice(0, 2))}</span>`}<div><b>${esc(group.name)}</b><small>${esc(m.join(", "))} - ${esc(net)}</small></div></div><div class="nm"><div class="nb me">${esc(text)}<span class="tm">${fmtTime(t0)} ✓✓</span></div>${replies.map((r, i) => `<div class="nb"><b>${esc(r.who)}</b>${esc(r.text)} <span class="nv">${esc(r.v)}</span><span class="tm">${fmtTime(t0 + (i + 1) * 61000)}</span></div>`).join("")}${typing ? `<div class="nb"><b>${esc(typing)}</b><span class="typing"><i></i><i></i><i></i></span></div>` : ""}${replies.length ? `<div class="nsys">${replies.length} ${replies.length === 1 ? "voto registrado" : "votos registrados"} en Not Yet</div>` : ""}</div></div>`;
+  return `<div class="netchat" data-net="${esc(net)}" style="--nc:${c};--ns:${soft}"><div class="nh">${favImg(net, "", 64) || `<span class="ini">${esc(net.slice(0, 2))}</span>`}<div><b>${esc(group.name)}</b><small>${esc(m.join(", "))} - ${esc(net)}</small></div></div><div class="nm"><div class="nb me">${esc(text)}<span class="tm">${fmtTime(t0)} ✓✓</span></div>${replies.map((r, i) => `<div class="nb"><b>${esc(r.who)}</b>${esc(r.text)} <span class="nv">${esc(r.v)}</span><span class="tm">${fmtTime(t0 + (i + 1) * 61000)}</span></div>`).join("")}${typing ? `<div class="nb"><b>${esc(typing)}</b><span class="typing"><i></i><i></i><i></i></span></div>` : ""}${replies.length ? `<div class="nsys">${replies.length} ${replies.length === 1 ? "voto registrado" : "votos registrados"} en NotYet</div>` : ""}</div></div>`;
 }
 
 const icon = (k) => `<svg aria-hidden="true"><use href="#ic-${document.getElementById("ic-" + k) ? k : "otros"}"/></svg>`;
@@ -1810,7 +1821,7 @@ function ticketHTML(o) {
   const goals = (o.goals || []).map((g) => `<div class="gb"><span style="flex:1.4;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;text-transform:uppercase">${esc(g.name)}</span><i style="--w:${g.pctDone}%"></i><span class="p">${g.pctDone}%</span></div><div class="row f tiny"><span>${eur(g.prog)} de ${eur(g.amount)}</span><span>${g.pct}% del bote</span></div>`).join("");
   const opn = String(Math.abs(Math.round((o.total || 0) * 100)) + 48213).slice(-6);
   return `<div class="paper"></div>
-    <div class="c h">Not Yet</div>
+    <div class="c h">NotYet</div>
     <div class="c f">Ticket de lo no comprado</div>
     ${o.compact ? "" : '<div class="c f">Caja 01 - Tu cabeza fría</div>'}
     <div class="row f tiny" style="margin-top:4px"><span>${o.date}</span><span>${o.time}</span><span>OP: ${opn}</span></div>
@@ -1830,10 +1841,10 @@ function ticketHTML(o) {
 }
 function chatHTML(o) {
   const g = o.group, t0 = o.t0 || Date.now(), c = { wait: 0, buy: 0, cheap: 0 };
-  const msgs = `<div class="cm me">${av("Tú", "background:var(--green)")}<div class="bub"><b>Tú</b>¿Me compro esto? ${esc(o.product.name)}, ${eur(o.product.price, 2)} en ${esc(o.product.shop)}. Votad: comprar, esperar o más barato<span class="tm">${fmtTime(t0)} ✓✓</span></div></div><div class="cm sys"><div class="bub">Votación abierta dentro de Not Yet</div></div>` +
+  const msgs = `<div class="cm me">${av("Tú", "background:var(--green)")}<div class="bub"><b>Tú</b>¿Me compro esto? ${esc(o.product.name)}, ${eur(o.product.price, 2)} en ${esc(o.product.shop)}. Votad: comprar, esperar o más barato<span class="tm">${fmtTime(t0)} ✓✓</span></div></div><div class="cm sys"><div class="bub">Votación abierta dentro de NotYet</div></div>` +
     (o.votes || []).map((v, i) => { c[v.vote]++; return `<div class="cm">${av(v.who)}<div class="bub"><b>${esc(v.who)}</b>${esc(v.text)} <span class="v ${v.vote}">${esc(v.vl)}</span><span class="tm">${fmtTime(t0 + (i + 1) * 47000)}</span></div></div>`; }).join("") +
     (o.typing ? `<div class="cm">${av(o.typing)}<div class="bub"><b>${esc(o.typing)}</b><span class="typing"><i></i><i></i><i></i></span></div></div>` : "");
-  return `<div class="chatapp"><div class="ch"><span class="avs">${g.members.map(([n]) => av(n)).join("")}</span><div class="grow" style="flex:1"><b>${esc(g.name)}</b><small>${g.members.length + 1} miembros - votación dentro de Not Yet</small></div></div><div class="msgs">${msgs}</div></div>`;
+  return `<div class="chatapp"><div class="ch"><span class="avs">${g.members.map(([n]) => av(n)).join("")}</span><div class="grow" style="flex:1"><b>${esc(g.name)}</b><small>${g.members.length + 1} miembros - votación dentro de NotYet</small></div></div><div class="msgs">${msgs}</div></div>`;
 }
 const dayKey = (t) => { const d = new Date(t); return d.getFullYear() * 10000 + d.getMonth() * 100 + d.getDate(); };
 const MARKS = [[-1, "im"], [-2, "sk"], [-4, "sk"], [-5, "bu"], [-6, "im"], [-7, "sk"], [-10, "sk"], [-13, "sk"], [-16, "sk"], [-20, "sk"], [-27, "sk"], [-31, "sk"], [-33, "bu"], [-41, "sk"]];
@@ -1874,20 +1885,20 @@ const HP = { id: "nike-pegasus", name: "Zapatillas de running Pegasus 41", shop:
 let HPcur = HP, heroGroup = GYM;
 const HCAP = {
   home: ["Paso 1 de 4: Inicio", 0, 'Tu ticket del mes, tus puntos y tus destinos. Toca "Apuntar un capricho" o espera un momento: la demo sigue sola.'],
-  sheet: ["Paso 2 de 4: El freno", 1, () => `Vas a comprar ${HPcur.name} de ${eur(HPcur.price, 2)} en ${HPcur.shop}. Not Yet te enseña cuánto te acerca a París, las horas de trabajo que cuesta, lo que dice la comunidad y los puntos que ganas si dices que no. Elige.`],
+  sheet: ["Paso 2 de 4: El freno", 1, () => `Vas a comprar ${HPcur.name} de ${eur(HPcur.price, 2)} en ${HPcur.shop}. NotYet te enseña cuánto te acerca a París, las horas de trabajo que cuesta, lo que dice la comunidad y los puntos que ganas si dices que no. Elige.`],
   wait: ["Paso 3 de 4: Esperar", 2, "Te esperas 24 horas. Nada se bloquea: mañana te preguntamos. Adelanta el reloj."],
   tomorrow: ["Paso 3 de 4: Mañana", 2, "Ha pasado un día. ¿Las sigues queriendo? La mayoría de los caprichos pierden fuerza con la almohada."],
-  cmp: ["Paso 3 de 4: Más barato", 2, "Nuevo, modelo anterior o Decathlon: Not Yet dice qué te compensa, enseña parecidos en otras tiendas y marca cuáles caben en tu tope semanal. Comprar mejor también suma puntos."],
-  ask: ["Paso 3 de 4: Comité", 2, "Eliges el grupo (o creas uno) y por dónde invitas: WhatsApp, Instagram, TikTok, lo que uses. Los votos llegan dentro de la app y Not Yet resume, no decide."],
-  skip: ["Paso 4 de 4: Resultado", 3, () => `Una línea más en el ticket: ${eur(HPcur.price, 2)} conservados, +${10 + Math.round(HPcur.price / 10)} puntos y París más cerca. Esto es Not Yet: frena, no prohíbe.`],
+  cmp: ["Paso 3 de 4: Más barato", 2, "Nuevo, modelo anterior o Decathlon: NotYet dice qué te compensa, enseña parecidos en otras tiendas y marca cuáles caben en tu tope semanal. Comprar mejor también suma puntos."],
+  ask: ["Paso 3 de 4: Comité", 2, "Eliges el grupo (o creas uno) y por dónde invitas: WhatsApp, Instagram, TikTok, lo que uses. Los votos llegan dentro de la app y NotYet resume, no decide."],
+  skip: ["Paso 4 de 4: Resultado", 3, () => `Una línea más en el ticket: ${eur(HPcur.price, 2)} conservados, +${10 + Math.round(HPcur.price / 10)} puntos y París más cerca. Esto es NotYet: frena, no prohíbe.`],
   cheaper: ["Paso 4 de 4: Resultado", 3, () => { const s = heroSave(); return `Has ahorrado ${eur(s)} comprando mejor: +${5 + Math.round(s / 10)} puntos. Cómpratelo, pero mejor.`; }],
   explorar: ["Explorar", 0, "Marcas y productos de ejemplo con su logo, sin caja. Toca \"Lo quiero\" y el freno salta con ese producto."],
-  comite: ["Comité", 2, "Elige el grupo (o crea uno) y el canal. Al tocar una red ves cómo llega la invitación y cómo responden; los votos entran en Not Yet."],
-  habitos: ["Hábitos y evolución", 3, "Calendario del mes, cifras del periodo y descarga en CSV o JSON. En la app, Not Yet lee los datos y te aconseja."],
+  comite: ["Comité", 2, "Elige el grupo (o crea uno) y el canal. Al tocar una red ves cómo llega la invitación y cómo responden; los votos entran en NotYet."],
+  habitos: ["Hábitos y evolución", 3, "Calendario del mes, cifras del periodo y descarga en CSV o JSON. En la app, NotYet lee los datos y te aconseja."],
   pareja: ["Pareja", 3, "Pacto para las compras grandes: las de más de 150 € se consultan. Sofía responde dentro de la app."],
-  netchat: ["Así llega la invitación", 2, "Simulación: la pregunta en esa red y las respuestas de tu gente. Los votos de verdad entran dentro de Not Yet."],
+  netchat: ["Así llega la invitación", 2, "Simulación: la pregunta en esa red y las respuestas de tu gente. Los votos de verdad entran dentro de NotYet."],
   ia: ["Pregúntale", 3, "Tu IA privada con tus datos: compras, bote, tope y destinos. En la app, tu Claude dentro de claude.ai o la IA que elijas con tu clave."],
-  buy: ["Paso 4 de 4: Resultado", 3, "Comprado con la cabeza fría. Sin culpa: Not Yet frena, no prohíbe. En unos días te preguntará si te arrepientes."]
+  buy: ["Paso 4 de 4: Resultado", 3, "Comprado con la cabeza fría. Sin culpa: NotYet frena, no prohíbe. En unos días te preguntará si te arrepientes."]
 };
 const heroSheet = $("#heroSheet"), heroDim = $("#heroDim");
 let hero = null, heroAuto = true, heroTimers = [], heroRun = 0;
@@ -1947,7 +1958,7 @@ let heroCat = "todo", netTimersH = [];
 function hpNetChat(net) {
   hpShow("netchat"); hpCap("netchat"); netTimersH.forEach(clearTimeout); netTimersH = [];
   const reps = netReplies(heroGroup), nolink = NET_NOTEXT.includes(net);
-  const draw = (k, typing) => { $("#hpNet").innerHTML = netChatHTML(net, heroGroup, HPcur, reps.slice(0, k), typing) + `<p class="tiny" style="font-size:9px">${nolink ? net + " no admite texto prellenado: se copia y se pega. " : ""}Simulación: los votos reales entran en Not Yet.</p><div style="display:flex;gap:6px;margin-top:auto"><button class="pbtn coral" type="button" data-hask="1">Ver los votos</button><button class="pbtn ghost" type="button" data-hback="comite">Volver</button></div>`; };
+  const draw = (k, typing) => { $("#hpNet").innerHTML = netChatHTML(net, heroGroup, HPcur, reps.slice(0, k), typing) + `<p class="tiny" style="font-size:9px">${nolink ? net + " no admite texto prellenado: se copia y se pega. " : ""}Simulación: los votos reales entran en NotYet.</p><div style="display:flex;gap:6px;margin-top:auto"><button class="pbtn coral" type="button" data-hask="1">Ver los votos</button><button class="pbtn ghost" type="button" data-hback="comite">Volver</button></div>`; };
   draw(0, reps[0].who); reps.forEach((r, i) => netTimersH.push(setTimeout(() => draw(i + 1, i + 1 < reps.length ? reps[i + 1].who : null), 800 + i * 1000)));
 }
 function hpExplorar() {
@@ -1967,7 +1978,7 @@ function hpTab(name) {
 function hpVotes() {
   const run = ++heroRun; hpShow("chat");
   const votes = genVotes(HPcur, heroGroup), got = [], t0 = Date.now();
-  const draw = (typing) => { $("#hpChat").innerHTML = chatHTML({ group: heroGroup, product: HPcur, votes: got, typing, t0 }) + (got.length === votes.length ? `<div class="summ" style="font-size:10px;padding:8px 10px">Not Yet resume: ${got.filter((v) => v.vote !== "buy").length} de 3 te sugieren no comprarlas hoy. Decides tú.</div><div style="display:flex;gap:6px"><button class="pbtn green" type="button" data-hres="skip">Hago caso: no las compro</button><button class="pbtn ghost" type="button" data-hres="buy">Las compro</button></div>` : ""); };
+  const draw = (typing) => { $("#hpChat").innerHTML = chatHTML({ group: heroGroup, product: HPcur, votes: got, typing, t0 }) + (got.length === votes.length ? `<div class="summ" style="font-size:10px;padding:8px 10px">NotYet resume: ${got.filter((v) => v.vote !== "buy").length} de 3 te sugieren no comprarlas hoy. Decides tú.</div><div style="display:flex;gap:6px"><button class="pbtn green" type="button" data-hres="skip">Hago caso: no las compro</button><button class="pbtn ghost" type="button" data-hres="buy">Las compro</button></div>` : ""); };
   draw(null);
   let i = 0;
   const step = () => { if (run !== heroRun) return; if (i >= votes.length) { draw(null); hT(() => hpResult("skip"), 2600); return; } draw(votes[i].who); const id = setTimeout(() => { if (run !== heroRun) return; got.push(votes[i]); i++; draw(null); const id2 = setTimeout(step, 500); heroTimers.push(id2); }, reduce ? 100 : 1000); heroTimers.push(id); };
@@ -1975,7 +1986,7 @@ function hpVotes() {
 }
 function hpTomorrow() {
   hpShow("tomorrow"); hpCap("tomorrow");
-  $("#hpTom").innerHTML = `<div class="notif"><div class="nh"><svg aria-hidden="true"><use href="#logoMark"/></svg>Not Yet - ahora</div><b>Han pasado 24 horas. ¿Sigues queriendo las zapatillas?</b><div class="tiny" style="font-size:9px">Nike, 139,99 €. Si no las compras: +24 puntos y 126 € más cerca de París.</div></div><div style="display:flex;gap:6px;margin-top:auto"><button class="pbtn green" type="button" data-hres="skip">No las compro</button><button class="pbtn ghost" type="button" data-hres="buy">Las compro</button></div>`;
+  $("#hpTom").innerHTML = `<div class="notif"><div class="nh"><svg aria-hidden="true"><use href="#logoMark"/></svg>NotYet - ahora</div><b>Han pasado 24 horas. ¿Sigues queriendo las zapatillas?</b><div class="tiny" style="font-size:9px">Nike, 139,99 €. Si no las compras: +24 puntos y 126 € más cerca de París.</div></div><div style="display:flex;gap:6px;margin-top:auto"><button class="pbtn green" type="button" data-hres="skip">No las compro</button><button class="pbtn ghost" type="button" data-hres="buy">Las compro</button></div>`;
   hT(() => hpResult("skip"), 2600);
 }
 function hpResult(kind) {
@@ -2037,7 +2048,7 @@ const CATALOG = [
   { id: "nike-pegasus", cat: "deporte", brand: "Nike", shop: "Nike", name: "Zapatillas de running Pegasus 41", price: 139.99, bul: ["Envío gratis para socios", "Devolución 30 días", "Talla 42"], say: "Si corres tres veces por semana, unas buenas zapatillas se amortizan. Si no, espera.", alts: [["Modelo del año pasado (Pegasus 40)", 89.99], ["Zapatillas de running de Decathlon", 59.99]] },
   { id: "decathlon-bici", ico: "bike", cat: "deporte", brand: "Decathlon", shop: "Decathlon", name: "Bici estática plegable", price: 249, bul: ["Recogida en tienda", "Garantía 2 años", "Plegable"], say: "El clásico 'me voy a poner en forma'. Prueba un mes de gimnasio antes de comprarla.", alts: [["Segunda mano en Wallapop", 110], ["Un mes de gimnasio para probar", 35]] },
   { id: "ryanair-roma", cat: "viajes", brand: "Ryanair", shop: "Ryanair", name: "Vuelo Madrid-Roma, fin de semana", price: 146, bul: ["Ida y vuelta", "Solo equipaje de mano", "Sale el sábado a las 7:00"], say: "Con vuelos, esperar puede salir más caro. Compara fechas y aeropuertos antes de decidir, no después.", alts: [["Mismo destino saliendo el viernes por la tarde", 98], ["Tren a Valencia ese finde", 60]] },
-  { id: "booking-lisboa", ico: "bed", cat: "viajes", brand: "Booking.com", shop: "Booking.com", name: "Hotel 3 noches en Lisboa", price: 390, bul: ["Cancelación gratuita", "Desayuno incluido", "Barrio de Alfama"], say: "Es tu destino. Si lo descartas no avanzas: aquí Not Yet dice 'cómpralo, pero mejor'.", alts: [["Apartamento para dos con cocina", 270], ["Reserva con cancelación gratuita y vigila el precio", null]] },
+  { id: "booking-lisboa", ico: "bed", cat: "viajes", brand: "Booking.com", shop: "Booking.com", name: "Hotel 3 noches en Lisboa", price: 390, bul: ["Cancelación gratuita", "Desayuno incluido", "Barrio de Alfama"], say: "Es tu destino. Si lo descartas no avanzas: aquí NotYet dice 'cómpralo, pero mejor'.", alts: [["Apartamento para dos con cocina", 270], ["Reserva con cancelación gratuita y vigila el precio", null]] },
   { id: "glovo-sushi", cat: "comida", brand: "Glovo", shop: "Glovo", name: "Cena de sushi a domicilio", price: 38, bul: ["Llega en 35 min", "Gastos de envío 2,90 €", "Para dos"], say: "Tercer pedido a domicilio esta semana. Entre los tres, más que una cena fuera.", alts: [["Sushi del súper", 12], ["Cocinar lo que hay en la nevera", 0]] },
   { id: "carrefour-capsulas", cat: "comida", brand: "Carrefour", shop: "Carrefour", name: "Cápsulas de café, pack de 100", price: 32.9, bul: ["Compatibles", "Entrega en 2 h", "Oferta 3x2"], say: "Las que tienes en casa duran dos semanas más. La oferta volverá.", alts: [["Pack de 50 de marca blanca", 14.5], ["Café molido para la cafetera de toda la vida", 6]] },
   { id: "dia-picoteo", cat: "comida", brand: "Dia", shop: "Dia", name: "Picoteo de domingo noche a domicilio", price: 24.6, bul: ["Patatas, refrescos y helado", "Llega en 40 min", "Pedido mínimo 15 €"], say: "Domingo a las once de la noche: tu momento de riesgo. Mañana no te acuerdas.", alts: [["Lo que hay en la despensa", 0], ["Bajar al súper mañana", 9]] },
@@ -2143,7 +2154,7 @@ function communityHTML(p) {
 const WAGE = 12, BUDGET_LEFT = 20, PARTNER_THR = 150;
 const dash = { saved: SAVED0, brakes: 9, skipped: 6, cheaper: 0, pts: PTS0, lines: DEMO_LINES.slice(), goal: BOTE0 * GOALPCT / 100, days: [0, 0, 18, 0, 0, 59, 0, 0, 0, 25.99, 0, 0, 0, 156, 89, 0, 0, 0, 129, 0, 0] };
 const today = dash.days.length - 1;
-let cur = CATALOG[0], curCat = "todo", curGroup = "amigos";
+let cur = CATALOG[0], curCat = "todo", curGroup = "amigos", curDecided = false;
 function renderPicker() {
   $("#catf").innerHTML = [["todo", "Todo"]].concat(Object.entries(CATS).map(([k, v]) => [k, v[0]])).map(([k, l]) => `<button type="button" data-cat="${k}" aria-pressed="${k === curCat}">${l}</button>`).join("");
   $("#picker").innerHTML = CATALOG.filter((p) => curCat === "todo" || p.cat === curCat).map((p) => `<button class="pk" type="button" data-pick="${p.id}" aria-pressed="${p.id === cur.id}" style="--c:${CATS[p.cat][1]}"><span class="ic">${icon(p.ico || p.cat)}${logoSrc(p.brand) ? favImg(p.brand, "main", 128) + `<span class="cic">${icon(p.ico || p.cat)}</span>` : ""}</span><span class="br">${brandChip(p.brand, p.shop)}</span><span class="nm">${p.name}</span><span class="pr">${eur(p.price, 2)}</span></button>`).join("");
@@ -2151,14 +2162,20 @@ function renderPicker() {
 const catOfBrand = (b) => Object.keys(BRANDS).find((k) => BRANDS[k].includes(b)) || null;
 let rollNote = "";
 function renderRoll() { const bl = brandsOf(curCat); $("#brandRoll").innerHTML = logoRoll(curCat, curCat === "todo" ? "Dos marcas de cada categoría, de lujo a low cost. Toca una marca: se selecciona su categoría y la demo carga un producto suyo. Los logos se cargan desde la web de cada marca." : `${bl.length} marcas de ${CATS[curCat][0].toLowerCase()}: de ${bl[0]} a ${bl[bl.length - 1]}. Toca una para probar la demo con ella.`) + (rollNote ? `<p class="rollnote" id="rollNote">${rollNote}</p>` : ""); }
+const TPL = { ropa: ["Chaqueta", 89], tech: ["Auriculares inalámbricos", 179], deporte: ["Zapatillas de running", 120], viajes: ["Escapada de fin de semana", 240], comida: ["Pedido de capricho", 35], bienestar: ["Set de cuidado facial", 55], casa: ["Lámpara de diseño", 79], motor: ["Accesorios para el coche", 120], ocio: ["Suscripción anual", 99], mascotas: ["Cama para tu mascota", 49], peques: ["Juguete de construcción", 59], formacion: ["Curso online", 79], jardin: ["Herramienta de jardín", 89], lujo: ["Reloj", 2900] };
+function brandProduct(brand, cat) {
+  const [t, pr] = TPL[cat] || ["Capricho", 60], id = "b-" + slug(brand);
+  const p = { id, cat, brand, shop: brand, name: `${t} de ${brand}`, price: pr, bul: ["Precio simulado", "Envío estándar", "Devolución 30 días"], say: `¿Lo quieres o lo quieres ahora? ${eur(pr)} son muchas horas de trabajo; mañana lo ves con otros ojos.`, alts: [["Modelo anterior de " + brand, Math.round(pr * .72)], ["Reacondicionado o segunda mano", Math.round(pr * .55)]] };
+  CATALOG.push(p); return p;
+}
 function pickBrand(brand) {
   const cat = catOfBrand(brand); if (!cat) return;
   curCat = cat; stopAuto();
-  const p = CATALOG.find((x) => x.brand === brand) || CATALOG.find((x) => x.cat === cat);
-  rollNote = p ? (p.brand === brand ? `${esc(brand)} es de ${CATS[cat][0].toLowerCase()}: abajo tienes solo esa categoría y la demo ya va con ${esc(p.name)}.` : `${esc(brand)} es de ${CATS[cat][0].toLowerCase()}: no hay producto de esa marca en el catálogo de ejemplo, así que la demo va con ${esc(p.name)} (${esc(p.brand)}).`) : "";
+  const p = CATALOG.find((x) => x.brand === brand) || brandProduct(brand, cat);
+  rollNote = `${esc(brand)} es de ${CATS[cat][0].toLowerCase()}: abajo tienes esa categoría y la demo, el ticket y tus puntos ya van con ${esc(p.name)}.`;
   renderPicker(); renderRoll();
   const list = brandsOf(cat).filter((n, i, a) => a.indexOf(n) === i && DOM[n]), el = $("#brandRoll .lroll"); if (el) { el.dataset.pause = String(Date.now() + 8000); rollSet(el, Math.max(0, list.indexOf(brand))); }
-  if (p) { setProduct(p); const br = $("#demo .browser"); if (br && !reduce) { const r = br.getBoundingClientRect(); if (r.top > innerHeight * .7 || r.bottom < 0) br.scrollIntoView({ behavior: "smooth", block: "center" }); } }
+  renderPicker(); setProduct(p); const br = $("#demo .browser"); if (br) br.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
 }
 $("#brandRoll").addEventListener("click", (e) => { const b = e.target.closest(".lstrip button, .lstage figure"); if (!b) return; const name = b.dataset.n || b.getAttribute("aria-label"); if (!name) return; e.stopPropagation(); pickBrand(name); });
 $("#catf").addEventListener("click", (e) => { const b = e.target.closest("[data-cat]"); if (!b) return; curCat = b.dataset.cat; rollNote = ""; renderPicker(); renderRoll(); });
@@ -2178,14 +2195,16 @@ function setProduct(p) {
   const cm = community(p); f.push(`<div class="b"><span aria-hidden="true">◉</span><span>Comunidad: ${cm.again} de ${cm.n} que lo compraron lo volverían a comprar</span></div>`);
   f.push(`<div class="g"><span aria-hidden="true">★</span><span>Si no lo compras: +${10 + Math.round(p.price / 10)} puntos</span></div>`);
   $("#bFacts").innerHTML = f.join("");
-  $("#bSay").innerHTML = `<span class="eyebrow">Lo que Not Yet te diría</span><b>${p.say}</b>`;
+  $("#bSay").innerHTML = `<span class="eyebrow">Lo que NotYet te diría</span><b>${p.say}</b>`;
   $("#waitText").textContent = `Apuntado: ${p.name}. En la vida real te avisamos mañana a esta hora. Aquí puedes adelantar el reloj.`;
-  show("shop"); resetWait();
+  show("shop"); resetWait(); curDecided = false; if ($("#dashPrev")) renderDash();
 }
 function renderDash() {
-  const pctSaved = Math.round(dash.saved / (dash.saved + 130.49) * 100);
-  $("#dashTk").innerHTML = ticketHTML({ lines: dash.lines.slice(0, 7), total: dash.saved, date: fmtDate(Date.now()), time: fmtTime(Date.now()), goals: [{ name: "Viaje a París", pct: GOALPCT, prog: Math.min(GOAL, dash.goal), amount: GOAL, pctDone: Math.min(100, Math.round(dash.goal / GOAL * 100)) }, { name: "Regalo de comunión", pct: 10, prog: Math.min(150, dash.goal / 9), amount: 150, pctDone: Math.min(100, Math.round(dash.goal / 9 / 150 * 100)) }], pctSaved, id: "kSaved", stamp: "No comprado" });
-  $("#dashScore").innerHTML = scoreHTML(dash.pts, 1, ["primer", "frio", "comite", "explorador"].concat(dash.cheaper ? ["chollo"] : []));
+  const pv = !curDecided && cur, gain = pv ? 10 + Math.round(cur.price / 10) : 0, tot = dash.saved + (pv ? cur.price : 0), gl = dash.goal + (pv ? cur.price * GOALPCT / 100 : 0);
+  const pctSaved = Math.round(tot / (tot + 130.49) * 100);
+  $("#dashPrev").innerHTML = pv ? `Si no compras <b>${esc(cur.name)}</b> (${esc(cur.brand)}): +${eur(cur.price, 2)} al ticket, +${gain} puntos y ${gl >= GOAL ? "el viaje a París cumplido" : eur(cur.price * GOALPCT / 100) + " más cerca de París"}.` : "Tu mes, con la decisión que acabas de tomar.";
+  $("#dashTk").innerHTML = ticketHTML({ lines: (pv ? [{ name: cur.name + " (en juego)", shop: cur.brand, price: cur.price }] : []).concat(dash.lines).slice(0, 7), total: tot, date: fmtDate(Date.now()), time: fmtTime(Date.now()), goals: [{ name: "Viaje a París", pct: GOALPCT, prog: Math.min(GOAL, gl), amount: GOAL, pctDone: Math.min(100, Math.round(gl / GOAL * 100)) }, { name: "Regalo de comunión", pct: 10, prog: Math.min(150, gl / 9), amount: 150, pctDone: Math.min(100, Math.round(gl / 9 / 150 * 100)) }], pctSaved, id: "kSaved", stamp: pv ? "Si no lo compras" : "No comprado" });
+  $("#dashScore").innerHTML = scoreHTML(dash.pts + gain, pv ? 2 : 1, ["primer", "frio", "comite", "explorador"].concat(dash.cheaper ? ["chollo"] : []));
   $("#kBrakes").textContent = dash.brakes; $("#kSkipped").textContent = dash.skipped; $("#kCheaper").textContent = eur(dash.cheaper);
 }
 function renderChart() {
@@ -2205,7 +2224,7 @@ function renderChart() {
   requestAnimationFrame(() => requestAnimationFrame(() => { $$("#chart .bar, #chart .area, #chart .line").forEach((el) => el.classList.add("in")); }));
 }
 function bumpDash(kind, amount) {
-  dash.brakes += 1;
+  dash.brakes += 1; curDecided = true;
   if (kind === "skip") { dash.saved += amount; dash.days[today] += amount; dash.skipped += 1; dash.goal += amount * GOALPCT / 100; dash.pts += 10 + Math.round(amount / 10); dash.lines.unshift({ name: cur.name, shop: cur.shop, price: amount }); renderDash(); renderChart(); const k = $("#kSaved"); k.dataset.v = dash.saved - amount; countTo(k, dash.saved, (v) => num(v, 2) + " €"); }
   else if (kind === "cheaper") { dash.cheaper += amount; dash.pts += 5 + Math.round(amount / 10); renderDash(); }
   else { dash.pts += 2; renderDash(); }
@@ -2238,7 +2257,7 @@ async function runCompare() {
   }
 }
 function shareLinks(p) {
-  const text = `¿Me compro esto?\n${p.name} - ${eur(p.price, 2)} en ${p.shop}\nVotad: COMPRAR, ESPERAR o MÁS BARATO, y decidme por qué.\nMe lo estoy pensando con Not Yet.`, url = location.href.split("#")[0], t = encodeURIComponent(text), u = encodeURIComponent(url);
+  const text = `¿Me compro esto?\n${p.name} - ${eur(p.price, 2)} en ${p.shop}\nVotad: COMPRAR, ESPERAR o MÁS BARATO, y decidme por qué.\nMe lo estoy pensando con NotYet.`, url = location.href.split("#")[0], t = encodeURIComponent(text), u = encodeURIComponent(url);
   return [["WhatsApp", "https://wa.me/?text=" + t, "#25D366"], ["Telegram", "https://t.me/share/url?url=" + u + "&text=" + t, "#2AABEE"], ["SMS", "sms:?&body=" + t, "#17A35A"], ["Correo", "mailto:?subject=" + encodeURIComponent("¿Me compro esto?") + "&body=" + t + "%0A" + u, "#5C6478"], ["Teams", "https://teams.microsoft.com/share?href=" + u + "&msgText=" + t, "#5B5FC7"], ["Facebook", "https://www.facebook.com/sharer/sharer.php?u=" + u + "&quote=" + t, "#1877F2"], ["X", "https://twitter.com/intent/tweet?text=" + t + "&url=" + u, "#111111"], ["LinkedIn", "https://www.linkedin.com/sharing/share-offsite/?url=" + u, "#0A66C2"]];
 }
 let friendsRun = 0;
@@ -2259,7 +2278,7 @@ async function runFriends(groupId) {
   await wait(300); if (run !== friendsRun) return;
   const noBuy = c.wait + c.cheap;
   summ.hidden = false;
-  summ.innerHTML = "<b>Not Yet resume:</b> " + (noBuy > c.buy ? `${noBuy} de 3 te sugieren no comprarlo hoy${c.cheap ? ", y hay una alternativa más barata encima de la mesa" : ""}. Decides tú.` : c.buy > noBuy ? "la mayoría lo ve razonable. Si encaja en tu presupuesto, cómpralo bien. Decides tú." : "empate. Igual la respuesta es esperar un día más. Decides tú.");
+  summ.innerHTML = "<b>NotYet resume:</b> " + (noBuy > c.buy ? `${noBuy} de 3 te sugieren no comprarlo hoy${c.cheap ? ", y hay una alternativa más barata encima de la mesa" : ""}. Decides tú.` : c.buy > noBuy ? "la mayoría lo ve razonable. Si encaja en tu presupuesto, cómpralo bien. Decides tú." : "empate. Igual la respuesta es esperar un día más. Decides tú.");
   const cm = $("#commu"); cm.hidden = false; cm.innerHTML = communityHTML(cur);
   $("#friendsDec").hidden = false;
 }
@@ -2272,7 +2291,7 @@ function openNetModal(net) {
   draw(0, reps[0].who); reps.forEach((r, i) => netTimersD.push(setTimeout(() => draw(i + 1, i + 1 < reps.length ? reps[i + 1].who : null), 800 + i * 1000)));
   $("#netModalTitle").textContent = `Así se vería en ${net} (simulación)`;
   const s = $("#netModalSend"); s.hidden = !link; if (link) { s.href = link[1]; s.textContent = "Enviar de verdad por " + net; }
-  $("#netModalNote").textContent = link ? "Las respuestas de tu gente llegan como votos dentro de Not Yet. Con el botón mandas la pregunta de verdad." : `${net} no admite texto prellenado desde una web: copia la pregunta y pégala allí.`;
+  $("#netModalNote").textContent = link ? "Las respuestas de tu gente llegan como votos dentro de NotYet. Con el botón mandas la pregunta de verdad." : `${net} no admite texto prellenado desde una web: copia la pregunta y pégala allí.`;
   $("#netModal").hidden = false;
 }
 $("#netModalClose").addEventListener("click", () => { $("#netModal").hidden = true; });
@@ -2283,7 +2302,7 @@ function result(kind) {
   const n = $("#resNum"), title = $("#resTitle"), text = $("#resText"); n.className = "bignum";
   if (kind === "skip") { n.dataset.v = 0; countTo(n, cur.price, (v) => eur(v)); title.textContent = "Has decidido no gastar " + eur(cur.price); text.textContent = `Una línea más en tu ticket, +${10 + Math.round(cur.price / 10)} puntos y ${eur(cur.price * GOALPCT / 100)} más cerca de París. Si dentro de un tiempo lo sigues queriendo, ahí seguirá.`; bumpDash("skip", cur.price); }
   else if (kind === "cheaper") { const b = bestAlt(cur), delta = b ? cur.price - b.p : 0; n.dataset.v = 0; countTo(n, delta, (v) => eur(v)); title.textContent = "Has ahorrado " + eur(delta); text.textContent = `${b ? b.t : ""} por ${eur(b ? b.p : cur.price)}${b && b.g ? ", con " + b.g + " meses de garantía" : ""}. Cómpratelo, pero mejor: +${5 + Math.round(delta / 10)} puntos.`; bumpDash("cheaper", delta); }
-  else { n.className = "bignum neutral"; n.textContent = "✓"; title.textContent = "Comprado con la cabeza fría"; text.textContent = kind === "buyNow" ? "Has seguido adelante. Sin culpa: Not Yet frena, no prohíbe. En unos días te preguntará si estás contento con la compra." : "Lo pensaste y lo sigues queriendo. Eso ya no es un impulso."; bumpDash("buy", 0); }
+  else { n.className = "bignum neutral"; n.textContent = "✓"; title.textContent = "Comprado con la cabeza fría"; text.textContent = kind === "buyNow" ? "Has seguido adelante. Sin culpa: NotYet frena, no prohíbe. En unos días te preguntará si estás contento con la compra." : "Lo pensaste y lo sigues queriendo. Eso ya no es un impulso."; bumpDash("buy", 0); }
 }
 $("#demoBuy").addEventListener("click", () => show("brake", true));
 $$("[data-choose]").forEach((b) => b.addEventListener("click", () => { const c = b.dataset.choose; if (c === "wait") { show("wait"); resetWait(); } else if (c === "compare") runCompare(); else if (c === "friends") runFriends(); else if (c === "buy") result("buyNow"); }));
@@ -2364,17 +2383,21 @@ const modal = $("#modal"), mForm = $("#mForm"), mDone = $("#mDone");
 let lastFocus = null;
 const COPY = {
   beta: ["Apúntate a la beta", "Te enviamos el enlace para empezar por WhatsApp o con la extensión de Chrome.", "Apúntame", "Listo. En la versión real recibirías ahora el enlace para empezar."],
-  plus: ["Prueba Not Yet Plus", "Sin tarjeta durante la beta. Después, 2,99 € al mes. Cancela cuando quieras.", "Empezar la prueba", "Prueba activada (simulación). En la versión real aquí entrarías en Plus."],
-  pareja: ["Prueba Not Yet Pareja", "Invita a tu pareja con un enlace. Sin tarjeta durante la beta; después, 3,99 € al mes para los dos.", "Empezar la prueba", "Prueba activada (simulación). En la versión real aquí invitarías a tu pareja."]
+  plus: ["NotYet Plus, 2,99 € al mes", "El pago con tarjeta se abre en los próximos días. Mientras, empieza gratis con todo desbloqueado durante la beta.", "Empezar gratis", ""],
+  pareja: ["NotYet Pareja, 3,99 € al mes", "El pago con tarjeta se abre en los próximos días. Mientras, empezad gratis con todo desbloqueado durante la beta.", "Empezar gratis", ""]
 };
+const PAY_LINKS = { plus: "", pareja: "" }; // pega aquí los enlaces de pago de Stripe (Payment Links) de cada plan
+const APP_URL = "app.html";
 function openModal(kind) {
+  if (kind === "beta") { window.open(APP_URL, "_blank", "noopener"); return; }
+  if (/^https:\/\//.test(PAY_LINKS[kind] || "")) { window.open(PAY_LINKS[kind], "_blank", "noopener"); return; }
   const c = COPY[kind] || COPY.beta;
   $("#mTitle").textContent = c[0]; $("#mText").textContent = c[1]; $("#mSubmit").textContent = c[2]; $("#mDoneText").textContent = c[3];
   mDone.hidden = true; $("#mEmail").value = "";
-  const real = /^https?:\/\//.test(BETA_FORM_URL);
+  const real = true;
   mForm.hidden = real; $("#mLink").hidden = !real;
-  $("#mNote").textContent = real ? "El formulario se abre en una pestaña nueva." : "Esto es una demostración: no se guarda ni se cobra nada.";
-  if (real) $("#mLink").href = BETA_FORM_URL;
+  $("#mNote").textContent = "La app se abre en una pestaña nueva. Tus datos se quedan en tu navegador.";
+  if (real) { $("#mLink").href = APP_URL; $("#mLink").textContent = "Empezar gratis ahora"; }
   lastFocus = document.activeElement; modal.hidden = false; document.body.style.overflow = "hidden";
   setTimeout(() => (real ? $("#mLink") : $("#mEmail")).focus(), 50);
 }
