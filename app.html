@@ -530,6 +530,12 @@ textarea{font:inherit;color:var(--fg);background:var(--bg2);border:1px solid var
 .invite .stats b{display:block;font-size:1.3rem;font-family:var(--f-display)}
 .invite .stats span{font-size:.72rem;color:var(--muted);font-weight:700}
 .giftband{border-radius:16px;padding:12px 14px;background:color-mix(in srgb,#17A35A 12%,transparent);font-weight:700;font-size:.92rem}
+
+.acform{display:flex;flex-direction:column;gap:10px}
+.acform label{display:flex;flex-direction:column;gap:4px;font-weight:700;font-size:.86rem}
+.pwrow{position:relative;display:block}
+.pwrow input{width:100%;padding-right:78px;box-sizing:border-box}
+.pwrow .pwshow{position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:.8rem}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -1112,7 +1118,7 @@ if (API && S.plan && S.plan.src !== "cuenta" && S.plan.email && S.plan.l4 && Dat
 
 /* ---------- Cuenta (entrar con un código al correo), sincronización e invitaciones ---------- */
 const SESS_KEY = "notyet.session";
-let SESS = (() => { try { return JSON.parse(localStorage.getItem(SESS_KEY) || "null"); } catch (e) { return null; } })(), ME = null, acctStep = "email", acctEmail = "", acctBusy = false;
+let SESS = (() => { try { return JSON.parse(localStorage.getItem(SESS_KEY) || "null"); } catch (e) { return null; } })(), ME = null, acctStep = "login", acctEmail = "", acctBusy = false;
 const saveSess = () => { try { if (SESS) localStorage.setItem(SESS_KEY, JSON.stringify(SESS)); else localStorage.removeItem(SESS_KEY); } catch (e) {} };
 async function apiAuth(path, method, body) {
   try {
@@ -1174,25 +1180,63 @@ function renderAcct() {
     return;
   }
   iv.hidden = false;
-  iv.innerHTML = `<h2>Invita a tus amigos</h2><p class="tiny">Tu amigo tiene el primer mes de Plus gratis y tú ganas un mes cuando él pague el suyo. Entra con tu correo en Tu cuenta para tener tu enlace.</p>`;
-  if (acctStep === "code") {
-    a.innerHTML = `<h2>Tu cuenta</h2>${gift}<p class="tiny">Te hemos enviado un código de 6 cifras a <b>${esc(acctEmail)}</b>. Mira también en correo no deseado.</p><form id="acctForm2" style="display:flex;flex-direction:column;gap:8px"><input class="code" id="acctCode" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="000000" aria-label="Código de 6 cifras"><div class="row3"><button class="btn small" type="submit"${acctBusy ? " disabled" : ""}>Entrar</button><button class="link" type="button" id="acctBack">Cambiar de correo</button><button class="link" type="button" id="acctAgain">Reenviar código</button></div></form>`;
-    $("#acctBack").onclick = () => { acctStep = "email"; renderAcct(); };
-    $("#acctAgain").onclick = () => acctStart(acctEmail);
-    $("#acctForm2").onsubmit = async (e) => { e.preventDefault(); const code = $("#acctCode").value.replace(/\D/g, ""); if (code.length !== 6) { toast("Pon las 6 cifras"); return; } acctBusy = true; const j = await apiAuth("/auth/verify", "POST", { email: acctEmail, code, ref: S.refFrom || "" }); acctBusy = false; if (!j.ok) { toast(j.error || "No he podido entrar"); return; } SESS = { token: j.token, email: acctEmail, synced: 0 }; saveSess(); acctStep = "email"; toast(j.isNew ? "Cuenta creada. Ya se guarda todo en tu cuenta." : "Has entrado. Traigo tus datos…"); await pullData(true); await refreshMe(); render(); };
-    setTimeout(() => { const c = $("#acctCode"); if (c) c.focus(); }, 50);
-  } else {
-    a.innerHTML = `<h2>Tu cuenta</h2>${gift}<p class="tiny">Entra con tu correo, sin contraseña: te llega un código. Así guardas tus compras, destinos y puntos en tu cuenta, los tienes en cualquier móvil u ordenador, y consigues tu enlace para invitar a amigos. Sin cuenta, NotYet sigue funcionando solo en este dispositivo.</p><form id="acctForm" style="display:flex;flex-direction:column;gap:8px"><input type="email" id="acctEmail" placeholder="nombre@correo.com" autocomplete="email" aria-label="Tu correo" value="${esc(acctEmail)}"><div class="row3"><button class="btn small" type="submit"${acctBusy ? " disabled" : ""}>Enviarme el código</button></div></form><p class="tiny">Al crear la cuenta aceptas las <a href="condiciones.html" target="_blank" rel="noopener">condiciones</a> y la <a href="privacidad.html" target="_blank" rel="noopener">política de privacidad</a>.</p>`;
-    $("#acctForm").onsubmit = (e) => { e.preventDefault(); acctStart($("#acctEmail").value.trim().toLowerCase()); };
-  }
+  iv.innerHTML = `<h2>Invita a tus amigos</h2><p class="tiny">Tu amigo tiene el primer mes de Plus gratis y tú ganas un mes cuando él pague el suyo. Entra en tu cuenta para tener tu enlace.</p>`;
+  const st = acctStep, emailIn = (ac) => `<label>Correo electrónico<input type="email" id="acEmail" name="email" autocomplete="${ac || "username"}" placeholder="nombre@correo.com" value="${esc(acctEmail)}" required></label>`;
+  const pwIn = (id, label, ac) => `<label>${label}<span class="pwrow"><input type="password" id="${id}" name="${id}" autocomplete="${ac}" minlength="8" required><button class="link pwshow" type="button" data-pw="${id}">Mostrar</button></span></label>`;
+  const busy = acctBusy ? " disabled" : "";
+  let html = `<h2>Tu cuenta</h2>${gift}`;
+  if (st === "register") html += `<p class="tiny">Crea tu cuenta con tu correo y una contraseña. Así guardas tus compras, destinos y puntos y los tienes en cualquier móvil u ordenador.</p><form id="acForm" class="acform">${emailIn("username")}${pwIn("acPw", "Contraseña (mínimo 8 caracteres)", "new-password")}${pwIn("acPw2", "Repite la contraseña", "new-password")}<button class="btn small" type="submit"${busy}>${acctBusy ? "Creando…" : "Crear cuenta"}</button></form><p class="tiny">¿Ya tienes cuenta? <button class="link" type="button" data-ac="login">Entrar</button></p><p class="tiny">Al crear la cuenta aceptas las <a href="condiciones.html" target="_blank" rel="noopener">condiciones</a> y la <a href="privacidad.html" target="_blank" rel="noopener">política de privacidad</a>.</p>`;
+  else if (st === "confirm") html += `<p class="tiny">Te hemos enviado un código de 6 cifras a <b>${esc(acctEmail)}</b> para confirmar que el correo es tuyo. Solo se hace una vez. Mira también en correo no deseado.</p><form id="acForm" class="acform"><input class="code" id="acCode" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="000000" aria-label="Código de 6 cifras"><button class="btn small" type="submit"${busy}>Confirmar y entrar</button></form><p class="tiny"><button class="link" type="button" id="acAgain" data-purpose="signup">Reenviar el código</button> - <button class="link" type="button" data-ac="login">Volver</button></p>`;
+  else if (st === "forgot") html += `<p class="tiny">Escribe el correo de tu cuenta y te enviaremos un código para poner una contraseña nueva.</p><form id="acForm" class="acform">${emailIn("username")}<button class="btn small" type="submit"${busy}>Enviarme el código</button></form><p class="tiny"><button class="link" type="button" data-ac="login">Volver a entrar</button></p>`;
+  else if (st === "reset") html += `<p class="tiny">Si hay una cuenta con <b>${esc(acctEmail)}</b>, te hemos enviado un código de 6 cifras. Ponlo aquí con tu contraseña nueva.</p><form id="acForm" class="acform"><input class="code" id="acCode" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="000000" aria-label="Código de 6 cifras">${pwIn("acPw", "Contraseña nueva (mínimo 8 caracteres)", "new-password")}${pwIn("acPw2", "Repite la contraseña nueva", "new-password")}<button class="btn small" type="submit"${busy}>Guardar y entrar</button></form><p class="tiny"><button class="link" type="button" id="acAgain" data-purpose="reset">Reenviar el código</button> - <button class="link" type="button" data-ac="login">Volver</button></p>`;
+  else html += `<p class="tiny">Entra para guardar tus compras, destinos y puntos en tu cuenta y tenerlos en cualquier móvil u ordenador. Sin cuenta, NotYet sigue funcionando en este dispositivo.</p><form id="acForm" class="acform">${emailIn("username")}${pwIn("acPw", "Contraseña", "current-password")}<button class="btn small" type="submit"${busy}>${acctBusy ? "Entrando…" : "Entrar"}</button></form><p class="tiny"><button class="link" type="button" data-ac="forgot">¿Has olvidado tu contraseña?</button></p><p class="tiny">¿No tienes cuenta? <button class="link" type="button" data-ac="register"><b>Crear cuenta</b></button></p>`;
+  a.innerHTML = html;
+  a.querySelectorAll("[data-ac]").forEach((b) => (b.onclick = () => { const e = $("#acEmail"); if (e && e.value) acctEmail = e.value.trim().toLowerCase(); acctStep = b.dataset.ac; renderAcct(); }));
+  a.querySelectorAll("[data-pw]").forEach((b) => (b.onclick = () => { const i = $("#" + b.dataset.pw); i.type = i.type === "password" ? "text" : "password"; b.textContent = i.type === "password" ? "Mostrar" : "Ocultar"; }));
+  const again = $("#acAgain"); if (again) again.onclick = async () => { const j = await apiAuth("/auth/resend", "POST", { email: acctEmail, purpose: again.dataset.purpose }); toast(j.ok ? "Código reenviado a " + acctEmail : j.error || "No he podido reenviarlo"); };
+  $("#acForm").onsubmit = (e) => { e.preventDefault(); acctSubmit(st); };
 }
-async function acctStart(email) {
-  if (!/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(email)) { toast("Pon un correo válido"); return; }
-  acctBusy = true; acctEmail = email; renderAcct();
-  const j = await apiAuth("/auth/start", "POST", { email }); acctBusy = false;
-  if (!j.ok) { toast(j.error || "No he podido enviar el código"); renderAcct(); return; }
-  acctStep = "code"; renderAcct(); toast("Código enviado a " + email);
+// La contraseña sale del móvil ya reforzada (PBKDF2, 150.000 vueltas): el servidor nunca la ve en claro
+async function preHash(email, pw) {
+  const k = await crypto.subtle.importKey("raw", new TextEncoder().encode(pw), "PBKDF2", false, ["deriveBits"]);
+  const bits = await crypto.subtle.deriveBits({ name: "PBKDF2", hash: "SHA-256", salt: new TextEncoder().encode("notyet:" + email), iterations: 150000 }, k, 256);
+  return btoa(String.fromCharCode(...new Uint8Array(bits))).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
 }
+async function acctEnter(j, msg) { SESS = { token: j.token, email: acctEmail, synced: 0 }; saveSess(); acctStep = "login"; toast(msg); await pullData(true); await refreshMe(); render(); }
+async function acctSubmit(st) {
+  const v = (id) => { const e = $("#" + id); return e ? e.value : ""; };
+  if ($("#acEmail")) acctEmail = v("acEmail").trim().toLowerCase();
+  const okMail = /^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(acctEmail);
+  if ((st === "login" || st === "register" || st === "forgot") && !okMail) { toast("Pon un correo válido"); return; }
+  if ((st === "register" || st === "reset") && (v("acPw").length < 8 || v("acPw") !== v("acPw2"))) { toast(v("acPw").length < 8 ? "La contraseña tiene que tener al menos 8 caracteres" : "Las contraseñas no coinciden"); return; }
+  if ((st === "confirm" || st === "reset") && v("acCode").replace(/\D/g, "").length !== 6) { toast("Pon las 6 cifras del código"); return; }
+  acctBusy = true; renderAcctKeep();
+  let j;
+  try {
+    if (st === "login") {
+      j = await apiAuth("/auth/login", "POST", { email: acctEmail, pw: await preHash(acctEmail, v("acPw")) });
+      if (j.ok) return await acctEnter(j, "Has entrado. Traigo tus datos…");
+      if (j.needCode) { acctStep = "confirm"; } else if (j.noPassword) { acctStep = "forgot"; }
+    } else if (st === "register") {
+      j = await apiAuth("/auth/register", "POST", { email: acctEmail, pw: await preHash(acctEmail, v("acPw")), ref: S.refFrom || "" });
+      if (j.ok && j.needCode) { acctStep = "confirm"; toast("Te hemos enviado un código a " + acctEmail); }
+      else if (j.exists) acctStep = "login";
+    } else if (st === "confirm") {
+      j = await apiAuth("/auth/confirm", "POST", { email: acctEmail, code: v("acCode").replace(/\D/g, "") });
+      if (j.ok) return await acctEnter(j, "Cuenta creada. Ya se guarda todo en tu cuenta.");
+    } else if (st === "forgot") {
+      j = await apiAuth("/auth/forgot", "POST", { email: acctEmail });
+      if (j.ok) { acctStep = "reset"; toast("Si hay una cuenta con ese correo, te llegará un código"); }
+    } else if (st === "reset") {
+      j = await apiAuth("/auth/reset", "POST", { email: acctEmail, code: v("acCode").replace(/\D/g, ""), pw: await preHash(acctEmail, v("acPw")) });
+      if (j.ok) return await acctEnter(j, "Contraseña cambiada. Has entrado.");
+    }
+  } finally { acctBusy = false; }
+  if (j && !j.ok) toast(j.error || "No ha funcionado. Prueba otra vez.");
+  renderAcct();
+}
+// Repinta solo el botón ocupado sin borrar lo que se está escribiendo
+function renderAcctKeep() { const b = document.querySelector("#acForm button[type=submit]"); if (b) { b.disabled = true; b.textContent = "Un momento…"; } }
 if (SESS && API) { refreshMe(); pullData(false); }
 const month0 = () => { const m = new Date(); m.setDate(1); m.setHours(0, 0, 0, 0); return m.getTime(); };
 const left = (it) => it.start + (it.hours || 0) * H - now();
