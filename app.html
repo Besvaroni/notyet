@@ -775,6 +775,24 @@ button.xrow:hover .xn{text-decoration:underline}
 @media (min-width:760px){.xgrid{grid-template-columns:1fr 1fr 1fr;column-gap:20px}}
 .xcat2 .xth{width:54px;height:54px}.xcat2 .xth span{font-size:1.9rem}
 .xcat2.back{display:flex;gap:16px;flex-wrap:wrap}
+
+.ptsbtn{margin-top:10px;width:100%;border:0;border-radius:12px;padding:10px 14px;font:inherit;font-weight:700;font-size:.9rem;background:var(--bg2);color:var(--fg);cursor:pointer;text-align:left}
+.ptshero{background:var(--grad);color:#fff;border-radius:18px;padding:18px 20px;margin:6px 0 10px}
+.ptshero small{display:block;font-weight:600;opacity:.9}.ptshero b{display:block;font-size:2.4rem;line-height:1.1;font-weight:800}.ptshero span{font-size:.85rem;opacity:.92}
+.ph3{margin:20px 0 8px;font-size:1.1rem}
+.rw{display:flex;align-items:center;gap:12px;padding:12px;border:1px solid var(--line);border-radius:14px;margin-bottom:8px}
+.rw>div{flex:1;min-width:0}.rw b{display:block;font-size:.98rem}.rw small{display:block;color:var(--muted);font-size:.82rem;line-height:1.35;margin-top:2px}
+.rwi{font-size:1.7rem;flex:none}.rw .btn[disabled]{opacity:.45;cursor:not-allowed}
+.soonb{flex:none;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:4px 8px;border-radius:99px;background:rgba(25,211,197,.16);color:#0e8f86}
+.rank{display:flex;flex-direction:column;gap:4px}
+.rk{display:flex;align-items:center;gap:12px;padding:9px 12px;border-radius:12px;background:var(--bg2)}
+.rk b{width:22px;text-align:center}.rk span{flex:1;font-weight:600}.rk small{color:var(--muted)}
+.rk.you{background:var(--grad);color:#fff}.rk.you small{color:#fff}
+.lvls{display:flex;flex-direction:column;gap:4px}
+.lvrow{display:flex;align-items:center;gap:12px;padding:8px 12px;border-radius:10px;color:var(--muted)}
+.lvrow b{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:var(--bg2);color:var(--fg);font-size:.85rem}
+.lvrow span{flex:1}.lvrow.done{color:var(--fg)}.lvrow.done b{background:#17A35A;color:#fff}
+.lvrow.on{color:var(--fg);font-weight:700;background:var(--bg2)}.lvrow.on b{background:var(--brand);color:#fff}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -1469,7 +1487,7 @@ function renderAcct() {
   const pwIn = (id, label, ac) => `<label>${label}<span class="pwrow"><input type="password" id="${id}" name="${id}" autocomplete="${ac}" minlength="8" required><button class="link pwshow" type="button" data-pw="${id}">Mostrar</button></span></label>`;
   const busy = acctBusy ? " disabled" : "";
   let html = `<h2>Tu cuenta</h2>${gift}`;
-  if (st === "start") html += `<div class="authlogo"><svg aria-hidden="true" width="44" height="44"><use href="#logoMark"/></svg><b>NotYet</b></div><p class="authsub">Entra o crea tu cuenta para continuar</p><div class="authbtns"><button type="button" class="authb" data-prov="Google"><svg viewBox="0 0 48 48" width="20" height="20" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg><span>Continuar con Google</span></button><button type="button" class="authb" data-prov="Apple"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/></svg><span>Continuar con Apple</span></button><button type="button" class="authb" data-prov="Facebook"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="#0866FF" d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/></svg><span>Continuar con Facebook</span></button><button type="button" class="authb" data-ac="login"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg><span>Continuar con tu correo</span></button></div><p class="tiny authnote" id="authNote">Sirve cualquier correo: Gmail, Outlook, iCloud… Al continuar aceptas las <a href="condiciones.html">condiciones</a> y la <a href="privacidad.html">política de privacidad</a>.</p>`;
+  if (st === "start") html += `<div class="authlogo"><svg aria-hidden="true" width="44" height="44"><use href="#logoMark"/></svg><b>NotYet</b></div><p class="authsub">Entra o crea tu cuenta para continuar</p><div class="authbtns"><button type="button" class="authb" data-prov="Google"><svg viewBox="0 0 48 48" width="20" height="20" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg><span>Continuar con Google</span></button><button type="button" class="authb" data-prov="Apple"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/></svg><span>Continuar con Apple</span></button><button type="button" class="authb" data-prov="Facebook"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="#0866FF" d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/></svg><span>Continuar con Facebook</span></button><button type="button" class="authb" data-prov="Outlook"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="#F25022" d="M2 2h9.5v9.5H2z"/><path fill="#7FBA00" d="M12.5 2H22v9.5h-9.5z"/><path fill="#00A4EF" d="M2 12.5h9.5V22H2z"/><path fill="#FFB900" d="M12.5 12.5H22V22h-9.5z"/></svg><span>Continuar con Outlook</span></button><button type="button" class="authb" data-ac="login"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg><span>Continuar con tu correo</span></button></div><p class="tiny authnote" id="authNote">Sirve cualquier correo: Gmail, Outlook, iCloud… Al continuar aceptas las <a href="condiciones.html">condiciones</a> y la <a href="privacidad.html">política de privacidad</a>.</p>`;
   else if (st === "register") html += `<p class="tiny">Crea tu cuenta con tu correo y una contraseña. Así guardas tus compras, destinos y puntos y los tienes en cualquier móvil u ordenador.</p><form id="acForm" class="acform">${emailIn("username")}${pwIn("acPw", "Contraseña (mínimo 8 caracteres)", "new-password")}${pwIn("acPw2", "Repite la contraseña", "new-password")}<button class="btn small" type="submit"${busy}>${acctBusy ? "Creando…" : "Crear cuenta"}</button></form><p class="tiny">¿Ya tienes cuenta? <button class="link" type="button" data-ac="login">Entrar</button></p><p class="tiny">Al crear la cuenta aceptas las <a href="condiciones.html" target="_blank" rel="noopener">condiciones</a> y la <a href="privacidad.html" target="_blank" rel="noopener">política de privacidad</a>.</p>`;
   else if (st === "confirm") html += `<p class="tiny">Te hemos enviado un código de 6 cifras a <b>${esc(acctEmail)}</b> para confirmar que el correo es tuyo. Solo se hace una vez. Mira también en correo no deseado.</p><form id="acForm" class="acform"><input class="code" id="acCode" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="000000" aria-label="Código de 6 cifras"><button class="btn small" type="submit"${busy}>Confirmar y entrar</button></form><p class="tiny"><button class="link" type="button" id="acAgain" data-purpose="signup">Reenviar el código</button> - <button class="link" type="button" data-ac="login">Volver</button></p>`;
   else if (st === "forgot") html += `<p class="tiny">Escribe el correo de tu cuenta y te enviaremos un código para poner una contraseña nueva.</p><form id="acForm" class="acform">${emailIn("username")}<button class="btn small" type="submit"${busy}>Enviarme el código</button></form><p class="tiny"><button class="link" type="button" data-ac="login">Volver a entrar</button></p>`;
@@ -2684,6 +2702,74 @@ window.addEventListener("hashchange", route);
 window.addEventListener("pageshow", (e) => { if (e.persisted) route(); });
 
 function render() { renderInicio(); renderExplorar(); renderComite(); renderHabitos(); renderPareja(); renderAjustes(); renderAnalisis(); }
+
+/* ---------- Entrar con Google (y Outlook cuando esté su ID): el proveedor confirma el correo y el servidor lo comprueba ---------- */
+const OIDC_C = {
+  Google: { id: "598545986571-2ul55vakdrk3jane6gscgitf98t4m8gl.apps.googleusercontent.com", url: "https://accounts.google.com/o/oauth2/v2/auth", scope: "openid email profile", p: "google", extra: "&prompt=select_account" },
+  Outlook: { id: "", url: "https://login.microsoftonline.com/consumers/oauth2/v2.0/authorize", scope: "openid email profile", p: "microsoft", extra: "&response_mode=fragment&prompt=select_account" },
+};
+const oidcRand = () => { const a = new Uint8Array(16); crypto.getRandomValues(a); return Array.from(a, (x) => x.toString(16).padStart(2, "0")).join(""); };
+const oidcRedirect = () => location.origin + "/app";
+function oidcStart(name) {
+  const c = OIDC_C[name]; if (!c || !c.id) return false;
+  if (!/^https:\/\/(www\.)?notyetapp\.app$/.test(location.origin)) { const n = $("#authNote"); if (n) n.innerHTML = `<b>Continuar con ${name} funciona en notyetapp.app/app.</b> Ábrelo ahí para entrar con tu cuenta de ${name}.`; return true; }
+  const st = { p: c.p, name, nonce: oidcRand(), state: oidcRand(), back: location.hash || "", t: Date.now() };
+  try { sessionStorage.setItem("ny.oidc", JSON.stringify(st)); } catch (e) {}
+  location.href = c.url + "?client_id=" + encodeURIComponent(c.id) + "&redirect_uri=" + encodeURIComponent(oidcRedirect()) + "&response_type=id_token&scope=" + encodeURIComponent(c.scope) + "&nonce=" + st.nonce + "&state=" + st.state + c.extra;
+  return true;
+}
+document.addEventListener("click", (e) => { const b = e.target.closest("[data-prov]"); if (!b) return; const name = b.dataset.prov; if (OIDC_C[name] && OIDC_C[name].id) { e.stopPropagation(); e.preventDefault(); oidcStart(name); } else if (name === "Outlook") { e.stopPropagation(); const n = $("#authNote"); if (n) n.innerHTML = "<b>Continuar con Outlook llega muy pronto.</b> Mientras, entra con tu correo de Outlook o Hotmail y una contraseña."; } }, true);
+(function oidcReturn() {
+  const h = location.hash || ""; if (!/id_token=|error=/.test(h)) return;
+  const q = new URLSearchParams(h.slice(1)); let st = null; try { st = JSON.parse(sessionStorage.getItem("ny.oidc") || "null"); sessionStorage.removeItem("ny.oidc"); } catch (e) {}
+  history.replaceState(null, "", location.pathname + location.search + ((st && st.back) || "#ajustes"));
+  if (!st || q.get("state") !== st.state || Date.now() - st.t > 15 * 60e3) { setTimeout(() => toast("No se ha podido completar el acceso. Vuelve a intentarlo."), 400); return; }
+  if (q.get("error")) { setTimeout(() => toast(q.get("error") === "access_denied" ? "Has cancelado el acceso" : "No se ha podido entrar con " + st.name), 400); return; }
+  setTimeout(async () => {
+    toast("Entrando con " + st.name + "…");
+    const j = await apiAuth("/auth/oidc", "POST", { provider: st.p, id_token: q.get("id_token"), nonce: st.nonce, ref: S.refFrom || "" });
+    if (!j.ok) { toast(j.error || "No se ha podido entrar"); return; }
+    acctEmail = j.email || ""; await acctEnter(j, j.isNew ? `Cuenta creada con ${st.name}. Bienvenido a NotYet` : `Has entrado con ${st.name}`);
+  }, 300);
+})();
+
+/* ---------- Qué te dan los puntos: Plus, empujón a tus destinos, ranking y descuentos por comprar más barato ---------- */
+const PT_PLUS = 1000, PT_POT = 200, PT_POT_EUR = 2;
+const ptsFree = () => Math.max(0, stats().pts - (S.ptsSpent || 0));
+goalsProgress = function () { const b = bote() + (S.ptsPot || 0), gs = S.goals || []; return gs.map((g) => { const prog = Math.min(g.amount, b * (g.pct || 0) / 100); return Object.assign({}, g, { prog, pctDone: g.amount ? Math.min(100, Math.round(prog / g.amount * 100)) : 0, done: g.amount > 0 && prog >= g.amount }); }); };
+function ptsExpire() { if (S.plan && S.plan.src === "puntos" && (S.plan.until || 0) < now()) { S.plan = null; save(); } }
+ptsExpire();
+function rankRows() {
+  const g = groupOf(), me = stats().pts;
+  const rows = g.members.map(([n], i) => ({ n, p: Math.round(150 + hseed(g.id + n) * 900 + i * 13), you: false })).concat([{ n: "Tú", p: me, you: true }]).sort((a, b) => b.p - a.p);
+  return { g, rows };
+}
+function ptsHTML() {
+  const st = stats(), free = ptsFree(), lv = LEVELS.map(([min, name], k) => `<div class="lvrow${k === st.li ? " on" : ""}${k < st.li ? " done" : ""}"><b>${k + 1}</b><span>${esc(name)}</span><small>${num(min)} pts</small></div>`).join("");
+  const cheaper = S.items.filter((i) => i.cheaper > 0), shops = [...new Set(cheaper.map((i) => i.shop).filter(Boolean))];
+  const { g, rows } = rankRows();
+  const plusOn = S.plan && S.plan.src === "puntos" && S.plan.until > now();
+  return `<div class="xph"><button type="button" class="xback" data-xclose aria-label="Cerrar"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg></button><b>Tus puntos</b></div>
+  <div class="ptshero"><div><small>Disponibles</small><b>${num(free)}</b><span>de ${num(st.pts)} ganados - nivel ${st.li + 1}, ${esc(st.level)}</span></div></div>
+  <p class="tiny">Ganas puntos cada vez que dices que no (10 + 1 por cada 10 €), esperas 24 horas, preguntas a tu comité o compras más barato. Si dices que no y luego lo compras, los pierdes.</p>
+  <h3 class="ph3">Canjéalos</h3>
+  <div class="rw"><span class="rwi">⭐</span><div><b>1 mes de NotYet Plus</b><small>${num(PT_PLUS)} puntos. Todo sin límite durante 30 días.</small></div><button type="button" class="btn small" data-redeem="plus" ${free < PT_PLUS || plusOn || hasPlus() ? "disabled" : ""}>${plusOn ? "Activo" : hasPlus() ? "Ya tienes Plus" : "Canjear"}</button></div>
+  <div class="rw"><span class="rwi">✈️</span><div><b>Empujón a tus destinos</b><small>${num(PT_POT)} puntos = ${eur(PT_POT_EUR)} más en tu bote. Es un premio dentro de la app, no dinero real: apártalo tú.</small></div><button type="button" class="btn small" data-redeem="pot" ${free < PT_POT ? "disabled" : ""}>Canjear</button></div>
+  ${S.ptsPot ? `<p class="tiny">Llevas ${eur(S.ptsPot)} de empujón por puntos en tus destinos.</p>` : ""}
+  <h3 class="ph3">Descuentos por comprar más barato</h3>
+  <div class="rw dsc"><span class="rwi">🏷️</span><div><b>${cheaper.length ? `Has comprado más barato ${cheaper.length} ${cheaper.length === 1 ? "vez" : "veces"}` : "Aún no has comprado una opción más barata"}</b><small>${shops.length ? `En ${shops.slice(0, 4).map(esc).join(", ")}. ` : ""}Cuando elijas la alternativa más barata en vez de la cara, te ganarás descuentos en esas tiendas. Cuando NotYet cierre acuerdos con marcas, aquí aparecerán tus cupones. Hoy todavía no hay ninguno.</small></div><span class="soonb">Piloto</span></div>
+  <h3 class="ph3">Ranking en ${esc(g.name)}</h3>
+  <div class="rank">${rows.map((r, i) => `<div class="rk${r.you ? " you" : ""}"><b>${i + 1}</b><span>${esc(r.n)}</span><small>${num(r.p)} pts</small></div>`).join("")}</div>
+  <p class="tiny">Ejemplo: los puntos de tus amigos son simulados hasta que se unan a NotYet con tu invitación.</p>
+  <h3 class="ph3">Niveles</h3><div class="lvls">${lv}</div>`;
+}
+{ const _xr = xpRender; xpRender = function () { if (xpMode === "pts") { const box = $("#xpBox"); box.innerHTML = ptsHTML(); box.dataset.mode = "pts"; return; } return _xr.apply(this, arguments); }; }
+document.addEventListener("click", (e) => {
+  const r = e.target.closest("[data-redeem]"); if (!r || r.disabled) return; const free = ptsFree();
+  if (r.dataset.redeem === "plus" && free >= PT_PLUS) { S.ptsSpent = (S.ptsSpent || 0) + PT_PLUS; S.plan = { tier: "plus", src: "puntos", since: now(), until: now() + 30 * 24 * H, checked: now() }; save(); toast("NotYet Plus activado 30 días con tus puntos"); render(); xpRender(); }
+  else if (r.dataset.redeem === "pot" && free >= PT_POT) { S.ptsSpent = (S.ptsSpent || 0) + PT_POT; S.ptsPot = (S.ptsPot || 0) + PT_POT_EUR; save(); toast(`${eur(PT_POT_EUR)} más en tu bote para tus destinos`); render(); xpRender(); }
+});
+{ const _ri4 = renderInicio; renderInicio = function () { _ri4.apply(this, arguments); try { const sc = $("#scoreCard"); if (sc && !sc.querySelector("[data-xp=pts]")) sc.insertAdjacentHTML("beforeend", `<button type="button" class="ptsbtn" data-xp="pts">Canjear puntos: ${num(ptsFree())} disponibles ›</button>`); } catch (e) {} }; }
 render(); route();
 setInterval(render, 60000);
 })();
