@@ -632,6 +632,32 @@ input,select,textarea{border-radius:14px}
 .gprod .ic.pe{background:#F5F5F7!important;font-size:1.8rem;font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif}
 .lroll .lstage figure,.lroll .lstrip button{cursor:pointer}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .pc .ic,:root:not([data-theme="light"]) .gprod .ic.pe{background:#2C2C2E!important}}
+
+/* Destinos como en la portada */
+#goals{display:flex;flex-direction:column;gap:10px}
+.dslot{transition:opacity .38s var(--ease),transform .38s var(--ease)}
+.dslot.out{opacity:0;transform:translateY(8px) scale(.98)}
+.dg{position:relative;border-radius:22px;overflow:hidden;color:#fff;min-height:118px;display:flex;flex-direction:column;justify-content:flex-end;padding:40px 16px 12px;background:linear-gradient(120deg,var(--c1),var(--c2));isolation:isolate;animation:dgUp .6s var(--ease) both}
+@keyframes dgUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.dg .emo{position:absolute;right:16px;top:50%;transform:translateY(-46%);font-size:4.2rem;line-height:1;filter:drop-shadow(0 8px 12px rgba(0,0,0,.25));z-index:-1;font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif;animation:emoFloat 4s ease-in-out infinite}
+@keyframes emoFloat{0%,100%{transform:translateY(-46%)}50%{transform:translateY(-54%)}}
+.dg .tags{position:absolute;top:10px;left:14px;display:flex;gap:6px}
+.dg .tags span{font-size:.68rem;font-weight:800;background:rgba(0,0,0,.28);border-radius:999px;padding:3px 9px;backdrop-filter:blur(4px)}
+.dg .tags .lock{letter-spacing:.06em;text-transform:uppercase}
+.dg .gt{font-family:var(--f-display);font-weight:800;font-size:1.1rem;letter-spacing:-.02em;max-width:72%;text-shadow:0 1px 6px rgba(0,0,0,.25)}
+.dg .gs{font-size:.82rem;opacity:.95;max-width:72%}
+.dg .gbar{height:7px;border-radius:4px;background:rgba(255,255,255,.3);overflow:hidden;margin-top:7px;max-width:74%}
+.dg .gbar i{display:block;height:100%;background:#fff;transition:width 1s var(--ease)}
+.dg.idea{min-height:104px}
+.dg .ideago{align-self:flex-start;margin-top:6px;background:rgba(255,255,255,.92);color:#111;border-radius:999px;padding:6px 12px;font-weight:800;font-size:.8rem}
+/* Parecidos en otras tiendas dentro del freno */
+.galt{display:flex;flex-direction:column;gap:6px;background:var(--bg2);border-radius:18px;padding:12px}
+.galr{display:flex;align-items:center;gap:10px;padding:6px 0;border-top:1px solid var(--line)}
+.galr:first-of-type{border-top:0}
+.galr .pe{width:36px;height:36px;border-radius:10px;background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex:none}
+.galr .grow b{display:block;font-size:.95rem}
+.galr .btn{padding:6px 12px}
+.galweb{align-self:flex-start;font-weight:700;color:var(--brand);text-decoration:none;margin-top:2px}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -941,6 +967,7 @@ input,select,textarea{border-radius:14px}
     </div>
     <div id="gHints" class="facts"></div>
     <div class="say" id="gSay" hidden></div>
+    <div class="galt" id="gAlt" hidden></div>
     <button class="opt" type="button" data-g="wait"><i class="i-a">⏱</i><span>Me espero 24 horas<small>Te lo recordamos mañana. +3 puntos</small></span></button>
     <button class="opt" type="button" data-g="compare"><i class="i-b">€</i><span>Buscar más barato<small>Análisis de mercado y enlaces directos a cada sitio</small></span></button>
     <button class="opt" type="button" data-g="committee"><i class="i-c">?</i><span>Preguntar al comité<small>Tus grupos votan dentro de la app</small></span></button>
@@ -949,6 +976,20 @@ input,select,textarea{border-radius:14px}
   </div>
 </div>
 <div class="tour" id="tour" hidden><div class="tcard"><span class="tag" id="tStep">Demo guiada</span><p id="tText"></p><div class="actions"><button class="btn small" id="tNext" type="button">Siguiente</button><button class="btn ghost small" id="tExit" type="button">Salir</button></div></div></div>
+<div class="sheet-back" id="chk" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="chkTitle">
+    <div class="grab"></div>
+    <span class="tag">Has vuelto</span>
+    <h2 id="chkTitle">¿Lo compraste?</h2>
+    <div class="gprod" id="chkProd"></div>
+    <label for="chkPrice">Precio final que pagaste (€)<input id="chkPrice" inputmode="decimal" autocomplete="off"></label>
+    <label for="chkShop">Dónde<input id="chkShop" maxlength="30" autocomplete="off"></label>
+    <p class="tiny" id="chkNote"></p>
+    <button class="opt" type="button" data-chk="buy"><i class="i-b">✓</i><span>Sí, lo compré<small>Queda apuntado con su precio y lo que ahorraste</small></span></button>
+    <button class="opt" type="button" data-chk="skip"><i class="i-a">✕</i><span>No, al final no<small>Va al bote de tu destino y sumas puntos</small></span></button>
+    <button class="btn ghost small" type="button" data-chk="later">Aún no lo sé, recuérdamelo mañana</button>
+  </div>
+</div>
 <div class="toast" id="toast" hidden role="status"></div>
 
 <script>
@@ -2176,6 +2217,74 @@ $("#gClose").addEventListener("click", () => { closeGate(); toast("Vale, mira si
 $("#gate").addEventListener("click", (e) => { if (e.target === e.currentTarget) closeGate(); });
 document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !$("#gate").hidden) closeGate(); });
 $("#fab").addEventListener("click", () => openGate(null));
+/* ---------- Parecidos en otras tiendas, enlace a cada web y "¿lo compraste?" al volver ---------- */
+const SHOPS_BY_CAT = { ropa: ["Zalando", "Shein", "Primark", "Vinted", "AliExpress"], deporte: ["Decathlon", "Zalando", "Foot Locker", "Amazon", "Wallapop"], tech: ["Amazon", "PcComponentes", "MediaMarkt", "Back Market", "Wallapop"], casa: ["IKEA", "Amazon", "Leroy Merlin", "AliExpress", "Wallapop"], bienestar: ["Druni", "Primor", "Notino", "Amazon"], lujo: ["Farfetch", "Vestiaire Collective", "Zalando", "Vinted"], comida: ["Glovo", "Uber Eats", "Just Eat"], viajes: ["Skyscanner", "Kayak", "Booking", "Ryanair"], motor: ["Norauto", "Amazon", "Wallapop"], ocio: ["Amazon", "Fnac", "Wallapop"], mascotas: ["Tiendanimal", "Zooplus", "Kiwoko", "Amazon"], peques: ["Amazon", "Toys R Us", "Wallapop"], formacion: ["Udemy", "Coursera", "Domestika"], jardin: ["Leroy Merlin", "Amazon", "Bauhaus"] };
+const SHOP_K = { Shein: [.45, "parecido"], AliExpress: [.4, "parecido"], Primark: [.5, "parecido"], Vinted: [.55, "segunda mano"], Wallapop: [.55, "segunda mano"], "Back Market": [.7, "reacondicionado"], "Vestiaire Collective": [.62, "segunda mano"], Decathlon: [.72, "parecido"], Amazon: [.9, "igual o parecido"], Zalando: [.93, "igual"], "Foot Locker": [.97, "igual"], PcComponentes: [.95, "igual"], MediaMarkt: [.97, "igual"], IKEA: [.75, "parecido"], "Leroy Merlin": [.85, "parecido"], Farfetch: [.95, "igual"], Druni: [.85, "igual"], Primor: [.82, "igual"], Notino: [.8, "igual"], Glovo: [.95, "parecido"], "Uber Eats": [.92, "parecido"], "Just Eat": [.88, "parecido"], Skyscanner: [.8, "igual"], Kayak: [.82, "igual"], Booking: [.9, "parecido"], Ryanair: [.6, "parecido"], Norauto: [.9, "igual"], Fnac: [.95, "igual"], Tiendanimal: [.9, "igual"], Zooplus: [.85, "igual"], Kiwoko: [.92, "igual"], "Toys R Us": [.95, "igual"], Udemy: [.5, "parecido"], Coursera: [.8, "parecido"], Domestika: [.6, "parecido"], Bauhaus: [.88, "igual"] };
+const SHOP_Q = { Amazon: "https://www.amazon.es/s?k=", Zalando: "https://www.zalando.es/catalogo/?q=", Shein: "https://es.shein.com/pdsearch/", AliExpress: "https://es.aliexpress.com/w/wholesale-", Vinted: "https://www.vinted.es/catalog?search_text=", Wallapop: "https://es.wallapop.com/app/search?keywords=", "Back Market": "https://www.backmarket.es/es-es/search?q=", Decathlon: "https://www.decathlon.es/es/search?Ntt=", PcComponentes: "https://www.pccomponentes.com/buscar/?query=", MediaMarkt: "https://www.mediamarkt.es/es/search.html?query=", IKEA: "https://www.ikea.com/es/es/search/?q=", "Leroy Merlin": "https://www.leroymerlin.es/search?q=", Primark: "https://www.primark.com/es-es/search?q=", "Foot Locker": "https://www.footlocker.es/es/search?query=", Farfetch: "https://www.farfetch.com/es/shopping/search/items.aspx?q=", "Vestiaire Collective": "https://es.vestiairecollective.com/search/?q=", Druni: "https://www.druni.es/catalogsearch/result/?q=", Notino: "https://www.notino.es/search.asp?exps=", Skyscanner: "https://www.skyscanner.es/", Booking: "https://www.booking.com/searchresults.es.html?ss=", Fnac: "https://www.fnac.es/SearchResult/ResultList.aspx?Search=" };
+const shopUrl = (shop, q) => SHOP_Q[shop] ? SHOP_Q[shop] + encodeURIComponent(q) + (shop === "AliExpress" ? ".html" : shop === "Shein" ? ".html" : "") : "https://www.google.com/search?tbm=shop&q=" + encodeURIComponent(q + " " + shop);
+function altsFor(name, price, cat, shop0) {
+  const list = (SHOPS_BY_CAT[cat] || ["Amazon", "AliExpress", "Wallapop"]).filter((x) => x !== shop0);
+  return list.map((sh) => { const k = SHOP_K[sh] || [.9, "parecido"]; const est = Math.max(1, Math.round(price * k[0] * 100) / 100); return { shop: sh, kind: k[1], est, save: Math.max(0, price - est), url: shopUrl(sh, name) }; }).sort((a, b) => a.est - b.est);
+}
+let gateAlts = [];
+function renderGateAlts() {
+  const box = $("#gAlt"); if (!box) return;
+  const name = $("#gName2").value.trim(), price = parse($("#gPrice").value), shop0 = $("#gShop").value.trim(), cat = gateProd ? gateProd.cat : gateCat();
+  if (!name || !price) { box.hidden = true; return; }
+  gateAlts = altsFor(name, price, cat, shop0); box.hidden = false;
+  const web = gateProd ? (gateProd.url || (DOM[gateProd.brand] ? "https://" + DOM[gateProd.brand] : "")) : (DOM[shop0] ? "https://" + DOM[shop0] : "");
+  box.innerHTML = `<div class="row between"><span class="tag">Parecidos en otras tiendas</span><span class="tiny">precio estimado</span></div>${gateAlts.map((a, i) => `<div class="galr"><span class="pe">${pemo({ name, cat })}</span><div class="grow"><b>${esc(a.shop)}</b><span class="tiny">${esc(a.kind)}${a.save > 0 ? ` - unos ${eur(a.save, 0)} menos` : ""}</span></div><b class="mono">${eur(a.est, a.est % 1 ? 2 : 0)}</b><a class="btn ghost small" href="${a.url}" target="_blank" rel="noopener" data-galt="${i}">Ver ↗</a></div>`).join("")}${web ? `<a class="galweb" href="${web}" target="_blank" rel="noopener" data-galt="orig">Ir a la web de ${esc((gateProd && gateProd.brand) || shop0)} ↗</a>` : ""}<p class="tiny">Precios estimados, no consultados: compruébalos en cada web. Cuando vuelvas, NotYet te pregunta a qué precio lo compraste.</p>`;
+}
+["gName2", "gPrice", "gShop"].forEach((id) => $("#" + id).addEventListener("input", renderGateAlts));
+{ const _og = openGate; openGate = function () { const r = _og.apply(this, arguments); renderGateAlts(); return r; }; }
+// Al salir a otra web desde el freno, la compra queda en espera y se apunta qué fuiste a mirar
+$("#gAlt").addEventListener("click", (e) => {
+  const a = e.target.closest("[data-galt]"); if (!a) return;
+  if (!canAdd()) { e.preventDefault(); closeGate(); return; }
+  const alt = a.dataset.galt === "orig" ? { shop: (gateProd && gateProd.shop) || $("#gShop").value.trim(), est: parse($("#gPrice").value), url: a.href } : gateAlts[Number(a.dataset.galt)];
+  const it = gateItem("wait"); it.goneTo = alt.shop; if (tourOn) it.ex = true; S.items.push(it);
+  S.pendingCheck = { id: it.id, shop: alt.shop, est: alt.est, url: alt.url, t: now() }; save(); closeGate(); render();
+  toast(`Abriendo ${alt.shop}. Cuando vuelvas, te pregunto si lo compraste`);
+});
+// "Comprar igualmente" también pregunta luego el precio final
+$("#gBuy").addEventListener("click", () => { const it = S.items[S.items.length - 1]; if (it && it.status === "impulse" && now() - (it.decided || 0) < 3000) { S.pendingCheck = { id: it.id, shop: it.shop, est: it.price, t: now(), done: true }; save(); } });
+let chkIt = null;
+function openCheck() {
+  const pc = S.pendingCheck; if (!pc || now() - pc.t < 2500) return;
+  const it = S.items.find((i) => i.id === pc.id); if (!it) { S.pendingCheck = null; save(); return; }
+  chkIt = it;
+  $("#chkTitle").textContent = pc.done ? `¿A qué precio lo compraste en ${pc.shop || "la tienda"}?` : `¿Lo compraste en ${pc.shop || "esa web"}?`;
+  $("#chkProd").innerHTML = `<span class="ic pe">${pemo(it)}</span><div class="grow"><div class="nm">${esc(it.name)}</div><div class="tiny">Ibas a pagar ${eur(it.orig || it.price, 2)}${it.shop ? " en " + esc(it.shop) : ""}</div></div>`;
+  $("#chkPrice").value = String(pc.est || it.price || "").replace(".", ","); $("#chkShop").value = pc.shop || it.shop || "";
+  $("#chkNote").textContent = "Pon el precio que pagaste de verdad. Si lo encontraste más barato, la diferencia va a tu bote.";
+  $('[data-chk="skip"]').hidden = !!pc.done;
+  $("#chk").hidden = false; document.body.style.overflow = "hidden";
+}
+const closeCheck = () => { $("#chk").hidden = true; document.body.style.overflow = ""; };
+document.addEventListener("visibilitychange", () => { if (!document.hidden) setTimeout(openCheck, 400); });
+addEventListener("focus", () => setTimeout(openCheck, 400));
+$("#chk").addEventListener("click", (e) => {
+  const b = e.target.closest("[data-chk]"); if (!b || !chkIt) return; const k = b.dataset.chk, pc = S.pendingCheck || {};
+  if (k === "buy") { const paid = parse($("#chkPrice").value) || chkIt.price, shop = $("#chkShop").value.trim() || chkIt.shop, orig = chkIt.orig || chkIt.price; chkIt.orig = orig; chkIt.price = paid; chkIt.paidAt = shop; chkIt.shop = shop; chkIt.cheaper = Math.max(0, Math.round((orig - paid) * 100) / 100); if (chkIt.status !== "impulse") { chkIt.status = "buy"; chkIt.decided = now(); } toast(chkIt.cheaper > 0 ? `Apuntado: ${eur(paid, 2)} en ${shop}. Te ahorraste ${eur(chkIt.cheaper, 2)}, que van a tu bote` : `Apuntado: ${eur(paid, 2)} en ${shop}`); }
+  else if (k === "skip") { decide(chkIt, "skip"); }
+  else { chkIt.start = now(); chkIt.hours = 24; toast("Te lo recuerdo mañana"); }
+  S.pendingCheck = null; save(); closeCheck(); render();
+});
+
+/* ---------- Destinos con la cara de la portada ---------- */
+const GSTYLE = { paris: ["🗼", "#7B5CFF", "#FF8A5B"], playa: ["🏖️", "#00B4D8", "#FFD166"], piso: ["🏠", "#00B894", "#0984E3"], boda: ["💍", "#B07CFF", "#FF9AC1"], coche: ["🚗", "#2D3436", "#636E72"], fondo: ["🛟", "#0984E3", "#74B9FF"], regalo: ["🎁", "#FF6B6B", "#FFB86B"], portatil: ["💻", "#6C5CE7", "#A29BFE"], moto: ["🏍️", "#E17055", "#FDCB6E"], bebe: ["🍼", "#FD79A8", "#FFEAA7"], mascota: ["🐶", "#E17055", "#FAB1A0"], estudios: ["🎓", "#2D3436", "#6C5CE7"], bici: ["🚲", "#00B894", "#55EFC4"] };
+const CITY = [[/roma/i, "🏛️", "#E2725B", "#F4C15D"], [/tokio|jap[oó]n/i, "🗻", "#E84393", "#6C5CE7"], [/nueva york|new york/i, "🗽", "#1F6FEB", "#19D3C5"], [/singapur/i, "🌇", "#0EA5A4", "#2F6BFF"], [/pek[ií]n|china/i, "🏯", "#C0392B", "#F39C12"], [/londres/i, "🎡", "#2D3436", "#D63031"], [/concierto/i, "🎤", "#FD79A8", "#E84393"], [/surf/i, "🏄", "#00CEC9", "#0984E3"]];
+const gStyle = (g) => { const c = CITY.find(([re]) => re.test(g.name || "")); return c ? c.slice(1) : (GSTYLE[g.img] || GSTYLE.fondo); };
+const GIDEAS = [["Viaje a Roma", 1200, "paris"], ["Viaje a Tokio", 2800, "paris"], ["Fondo de emergencia", 3000, "fondo"], ["Regalo de boda", 250, "boda"], ["Entrada del piso", 30000, "piso"], ["Concierto de tu grupo favorito", 180, "regalo"], ["Curso de surf", 320, "playa"]];
+let gIdea = 0;
+function goalCardHTML(g) { const [emo, c1, c2] = gStyle(g); return `<div class="dg" style="--c1:${c1};--c2:${c2}"><span class="emo" aria-hidden="true">${emo}</span><span class="tags"><span class="pct">${g.pct}% del bote</span><span class="lock">${g.done ? "Cumplido" : g.locked ? "Bloqueado" : "Editable"}</span></span><div class="gt">${esc(g.name)}${g.ex ? ' <span style="font-weight:400;font-size:.75rem">(ejemplo)</span>' : ""}</div><div class="gs">${g.done ? "Conseguido con lo que no gastaste: " + eur(g.amount) : eur(g.prog) + " de " + eur(g.amount) + ". Te faltan " + eur(g.amount - g.prog)}</div><div class="gbar"><i style="width:${g.pctDone}%"></i></div></div>`; }
+function ideaHTML() { const [n, a, img] = GIDEAS[gIdea % GIDEAS.length], [emo, c1, c2] = gStyle({ name: n, img }); return `<div class="dg idea" style="--c1:${c1};--c2:${c2}"><span class="emo" aria-hidden="true">${emo}</span><span class="tags"><span class="pct">Idea</span></span><div class="gt">¿Y si ahorras para ${esc(n.charAt(0).toLowerCase() + n.slice(1))}?</div><div class="gs">${eur(a)}. Toca para crearlo en Cuenta.</div><button type="button" class="ideago" data-idea="${gIdea % GIDEAS.length}">Crear destino</button></div>`; }
+{ const _ri = renderInicio; renderInicio = function () { _ri.apply(this, arguments); const gp = goalsProgress(), box = $("#goals"); if (!box) return;
+  box.innerHTML = gp.map(goalCardHTML).join("") + (gp.length < 4 ? `<div class="dslot" id="gIdeaSlot">${ideaHTML()}</div>` : "");
+  requestAnimationFrame(() => $$("#goals .dg .gbar i").forEach((i) => { const w = i.style.width; i.style.width = "0"; requestAnimationFrame(() => { i.style.width = w; }); })); }; }
+setInterval(() => { const sl = $("#gIdeaSlot"); if (!sl || document.hidden || tab !== "inicio") return; sl.classList.add("out"); setTimeout(() => { gIdea++; sl.innerHTML = ideaHTML(); sl.classList.remove("out"); }, 380); }, 3200);
+document.addEventListener("click", (e) => { const b = e.target.closest("[data-idea]"); if (!b) return; const [n, a, img] = GIDEAS[Number(b.dataset.idea)]; showTab("ajustes"); try { acctMenu("goalsCard"); } catch (er) {} $("#gName").value = n; $("#gAmount").value = String(a); const r = document.querySelector(`input[name="gimg"][value="${img}"]`); if (r) r.checked = true; $("#gName").focus(); toast("Revisa la cantidad y guarda el destino"); });
+
 /* ---------- Cuenta: menú tipo app ---------- */
 function acctMenu(sec) {
   const v = $("#v-ajustes"); if (!v) return;
