@@ -1158,6 +1158,60 @@ footer.af .fl a:first-child{padding-left:0;border-left:0}
 .hrng{display:flex;flex-direction:column;gap:4px;font-size:10px}
 .hrng input{width:100%;accent-color:#FF5A5F}
 .hq button{font-size:8.5px}
+
+/* ===== v17: nada cortado dentro de los teléfonos ===== */
+/* Desglose en pantallas estrechas */
+.ph .dzh span{display:none}
+.ph .dzh{padding-right:84px}
+.ph .dzr .n{white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;line-height:1.15}
+.ph .dzt{flex-direction:column;align-items:flex-start;gap:2px}
+.ph .dzt b{font-size:1.35rem!important}
+.ph .dzs{top:10px!important;right:10px!important}
+.how .ph .dz{padding:10px 11px;border-radius:14px}
+.how .ph .dzr{padding:6px 0;gap:8px}
+.how .ph .dzr .e{width:26px;height:26px;font-size:.95rem;border-radius:8px}
+.how .ph .dzr .n{font-size:10.5px}.how .ph .dzr .n small{font-size:9px}.how .ph .dzr b{font-size:10.5px}
+.how .ph .dzh b{font-size:11.5px}.how .ph .dzt span{font-size:10.5px}.how .ph .dzt small{font-size:9px}
+.how .ph .dzk,.how .ph .dzg .r{font-size:9px}.how .ph .dzs{font-size:8px}
+.how .app .body{overflow:hidden}
+/* Contenido que entra al llegar a cada paso */
+.pscreens .app .hin{opacity:0;transform:translateY(10px)}
+.pscreens .app.active .hin{animation:hIn .55s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--d) * .35s + .15s)}
+@keyframes hIn{from{opacity:0;transform:translateY(12px) scale(.98)}to{opacity:1;transform:none}}
+.pscreens .app.active .dzr{animation-duration:.6s}
+.body.hw{gap:8px}
+.wa{max-width:88%;background:var(--surface);border-radius:12px 12px 12px 4px;padding:7px 9px 14px;font-size:11px;position:relative;box-shadow:0 1px 1px rgba(0,0,0,.06);align-self:flex-start;line-height:1.3}
+.wa.me{align-self:flex-end;background:#DCF8C6;color:#111;border-radius:12px 12px 4px 12px}
+.wa b{display:block;font-size:9.5px;color:#128C7E}
+.wa i{position:absolute;right:8px;bottom:3px;font-size:8px;font-style:normal;color:#667}
+.wa .lk{display:flex;gap:7px;align-items:center;background:rgba(0,0,0,.05);border-radius:8px;padding:5px;margin-bottom:5px}
+.wa .le{font-size:1.5rem}.wa .lk b{color:#111}.wa .lk small{display:block;font-size:8.5px;color:#667}
+.wa.tp{padding:8px 12px}
+#howPhone [data-ps="1"] .body{background:#ECE5DD}
+.hprod{flex-direction:row!important;align-items:center;gap:10px}
+.hprod .he{font-size:2rem;width:46px;height:46px;border-radius:12px;background:var(--bg2);display:flex;align-items:center;justify-content:center;flex:none}
+.hprod b{font-size:12px;display:block}.hprod small{font-size:10px;color:var(--muted)}
+.hfact{border-radius:12px;padding:8px 10px;font-size:10.5px;font-weight:700}
+.hfact.g{background:var(--green-soft);color:var(--green)}.hfact.a{background:var(--amber-soft);color:var(--amber)}.hfact.b{background:var(--blue-soft,#E4ECFF);color:var(--brand)}.hfact.r{background:var(--coral-soft);color:var(--coral)}
+.hq3{font-family:var(--f-display);font-weight:900;font-size:15px;letter-spacing:-.02em;margin-top:2px}
+.hopt{display:flex;gap:9px;align-items:center;background:var(--surface);border-radius:12px;padding:9px 10px;font-weight:700;font-size:11px;box-shadow:0 1px 2px rgba(0,0,0,.05)}
+.hopt i{width:26px;height:26px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-style:normal;flex:none}
+.hopt small{display:block;font-weight:500;font-size:9px;color:var(--muted)}
+.notif2{background:rgba(255,255,255,.92);border-radius:16px;padding:10px 12px;box-shadow:0 8px 20px -10px rgba(0,0,0,.35);display:flex;flex-direction:column;gap:3px;font-size:11px;color:#111}
+.notif2 .nh{font-size:9px;color:#667;font-weight:700}.notif2 small{font-size:9.5px;color:#667}
+.hbar2{height:6px;border-radius:3px;background:var(--line);overflow:hidden;margin-top:4px}.hbar2 i{display:block;height:100%;background:linear-gradient(90deg,#19D3C5,#2F6BFF)}
+/* Teléfono principal: el botón nunca se corta */
+#hpHome #heroBuy{position:sticky;bottom:58px;z-index:2;padding:9px 14px;font-size:11px;box-shadow:0 10px 20px -10px rgba(47,107,255,.7);flex-shrink:0}
+/* Cuadradito de selección */
+.pk .ic .pchk{position:absolute;left:8px;top:8px;width:22px;height:22px;border-radius:7px;background:#fff;border:1.5px solid var(--line);display:flex;align-items:center;justify-content:center;transition:background .2s,border-color .2s,transform .2s}
+.pk[aria-pressed="true"] .ic .pchk{background:var(--brand);border-color:var(--brand);transform:scale(1.08)}
+.pk[aria-pressed="true"] .ic .pchk::after{content:"✓";color:#fff;font-weight:900;font-size:13px}
+.hsel{position:absolute;left:4px;top:4px;width:16px;height:16px;border-radius:5px;background:#fff;border:1.2px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;color:#fff;cursor:pointer;transition:background .2s,transform .2s}
+.hsel[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);transform:scale(1.1)}
+.hpc2.sel{box-shadow:0 0 0 1.5px var(--brand)}
+.hselbar{display:flex;align-items:center;gap:5px;background:var(--fg);color:var(--bg);border-radius:12px;padding:6px 8px;font-size:9.5px;flex-wrap:wrap;animation:dzIn .3s var(--ease)}
+.hselbar span{flex:1}
+.hselbar .pbtn.ghost{color:var(--bg);border:1px solid rgba(255,255,255,.35);background:transparent}
 </style>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
@@ -1602,11 +1656,37 @@ footer.af .fl a:first-child{padding-left:0;border-left:0}
         <div class="ph sm" aria-hidden="true">
           <div class="isl"></div>
           <div class="scr pscreens" id="howPhone">
-            <div class="app active" data-ps="1"><div class="st"><span>9:41</span><span>WhatsApp</span></div><div class="body"><div class="msg me in" style="max-width:92%;align-self:flex-end"><b>Tú</b>Zapatillas Nike Pegasus, 139,99 €</div><div class="msg in" style="max-width:92%"><b>NotYet</b>Apuntado: 140 €. ¿Lo necesitas o te apetece?</div></div></div>
-            <div class="app" data-ps="2"><div class="st"><span>9:41</span><span>NotYet</span></div><div class="body"><div class="acard"><div class="lbl" style="color:var(--muted)">Estás pensando gastar</div><div class="big">140 €</div><div class="sub">11,7 horas de tu trabajo</div></div><div class="acard" style="background:var(--green-soft);color:var(--green)"><b>Si no las compras, 140 € más cerca de Lisboa</b></div><div class="acard" style="background:var(--coral-soft);color:var(--coral)"><b>Llevas 2 compras de deporte este mes</b></div></div></div>
-            <div class="app" data-ps="3"><div class="st"><span>9:41</span><span>NotYet</span></div><div class="body" style="justify-content:flex-end"><div class="opt" style="background:var(--surface);border-radius:12px;padding:9px 11px;font-weight:700;display:flex;gap:8px;align-items:center"><i class="i-a" style="width:26px;height:26px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-style:normal">⏱</i>Me espero 24 horas</div><div class="opt" style="background:var(--surface);border-radius:12px;padding:9px 11px;font-weight:700;display:flex;gap:8px;align-items:center"><i class="i-b" style="width:26px;height:26px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-style:normal">€</i>Buscar más barato</div><div class="opt" style="background:var(--surface);border-radius:12px;padding:9px 11px;font-weight:700;display:flex;gap:8px;align-items:center"><i class="i-c" style="width:26px;height:26px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-style:normal">?</i>Preguntar al comité</div><p class="tiny center">Comprar igualmente</p></div></div>
-            <div class="app" data-ps="4"><div class="st"><span>9:41</span><span>Mañana</span></div><div class="body"><div class="acard"><div class="lbl" style="color:var(--muted)">Han pasado 24 horas</div><div style="font-weight:800;font-size:16px">¿Sigues queriendo las zapatillas?</div><div class="tiny">Si no: +24 puntos y 126 € más cerca de París</div><div class="vrow" style="margin-top:6px;gap:6px"><span class="chip green" style="font-size:10px">No las compro</span><span class="chip ghost" style="font-size:10px">Las compro</span></div></div></div></div>
-            <div class="app" data-ps="5"><div class="st"><span>9:41</span><span>Octubre</span></div><div class="body" id="howTk"></div></div>
+            <div class="app active" data-ps="1"><div class="st"><span>9:41</span><span>WhatsApp</span></div><div class="body hw">
+              <div class="wa me" class="hin" style="--d:0"><span class="lk"><span class="le">👟</span><span><b>Zapatillas Pegasus 41</b><small>nike.com</small></span></span>Zapatillas Nike Pegasus, 139,99 €<i>21:02 ✓✓</i></div>
+              <div class="wa" class="hin" style="--d:1"><b>NotYet</b>Apuntado: 139,99 €. ¿Lo necesitas o te apetece?<i>21:02</i></div>
+              <div class="wa me" class="hin" style="--d:2">Me apetecen, la verdad 😅<i>21:03 ✓✓</i></div>
+              <div class="wa" class="hin" style="--d:3"><b>NotYet</b>Sin problema. Son 11,7 horas de tu trabajo. Te las guardo 24 horas y mañana te pregunto.<i>21:03</i></div>
+              <div class="wa" class="hin" style="--d:4"><b>NotYet</b>Si no las compras: 126 € más cerca de París y +24 puntos ✈️<i>21:03</i></div>
+              <div class="wa me tp" class="hin" style="--d:5"><span class="typing"><i></i><i></i><i></i></span></div>
+            </div></div>
+            <div class="app" data-ps="2"><div class="st"><span>9:41</span><span>NotYet</span></div><div class="body hw">
+              <div class="acard hprod" class="hin" style="--d:0"><span class="he">👟</span><div><b>Zapatillas Pegasus 41</b><small>Nike - talla 43</small></div></div>
+              <div class="acard" class="hin" style="--d:1"><div class="lbl" style="color:var(--muted)">Estás pensando gastar</div><div class="big">139,99 €</div><div class="sub">11,7 horas de tu trabajo</div></div>
+              <div class="hfact g" class="hin" style="--d:2">✈️ Si no las compras, 126 € más cerca de París</div>
+              <div class="hfact a" class="hin" style="--d:3">🏃 Llevas 2 compras de deporte este mes</div>
+              <div class="hfact b" class="hin" style="--d:4">👥 6 de cada 10 lo volverían a comprar</div>
+              <div class="hfact r" class="hin" style="--d:5">▲ Se pasa de tu tope semanal: te quedan 60 €</div>
+            </div></div>
+            <div class="app" data-ps="3"><div class="st"><span>9:41</span><span>NotYet</span></div><div class="body hw">
+              <div class="acard hprod" class="hin" style="--d:0"><span class="he">👟</span><div><b>Zapatillas Pegasus 41</b><small>139,99 € en Nike</small></div></div>
+              <div class="hq3" class="hin" style="--d:1">¿Qué hacemos?</div>
+              <div class="hopt" class="hin" style="--d:2"><i style="background:var(--amber)">⏱</i><span>Me espero 24 horas<small>Te aviso mañana. +3 puntos</small></span></div>
+              <div class="hopt" class="hin" style="--d:3"><i style="background:var(--brand)">€</i><span>Buscar más barato<small>Pegasus 40 por 89,99 € en Decathlon</small></span></div>
+              <div class="hopt" class="hin" style="--d:4"><i style="background:var(--coral)">?</i><span>Preguntar al comité<small>Tu grupo del gym vota en vivo</small></span></div>
+              <p class="tiny center" class="hin" style="--d:5">Comprar igualmente: NotYet no bloquea nunca</p>
+            </div></div>
+            <div class="app" data-ps="4"><div class="st"><span>9:41</span><span>Mañana</span></div><div class="body hw">
+              <div class="notif2" class="hin" style="--d:0"><span class="nh">🛒 NotYet - ahora</span><b>Han pasado 24 horas. ¿Sigues queriendo las zapatillas?</b><small>Nike, 139,99 €</small></div>
+              <div class="acard" class="hin" style="--d:1"><div class="lbl" style="color:var(--muted)">Si no las compras</div><div class="vrow" style="justify-content:space-between"><b>+24 puntos</b><b style="color:var(--green)">126 € al bote</b></div><div class="hbar2"><i style="width:70%"></i></div><small class="tiny">París: 1.263 € de 1.800 €</small></div>
+              <div class="vrow" class="hin" style="--d:2" style="gap:6px"><span class="chip green" style="font-size:10px;flex:1;justify-content:center">No las compro</span><span class="chip ghost" style="font-size:10px;flex:1;justify-content:center">Las compro</span></div>
+              <div class="acard" class="hin" style="--d:3"><div class="lbl" style="color:var(--muted)">Y si las compras</div><div class="tiny">En 7 días te pregunto si te arrepientes. Tu respuesta ayuda a otros: "6 de cada 10 las volverían a comprar".</div></div>
+            </div></div>
+            <div class="app" data-ps="5"><div class="st"><span>9:41</span><span id="howMonth">Octubre</span></div><div class="body hw" id="howTk"></div></div>
           </div>
         </div>
       </div>
@@ -2473,7 +2553,7 @@ const BDINFO = { primer: ["Tu primer no", "La primera vez que decides no comprar
 let cur = CATALOG[0], curCat = "todo", curGroup = "amigos", curDecided = false;
 function renderPicker() {
   $("#catf").innerHTML = [["todo", "Todo"]].concat(Object.entries(CATS).map(([k, v]) => [k, v[0]])).map(([k, l]) => `<button type="button" data-cat="${k}" aria-pressed="${k === curCat}">${l}</button>`).join("");
-  $("#picker").innerHTML = CATALOG.filter((p) => pq ? pMatch(p) : (curCat === "todo" || p.cat === curCat)).map((p) => `<button class="pk" type="button" data-pick="${p.id}" aria-pressed="${p.id === cur.id}" style="--c:${CATS[p.cat][1]}"><span class="ic"><span class="pe">${pemo(p)}</span>${logoSrc(p.brand) ? `<span class="lgb">${favImg(p.brand, "", 64)}</span>` : ""}</span><span class="br">${brandChip(p.brand, p.shop)}</span><span class="nm">${p.name}</span><span class="pr">${eur(p.price, 2)}</span><span class="pick">${p.id === cur.id ? "Elegido" : "Probar"}</span></button>`).join("");
+  $("#picker").innerHTML = CATALOG.filter((p) => pq ? pMatch(p) : (curCat === "todo" || p.cat === curCat)).map((p) => `<button class="pk" type="button" data-pick="${p.id}" aria-pressed="${p.id === cur.id}" style="--c:${CATS[p.cat][1]}"><span class="ic"><span class="pe">${pemo(p)}</span><span class="pchk" aria-hidden="true"></span></span><span class="br">${brandChip(p.brand, p.shop)}</span><span class="nm">${p.name}</span><span class="pr">${eur(p.price, 2)}</span><span class="pick">${p.id === cur.id ? "Elegido" : "Probar"}</span></button>`).join("");
 }
 const catOfBrand = (b) => Object.keys(BRANDS).find((k) => BRANDS[k].includes(b)) || null;
 let rollNote = "";
@@ -2760,7 +2840,7 @@ $("#xsCal").innerHTML = `<div class="acard cal" id="xsCalBox"></div><div class="
 bindCal($("#xsCalBox"));
 renderStory();
 $("#parThr").addEventListener("input", (e) => { PARTNER_THR = Number(e.target.value); renderStory(); renderPlay(); });
-$("#howTk").innerHTML = `<div class="tkwrap"><div class="tk">${ticketHTML({ lines: [{ name: "Zapatillas Pegasus 41", shop: "Nike", price: 139.99 }].concat(DEMO_LINES.slice(0, 3)), total: SAVED0 + 139.99, date: fmtDate(Date.now()), time: fmtTime(Date.now()), goals: [{ name: "Viaje a París", pct: 90, prog: 1262.63, amount: 1800, pctDone: 70 }], pctSaved: 83, stamp: "No comprado", compact: true })}</div></div><div class="acard">${scoreHTML(PTS0 + 24)}</div>`;
+$("#howTk").innerHTML = `<div class="tkwrap"><div class="tk">${ticketHTML({ lines: [{ name: "Zapatillas Pegasus 41", shop: "Nike", price: 139.99 }].concat(DEMO_LINES.slice(0, 2)), total: SAVED0 + 139.99, date: fmtDate(Date.now()), time: fmtTime(Date.now()), goals: [{ name: "Viaje a París", pct: 90, prog: 1262.63, amount: 1800, pctDone: 70 }], pctSaved: 83, stamp: "No comprado", compact: true })}</div></div><div class="acard">${scoreHTML(PTS0 + 24)}</div>`;
 heroReset();
 // La demo del teléfono arranca cuando el teléfono entra en pantalla, para que se vea desde el principio
 if ("IntersectionObserver" in window) {
@@ -2926,7 +3006,7 @@ PEMO_RULES.unshift([/s[uú]per|compra del/, "🛒"], [/aeropuerto|viaje de noche
 try { if ($("#catf") && typeof renderPicker === "function") renderPicker(); } catch (e) {}
 
 // Mes real en la cabecera y emojis en la barra de pestañas
-{ const st = $('#heroPh .hs[data-hs="home"] .st span:last-child'); if (st) { const mm = MONTHS[new Date().getMonth()]; st.textContent = mm.charAt(0).toUpperCase() + mm.slice(1); }
+{ const st = $('#heroPh .hs[data-hs="home"] .st span:last-child'); { const hm = $("#howMonth"), mm0 = MONTHS[new Date().getMonth()]; if (hm) hm.textContent = mm0.charAt(0).toUpperCase() + mm0.slice(1); } if (st) { const mm = MONTHS[new Date().getMonth()]; st.textContent = mm.charAt(0).toUpperCase() + mm.slice(1); }
   const TI = { home: "🏠", explorar: "🔍", comite: "💬", habitos: "📊", pareja: "💞", ia: "✨" }; $$("#heroPh .tb").forEach((t) => { const i = t.querySelector("i"); if (i) i.textContent = TI[t.dataset.go] || "•"; }); }
 const heroStop = () => { heroAuto = false; heroTimers.forEach((t) => { clearTimeout(t); clearInterval(t); }); heroTimers = []; };
 var heroUndo = null, heroDrawChat = null, heroMine = [], parMsgs = [], iaMsgs = [], heroDrag = false;
@@ -2972,7 +3052,8 @@ function heroReset() {
   heroDown(); hpShow("home"); hpHome(); hpFacts(); hpCap("home");
 }
 // Explorar: categorías deslizables y estanterías con todo lo de cada una
-function hpCard(p) { return `<div class="hpc2"><span class="ic"><span class="pe">${pemo(p)}</span>${logoSrc(p.brand) ? `<span class="lgb">${favImg(p.brand, "", 64)}</span>` : ""}</span><b>${esc(p.name)}</b><span class="m">${esc(p.brand)}</span><span class="pr">${eur(p.price, p.price % 1 ? 2 : 0)}</span><button class="pbtn" type="button" data-hwant="${p.id}">Lo quiero</button></div>`; }
+var heroSel = [];
+function hpCard(p) { const on = heroSel.includes(p.id); return `<div class="hpc2${on ? " sel" : ""}"><span class="ic"><span class="pe">${pemo(p)}</span><button type="button" class="hsel" data-hsel="${p.id}" aria-pressed="${on}" aria-label="Marcar ${esc(p.name)}">${on ? "✓" : ""}</button></span><b>${esc(p.name)}</b><span class="m">${esc(p.brand)}</span><span class="pr">${eur(p.price, p.price % 1 ? 2 : 0)}</span><button class="pbtn" type="button" data-hwant="${p.id}">Lo quiero</button></div>`; }
 function hpExplorar() {
   const keys = Object.keys(CATS).filter((k) => CATALOG.some((p) => p.cat === k));
   if (heroCat !== "todo" && !keys.includes(heroCat)) heroCat = "todo";
@@ -2980,7 +3061,9 @@ function hpExplorar() {
   const body = heroCat === "todo"
     ? keys.map((k) => { const l = CATALOG.filter((p) => p.cat === k); return `<div class="hsh"><button type="button" class="hsht" data-hcat="${k}">${esc(CATS[k][0])} <span>${l.length} ›</span></button><div class="hrow">${l.map(hpCard).join("")}</div></div>`; }).join("")
     : (() => { const l = CATALOG.filter((p) => p.cat === heroCat); return `<div class="hcount">${l.length} productos y servicios de ${esc(CATS[heroCat][0].toLowerCase())}</div><div class="hgrid">${l.map(hpCard).join("")}</div>`; })();
-  $("#hpExp").innerHTML = `<div class="hchips hrow">${chips.map(([k, l]) => `<button type="button" class="${k === heroCat ? "on" : ""}" data-hcat="${k}">${l}</button>`).join("")}</div>${body}<p class="tiny" style="font-size:8.5px">Desliza las categorías y las filas. Productos, servicios y precios de ejemplo.</p>`;
+  const selP = heroSel.map((id) => CATALOG.find((x) => x.id === id)).filter(Boolean), selT = selP.reduce((a, x) => a + x.price, 0);
+  const selBar = selP.length ? `<div class="hselbar"><span><b>${selP.length} ${selP.length === 1 ? "marcado" : "marcados"}</b> - ${eur(selT, selT % 1 ? 2 : 0)}</span><button type="button" class="pbtn coral sm" data-hselgo="1">Pasar por el freno</button><button type="button" class="pbtn ghost sm" data-hselclr="1">Quitar</button></div>` : "";
+  $("#hpExp").innerHTML = selBar + `<div class="hchips hrow">${chips.map(([k, l]) => `<button type="button" class="${k === heroCat ? "on" : ""}" data-hcat="${k}">${l}</button>`).join("")}</div>${body}<p class="tiny" style="font-size:8.5px">Desliza las categorías y las filas. Productos, servicios y precios de ejemplo.</p>`;
   $("#hpExp").scrollTop = 0; const ch = $("#hpExp .hchips"), on = ch && ch.querySelector(".on"); if (on) ch.scrollLeft = Math.max(0, on.offsetLeft - 40);
 }
 // Comité: redes con su color, sin huecos raros
@@ -3073,6 +3156,16 @@ function hpTab(name) {
   if (name === "pareja") { hpPareja(); hpShow("pareja"); hpCap("pareja"); return; }
   if (name === "ia") { hpIa(); hpShow("ia"); hpCap("ia"); }
 }
+// Marcar y desmarcar productos en Explorar
+$("#heroPh").addEventListener("click", (e) => {
+  const b = e.target.closest("[data-hsel]"), go = e.target.closest("[data-hselgo]"), clr = e.target.closest("[data-hselclr]");
+  if (!(b || go || clr)) return; e.stopPropagation(); heroStop();
+  const keep = $("#hpExp") ? $("#hpExp").scrollTop : 0, rows = $$("#hpExp .hrow").map((r) => r.scrollLeft);
+  if (b) { const id = b.dataset.hsel; heroSel = heroSel.includes(id) ? heroSel.filter((x) => x !== id) : heroSel.concat(id); }
+  if (clr) heroSel = [];
+  if (go) { const p = CATALOG.find((x) => x.id === heroSel[0]); if (p) { HPcur = heroSel.length > 1 ? Object.assign({}, p, { id: "sel-" + Date.now(), name: `${heroSel.length} productos marcados`, price: heroSel.reduce((a, id) => a + (CATALOG.find((x) => x.id === id) || { price: 0 }).price, 0), shop: "varias tiendas" }) : p; hpFacts(); heroUp(); } return; }
+  hpExplorar(); const ex = $("#hpExp"); if (ex) ex.scrollTop = keep + (heroSel.length === 1 && b && !rows.length ? 0 : 0); $$("#hpExp .hrow").forEach((r, i) => { if (rows[i] != null) r.scrollLeft = rows[i]; });
+}, true);
 // Eventos nuevos del teléfono
 $("#heroPh").addEventListener("click", (e) => {
   if (heroDrag) { e.stopPropagation(); e.preventDefault(); heroDrag = false; }
