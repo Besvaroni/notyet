@@ -729,6 +729,52 @@ input,select,textarea{border-radius:14px}
 .t10c .n{position:absolute;left:-6px;bottom:-14px;font-family:var(--f-display);font-weight:900;font-size:5.2rem;line-height:1;color:#fff;-webkit-text-stroke:3px #0B1024;paint-order:stroke}
 .t10t{font-weight:700;font-size:.92rem;line-height:1.2;margin-top:12px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .t10s{font-size:.78rem;color:#17A35A;font-weight:700}
+
+/* Estilo Fever: iconos, panel, categorías y favoritos */
+#v-explorar .vhead{display:flex!important;justify-content:space-between;align-items:center}
+.exic{display:flex;gap:4px}.exic button{position:relative;width:42px;height:42px;border-radius:50%;border:0;background:transparent;color:var(--fg);display:grid;place-items:center;cursor:pointer}
+.exic button:hover{background:var(--bg2)}
+#favDot{position:absolute;top:8px;right:8px;width:8px;height:8px;border-radius:50%;background:#FF2D55}
+.pc .ic .fav,.xrow .fav{position:absolute;top:8px;right:8px;width:34px;height:34px;border-radius:50%;border:0;background:rgba(255,255,255,.92);display:grid;place-items:center;cursor:pointer;z-index:2;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.fav svg{fill:none;stroke:#0B1024;stroke-width:2;transition:transform .2s}
+.fav.on svg{fill:#FF2D55;stroke:#FF2D55;transform:scale(1.08)}
+.xrow .fav{position:static;flex:none;background:var(--bg2);box-shadow:none}
+body.xpon{overflow:hidden}
+.xp{position:fixed;inset:0;z-index:300;background:rgba(11,16,36,.35);display:flex;justify-content:center}
+.xpbox{width:100%;max-width:560px;height:100%;overflow:auto;background:var(--surface);color:var(--fg);padding:max(14px,env(safe-area-inset-top)) 20px 40px;animation:xin .22s var(--ease)}
+@keyframes xin{from{transform:translateY(16px);opacity:0}to{transform:none;opacity:1}}
+@media (prefers-reduced-motion:reduce){.xpbox{animation:none}}
+.xph{display:flex;align-items:center;gap:10px;padding:6px 0 14px;border-bottom:1px solid var(--line);margin-bottom:6px;position:sticky;top:-14px;background:var(--surface);z-index:2}
+.xph b{font-size:1.25rem;font-weight:700}
+.xback{width:40px;height:40px;border-radius:50%;border:0;background:transparent;color:var(--fg);display:grid;place-items:center;cursor:pointer;flex:none}
+.xps{display:flex;align-items:center;gap:6px;background:var(--bg2);border-radius:999px;padding:4px 14px 4px 4px;margin:4px 0 22px}
+.xps input{flex:1;min-width:0;border:0;background:transparent;font:inherit;font-size:1.05rem;padding:10px 4px;color:var(--fg);outline:none}
+.xpideas h3,.favempty h3,.favsug h3,.xcat2 h3{margin:0;font-size:1.25rem}
+.xpideas .row{margin-bottom:16px}
+.xchips{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px}
+.xchips button{font:inherit;font-weight:600;font-size:1rem;padding:11px 20px;border-radius:999px;border:1.5px solid var(--line);background:var(--surface);color:var(--fg);cursor:pointer;transition:background .2s,border-color .2s}
+.xchips button:hover{border-color:var(--fg)}
+.xlist{display:flex;flex-direction:column}
+.xrow{display:flex;align-items:center;gap:16px;width:100%;padding:10px 0;border:0;background:transparent;color:var(--fg);font:inherit;text-align:left;cursor:pointer;position:relative}
+button.xrow:hover .xn{text-decoration:underline}
+.xth{width:64px;height:64px;flex:none;border-radius:12px;background:linear-gradient(140deg,color-mix(in srgb,var(--c) 70%,#fff),var(--c));display:grid;place-items:center;overflow:hidden}
+.xth span{font-size:2.3rem;filter:drop-shadow(0 4px 6px rgba(0,0,0,.18))}
+.xn{flex:1;min-width:0;font-size:1.08rem}
+.xbtn{border:0;background:transparent;color:inherit;font:inherit;text-align:left;cursor:pointer;padding:0}
+.xn b{display:block;font-weight:600;font-size:1rem}.xn small{display:block;color:var(--muted);font-size:.84rem;margin-top:2px}.xn em{font-style:normal;font-size:.72rem;opacity:.8}
+.xn select{margin-top:6px;font:inherit;font-size:.8rem;padding:4px 8px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--fg);max-width:100%}
+.xc{font-size:.8rem;color:var(--muted)}
+.favhero{display:flex;align-items:center;gap:18px;padding:8px 0 18px;border-bottom:1px solid var(--line);margin-bottom:18px}
+.fhi{font-size:3.4rem;position:relative;flex:none;margin-right:22px}.fhi i{position:absolute;right:-22px;top:-6px;font-size:1.8rem;font-style:normal}
+.favhero b{font-size:1.15rem;line-height:1.3}
+.favempty p{color:var(--muted);font-size:1.02rem;line-height:1.45;margin:6px 0 16px}
+.favempty .btn{border-radius:999px;background:#0074D9;padding:12px 26px}
+.favsug{margin-top:22px;padding-top:16px;border-top:1px solid var(--line)}
+.xcat2{margin:18px 0 6px}.xcat2 .row{margin-bottom:6px}
+.xgrid{display:grid;grid-template-columns:1fr;gap:0}
+@media (min-width:760px){.xgrid{grid-template-columns:1fr 1fr 1fr;column-gap:20px}}
+.xcat2 .xth{width:54px;height:54px}.xcat2 .xth span{font-size:1.9rem}
+.xcat2.back{display:flex;gap:16px;flex-wrap:wrap}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -824,9 +870,9 @@ input,select,textarea{border-radius:14px}
 
   <!-- EXPLORAR -->
   <section class="view" id="v-explorar" hidden>
-    <div class="vhead"><h1>Explorar</h1><span class="tag">Precios de ejemplo</span></div>
+    <div class="vhead"><h1>Explorar</h1><div class="exic"><button type="button" data-xp="search" aria-label="Buscar"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></svg></button><button type="button" data-xp="favs" aria-label="Favoritos"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><path d="M12 20s-7.5-4.4-7.5-10A4.3 4.3 0 0 1 12 7.6 4.3 4.3 0 0 1 19.5 10c0 5.6-7.5 10-7.5 10z"/></svg><i id="favDot" hidden></i></button><button type="button" data-xp="cats" aria-label="Categorías"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button></div></div>
     <input id="exSearch" class="exsearch" type="search" placeholder="Busca productos, planes, viajes o marcas" autocomplete="off" aria-label="Buscar">
-    <div id="exHero" class="exhero"></div>
+    <div id="exHero" class="exhero"></div><div id="exCatList"></div>
     <div class="chips scroll" id="catChips" role="radiogroup" aria-label="Categoría"></div>
     <div id="brandRoll"></div>
     <div class="grid" id="catalog"></div>
@@ -1697,7 +1743,7 @@ function exCard(p, i) { return `<article class="pc${p.id === pickPid ? " picked"
 function exFeatured() { const keys = Object.keys(catsAll()).filter((k) => CATALOG.some((p) => p.cat === k)); return keys.map((k) => CATALOG.filter((p) => p.cat === k).sort((a, b) => b.price - a.price)[Math.min(1, CATALOG.filter((p) => p.cat === k).length - 1)]).filter(Boolean); }
 function exHeroHTML() { const f = exFeatured(); if (!f.length) return ""; const p = f[exFeat % f.length], c = CAT(p.cat); return `<div class="exh" style="--c:${c[1]}"><div class="t"><span class="k">${esc(c[0])}${p.cat === "experiencias" ? " - este finde" : " - destacado"}</span><b>${esc(p.name)}</b><span class="s">${esc(p.brand)} - ${p.cat === "experiencias" ? "desde " : ""}${eur(p.price, p.price % 1 ? 2 : 0)}</span><button class="btn small light" type="button" data-want="${p.id}">Lo quiero</button></div><span class="e" aria-hidden="true">${pemo(p)}</span><div class="dots">${f.map((_, i) => `<i class="${i === exFeat % f.length ? "on" : ""}"></i>`).join("")}</div></div>`; }
 function renderExplorar() {
-  const all = catsAll(), keys = Object.keys(all).filter((k) => CATALOG.some((p) => p.cat === k)).sort((a, b) => ["ropa", "tech", "viajes", "experiencias", "deporte", "comida", "restauracion", "super", "belleza", "casa", "vivienda", "ocio", "suscripciones", "servicios", "movilidad", "salud", "bienestar", "familia", "regalos", "motor", "seguros", "finanzas", "trabajo", "reformas", "mascotas", "peques", "formacion", "jardin", "lujo", "alcohol", "apuestas", "legal", "donaciones"].indexOf(a) - ["ropa", "tech", "viajes", "experiencias", "deporte", "comida", "restauracion", "super", "belleza", "casa", "vivienda", "ocio", "suscripciones", "servicios", "movilidad", "salud", "bienestar", "familia", "regalos", "motor", "seguros", "finanzas", "trabajo", "reformas", "mascotas", "peques", "formacion", "jardin", "lujo", "alcohol", "apuestas", "legal", "donaciones"].indexOf(b));
+  const all = catsAll(), keys = Object.keys(all).filter((k) => CATALOG.some((p) => p.cat === k)).sort((a, b) => ["temporada", "ropa", "tech", "viajes", "experiencias", "espectaculos", "musica", "nocturno", "inmersivas", "airelibre", "cultura", "cine", "tarjetas", "deporte", "comida", "restauracion", "super", "belleza", "casa", "vivienda", "ocio", "suscripciones", "servicios", "movilidad", "salud", "bienestar", "familia", "regalos", "motor", "seguros", "finanzas", "trabajo", "reformas", "mascotas", "peques", "formacion", "jardin", "lujo", "alcohol", "apuestas", "legal", "donaciones"].indexOf(a) - ["ropa", "tech", "viajes", "experiencias", "deporte", "comida", "restauracion", "super", "belleza", "casa", "vivienda", "ocio", "suscripciones", "servicios", "movilidad", "salud", "bienestar", "familia", "regalos", "motor", "seguros", "finanzas", "trabajo", "reformas", "mascotas", "peques", "formacion", "jardin", "lujo", "alcohol", "apuestas", "legal", "donaciones"].indexOf(b));
   if (cat !== "todo" && !all[cat]) cat = "todo";
   $("#catChips").innerHTML = [["todo", "Todo"]].concat(keys.map((k) => [k, all[k][0]])).map(([k, l]) => `<label><input type="radio" name="cat" value="${k}" ${k === cat ? "checked" : ""}><span>${CEMO[k] || "🛍️"} ${esc(l)}</span></label>`).join("");
   $("#exHero").innerHTML = !exQ && cat === "todo" ? exHeroHTML() : "";
@@ -1807,6 +1853,85 @@ function topHTML() {
   return topLists().map(([t, sub, l]) => `<section class="top10"><div class="t10h"><b>${esc(t)}</b><span>${esc(sub)}</span></div><div class="t10row">${l.map((x, i) => `<button type="button" class="t10" data-want="${x.p.id}" style="--c:${CAT(x.p.cat)[1]}"><span class="t10c"><span class="e">${pemo(x.p)}</span><span class="n">${i + 1}</span></span><span class="t10t">${esc(x.p.name)}</span><span class="t10s">${esc(x.tag)}</span></button>`).join("")}</div></section>`).join("") + '<p class="tiny">Los Top 10 se calculan con lo que deciden los usuarios de forma anónima; mientras haya pocos, las cifras son simuladas.</p>';
 }
 { const _rx = renderExplorar; renderExplorar = function () { _rx.apply(this, arguments); try { if (!exQ && cat === "todo") $("#catalog").insertAdjacentHTML("afterbegin", topHTML()); } catch (e) {} }; }
+
+
+/* ---------- Estilo Fever: todas las categorías, favoritos y buscador con ideas ---------- */
+Object.assign(CATS, { temporada: ["Halloween y temporada", "#E8590C"], espectaculos: ["Espectáculos", "#B5179E"], musica: ["Eventos de música", "#7209B7"], nocturno: ["Ocio nocturno y fiestas", "#3A0CA3"], inmersivas: ["Experiencias inmersivas", "#4361EE"], airelibre: ["Actividades al aire libre", "#2D9CDB"], cultura: ["Cultura y museos", "#C0392B"], cine: ["Cine", "#D63384"], tarjetas: ["Tarjetas regalo", "#D7263D"] });
+CATS.experiencias[0] = "Planes y actividades"; CATS.formacion[0] = "Cursos, charlas y congresos"; CATS.viajes[0] = "Turismo y viajes";
+Object.assign(CEMO, { temporada: "🎃", espectaculos: "🎭", musica: "🎤", nocturno: "🪩", inmersivas: "🥽", airelibre: "🎈", cultura: "🏛️", cine: "🍿", tarjetas: "🎁" });
+Object.assign(PEMO_CAT, CEMO);
+PEMO_RULES.unshift([/disfraz|halloween/, "🎃"], [/navidad|navideñ/, "🎄"], [/black friday|smartwatch/, "⌚"], [/abrigo/, "🧥"], [/circo/, "🎪"], [/magia/, "🎩"], [/ballet/, "🩰"], [/ópera|opera/, "🎼"], [/jazz/, "🎷"], [/candlelight|velas/, "🕯️"], [/estadio|sala pequeña|festival/, "🎤"], [/rooftop|terraza/, "🌇"], [/discoteca/, "🪩"], [/cabaret/, "💃"], [/brunch/, "🥂"], [/realidad virtual/, "🥽"], [/ilusiones/, "🌀"], [/jurado/, "⚖️"], [/caballo/, "🐴"], [/kayak/, "🛶"], [/árboles|arboles/, "🌲"], [/tienda de campaña/, "⛺"], [/senderismo/, "🥾"], [/tarjeta regalo|caja regalo/, "🎁"], [/palacio/, "🏰"], [/libros/, "📚"], [/palomitas|cine de verano/, "🍿"], [/imax|filmin/, "🎬"], [/ilustraci|pintura/, "🎨"], [/charla/, "🎙️"], [/congreso/, "🏛️"], [/certificado/, "📜"], [/pádel|padel/, "🎾"], [/baloncesto/, "🏀"], [/fútbol|futbol/, "⚽"], [/infantil/, "🤹"], [/parque temático/, "🎢"], [/centro histórico|visita guiada/, "🗺️"], [/exposición temporal/, "🖼️"]);
+const EVCATS = ["experiencias", "espectaculos", "musica", "nocturno", "inmersivas", "airelibre", "cultura", "cine"];
+JSON.parse("[[\"temporada\", \"Party Fiesta\", \"partyfiesta.com\", \"Disfraz de Halloween completo\", 39.9], [\"temporada\", \"Amazon\", \"amazon.es\", \"Decoración de Halloween para casa\", 24.99], [\"temporada\", \"El Corte Inglés\", \"elcorteingles.es\", \"Smartwatch en Black Friday\", 149], [\"temporada\", \"IKEA\", \"ikea.com/es\", \"Decoración de Navidad\", 45], [\"temporada\", \"Zara\", \"zara.com/es\", \"Abrigo de lana en rebajas\", 59.95], [\"temporada\", \"Primark\", \"primark.com/es\", \"Pijama navideño a juego\", 15], [\"espectaculos\", \"Entradas.com\", \"entradas.com\", \"Musical en la Gran Vía\", 65], [\"espectaculos\", \"Atrápalo\", \"atrapalo.com\", \"Monólogo de humor\", 18], [\"espectaculos\", \"Ticketmaster\", \"ticketmaster.es\", \"Circo contemporáneo\", 35], [\"espectaculos\", \"Taquilla.com\", \"taquilla.com\", \"Obra de teatro en el centro\", 28], [\"espectaculos\", \"Fever\", \"feverup.com\", \"Espectáculo de magia\", 22], [\"espectaculos\", \"Ticketmaster\", \"ticketmaster.es\", \"Ballet clásico\", 45], [\"musica\", \"Fever\", \"feverup.com\", \"Concierto Candlelight a la luz de las velas\", 30], [\"musica\", \"Ticketmaster\", \"ticketmaster.es\", \"Concierto en estadio\", 85], [\"musica\", \"Live Nation\", \"livenation.es\", \"Abono de festival de verano\", 160], [\"musica\", \"DICE\", \"dice.fm\", \"Concierto en sala pequeña\", 20], [\"musica\", \"Entradas.com\", \"entradas.com\", \"Noche de jazz en directo\", 25], [\"musica\", \"Ticketmaster\", \"ticketmaster.es\", \"Ópera en el Teatro Real\", 95], [\"nocturno\", \"Fever\", \"feverup.com\", \"Fiesta en un rooftop\", 25], [\"nocturno\", \"Xceed\", \"xceed.me\", \"Entrada a discoteca con copa\", 20], [\"nocturno\", \"Atrápalo\", \"atrapalo.com\", \"Cena con espectáculo de cabaret\", 55], [\"nocturno\", \"Fever\", \"feverup.com\", \"Brunch con DJ\", 35], [\"nocturno\", \"TheFork\", \"thefork.es\", \"Cóctel en terraza con vistas\", 18], [\"inmersivas\", \"Fever\", \"feverup.com\", \"Exposición inmersiva de pintura\", 19], [\"inmersivas\", \"Fever\", \"feverup.com\", \"Experiencia de realidad virtual\", 25], [\"inmersivas\", \"Tiqets\", \"tiqets.com\", \"Museo de las ilusiones\", 16], [\"inmersivas\", \"Atrápalo\", \"atrapalo.com\", \"Escape room temático\", 60], [\"inmersivas\", \"Fever\", \"feverup.com\", \"Juicio interactivo: haz de jurado\", 28], [\"airelibre\", \"Civitatis\", \"civitatis.com\", \"Paseo en globo al amanecer\", 180], [\"airelibre\", \"Smartbox\", \"smartbox.com/es\", \"Ruta a caballo\", 45], [\"airelibre\", \"GetYourGuide\", \"getyourguide.es\", \"Kayak por el río\", 35], [\"airelibre\", \"Wonderbox\", \"wonderbox.es\", \"Parque de aventuras en los árboles\", 29], [\"airelibre\", \"Decathlon\", \"decathlon.es\", \"Tienda de campaña para 2 personas\", 79.99], [\"airelibre\", \"Civitatis\", \"civitatis.com\", \"Excursión de senderismo guiada\", 25], [\"tarjetas\", \"Amazon\", \"amazon.es\", \"Tarjeta regalo de 50 €\", 50], [\"tarjetas\", \"Smartbox\", \"smartbox.com/es\", \"Caja regalo de escapada\", 99.9], [\"tarjetas\", \"Fever\", \"feverup.com\", \"Tarjeta regalo de experiencias\", 40], [\"tarjetas\", \"El Corte Inglés\", \"elcorteingles.es\", \"Tarjeta regalo de 100 €\", 100], [\"tarjetas\", \"Spotify\", \"spotify.com\", \"Tarjeta regalo de 3 meses\", 32.97], [\"cultura\", \"Museo del Prado\", \"museodelprado.es\", \"Entrada al Museo del Prado\", 15], [\"cultura\", \"Patrimonio Nacional\", \"patrimonionacional.es\", \"Visita al Palacio Real\", 14], [\"cultura\", \"Tiqets\", \"tiqets.com\", \"Exposición temporal de arte\", 12], [\"cultura\", \"Civitatis\", \"civitatis.com\", \"Visita guiada por el centro histórico\", 18], [\"cultura\", \"Casa del Libro\", \"casadellibro.com\", \"Colección de libros de arte\", 45], [\"cine\", \"Cinesa\", \"cinesa.es\", \"Entrada de cine con palomitas\", 14.5], [\"cine\", \"Yelmo\", \"yelmocines.es\", \"Sesión IMAX\", 13], [\"cine\", \"Kinépolis\", \"kinepolis.es\", \"Abono de cine para un mes\", 19.9], [\"cine\", \"Fever\", \"feverup.com\", \"Cine de verano al aire libre\", 12], [\"cine\", \"Filmin\", \"filmin.es\", \"Suscripción anual a Filmin\", 75], [\"formacion\", \"Domestika\", \"domestika.org\", \"Curso online de ilustración\", 19.9], [\"formacion\", \"Eventbrite\", \"eventbrite.es\", \"Charla sobre finanzas personales\", 10], [\"formacion\", \"Eventbrite\", \"eventbrite.es\", \"Entrada a congreso de tecnología\", 120], [\"formacion\", \"Coursera\", \"coursera.org\", \"Certificado profesional online\", 49], [\"deporte\", \"Ticketmaster\", \"ticketmaster.es\", \"Entrada para partido de fútbol\", 70], [\"deporte\", \"Playtomic\", \"playtomic.io\", \"Pista de pádel 90 minutos\", 24], [\"deporte\", \"Ticketmaster\", \"ticketmaster.es\", \"Partido de baloncesto\", 35], [\"peques\", \"Fever\", \"feverup.com\", \"Espectáculo infantil\", 12], [\"peques\", \"Parque Warner\", \"parquewarner.com\", \"Entrada a parque temático\", 49]]").forEach(([c, b, d, n, pr]) => { if (!DOM[b]) DOM[b] = d; const id = "z-" + slug(b + "-" + n); if (!CATALOG.some((x) => x.id === id)) CATALOG.push({ id, cat: c, brand: b, shop: b, url: "https://www." + d.replace(/^www\./, ""), name: n, price: pr, say: EVCATS.includes(c) ? "Los planes también se piensan: ¿te apetece de verdad o es por no quedarte fuera?" : c === "temporada" ? "Las fechas señaladas empujan a comprar. ¿Lo usarás después de este día?" : c === "tarjetas" ? "Un regalo pensado vale más que uno rápido. ¿Sabes qué le hace ilusión?" : `${eur(pr, pr % 1 ? 2 : 0)}: ¿lo necesitas o te apetece?`, alts: [["Opción parecida más sencilla", Math.round(pr * .7)], ["Esperar a una oferta o plan gratuito", null]] }); });
+{ const _pm = planMeta; planMeta = function (p, i) { return EVCATS.includes(p.cat) ? _pm(Object.assign({}, p, { cat: "experiencias" }), i) : ""; }; }
+
+// Favoritos: solo con sesión iniciada, como en Fever
+const FAV_WHY = [["like", "Me gusta, lo dejo para más adelante"], ["cheaper", "Encontré una opción más barata"], ["discount", "Lo freno: espero un descuento"], ["comite", "Me lo recomendó el comité"]];
+const isFav = (id) => (S.favs || []).some((f) => f.id === id);
+function favAdd(o) { S.favs = S.favs || []; if (isFav(o.id)) return false; S.favs.unshift(Object.assign({ why: "like", at: now() }, o)); save(); return true; }
+function favDel(id) { S.favs = (S.favs || []).filter((f) => f.id !== id); save(); }
+function favToggle(id, from) {
+  if (!SESS) { xpOpen("favs"); return; }
+  if (isFav(id)) { favDel(id); toast("Quitado de favoritos"); }
+  else { const p = byId(id) || (S.items || []).find((i) => i.id === id); if (!p) return; favAdd({ id, name: p.name, price: p.price, cat: p.cat, shop: p.shop || p.brand || "", why: from || (p.status === "wait" ? "discount" : p.cheaper ? "cheaper" : "like") }); toast("Guardado en favoritos ❤"); }
+  favPaint();
+}
+function favPaint() { $$("[data-fav]").forEach((b) => { const on = isFav(b.dataset.fav); b.classList.toggle("on", on); b.setAttribute("aria-pressed", String(on)); b.setAttribute("aria-label", on ? "Quitar de favoritos" : "Guardar en favoritos"); }); const d = $("#favDot"); if (d) d.hidden = !(SESS && (S.favs || []).length); }
+const HEART = '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 20s-7.5-4.4-7.5-10A4.3 4.3 0 0 1 12 7.6 4.3 4.3 0 0 1 19.5 10c0 5.6-7.5 10-7.5 10z"/></svg>';
+{ const _ec = exCard; exCard = function (p, i) { let h = _ec.apply(this, arguments); if (EVCATS.includes(p.cat) && p.cat !== "experiencias") h = h.replace('<div class="pr">', '<div class="pr">desde '); return h.replace('<div class="ic">', `<div class="ic"><button type="button" class="fav${isFav(p.id) ? " on" : ""}" data-fav="${p.id}" aria-label="Guardar en favoritos">${HEART}</button>`); }; }
+
+// Panel a pantalla completa: categorías, favoritos y buscador
+let xpMode = null, xpQ = "", xpIdeasSeed = 0;
+const IDEAS = [["Conciertos", "concierto"], ["Candlelight", "candlelight"], ["Rooftops", "rooftop"], ["Exposiciones", "exposición"], ["Restaurantes", "restaurante"], ["Cine", "cine"], ["Teatro", "teatro"], ["Monólogos", "monólogo"], ["Escapadas", "escapada"], ["Vuelos baratos", "vuelo"], ["Zapatillas", "zapatillas"], ["Móvil nuevo", "iphone"], ["Spa", "spa"], ["Museos", "museo"], ["Festivales", "festival"], ["Pádel", "pádel"], ["Regalos", "regalo"], ["Halloween", "halloween"], ["Black Friday", "black friday"], ["Al aire libre", "aire libre"], ["Fútbol", "fútbol"], ["Cursos", "curso"], ["Suscripciones", "suscripción"], ["Muebles", "sofá"], ["Moda", "chaqueta"], ["Videojuegos", "playstation"], ["Hoteles", "hotel"], ["Para niños", "infantil"], ["Discotecas", "discoteca"], ["Brunch", "brunch"]];
+const xpMatch = (q) => { const w = slug(q).replace(/-/g, " ").split(" ").filter(Boolean); return CATALOG.filter((p) => { const h = slug(p.name + " " + p.brand + " " + p.shop + " " + CAT(p.cat)[0]).replace(/-/g, " "); return w.every((x) => h.includes(x)); }); };
+function ideasNow() { const ok = IDEAS.filter(([, q]) => xpMatch(q).length); const out = [], n = ok.length; for (let i = 0; i < Math.min(6, n); i++) out.push(ok[(xpIdeasSeed * 6 + i * 7) % n]); return [...new Set(out)]; }
+const thumb = (k, e) => `<span class="xth" style="--c:${CAT(k)[1]}"><span>${e || CEMO[k] || "🛍️"}</span></span>`;
+const CHEV = '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>';
+function catRows() { const all = catsAll(); const keys = Object.keys(all).filter((k) => CATALOG.some((p) => p.cat === k)); const ord = (k) => { const o = ["temporada", "espectaculos", "restauracion", "musica", "experiencias", "peques", "viajes", "belleza", "bienestar", "nocturno", "inmersivas", "airelibre", "tarjetas", "cultura", "cine", "formacion", "deporte", "ropa", "tech", "comida", "casa", "ocio", "suscripciones", "servicios", "movilidad", "regalos", "lujo", "motor", "mascotas", "jardin", "super", "salud", "familia", "vivienda", "seguros", "finanzas", "trabajo", "reformas", "legal", "alcohol", "apuestas", "donaciones"].indexOf(k); return o < 0 ? 99 : o; };
+  return `<button type="button" class="xrow" data-xcat="todo">${thumb("todo", "✨")}<span class="xn">Todo lo que hay en NotYet</span></button>` + keys.sort((a, b) => ord(a) - ord(b)).map((k) => `<button type="button" class="xrow" data-xcat="${k}">${thumb(k)}<span class="xn">${esc(all[k][0])}</span><span class="xc">${CATALOG.filter((p) => p.cat === k).length}</span>${CHEV}</button>`).join(""); }
+function resRows(l) { return l.map((p) => `<div class="xrow res">${thumb(p.cat, pemo(p))}<button type="button" class="xn xbtn" data-want="${p.id}"><b>${esc(p.name)}</b><small>${esc(p.brand)} - ${EVCATS.includes(p.cat) ? "desde " : ""}${eur(p.price, p.price % 1 ? 2 : 0)} <em>simulado</em></small></button><button type="button" class="fav${isFav(p.id) ? " on" : ""}" data-fav="${p.id}" aria-label="Guardar en favoritos">${HEART}</button></div>`).join(""); }
+function xpRender() {
+  const box = $("#xpBox"); if (!box || !xpMode) return; let h = "";
+  const back = `<button type="button" class="xback" data-xclose aria-label="Cerrar"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg></button>`;
+  if (xpMode === "cats") h = `<div class="xph">${back}<b>Categorías</b></div><div class="xlist">${catRows()}</div>`;
+  else if (xpMode === "search") {
+    h = `<div class="xps">${back}<input id="xpIn" type="search" placeholder="¿Qué te gustaría hacer o comprar?" autocomplete="off" value="${esc(xpQ)}" aria-label="Buscar"></div>`;
+    if (!xpQ) h += `<div class="xpideas"><div class="row between"><h3>¿Quieres algunas ideas?</h3><button type="button" class="link" data-xidea-more>Otras ideas ↻</button></div><div class="xchips">${ideasNow().map(([l, q]) => `<button type="button" data-xidea="${esc(q)}">${esc(l)}</button>`).join("")}</div><p class="tiny">Pide ideas antes de comprar: NotYet te enseña planes, productos y alternativas, y tú decides si frenas.</p></div>`;
+    else { const l = xpMatch(xpQ); h += `<div class="xlist">${l.length ? `<p class="tiny">${l.length} resultados para "${esc(xpQ)}"</p>` + resRows(l.slice(0, 40)) : `<div class="empty">No hay "${esc(xpQ)}" en el catálogo de ejemplo. Apúntalo igualmente con el botón de frenar: NotYet lo trata igual.</div>`}</div>`; }
+  } else if (xpMode === "favs") {
+    h = `<div class="xph">${back}<b>Favoritos</b></div><div class="favhero"><span class="fhi" aria-hidden="true">🙋‍♀️<i>❤️</i></span><b>Guarda lo que te gusta y aún no has comprado en un solo lugar.</b></div>`;
+    if (!SESS) h += `<div class="favempty"><h3>Empieza a crear tu lista de favoritos</h3><p>Inicia sesión para guardar los productos y planes que has frenado, los que esperas que bajen de precio o los que te recomendó tu comité, y volver a ellos cuando quieras.</p><button type="button" class="btn" data-xlogin>Iniciar sesión</button></div>`;
+    else {
+      const fl = S.favs || [];
+      const sug = (S.items || []).filter((i) => (i.status === "wait" || i.status === "skip" || i.cheaper) && !isFav(i.id)).slice(0, 6);
+      h += fl.length ? `<div class="xlist">${fl.map((f) => `<div class="xrow res fv1">${thumb(f.cat, pemo(f))}<div class="xn"><b>${esc(f.name)}</b><small>${esc(f.shop || "")}${f.price ? " - " + eur(f.price, f.price % 1 ? 2 : 0) : ""}</small><select data-favwhy="${f.id}" aria-label="Por qué lo guardas">${FAV_WHY.map(([k, l]) => `<option value="${k}" ${k === f.why ? "selected" : ""}>${l}</option>`).join("")}</select></div><button type="button" class="fav on" data-fav="${f.id}" aria-label="Quitar de favoritos">${HEART}</button></div>`).join("")}</div>`
+        : `<div class="favempty"><h3>Aún no tienes favoritos</h3><p>Toca el corazón de cualquier producto o plan en Explorar para guardarlo aquí.</p></div>`;
+      if (sug.length) h += `<div class="favsug"><h3>De tus frenos: ¿los guardas?</h3>${sug.map((i) => `<div class="xrow res">${thumb(i.cat, pemo(i))}<div class="xn"><b>${esc(i.name)}</b><small>${i.status === "wait" ? "En espera" : i.cheaper ? "Encontraste otro más barato" : "Le pusiste freno"}${i.price ? " - " + eur(i.price, i.price % 1 ? 2 : 0) : ""}</small></div><button type="button" class="fav" data-fav="${i.id}" aria-label="Guardar en favoritos">${HEART}</button></div>`).join("")}</div>`;
+    }
+  }
+  box.innerHTML = h; box.dataset.mode = xpMode;
+  const inp = $("#xpIn"); if (inp) { inp.oninput = () => { xpQ = inp.value.trim(); const pos = inp.selectionStart; xpRender(); const n = $("#xpIn"); n.focus(); try { n.setSelectionRange(pos, pos); } catch (e) {} }; }
+}
+function xpOpen(m) { xpMode = m; if (m === "search") xpIdeasSeed++; $("#xp").hidden = false; document.body.classList.add("xpon"); xpRender(); const i = $("#xpIn"); if (i) setTimeout(() => i.focus(), 60); }
+function xpClose() { xpMode = null; $("#xp").hidden = true; document.body.classList.remove("xpon"); favPaint(); }
+document.addEventListener("click", (e) => {
+  const t = e.target;
+  const f = t.closest("[data-fav]"); if (f) { e.stopPropagation(); e.preventDefault(); favToggle(f.dataset.fav); if (xpMode) xpRender(); return; }
+  const o = t.closest("[data-xp]"); if (o) { xpOpen(o.dataset.xp); return; }
+  if (t.closest("[data-xclose]")) { xpClose(); return; }
+  const c = t.closest("[data-xcat]"); if (c) { cat = c.dataset.xcat; exQ = ""; const es = $("#exSearch"); if (es) es.value = ""; xpClose(); showTab("explorar"); renderExplorar(); window.scrollTo(0, 0); return; }
+  const id = t.closest("[data-xidea]"); if (id) { xpQ = id.dataset.xidea; xpRender(); return; }
+  if (t.closest("[data-xidea-more]")) { xpIdeasSeed++; xpRender(); return; }
+  if (t.closest("[data-xlogin]")) { xpClose(); showTab("ajustes"); try { acctMenu("acctCard"); } catch (er) {} return; }
+  const w = t.closest("#xp [data-want]"); if (w) { const p = byId(w.dataset.want); xpClose(); if (p) openGate(null, p); return; }
+  if (t.id === "xp") xpClose();
+}, true);
+document.addEventListener("change", (e) => { const s2 = e.target.closest("[data-favwhy]"); if (!s2) return; const f = (S.favs || []).find((x) => x.id === s2.dataset.favwhy); if (f) { f.why = s2.value; save(); toast("Guardado"); } });
+document.addEventListener("keydown", (e) => { if (e.key === "Escape" && xpMode) xpClose(); });
+// La barra de búsqueda abre el buscador a pantalla completa
+{ const es = $("#exSearch"); if (es) { es.readOnly = true; es.placeholder = "¿Qué te gustaría hacer o comprar?"; es.addEventListener("focus", () => { es.blur(); xpOpen("search"); }); es.addEventListener("click", () => xpOpen("search")); } }
+// Vista previa de categorías en Explorar, como la lista de Fever
+{ const _rx2 = renderExplorar; renderExplorar = function () { _rx2.apply(this, arguments); try { const box = $("#exCatList"); if (box) { if (!exQ && cat === "todo") { const all = catsAll(); const ks = ["temporada", "espectaculos", "musica", "nocturno", "airelibre", "cultura"].filter((k) => all[k]); box.innerHTML = `<div class="xcat2"><div class="row between"><h3>Categorías</h3><button type="button" class="link" data-xp="cats">Ver las ${Object.keys(all).filter((k) => CATALOG.some((p) => p.cat === k)).length} ›</button></div><div class="xgrid">${ks.map((k) => `<button type="button" class="xrow" data-xcat="${k}">${thumb(k)}<span class="xn">${esc(all[k][0])}</span>${CHEV}</button>`).join("")}</div></div>`; } else box.innerHTML = cat !== "todo" ? `<div class="xcat2 back"><button type="button" class="link" data-xcat="todo">‹ Todas las categorías</button> <button type="button" class="link" data-xp="cats">Cambiar de categoría</button></div>` : ""; } favPaint(); } catch (e) {} }; }
 
 $("#exSearch").addEventListener("input", (e) => { exQ = e.target.value.trim(); renderExplorar(); });
 setInterval(() => { const h = $("#exHero .exh"); if (!h || document.hidden || tab !== "explorar") return; h.classList.add("out"); setTimeout(() => { exFeat++; $("#exHero").innerHTML = exHeroHTML(); }, 350); }, 4200);
@@ -2564,5 +2689,6 @@ setInterval(render, 60000);
 })();
 </script>
 
+<div class="xp" id="xp" hidden role="dialog" aria-modal="true" aria-label="Explorar"><div class="xpbox" id="xpBox"></div></div>
 </body>
 </html>
