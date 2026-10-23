@@ -875,6 +875,9 @@ body.welon{overflow:hidden}
 .demobar button{border:0;border-radius:999px;padding:7px 12px;font:inherit;font-weight:700;font-size:.8rem;cursor:pointer;background:#fff;color:#0B1024}.demobar button.o{background:rgba(255,255,255,.14);color:#fff}
 body.indemo .wrap{padding-top:52px}
 @media (max-width:640px){.demobar{left:0;right:0;transform:none;top:0;border-radius:0 0 16px 16px;max-width:none;padding:8px 10px;font-size:.78rem;justify-content:space-between}.demobar span{flex:1 1 100%;text-align:center}body.indemo .wrap{padding-top:78px}}
+
+.wlvid{display:none}
+@media (min-width:821px){.wlvid{display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:contain;z-index:2;background:#000}.welv.vid .wlph,.welv.vid .wlcap,.welv.vid .wlglow{visibility:hidden}.welv .wlpp{z-index:3}}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -942,6 +945,7 @@ body.indemo .wrap{padding-top:52px}
 <div class="wel" id="welcome" hidden role="dialog" aria-modal="true" aria-labelledby="welT">
  <div class="welv" aria-hidden="true">
   <div class="wlglow"></div>
+  <video class="wlvid" id="welVid" muted playsinline loop preload="none" poster="/media/notyet-film-9x16.jpg"></video>
   <div class="wlph"><div class="wlscr">
    <div class="wlsc ws1"><div class="wltop"><span>9:41</span><b>Nike</b></div><div class="wlprod"><span class="wle">👟</span><b>Zapatillas Air</b><small>119,99 €</small></div><div class="wlpay">Pagar<i class="wltap"></i></div></div>
    <div class="wlsc ws2"><div class="wlsheet"><b>Espera un segundo</b><small>¿Lo necesitas o te apetece?</small><span class="wlo">⏱ Me espero 24 horas</span><span class="wlo">€ El mismo, más barato</span><span class="wlo on">? Lo consulto con mis amigos</span></div></div>
@@ -3069,6 +3073,16 @@ function myPolls() { try { return JSON.parse(localStorage.getItem("ny.mypolls") 
 
 /* ---------- App instalable ---------- */
 if ("serviceWorker" in navigator && /(^|\.)notyetapp\.app$/.test(location.hostname)) { window.addEventListener("load", () => { navigator.serviceWorker.register("/sw.js").catch(() => {}); }); }
+
+{ const v = document.getElementById("welVid"), w = document.getElementById("welcome");
+  if (v && matchMedia("(min-width:821px)").matches) {
+    const src = document.createElement("source"); src.src = "/media/notyet-film-9x16.mp4"; src.type = "video/mp4"; v.appendChild(src);
+    v.closest(".welv").classList.add("vid");
+    const rm = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const go = () => { if (!w.hidden && !rm && !welPaused) { v.preload = "auto"; v.play().catch(() => {}); } };
+    new MutationObserver(go).observe(w, { attributes: true, attributeFilter: ["hidden"] }); go();
+    const pp = document.getElementById("welPP"); if (pp) pp.addEventListener("click", () => { welPaused ? v.pause() : v.play().catch(() => {}); });
+  } }
 render(); route();
 setInterval(render, 60000);
 })();

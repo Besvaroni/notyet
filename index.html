@@ -1394,6 +1394,15 @@ footer.fv{background:#000;color:#fff;padding:56px 0 24px;font-size:.95rem}
 @media (max-width:760px){.cliprow{grid-template-columns:repeat(4,68%)}.clips{padding:64px 0 30px}}
 @media (prefers-reduced-motion:reduce){.clips *,.grad-text{animation:none!important}}
 @media (max-width:640px){.navlog{display:none}.nav-in .brand{font-size:0;gap:0}.nav .btn.navreg{display:inline-flex!important;padding:8px 12px;font-size:.85rem}}
+
+.film{background:#000;color:#f5f5f7;padding:96px 0 80px;text-align:center}
+.film .eyebrow-c{color:#a1a1a6}.film .h2{color:#f5f5f7}
+.filmbox{position:relative;margin:44px auto 0;max-width:1180px;border-radius:28px;overflow:hidden;aspect-ratio:16/9;background:#000;box-shadow:0 40px 120px rgba(47,107,255,.18)}
+.filmbox video{display:block;width:100%;height:100%;object-fit:cover}
+.filmpp{position:absolute;right:16px;bottom:16px;width:40px;height:40px;border-radius:50%;border:0;background:rgba(255,255,255,.16);color:#fff;font-size:13px;cursor:pointer;backdrop-filter:blur(8px)}
+.filmpp:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.filmsub{margin-top:18px;color:#86868b;font-size:.9rem}
+@media (max-width:700px){.film{padding:64px 0 56px}.filmbox{aspect-ratio:9/16;max-width:420px;border-radius:24px;margin-top:30px}}
 </style>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
@@ -1534,6 +1543,17 @@ footer.fv{background:#000;color:#fff;padding:56px 0 24px;font-size:.95rem}
   </div>
 </section>
 
+<section class="film" id="film" aria-labelledby="filmT">
+  <div class="wrap">
+    <p class="eyebrow-c">NotYet en 12 segundos</p>
+    <h2 class="h2" id="filmT">Decide mejor.<br><span class="grad-text">Antes de pagar.</span></h2>
+    <div class="filmbox">
+      <video id="filmV" muted playsinline loop preload="none" poster="/media/notyet-film-16x9.jpg" aria-label="Vídeo: NotYet te frena antes de pagar, tu grupo vota con un enlace, ves lo que no has gastado y lo que no compras va a tu viaje"></video>
+      <button type="button" class="filmpp" id="filmPP" aria-label="Pausar el vídeo">❚❚</button>
+    </div>
+    <p class="filmsub">Pantallas reales de la app. Los importes son datos de ejemplo.</p>
+  </div>
+</section>
 <section>
   <div class="wrap">
     <p class="eyebrow center reveal">Mucho más que esperar</p>
@@ -3470,5 +3490,16 @@ try { bentoBind(); } catch (e) {}
 </script>
 
 <script>(function(){var sec=document.querySelector(".clips"),b=document.getElementById("clipPP");if(!sec||!b)return;var man=false;b.addEventListener("click",function(){man=!sec.classList.contains("paused");sec.classList.toggle("paused",man);b.textContent=man?"▶ Reproducir":"❚❚ Pausar";b.setAttribute("aria-label",man?"Reproducir las animaciones":"Pausar las animaciones");});if("IntersectionObserver"in window){new IntersectionObserver(function(es){es.forEach(function(e){if(!man)sec.classList.toggle("paused",!e.isIntersecting);});}).observe(sec);}if("serviceWorker"in navigator&&/(^|\.)notyetapp\.app$/.test(location.hostname)){window.addEventListener("load",function(){navigator.serviceWorker.register("/sw.js").catch(function(){});});}})();</script>
+<script>
+(function(){const v=document.getElementById('filmV'),b=document.getElementById('filmPP');if(!v)return;
+ const mob=matchMedia('(max-width:700px)').matches,rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+ v.poster=mob?'/media/notyet-film-9x16.jpg':'/media/notyet-film-16x9.jpg';
+ const src=document.createElement('source');src.src=mob?'/media/notyet-film-9x16.mp4':'/media/notyet-film-16x9.mp4';src.type='video/mp4';v.appendChild(src);
+ let user=false;const set=()=>{b.textContent=v.paused?'▶':'❚❚';b.setAttribute('aria-label',v.paused?'Reproducir el vídeo':'Pausar el vídeo')};
+ b.addEventListener('click',()=>{user=true;v.paused?v.play().catch(()=>{}):v.pause();});v.addEventListener('play',set);v.addEventListener('pause',set);
+ if(rm){set();return;}
+ new IntersectionObserver(es=>es.forEach(e=>{if(user)return;if(e.isIntersecting){v.preload='auto';v.play().catch(()=>{})}else v.pause()}),{threshold:.35}).observe(v);
+})();
+</script>
 </body>
 </html>
