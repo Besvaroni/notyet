@@ -1025,7 +1025,7 @@ function load() {
 }
 function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
 /* ---------- Planes: Gratis, Plus y Pareja. Lo que promete cada plan en la web es exactamente lo que se desbloquea aquí ---------- */
-const PAY = { plus: "https://buy.stripe.com/test_28E8wRbaK8NPgkI2xy2oE00", pareja: "https://buy.stripe.com/test_5kQeVf2Ee8NPb0o4FG2oE01", portal: "https://billing.stripe.com/p/login/test_28E8wRbaK8NPgkI2xy2oE00" };
+const PAY = { plus: "https://buy.stripe.com/28E8wRbaK8NPgkI2xy2oE00", pareja: "https://buy.stripe.com/5kQeVf2Ee8NPb0o4FG2oE01", portal: "https://billing.stripe.com/p/login/28E8wRbaK8NPgkI2xy2oE00" };
 const FREE_ITEMS = 15, FREE_GOALS = 1, FREE_GROUPS = 1;
 const planOf = () => (S.plan && S.plan.tier) || "gratis";
 const hasPlus = () => tourOn || planOf() !== "gratis";
@@ -1034,7 +1034,7 @@ const monthItems = () => { const d = new Date(), m0 = new Date(d.getFullYear(), 
 function upsell(title, text, pareja) { return `<div class="card upsell"><span class="tag">${pareja ? "NotYet Pareja" : "NotYet Plus"}</span><h2>${esc(title)}</h2><p class="tiny">${esc(text)}</p><div class="actions">${pareja ? "" : `<a class="btn small" href="${PAY.plus}">Hazte Plus, 2,99 € al mes</a>`}<a class="btn ${pareja ? "small" : "ghost small"}" href="${PAY.pareja}">Pareja, 3,99 € al mes</a></div><p class="tiny">Pago seguro con tarjeta a través de Stripe. Cancela cuando quieras desde Ajustes.</p></div>`; }
 function canAdd() { if (hasPlus() || monthItems() < FREE_ITEMS) return true; toast(`El plan Gratis incluye ${FREE_ITEMS} compras apuntadas al mes. Hazte Plus para apuntar sin límite.`); showTab("ajustes"); return false; }
 // Servidor de comprobación (Cloudflare Worker, carpeta servidor/ del repositorio). Vacío = sin comprobación en servidor
-const API = "";
+const API = "https://notyet-pagos.alfonsodeborbon-02.workers.dev";
 const apiGet = async (path) => { const r = await fetch(API + path); return r.json(); };
 function setPlan(t, extra) { S.plan = Object.assign({ tier: t, since: (S.plan && S.plan.since) || Date.now(), checked: Date.now() }, extra || {}); save(); setTimeout(render, 0); }
 (async function planFromUrl() {
