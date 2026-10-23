@@ -1,6 +1,7 @@
 // NotYet - servidor (Cloudflare Workers, plan gratuito)
 // - Comprueba pagos con Stripe y deja recuperar el plan (correo + 4 ultimos digitos).
-// - Cuentas sin contrasena: entras con un codigo de 6 cifras que llega a tu correo.
+// - Cuentas con correo y contrasena. El correo se confirma una vez con un codigo; si olvidas la contrasena, te llega un codigo para cambiarla.
+// - La contrasena llega ya reforzada desde el movil (PBKDF2 en el navegador) y aqui se vuelve a cifrar con sal propia: nunca se guarda en claro.
 // - Guarda tus datos de la app para tenerlos en cualquier movil (base de datos D1 en la UE).
 // - Invitaciones: tu amigo tiene el primer mes de Plus gratis; cuando paga su primer mes, tu ganas un mes.
 // Secretos (los pega el dueno en Cloudflare, nunca en el codigo): STRIPE_SECRET (clave restringida rk_live_...), RESEND_KEY (envio de correos).
@@ -50,8 +51,19 @@ async function schema(env) {
     env.DB.prepare("CREATE INDEX IF NOT EXISTS i_ref ON referrals(referrer_id)"),
     env.DB.prepare("CREATE INDEX IF NOT EXISTS i_hits ON hits(k, t)")
   ]);
+  for (const sql of ["ALTER TABLE users ADD COLUMN pw_hash TEXT", "ALTER TABLE users ADD COLUMN pw_salt TEXT", "ALTER TABLE users ADD COLUMN verified INTEGER DEFAULT 1"]) { try { await env.DB.prepare(sql).run(); } catch (e) {} }
   ready = true;
 }
+// Contrasenas: PBKDF2-SHA256 con sal aleatoria por usuario (la app ya envia la contrasena reforzada)
+const PW_ITER = 10000;
+async function pwHash(pre, saltB64) {
+  const salt = saltB64 ? Uint8Array.from(atob(saltB64.replace(/-/g, "+").replace(/_/g, "/") + "==".slice(0, (4 - saltB64.length % 4) % 4)), (c) => c.charCodeAt(0)) : rnd(16);
+  const key = await crypto.subtle.importKey("raw", enc.encode(pre), "PBKDF2", false, ["deriveBits"]);
+  const bits = await crypto.subtle.deriveBits({ name: "PBKDF2", hash: "SHA-256", salt, iterations: PW_ITER }, key, 256);
+  return { hash: b64u(bits), salt: saltB64 || b64u(salt) };
+}
+const sameStr = (a, b) => { if (typeof a !== "string" || typeof b !== "string" || a.length !== b.length) return false; let x = 0; for (let i = 0; i < a.length; i++) x |= a.charCodeAt(i) ^ b.charCodeAt(i); return x === 0; };
+const okPre = (p) => typeof p === "string" && /^[A-Za-z0-9_-]{40,60}$/.test(p);
 // Limite de peticiones: max n en la ventana (ms) para la clave k
 async function limited(env, k, n, win) {
   const c = await env.DB.prepare("SELECT COUNT(*) AS c FROM hits WHERE k = ? AND t > ?").bind(k, now() - win).first();
@@ -68,10 +80,15 @@ async function userFromReq(env, req) {
 }
 
 // ---------- Correo ----------
-async function sendCode(env, email, code) {
+const MAILS = {
+  signup: ["Confirma tu correo en NotYet", "Tu código para confirmar tu correo y activar tu cuenta de NotYet es:", "Si no has creado una cuenta en NotYet, ignora este correo."],
+  reset: ["Cambia tu contraseña de NotYet", "Tu código para cambiar la contraseña de NotYet es:", "Si no has pedido cambiar la contraseña, ignora este correo: tu cuenta sigue segura."]
+};
+async function sendCode(env, email, code, purpose) {
+  const m = MAILS[purpose] || MAILS.signup;
   if (!env.RESEND_KEY) throw new Error("sin correo");
-  const html = `<div style="font-family:-apple-system,Segoe UI,Roboto,sans-serif;max-width:460px;margin:auto;padding:24px;color:#1D1D1F"><div style="font-size:22px;font-weight:800;margin-bottom:16px">NotYet</div><p>Tu código para entrar en NotYet es:</p><div style="font-size:34px;font-weight:800;letter-spacing:8px;margin:18px 0">${code}</div><p style="color:#6E6E73;font-size:14px">Caduca en 10 minutos. Si no lo has pedido tú, ignora este correo: nadie puede entrar sin el código.</p><p style="color:#6E6E73;font-size:12px;margin-top:24px">NotYet - notyetapp.app</p></div>`;
-  const r = await fetch("https://api.resend.com/emails", { method: "POST", headers: { Authorization: "Bearer " + env.RESEND_KEY, "Content-Type": "application/json" }, body: JSON.stringify({ from: env.MAIL_FROM || MAIL_FROM, to: [email], subject: `${code} es tu código de NotYet`, html, text: `Tu código para entrar en NotYet es ${code}. Caduca en 10 minutos. Si no lo has pedido tú, ignora este correo.` }) });
+  const html = `<div style="font-family:-apple-system,Segoe UI,Roboto,sans-serif;max-width:460px;margin:auto;padding:24px;color:#1D1D1F"><div style="font-size:22px;font-weight:800;margin-bottom:16px">NotYet</div><p>${m[1]}</p><div style="font-size:34px;font-weight:800;letter-spacing:8px;margin:18px 0">${code}</div><p style="color:#6E6E73;font-size:14px">Caduca en 10 minutos. ${m[2]}</p><p style="color:#6E6E73;font-size:12px;margin-top:24px">NotYet - notyetapp.app</p></div>`;
+  const r = await fetch("https://api.resend.com/emails", { method: "POST", headers: { Authorization: "Bearer " + env.RESEND_KEY, "Content-Type": "application/json" }, body: JSON.stringify({ from: env.MAIL_FROM || MAIL_FROM, to: [email], subject: `${code} - ${m[0]}`, html, text: `${m[1]} ${code}. Caduca en 10 minutos. ${m[2]}` }) });
   if (!r.ok) throw new Error("resend " + r.status);
 }
 
@@ -144,35 +161,91 @@ export default {
       }
       if (!env.DB) return out({ ok: true, service: "notyet", cuentas: false });
       // ---- Cuentas ----
-      if (path === "/auth/start" && req.method === "POST") {
-        const b = await body(); const email = String(b.email || "").trim().toLowerCase();
-        if (!okEmail(email)) return out({ ok: false, error: "correo no válido" }, 400);
-        if ((await limited(env, "start:" + ip, 8, 3600e3)) || (await limited(env, "mail:" + email, 3, 15 * 60e3))) return out({ ok: false, error: "Has pedido varios códigos seguidos. Espera unos minutos." }, 429);
+      const em = (x) => String(x || "").trim().toLowerCase();
+      const newSession = async (uid) => { const t = token(); await env.DB.prepare("INSERT INTO sessions (hash, user_id, expires) VALUES (?, ?, ?)").bind(await sha(t), uid, now() + SESSION_TTL).run(); return t; };
+      const issueCode = async (email, purpose) => {
+        if ((await limited(env, "mailip:" + ip, 8, 3600e3)) || (await limited(env, "mail:" + email, 3, 15 * 60e3))) return { ok: false, error: "Has pedido varios códigos seguidos. Espera unos minutos.", status: 429 };
         const code = code6();
-        await env.DB.batch([env.DB.prepare("DELETE FROM codes WHERE email = ?").bind(email), env.DB.prepare("INSERT INTO codes (email, hash, expires, tries, created) VALUES (?, ?, ?, 0, ?)").bind(email, await sha(email + ":" + code), now() + CODE_TTL, now())]);
-        try { await sendCode(env, email, code); } catch (e) { return out({ ok: false, error: "No he podido enviar el correo ahora. Prueba en un rato." }, 503); }
-        return out({ ok: true });
-      }
-      if (path === "/auth/verify" && req.method === "POST") {
-        const b = await body(); const email = String(b.email || "").trim().toLowerCase(), code = String(b.code || "").replace(/\D/g, ""), ref = String(b.ref || "").toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 12);
-        if (!okEmail(email) || code.length !== 6) return out({ ok: false, error: "Pon el código de 6 cifras" }, 400);
-        if (await limited(env, "verify:" + ip, 20, 3600e3)) return out({ ok: false, error: "Demasiados intentos. Espera un rato." }, 429);
+        await env.DB.batch([env.DB.prepare("DELETE FROM codes WHERE email = ?").bind(email), env.DB.prepare("INSERT INTO codes (email, hash, expires, tries, created) VALUES (?, ?, ?, 0, ?)").bind(email, await sha(email + ":" + purpose + ":" + code), now() + CODE_TTL, now())]);
+        try { await sendCode(env, email, code, purpose); } catch (e) { return { ok: false, error: "No he podido enviar el correo ahora. Prueba en un rato.", status: 503 }; }
+        return { ok: true };
+      };
+      const checkCode = async (email, purpose, code) => {
         const c = await env.DB.prepare("SELECT hash, expires, tries FROM codes WHERE email = ?").bind(email).first();
-        if (!c || c.expires < now() || c.tries >= 5) return out({ ok: false, error: "El código ha caducado. Pide uno nuevo." }, 400);
-        if (c.hash !== (await sha(email + ":" + code))) { await env.DB.prepare("UPDATE codes SET tries = tries + 1 WHERE email = ?").bind(email).run(); return out({ ok: false, error: "Código incorrecto" }, 400); }
+        if (!c || c.expires < now() || c.tries >= 5) return "El código ha caducado. Pide uno nuevo.";
+        if (c.hash !== (await sha(email + ":" + purpose + ":" + code))) { await env.DB.prepare("UPDATE codes SET tries = tries + 1 WHERE email = ?").bind(email).run(); return "Código incorrecto"; }
         await env.DB.prepare("DELETE FROM codes WHERE email = ?").bind(email).run();
-        let u = await env.DB.prepare("SELECT * FROM users WHERE email = ?").bind(email).first(), isNew = false;
+        return "";
+      };
+      // Crear cuenta: correo + contrasena; se confirma el correo con un codigo
+      if (path === "/auth/register" && req.method === "POST") {
+        const b = await body(); const email = em(b.email), ref = String(b.ref || "").toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 12);
+        if (!okEmail(email)) return out({ ok: false, error: "Pon un correo válido" }, 400);
+        if (!okPre(b.pw)) return out({ ok: false, error: "La contraseña no es válida" }, 400);
+        let u = await env.DB.prepare("SELECT * FROM users WHERE email = ?").bind(email).first();
+        if (u && u.verified) return out({ ok: false, exists: true, error: u.pw_hash ? "Ya hay una cuenta con ese correo. Entra con tu contraseña o pulsa ¿Has olvidado tu contraseña?" : "Ya hay una cuenta con ese correo. Pulsa ¿Has olvidado tu contraseña? para ponerle contraseña." }, 409);
+        const h = await pwHash(b.pw);
         if (!u) {
-          isNew = true; const id = b64u(rnd(12)); let r = refCode();
+          const id = b64u(rnd(12)); let r = refCode();
           for (let i = 0; i < 4 && (await env.DB.prepare("SELECT 1 FROM users WHERE ref = ?").bind(r).first()); i++) r = refCode();
           const by = ref ? await env.DB.prepare("SELECT id, email FROM users WHERE ref = ?").bind(ref).first() : null;
-          await env.DB.prepare("INSERT INTO users (id, email, ref, referred_by, created, bonus_until) VALUES (?, ?, ?, ?, ?, 0)").bind(id, email, r, by && by.email !== email ? by.id : null, now()).run();
-          if (by && by.email !== email) await env.DB.prepare("INSERT OR IGNORE INTO referrals (referee_id, referrer_id, status, created) VALUES (?, ?, 'pending', ?)").bind(id, by.id, now()).run();
-          u = await env.DB.prepare("SELECT * FROM users WHERE id = ?").bind(id).first();
+          await env.DB.prepare("INSERT INTO users (id, email, ref, referred_by, created, bonus_until, pw_hash, pw_salt, verified) VALUES (?, ?, ?, ?, ?, 0, ?, ?, 0)").bind(id, email, r, by && by.email !== email ? by.id : null, now(), h.hash, h.salt).run();
+        } else {
+          // cuenta aun sin confirmar: se guarda la nueva contrasena y se confirma con el codigo del correo
+          await env.DB.prepare("UPDATE users SET pw_hash = ?, pw_salt = ? WHERE id = ?").bind(h.hash, h.salt, u.id).run();
         }
-        const t = token();
-        await env.DB.prepare("INSERT INTO sessions (hash, user_id, expires) VALUES (?, ?, ?)").bind(await sha(t), u.id, now() + SESSION_TTL).run();
-        return out({ ok: true, token: t, isNew, invited: !!u.referred_by });
+        const sent = await issueCode(email, "signup");
+        if (!sent.ok) return out(sent, sent.status);
+        return out({ ok: true, needCode: true });
+      }
+      if (path === "/auth/confirm" && req.method === "POST") {
+        const b = await body(); const email = em(b.email), code = String(b.code || "").replace(/\D/g, "");
+        if (!okEmail(email) || code.length !== 6) return out({ ok: false, error: "Pon el código de 6 cifras" }, 400);
+        if (await limited(env, "verify:" + ip, 20, 3600e3)) return out({ ok: false, error: "Demasiados intentos. Espera un rato." }, 429);
+        const err = await checkCode(email, "signup", code); if (err) return out({ ok: false, error: err }, 400);
+        const u = await env.DB.prepare("SELECT * FROM users WHERE email = ?").bind(email).first(); if (!u) return out({ ok: false, error: "Vuelve a crear la cuenta" }, 400);
+        await env.DB.prepare("UPDATE users SET verified = 1 WHERE id = ?").bind(u.id).run();
+        if (u.referred_by) await env.DB.prepare("INSERT OR IGNORE INTO referrals (referee_id, referrer_id, status, created) VALUES (?, ?, 'pending', ?)").bind(u.id, u.referred_by, now()).run();
+        return out({ ok: true, token: await newSession(u.id), isNew: true, invited: !!u.referred_by });
+      }
+      if (path === "/auth/resend" && req.method === "POST") {
+        const b = await body(); const email = em(b.email), purpose = b.purpose === "reset" ? "reset" : "signup";
+        if (!okEmail(email)) return out({ ok: false, error: "Pon un correo válido" }, 400);
+        const u = await env.DB.prepare("SELECT verified FROM users WHERE email = ?").bind(email).first();
+        if (u && (purpose === "reset" || !u.verified)) { const sent = await issueCode(email, purpose); if (!sent.ok) return out(sent, sent.status); }
+        return out({ ok: true });
+      }
+      // Entrar con correo y contrasena
+      if (path === "/auth/login" && req.method === "POST") {
+        const b = await body(); const email = em(b.email);
+        if (!okEmail(email) || !okPre(b.pw)) return out({ ok: false, error: "Pon tu correo y tu contraseña" }, 400);
+        if ((await limited(env, "login:" + ip, 30, 3600e3)) || (await limited(env, "loginmail:" + email, 8, 15 * 60e3))) return out({ ok: false, error: "Demasiados intentos. Espera 15 minutos o cambia tu contraseña." }, 429);
+        const u = await env.DB.prepare("SELECT * FROM users WHERE email = ?").bind(email).first();
+        if (u && !u.pw_hash) return out({ ok: false, noPassword: true, error: "Tu cuenta aún no tiene contraseña. Pulsa ¿Has olvidado tu contraseña? para crearla." }, 400);
+        const h = u && u.pw_salt ? await pwHash(b.pw, u.pw_salt) : await pwHash(b.pw);
+        if (!u || !sameStr(h.hash, u.pw_hash)) return out({ ok: false, error: "Correo o contraseña incorrectos" }, 400);
+        if (!u.verified) { const sent = await issueCode(email, "signup"); return out({ ok: false, needCode: true, error: sent.ok ? "Falta confirmar tu correo: te hemos enviado un código." : sent.error }, 403); }
+        return out({ ok: true, token: await newSession(u.id), invited: !!u.referred_by });
+      }
+      // He olvidado mi contrasena: codigo al correo y nueva contrasena
+      if (path === "/auth/forgot" && req.method === "POST") {
+        const b = await body(); const email = em(b.email);
+        if (!okEmail(email)) return out({ ok: false, error: "Pon un correo válido" }, 400);
+        const u = await env.DB.prepare("SELECT id FROM users WHERE email = ?").bind(email).first();
+        if (u) { const sent = await issueCode(email, "reset"); if (!sent.ok && sent.status === 429) return out(sent, 429); } else await wait(400);
+        return out({ ok: true });
+      }
+      if (path === "/auth/reset" && req.method === "POST") {
+        const b = await body(); const email = em(b.email), code = String(b.code || "").replace(/\D/g, "");
+        if (!okEmail(email) || code.length !== 6) return out({ ok: false, error: "Pon el código de 6 cifras" }, 400);
+        if (!okPre(b.pw)) return out({ ok: false, error: "La contraseña no es válida" }, 400);
+        if (await limited(env, "verify:" + ip, 20, 3600e3)) return out({ ok: false, error: "Demasiados intentos. Espera un rato." }, 429);
+        const err = await checkCode(email, "reset", code); if (err) return out({ ok: false, error: err }, 400);
+        const u = await env.DB.prepare("SELECT * FROM users WHERE email = ?").bind(email).first(); if (!u) return out({ ok: false, error: "No hay ninguna cuenta con ese correo" }, 400);
+        const h = await pwHash(b.pw);
+        await env.DB.batch([env.DB.prepare("UPDATE users SET pw_hash = ?, pw_salt = ?, verified = 1 WHERE id = ?").bind(h.hash, h.salt, u.id), env.DB.prepare("DELETE FROM sessions WHERE user_id = ?").bind(u.id)]);
+        if (!u.verified && u.referred_by) await env.DB.prepare("INSERT OR IGNORE INTO referrals (referee_id, referrer_id, status, created) VALUES (?, ?, 'pending', ?)").bind(u.id, u.referred_by, now()).run();
+        return out({ ok: true, token: await newSession(u.id) });
       }
       const u = await userFromReq(env, req);
       if (!u) return out({ ok: false, error: "sesión caducada", auth: false }, 401);
