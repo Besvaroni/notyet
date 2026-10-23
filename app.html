@@ -536,6 +536,91 @@ textarea{font:inherit;color:var(--fg);background:var(--bg2);border:1px solid var
 .pwrow{position:relative;display:block}
 .pwrow input{width:100%;padding-right:78px;box-sizing:border-box}
 .pwrow .pwshow{position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:.8rem}
+
+/* ===== Diseño 2026: limpio como Apple, cómodo como una app de súper =====
+   Títulos grandes y gruesos, fondo gris muy claro, tarjetas blancas muy redondeadas,
+   barra inferior flotante en píldora, barra oscura "Frenar compra" encima y Cuenta como lista con flechas */
+:root{--bg:#F5F5F7;--bg2:#F0F0F3;--surface:#FFFFFF;--fg:#1D1D1F;--muted:#6E6E73;--line:#E6E6EB;--brand:#0071E3;--brand-ink:#FFFFFF;--navy:#0B1024;
+  --shadow:0 1px 2px rgba(0,0,0,.04),0 8px 24px -12px rgba(0,0,0,.14);
+  --f-display:-apple-system,BlinkMacSystemFont,"SF Pro Display","Inter Tight","Segoe UI",Roboto,sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#000000;--bg2:#1C1C1E;--surface:#1C1C1E;--fg:#F5F5F7;--muted:#98989D;--line:#2C2C2E;--brand:#2997FF;--brand-ink:#000;--navy:#F5F5F7}}
+:root[data-theme="dark"]{--bg:#000000;--bg2:#1C1C1E;--surface:#1C1C1E;--fg:#F5F5F7;--muted:#98989D;--line:#2C2C2E;--brand:#2997FF;--brand-ink:#000;--navy:#F5F5F7}
+body{font-size:16px;letter-spacing:-.01em}
+h1{font-size:2.45rem;font-weight:900;letter-spacing:-.04em;line-height:1.02}
+h2{font-size:1.35rem;font-weight:800;letter-spacing:-.03em}
+.wrap{padding-block:14px calc(176px + env(safe-area-inset-bottom,0px))}
+.view{gap:18px}
+.vhead{padding-block:14px 2px;align-items:flex-end}
+.vhead .tag{letter-spacing:.04em;text-transform:none;font-size:.85rem;font-weight:600}
+.card{border-radius:28px;padding:20px;gap:12px;box-shadow:var(--shadow)}
+.btn{font-weight:700;letter-spacing:-.01em}
+.btn.ghost{border-width:1.5px}
+.ibtn{border-radius:50%}
+input,select,textarea{border-radius:14px}
+/* Resumen del mes (sustituye al ticket) */
+.hero{background:var(--surface);border-radius:28px;padding:22px 20px 18px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:6px}
+.hero .tag{text-transform:none;letter-spacing:0;font-size:.95rem;font-weight:600}
+.hero .big{font-family:var(--f-display);font-size:3.4rem;font-weight:900;letter-spacing:-.05em;line-height:1;font-variant-numeric:tabular-nums}
+.hero .sub{color:var(--muted);font-size:.95rem}
+.hstats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px;border-top:1px solid var(--line);padding-top:14px}
+.hstats div{display:flex;flex-direction:column;gap:2px;min-width:0}
+.hstats b{font-size:1.35rem;font-weight:800;font-family:var(--f-display);letter-spacing:-.03em}
+.hstats span{font-size:.74rem;color:var(--muted);line-height:1.2}
+/* Barra inferior flotante */
+.tabbar{left:12px;right:12px;bottom:calc(10px + env(safe-area-inset-bottom,0px));max-width:520px;margin:0 auto;border:1px solid color-mix(in srgb,var(--fg) 8%,transparent);border-radius:40px;background:color-mix(in srgb,var(--surface) 80%,transparent);backdrop-filter:blur(22px) saturate(180%);-webkit-backdrop-filter:blur(22px) saturate(180%);box-shadow:0 10px 30px -8px rgba(0,0,0,.22);padding:5px}
+.tabbar .in{gap:2px}
+.tabbar button{flex:1;min-width:0;border-radius:32px;padding:8px 2px 7px;font-size:.7rem;font-weight:600;color:var(--fg);gap:3px}
+.tabbar button svg{width:25px;height:25px}
+.tabbar button[aria-selected="true"]{background:color-mix(in srgb,var(--fg) 8%,transparent);color:var(--brand);font-weight:700}
+/* Barra "Frenar compra" encima de la de pestañas */
+.nbar{position:fixed;z-index:6;left:16px;right:16px;bottom:calc(88px + env(safe-area-inset-bottom,0px));max-width:500px;margin:0 auto;display:flex;align-items:center;gap:12px;padding:8px 8px 8px 12px;border-radius:34px;background:#0B1024;color:#fff;box-shadow:0 14px 30px -10px rgba(11,16,36,.55);text-align:left;transition:transform .2s var(--ease)}
+.nbar:active{transform:scale(.98)}
+.nbar .ni{width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;flex:none}
+.nbar .ni svg{width:28px;height:28px}
+.nbar .nt{flex:1;min-width:0;display:flex;flex-direction:column;line-height:1.15}
+.nbar .nt b{font-size:1.05rem;font-weight:800;letter-spacing:-.02em}
+.nbar .nt small{font-size:.8rem;opacity:.75;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nbar .nb{background:#fff;color:#0B1024;border-radius:999px;padding:11px 16px;font-weight:800;font-size:.92rem;white-space:nowrap}
+/* Explorar: estanterías y tarjetas de producto */
+.shelves{display:flex;flex-direction:column;gap:26px}
+.shelf .sh2{font-family:var(--f-display);font-size:1.55rem;font-weight:900;letter-spacing:-.04em;margin-bottom:10px;display:inline-flex;gap:6px;align-items:center}
+.shelf .sh2 span{color:var(--muted);font-weight:600}
+.hscroll{display:grid;grid-auto-flow:column;grid-auto-columns:46%;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 2px 14px;margin-inline:-2px;scrollbar-width:none}
+.hscroll::-webkit-scrollbar{display:none}
+.hscroll .pc{scroll-snap-align:start}
+.grid{gap:12px}
+.pc{border-radius:24px;padding:12px 12px 14px;gap:6px}
+.pc .ic{height:110px;border-radius:18px}
+.pc .ic::before{opacity:.14}
+.pc .ic::after{display:none}
+.pc .ic svg{color:var(--c,var(--brand));width:46px;height:46px}
+.pc .nm{font-size:1rem;font-weight:600;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pc .pr{font-family:var(--f-display);font-size:1.25rem;font-weight:800;letter-spacing:-.02em}
+.pc .tz{font-size:.78rem;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pc .btn{margin-top:auto;background:transparent;color:var(--fg);border:1.5px solid var(--brand);padding:10px 14px;font-size:.95rem}
+/* Cuenta: lista con icono y flecha, cada apartado se abre aparte */
+.menu{display:flex;flex-direction:column}
+.menu>*{display:flex;align-items:center;gap:16px;padding:18px 4px;border-bottom:1px solid var(--line);color:var(--fg);text-decoration:none;font-size:1.12rem;font-weight:500;text-align:left;width:100%}
+.menu>* i{font-style:normal;font-size:1.35rem;width:32px;text-align:center;flex:none}
+.menu>* span{flex:1}
+.menu>*::after{content:"›";color:var(--muted);font-size:1.6rem;line-height:1}
+.menu .out{color:#D12E2E;border-bottom:0}
+.menu .out::after{content:none}
+.backrow{display:none;align-self:flex-start;color:var(--brand);font-weight:600;font-size:1.05rem;padding:4px 0}
+#v-ajustes>.card{display:none}
+#v-ajustes.sub>.card.on{display:flex}
+#v-ajustes.sub .menu{display:none}
+#v-ajustes.sub .backrow{display:inline-block}
+#v-ajustes.sub .vhead{display:none}
+@media (min-width:1000px){
+  .tabbar{left:0;right:auto;top:0;bottom:0;max-width:none;margin:0;border-radius:0;border:0;border-right:1px solid var(--line);box-shadow:none;padding:96px 14px 20px;background:color-mix(in srgb,var(--surface) 88%,transparent)}
+  .tabbar button{flex:none;border-radius:14px;font-size:1rem}
+  .nbar{left:auto;right:32px;bottom:28px;width:380px;margin:0}
+  .wrap{padding-bottom:120px}
+  .hscroll{grid-auto-columns:30%}
+  h1{font-size:3rem}
+}
+.toast{bottom:auto;top:calc(14px + env(safe-area-inset-top,0px));z-index:60}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -573,6 +658,7 @@ textarea{font:inherit;color:var(--fg);background:var(--bg2);border:1px solid var
     <symbol id="ic-chat" viewBox="0 0 24 24"><path d="M4 5h16v10H9l-5 4z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/></symbol>
     <symbol id="ic-habits" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-8M22 20H2" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></symbol>
     <symbol id="ic-heart" viewBox="0 0 24 24"><path d="M12 20s-7-4.6-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.4-7 10-7 10z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/></symbol>
+    <symbol id="ic-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4.2" fill="currentColor"/><path d="M3.5 21c.6-4.4 4.1-7 8.5-7s7.9 2.6 8.5 7z" fill="currentColor"/></symbol>
     <symbol id="ic-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.9"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
     <symbol id="ic-play" viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z" fill="currentColor"/></symbol>
       <symbol id="ic-motor" viewBox="0 0 24 24"><path d="M4 14l1.5-5a2 2 0 0 1 1.9-1.4h9.2a2 2 0 0 1 1.9 1.4L20 14v4H4zM4 14h16M7 17.5v2M17 17.5v2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/><circle cx="8" cy="15.5" r="1" fill="currentColor"/><circle cx="16" cy="15.5" r="1" fill="currentColor"/></symbol>
@@ -604,14 +690,14 @@ textarea{font:inherit;color:var(--fg);background:var(--bg2);border:1px solid var
     <a class="brand" href="#inicio" data-tab-go="inicio" aria-label="NotYet, inicio"><svg aria-hidden="true"><use href="#logoMark"/></svg>NotYet</a>
     <div class="r">
       <button class="btn small light" id="btnTour" type="button"><svg width="14" height="14" aria-hidden="true"><use href="#ic-play"/></svg>Demo guiada</button>
-      <button class="ibtn" data-tab="ajustes" type="button" aria-label="Ajustes"><svg aria-hidden="true"><use href="#ic-gear"/></svg></button>
+      
     </div>
   </header>
 
   <!-- INICIO -->
   <section class="view" id="v-inicio">
     <div class="vhead"><h1 id="monthTitle">Octubre</h1><span class="tag" id="demoTag">Datos de ejemplo</span></div>
-    <div class="tkwrap"><div class="tk" id="ticket"></div></div>
+    <div class="hero" id="ticket"></div>
     <div class="card" id="scoreCard"></div>
     <div class="card"><div class="row between"><h2>Tus destinos</h2><button class="btn ghost small" type="button" data-tab-go="ajustes">Editar</button></div><div class="goals" id="goals"></div></div>
     <div class="card" id="budgetCard"></div>
@@ -701,7 +787,26 @@ textarea{font:inherit;color:var(--fg);background:var(--bg2);border:1px solid var
 
   <!-- AJUSTES -->
   <section class="view" id="v-ajustes" hidden>
-    <div class="vhead"><h1>Ajustes</h1></div>
+    <div class="vhead"><div><h1>Cuenta</h1><p class="tiny" id="acctWho"></p></div></div>
+    <button class="backrow" id="acctBack" type="button">‹ Cuenta</button>
+    <nav class="menu" id="acctMenu" aria-label="Tu cuenta">
+      <button type="button" data-sec="acctCard"><i>👤</i><span>Tu cuenta</span></button>
+      <button type="button" data-sec="planCard"><i>⭐</i><span>Tu plan</span></button>
+      <button type="button" data-sec="inviteCard"><i>🎁</i><span>Invita a un amigo</span></button>
+      <button type="button" data-sec="goalsCard"><i>🎯</i><span>Tus destinos</span></button>
+      <button type="button" data-sec="fMoney"><i>💶</i><span>Tu dinero</span></button>
+      <button type="button" data-go="pareja"><i>💞</i><span>Pareja</span></button>
+      <button type="button" data-sec="fPartner"><i>🤝</i><span>Pacto con tu pareja</span></button>
+      <button type="button" data-go="ia"><i>💬</i><span>Pregúntale a NotYet</span></button>
+      <button type="button" data-sec="fAI"><i>🤖</i><span>Tu IA, privada</span></button>
+      <button type="button" data-sec="shortCard"><i>⚡</i><span>Atajos del móvil</span></button>
+      <button type="button" data-sec="dataCard"><i>🗂️</i><span>Datos y copia de seguridad</span></button>
+      <button type="button" data-sec="fLogo"><i>🏷️</i><span>Logos de las marcas</span></button>
+      <a href="privacidad.html"><i>🔒</i><span>Privacidad</span></a>
+      <a href="condiciones.html"><i>📄</i><span>Condiciones</span></a>
+      <a href="mailto:alfonsodeborbon.02@gmail.com"><i>❓</i><span>Ayuda</span></a>
+      <button type="button" class="out" id="menuOut" hidden><i>↩︎</i><span>Cerrar sesión</span></button>
+    </nav>
     <div class="card acct" id="acctCard"></div>
     <div class="card" id="planCard"></div>
     <div class="card invite" id="inviteCard" hidden></div>
@@ -733,11 +838,11 @@ textarea{font:inherit;color:var(--fg);background:var(--bg2);border:1px solid var
       <label for="pThr">Las compras de más de (€) se consultan<input id="pThr" inputmode="decimal" placeholder="150"></label>
       <button class="btn small" type="submit">Guardar pacto</button>
     </form>
-    <div class="card">
+    <div class="card" id="shortCard">
       <h2>Atajos del móvil</h2>
       <p class="tiny">Abre esta página con un atajo terminado en #amazon, #shein, #zara, #zalando, #aliexpress, #temu, #elcorteingles, #mediamarkt, #pccomponentes, #decathlon, #vinted, #wallapop, #glovo, #nike, #ikea, #mango o #bershka y el freno saltará solo. Con #revisar te dice qué tienes pendiente; con #explorar, #comite, #habitos o #pareja abre esa pestaña, y con #demo arranca la demo guiada.</p>
     </div>
-    <div class="card">
+    <div class="card" id="dataCard">
       <h2>Datos</h2>
       <p class="tiny">Todo se guarda solo en este navegador: NotYet no tiene tus compras en ningún servidor. Si cambias de móvil o borras el navegador, se pierden, así que guarda de vez en cuando una copia y ábrela en el móvil nuevo. Tu plan de pago se recupera aparte, en Tu plan.</p><div class="actions"><button class="btn small" id="bkSave" type="button">Guardar copia de seguridad</button><label class="btn ghost small" style="cursor:pointer">Restaurar una copia<input type="file" id="bkLoad" accept=".json,application/json" hidden></label></div>
       <label class="chips" style="flex-direction:row;align-items:center"><input type="checkbox" id="favToggle" checked><span>Mostrar el logo real de cada marca (se carga desde su web)</span></label>
@@ -791,7 +896,7 @@ textarea{font:inherit;color:var(--fg);background:var(--bg2);border:1px solid var
   </div>
 </div>
 
-<button class="fab" id="fab" type="button" aria-label="Apuntar un capricho">+</button>
+<button class="nbar" id="fab" type="button" aria-label="Apuntar un capricho y frenar la compra"></button>
 
 <nav class="tabbar" role="tablist" aria-label="Secciones">
   <div class="in">
@@ -799,7 +904,7 @@ textarea{font:inherit;color:var(--fg);background:var(--bg2);border:1px solid var
     <button role="tab" data-tab="explorar" aria-selected="false" type="button"><svg aria-hidden="true"><use href="#ic-explore"/></svg>Explorar</button>
     <button role="tab" data-tab="comite" aria-selected="false" type="button"><svg aria-hidden="true"><use href="#ic-chat"/></svg>Comité</button>
     <button role="tab" data-tab="habitos" aria-selected="false" type="button"><svg aria-hidden="true"><use href="#ic-habits"/></svg>Hábitos</button>
-    <button role="tab" data-tab="pareja" aria-selected="false" type="button"><svg aria-hidden="true"><use href="#ic-heart"/></svg>Pareja</button>
+    <button role="tab" data-tab="ajustes" aria-selected="false" type="button"><svg aria-hidden="true"><use href="#ic-user"/></svg>Cuenta</button>
   </div>
 </nav>
 
@@ -1290,7 +1395,8 @@ function showTab(k) {
   tab = k;
   TABS.forEach((t) => { $("#v-" + t).hidden = t !== k; });
   $$("[data-tab]").forEach((b) => b.setAttribute("aria-selected", String(b.dataset.tab === k)));
-  $("#fab").hidden = k === "ajustes" || k === "explorar" || k === "analisis" || k === "ia";
+  $("#fab").hidden = k === "ajustes" || k === "analisis" || k === "ia";
+  if (k === "ajustes") acctMenu(null);
   if (k === "ia") renderAI(null);
   render();
   window.scrollTo(0, 0);
@@ -1336,7 +1442,10 @@ function renderInicio() {
   $("#monthTitle").textContent = MONTHS[d.getMonth()].charAt(0).toUpperCase() + MONTHS[d.getMonth()].slice(1);
   $("#demoTag").hidden = !S.items.some((i) => i.ex);
   const skipped = skippedMonth(), saved = savedMonth(), st = stats(), gp = goalsProgress();
-  $("#ticket").innerHTML = ticketHTML({ lines: skipped.map((i) => ({ name: i.name, shop: i.shop, price: i.price })), total: saved, date: fmtDate(now()), time: fmtTime(now()), goals: gp, pctSaved: st.pctSaved, n: d.getFullYear() + "" + pad(d.getMonth() + 1), stamp: skipped.length ? "No comprado" : "" });
+  const wt0 = S.items.filter((i) => i.status === "wait");
+  $("#ticket").innerHTML = `<span class="tag">Este mes no has gastado</span><div class="big mono">${eur(saved)}</div><p class="sub">${skipped.length ? `${skipped.length} ${skipped.length === 1 ? "capricho frenado" : "caprichos frenados"}${gp.length ? `, todo al bote de ${esc(gp[0].name)}` : ""}.` : "Cuando digas que no a un capricho, lo verás aquí."}</p>
+    <div class="hstats"><div><b class="mono">${skipped.length}</b><span>no comprados</span></div><div><b class="mono">${st.pctSaved} %</b><span>de lo que querías, sin gastar</span></div><div><b class="mono">${wt0.length}</b><span>en espera</span></div></div>`;
+  const fb = $("#fab"); if (fb) fb.innerHTML = `<span class="ni"><svg aria-hidden="true"><use href="#logoMark"/></svg></span><span class="nt"><b>${wt0.length ? `${wt0.length} en espera` : "¿Vas a comprar algo?"}</b><small>${wt0.length ? eur(wt0.reduce((a, i) => a + (i.price || 0), 0)) + " pensándotelo" : "Pásalo antes por el freno"}</small></span><span class="nb">Frenar compra</span>`;
   // Puntos y nivel
   $("#scoreCard").innerHTML = `<div class="score"><div class="lvl"><small>NIVEL</small><b>${st.li + 1}</b></div><div class="grow"><div class="t">${st.level}</div><div class="tiny">${st.next ? `${st.next[0] - st.pts} puntos para ${st.next[1]}` : "Nivel máximo"}</div><div class="pbar"><i style="width:${st.lpct}%"></i></div></div><div class="pts">${num(st.pts)}<small>puntos</small></div></div>
     <div class="streak"><b>${st.streak}</b><span>${st.streak === 1 ? "día" : "días"} sin compras por impulso. Cada "no" suma: 10 puntos más 1 por cada 10 € que no gastas.</span></div>
@@ -1390,21 +1499,26 @@ function renderExplorar() {
   const all = catsAll(), chips = [["todo", "Todo"]].concat(Object.entries(all).map(([k, v]) => [k, v[0]]));
   $("#catChips").innerHTML = chips.map(([k, l]) => `<label><input type="radio" name="cat" value="${k}" ${k === cat ? "checked" : ""}><span>${esc(l)}</span></label>`).join("");
   const list = CATALOG.filter((p) => cat === "todo" || p.cat === cat);
-  $("#catalog").innerHTML = list.map((p) => `<article class="pc" data-pid="${p.id}" style="--c:${CAT(p.cat)[1]}">
+  const card = (p) => `<article class="pc" data-pid="${p.id}" style="--c:${CAT(p.cat)[1]}">
       <div class="ic">${icon(p.ico || p.cat)}${logoSrc(p.brand) ? favImg(p.brand, "main", 128) + `<span class="cic">${icon(p.ico || p.cat)}</span>` : ""}</div>
       <div class="br">${brandChip(p.brand, p.shop)}</div>
       <div class="nm">${esc(p.name)}</div>
       <div class="pr">${eur(p.price, 2)} <span class="tiny">simulado</span></div>
       <div class="tz">${esc(p.say)}</div>
       <button class="btn small" type="button" data-want="${p.id}">Lo quiero</button>
-    </article>`).join("");
+    </article>`;
+  const $cat = $("#catalog");
+  if (cat === "todo") {
+    $cat.className = "shelves";
+    $cat.innerHTML = Object.entries(all).map(([k, v]) => { const ps = CATALOG.filter((p) => p.cat === k); return ps.length ? `<section class="shelf"><button class="sh2" type="button" data-cat="${k}">${esc(v[0])} <span aria-hidden="true">›</span></button><div class="hscroll">${ps.map(card).join("")}</div></section>` : ""; }).join("");
+  } else { $cat.className = "grid"; $cat.innerHTML = list.map(card).join(""); }
   const bl = brandsOf(cat), bn = cat === "todo" ? "Dos marcas de cada categoría, de lujo a low cost. Toca una para verla delante." : `${bl.length} marcas de ${all[cat][0].toLowerCase()}: de ${bl[0]} a ${bl[bl.length - 1]}. Logos cargados desde la web de cada marca.`;
   $("#brandRoll").innerHTML = BRANDS[cat] || cat === "todo" ? logoRoll(cat, bn) : "";
   const mine = cat !== "todo" ? S.items.filter((i) => i.cat === cat).length : 0;
   $("#catNote").textContent = cat === "todo" ? "¿Falta una categoría? Al apuntar un capricho puedes crearla: coche, casa, agricultura, lo que sea. Las categorías crecen con lo que tú registras." : list.length ? `${list.length} productos de ejemplo en ${all[cat][0]}.` : `Sin productos de ejemplo en ${all[cat][0]}, pero lo que registres aquí cuenta igual: ${mine} ${mine === 1 ? "registro" : "registros"}.`;
 }
 $("#catChips").addEventListener("change", (e) => { if (e.target.name === "cat") { cat = e.target.value; renderExplorar(); } });
-$("#catalog").addEventListener("click", (e) => { const b = e.target.closest("[data-want]"); if (b) openGate(null, byId(b.dataset.want)); });
+$("#catalog").addEventListener("click", (e) => { const c = e.target.closest("[data-cat]"); if (c) { cat = c.dataset.cat; renderExplorar(); window.scrollTo(0, 0); return; } const b = e.target.closest("[data-want]"); if (b) openGate(null, byId(b.dataset.want)); });
 
 /* ---------- Comité ---------- */
 let selectedVote = null, typingWho = null;
@@ -2028,6 +2142,26 @@ $("#gClose").addEventListener("click", () => { closeGate(); toast("Vale, mira si
 $("#gate").addEventListener("click", (e) => { if (e.target === e.currentTarget) closeGate(); });
 document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !$("#gate").hidden) closeGate(); });
 $("#fab").addEventListener("click", () => openGate(null));
+/* ---------- Cuenta: menú tipo app ---------- */
+function acctMenu(sec) {
+  const v = $("#v-ajustes"); if (!v) return;
+  v.classList.toggle("sub", !!sec);
+  $$("#v-ajustes > .card").forEach((c) => c.classList.toggle("on", c.id === sec));
+  const who = SESS && (SESS.email || (ME && ME.email));
+  $("#acctWho").textContent = who ? who : "Sin cuenta: tus datos están solo en este móvil";
+  $("#menuOut").hidden = !SESS;
+  window.scrollTo(0, 0);
+}
+$("#acctMenu").addEventListener("click", (e) => {
+  const b = e.target.closest("button"); if (!b) return;
+  if (b.id === "menuOut") { const o = $("#acctOut"); if (o) o.click(); else { SESS = null; ME = null; saveSess(); render(); } acctMenu(null); return; }
+  if (b.dataset.go) { showTab(b.dataset.go); return; }
+  let sec = b.dataset.sec;
+  if (sec === "inviteCard" && $("#inviteCard").hidden) { sec = "acctCard"; toast("Crea una cuenta o entra para tener tu enlace de invitación"); }
+  acctMenu(sec);
+});
+$("#acctBack").addEventListener("click", () => acctMenu(null));
+
 
 /* ---------- Demo guiada ---------- */
 var tourOn = false, tourI = 0, tourItem = null;
