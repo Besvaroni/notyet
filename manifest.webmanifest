@@ -1,0 +1,23 @@
+{
+  "name": "NotYet: decide mejor antes de pagar",
+  "short_name": "NotYet",
+  "description": "Frena las compras por impulso: espera 24 horas, compáralo más barato o pregúntalo a tus amigos.",
+  "id": "/app",
+  "start_url": "/app?src=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "lang": "es",
+  "background_color": "#0B1024",
+  "theme_color": "#0B1024",
+  "categories": ["finance", "lifestyle", "shopping"],
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Frenar una compra", "url": "/app#inicio" },
+    { "name": "Mis votaciones", "url": "/app#comite" }
+  ]
+}

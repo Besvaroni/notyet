@@ -43,6 +43,7 @@ textarea{min-height:70px;resize:vertical}
 .msg{text-align:center;padding:40px 10px}
 .ok{display:flex;gap:10px;align-items:center;font-weight:700;color:var(--green);margin-bottom:10px}
 .lnk{color:var(--brand);font-weight:600;font-size:.9rem}
+.mine{background:var(--grad);color:#fff}.mine .tiny{color:#fff;opacity:.95;margin:6px 0 14px}.mine b{font:800 1.2rem 'Inter Tight',sans-serif}.mine .go{display:inline-block;background:#fff;color:#0B1024;text-decoration:none;font-weight:700;border-radius:999px;padding:12px 20px}
 </style></head><body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="lg" gradientUnits="userSpaceOnUse" x1="14" y1="10" x2="54" y2="44"><stop offset="0" stop-color="#19D3C5"/><stop offset=".55" stop-color="#2F6BFF"/><stop offset="1" stop-color="#7B5CFF"/></linearGradient>
 <symbol id="logoMark" viewBox="0 0 64 64"><path d="M8 14h6.5l4.6 22h28.4l4.4-13.5" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22.5" cy="46.5" r="4" fill="currentColor"/><circle cx="43.5" cy="46.5" r="4" fill="currentColor"/><path d="M36 10.5c-2.2-2.8-7-3.2-9.6-.4-3.8-.6-7.4 2.4-6.8 6.2-3.2 1.6-3.6 6.2-.8 8.6-.8 3.6 2.2 7.2 5.8 7.2 1.8 3 6.4 3.8 9.2 1.2l2.2-1.6 2.2 1.6c2.8 2.6 7.4 1.8 9.2-1.2 3.6 0 6.6-3.6 5.8-7.2 2.8-2.4 2.4-7-.8-8.6.6-3.8-3-6.8-6.8-6.2C43 7.3 38.2 7.7 36 10.5z" fill="url(#lg)"/></symbol></defs></svg>
@@ -72,6 +73,8 @@ function draw(done){const o=OPT[P.kind]||OPT.voto,perm=P.kind==="permiso",who=P.
   <label>¿Por qué? (opcional)<textarea id="cmt" maxlength="200" placeholder="${perm?"Ej.: ahorra la mitad y te ayudo con el resto":"Ej.: ya tienes unas parecidas"}"></textarea></label>
   <button type="button" class="send" id="send" ${pick?"":"disabled"}>Enviar mi voto</button><p class="tiny">Sin cuenta y sin instalar nada. Solo verá tu nombre, tu voto y tu comentario.</p></div>`;
  const cta=`<div class="card cta"><h3>${perm?"Controla las compras en familia":"¿Tú también compras por impulso?"}</h3><p>${perm?"Con NotYet tus hijos te piden permiso antes de comprar y tú ves en qué se les va el dinero.":"NotYet te frena un segundo antes de pagar, te enseña opciones más baratas y convierte lo que no gastas en ahorro para tus planes."}</p><a href="/app?src=votar">Probar NotYet gratis</a></div>`;
+ let mine=false; try{mine=JSON.parse(ls("ny.mypolls")||"[]").includes(id);}catch(e){}
+ if(mine){ $("#m").innerHTML=`<div class="card mine" id="mine"><b>Esta votación es tuya</b><p class="tiny">Tus amigos votan aquí. Tú ves los resultados y decides en NotYet, en el punto exacto donde lo dejaste.</p><a class="go" href="/app?voto=${encodeURIComponent(id)}">Ver resultados y decidir</a></div>`+head.replace('<p class="ask">','<p class="ask">Lo que ven tus amigos: ')+`</div>`+resHTML(); return; }
  $("#m").innerHTML=head+body+(done||!P.open?resHTML():"")+cta;
  $("#m").querySelectorAll("[data-c]").forEach((b)=>b.onclick=()=>{pick=b.dataset.c;$("#m").querySelectorAll("[data-c]").forEach((x)=>x.classList.toggle("on",x===b));$("#send").disabled=false;});
  const s=$("#send"); if(s) s.onclick=send; const ag=$("#again"); if(ag) ag.onclick=()=>draw(false);
