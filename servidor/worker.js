@@ -6,6 +6,8 @@
 // - Invitaciones: tu amigo tiene el primer mes de Plus gratis; cuando paga su primer mes, tu ganas un mes.
 // - Votaciones por enlace: los amigos votan si, no o mas barato con un toque y el resultado llega a la app. Permisos de hijos a padres.
 // - Entrar con Google (Microsoft preparado): se comprueba la firma del proveedor.
+// - Extension de Chrome vinculada a la cuenta: lo que frenas en el ordenador aparece en la app.
+// - Permisos de hijos: si el hijo pone el correo de su madre o su padre, le llega la peticion por correo aunque no tenga NotYet.
 // Secretos (los pega el dueno en Cloudflare, nunca en el codigo): STRIPE_SECRET (clave restringida rk_live_...), RESEND_KEY (envio de correos).
 const ORIGINS = ["https://notyetapp.app", "https://www.notyetapp.app", "https://besvaroni.github.io", "https://notyet-9op.pages.dev"];
 const DAY = 864e5, CODE_TTL = 10 * 60e3, SESSION_TTL = 120 * DAY, MAX_DATA = 400000, REWARD_DAYS = 30, REWARD_CENTS = 299;
@@ -56,7 +58,7 @@ async function stripe(env, path, method, body) {
   if (!r.ok) { const e = new Error("stripe " + r.status); e.status = r.status; throw e; }
   return r.json();
 }
-async function planOfSub(env, sub) { const item = sub.items && sub.items.data && sub.items.data[0]; if (!item) return null; const prod = await stripe(env, "products/" + item.price.product); return /pareja/i.test(prod.name) ? "pareja" : "plus"; }
+async function planOfSub(env, sub) { const item = sub.items && sub.items.data && sub.items.data[0]; if (!item) return null; const prod = await stripe(env, "products/" + item.price.product); return /pareja|familia/i.test(prod.name) ? "pareja" : "plus"; }
 // Suscripcion vigente: activa o en el mes de prueba
 async function liveSub(env, customer, paidOnly) {
   const list = await stripe(env, "subscriptions?status=all&limit=10&customer=" + encodeURIComponent(customer));
@@ -80,6 +82,7 @@ async function schema(env) {
     env.DB.prepare("CREATE INDEX IF NOT EXISTS i_ref ON referrals(referrer_id)"),
     env.DB.prepare("CREATE INDEX IF NOT EXISTS i_hits ON hits(k, t)"),
     env.DB.prepare("CREATE TABLE IF NOT EXISTS polls (id TEXT PRIMARY KEY, key_hash TEXT NOT NULL, kind TEXT, title TEXT, price REAL, shop TEXT, url TEXT, emoji TEXT, asker TEXT, created INTEGER, expires INTEGER, decision TEXT)"),
+    env.DB.prepare("CREATE TABLE IF NOT EXISTS ext_items (user_id TEXT NOT NULL, id TEXT NOT NULL, json TEXT, updated INTEGER, PRIMARY KEY (user_id, id))"),
     env.DB.prepare("CREATE TABLE IF NOT EXISTS poll_votes (poll_id TEXT NOT NULL, voter TEXT NOT NULL, name TEXT, choice TEXT, comment TEXT, created INTEGER, PRIMARY KEY (poll_id, voter))")
   ]);
   for (const sql of ["ALTER TABLE users ADD COLUMN pw_hash TEXT", "ALTER TABLE users ADD COLUMN pw_salt TEXT", "ALTER TABLE users ADD COLUMN verified INTEGER DEFAULT 1"]) { try { await env.DB.prepare(sql).run(); } catch (e) {} }
@@ -121,6 +124,16 @@ async function sendCode(env, email, code, purpose) {
   const html = `<div style="font-family:-apple-system,Segoe UI,Roboto,sans-serif;max-width:460px;margin:auto;padding:24px;color:#1D1D1F"><div style="font-size:22px;font-weight:800;margin-bottom:16px">NotYet</div><p>${m[1]}</p><div style="font-size:34px;font-weight:800;letter-spacing:8px;margin:18px 0">${code}</div><p style="color:#6E6E73;font-size:14px">Caduca en 10 minutos. ${m[2]}</p><p style="color:#6E6E73;font-size:12px;margin-top:24px">NotYet - notyetapp.app</p></div>`;
   const r = await fetch("https://api.resend.com/emails", { method: "POST", headers: { Authorization: "Bearer " + env.RESEND_KEY, "Content-Type": "application/json" }, body: JSON.stringify({ from: env.MAIL_FROM || MAIL_FROM, to: [email], subject: `${code} - ${m[0]}`, html, text: `${m[1]} ${code}. Caduca en 10 minutos. ${m[2]}` }) });
   if (!r.ok) throw new Error("resend " + r.status);
+}
+
+async function sendPermiso(env, to, p, link) {
+  if (!env.RESEND_KEY) return false;
+  const e = (x) => String(x || "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const who = e(p.asker || "Tu hijo"), price = p.price ? Number(p.price).toLocaleString("es-ES", { style: "currency", currency: "EUR" }) : "";
+  const btn = (c, t, col) => `<a href="${link}&c=${c}" style="display:inline-block;margin:4px 6px 4px 0;padding:12px 18px;border-radius:999px;background:${col};color:#fff;text-decoration:none;font-weight:700">${t}</a>`;
+  const html = `<div style="font-family:-apple-system,Segoe UI,Roboto,sans-serif;max-width:480px;margin:auto;padding:24px;color:#1D1D1F"><div style="font-size:22px;font-weight:800;margin-bottom:14px">NotYet</div><p style="font-size:17px"><b>${who}</b> te pide permiso para comprar:</p><p style="font-size:20px;font-weight:700;margin:8px 0">${e(p.title)}${price ? " - " + price : ""}${p.shop ? " en " + e(p.shop) : ""}</p><p>Contesta con un toque, no hace falta instalar nada:</p>${btn("si", "Sí, te doy permiso", "#17A35A")}${btn("no", "Esta vez no", "#FF5A5F")}${btn("barato", "Busca algo más barato", "#2F6BFF")}<p style="color:#6E6E73;font-size:13px;margin-top:20px">Te llega porque ${who} ha puesto tu correo en NotYet para pedirte permiso antes de comprar. Si no conoces esta petición, ignora este correo.</p><p style="color:#6E6E73;font-size:12px">NotYet - notyetapp.app</p></div>`;
+  const r = await fetch("https://api.resend.com/emails", { method: "POST", headers: { Authorization: "Bearer " + env.RESEND_KEY, "Content-Type": "application/json" }, body: JSON.stringify({ from: env.MAIL_FROM || MAIL_FROM, to: [to], reply_to: "support@notyetapp.app", subject: `${p.asker || "Tu hijo"} te pide permiso para comprar ${String(p.title || "").slice(0, 60)}`, html, text: `${p.asker || "Tu hijo"} te pide permiso para comprar ${p.title}${price ? " (" + price + ")" : ""}. Contesta aqui: ${link}` }) });
+  return r.ok;
 }
 
 // ---------- Plan e invitaciones ----------
@@ -216,7 +229,9 @@ export default {
         const b = await body(); const title = clip(b.title, 120); if (!title) return out({ ok: false, error: "Falta qué quieres comprar" }, 400);
         const id = b64u(rnd(9)), key = token(); const url = /^https:\/\/[^\s]{4,400}$/.test(String(b.url || "")) ? String(b.url) : "";
         await env.DB.prepare("INSERT INTO polls (id, key_hash, kind, title, price, shop, url, emoji, asker, created, expires) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)").bind(id, await sha(key), b.kind === "permiso" ? "permiso" : "voto", title, Math.max(0, Math.min(1e6, Number(b.price) || 0)), clip(b.shop, 40), url, clip(b.emoji, 8), clip(b.asker, 30), now(), now() + 21 * DAY).run();
-        return out({ ok: true, id, key, link: "https://notyetapp.app/votar?p=" + id });
+        let mailed = false; const to = String(b.notify || "").trim().toLowerCase();
+        if (b.kind === "permiso" && okEmail(to) && !(await limited(env, "perm:" + ip, 10, 3600e3)) && !(await limited(env, "permto:" + to, 8, DAY))) { try { mailed = await sendPermiso(env, to, { title, price: b.price, shop: clip(b.shop, 40), asker: clip(b.asker, 30) }, "https://notyetapp.app/votar?p=" + id); } catch (e) {} }
+        return out({ ok: true, id, key, link: "https://notyetapp.app/votar?p=" + id, mailed });
       }
       if (pollM && !pollM[2] && req.method === "GET") {
         const p = await env.DB.prepare("SELECT * FROM polls WHERE id = ?").bind(pollM[1]).first(); if (!p) return out({ ok: false, error: "Esta votación no existe" }, 404);
@@ -348,6 +363,19 @@ export default {
         await env.DB.prepare("INSERT INTO appdata (user_id, json, updated) VALUES (?, ?, ?) ON CONFLICT(user_id) DO UPDATE SET json = excluded.json, updated = excluded.updated").bind(u.id, json, now()).run();
         return out({ ok: true, updated: now() });
       }
+      // Extension de Chrome: guarda lo que frenas en el ordenador y la app lo recoge
+      if (path === "/ext/items" && req.method === "PUT") {
+        if (await limited(env, "ext:" + u.id, 240, 3600e3)) return out({ ok: false, error: "demasiadas peticiones" }, 429);
+        const b = await body(); const L = Array.isArray(b.items) ? b.items.slice(-200) : [];
+        const st = []; for (const it of L) { const id = String(it && it.id || "").replace(/[^0-9A-Za-z_-]/g, "").slice(0, 40); if (!id) continue; const j = JSON.stringify({ id, name: String(it.name || "").slice(0, 120), price: Math.max(0, Math.min(1e6, Number(it.price) || 0)), shop: String(it.shop || "").slice(0, 40), url: /^https:\/\//.test(String(it.url || "")) ? String(it.url).slice(0, 400) : "", start: Number(it.start) || now(), status: ["wait", "skip", "buy", "impulse"].includes(it.status) ? it.status : "wait", decided: Number(it.decided) || null, poll: it.poll && it.poll.id ? { id: String(it.poll.id).slice(0, 24), key: String(it.poll.key || "").slice(0, 60), at: Number(it.poll.at) || now() } : null }); st.push(env.DB.prepare("INSERT INTO ext_items (user_id, id, json, updated) VALUES (?, ?, ?, ?) ON CONFLICT(user_id, id) DO UPDATE SET json = excluded.json, updated = excluded.updated").bind(u.id, id, j, now())); }
+        if (st.length) await env.DB.batch(st.slice(0, 200));
+        return out({ ok: true, saved: st.length });
+      }
+      if (path === "/ext/items" && req.method === "GET") {
+        const since = Number(url.searchParams.get("since")) || 0;
+        const r = await env.DB.prepare("SELECT json, updated FROM ext_items WHERE user_id = ? AND updated > ? ORDER BY updated DESC LIMIT 200").bind(u.id, since).all();
+        return out({ ok: true, items: (r.results || []).map((x) => Object.assign(JSON.parse(x.json), { updated: x.updated })), now: now() });
+      }
       if (path === "/auth/logout" && req.method === "POST") {
         const a = (req.headers.get("Authorization") || "").slice(7);
         await env.DB.prepare("DELETE FROM sessions WHERE hash = ?").bind(await sha(a)).run();
@@ -356,6 +384,7 @@ export default {
       if (path === "/account/delete" && req.method === "POST") {
         await env.DB.batch([
           env.DB.prepare("DELETE FROM appdata WHERE user_id = ?").bind(u.id),
+          env.DB.prepare("DELETE FROM ext_items WHERE user_id = ?").bind(u.id),
           env.DB.prepare("DELETE FROM sessions WHERE user_id = ?").bind(u.id),
           env.DB.prepare("DELETE FROM referrals WHERE referee_id = ? OR referrer_id = ?").bind(u.id, u.id),
           env.DB.prepare("DELETE FROM codes WHERE email = ?").bind(u.email),
