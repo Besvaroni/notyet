@@ -903,7 +903,7 @@ window.logoFit = function (img) {
       s.textContent = (n.replace(/[^A-Za-zÁÉÍÓÚÑáéíóúñ0-9 ]/g, "").split(/\s+/).filter(Boolean).map((x) => x[0]).join("").slice(0, 2) || n.slice(0, 2)).toUpperCase();
       img.replaceWith(s); return;
     }
-    if (w) { const cap = Math.round(w * 1.15); img.style.maxWidth = cap + "px"; img.style.maxHeight = cap + "px"; }
+    if (w && w < 200) { const cap = Math.round(w * 1.15), cs = getComputedStyle(img), px = (v) => (/px$/.test(v) ? parseFloat(v) : Infinity); if (cap < px(cs.maxHeight)) img.style.maxHeight = cap + "px"; if (cap < px(cs.maxWidth)) img.style.maxWidth = cap + "px"; }
   } catch (e) {}
 };
 const LOGO_ERR = "if(this.dataset.fb){this.src=this.dataset.fb;this.classList.remove('bf','own');this.classList.add('favi');delete this.dataset.fb}else{this.remove()}";
