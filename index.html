@@ -1224,6 +1224,34 @@ footer.af .fl a:first-child{padding-left:0;border-left:0}
 .share3 i.lg{background:transparent!important;width:22px;height:22px}
 .share3 i.lg svg,.nlogo{display:block}
 .share2 .nlogo,.share .nlogo{width:22px;height:22px}
+
+/* ===== v19 ===== */
+.dg .tags{position:absolute;top:8px;left:12px;display:flex;gap:6px;z-index:1}
+.dg .tags .pct,.dg .tags .lock{position:static!important;left:auto!important;right:auto!important}
+.dg{min-height:104px!important}
+.dg .emo{font-size:3.9rem!important}
+#xsCat{display:flex;flex-direction:column;gap:7px}
+.xrow{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;scroll-snap-type:x proximity;cursor:grab}
+.xrow::-webkit-scrollbar{display:none}
+.xpc{flex:none;width:46%;scroll-snap-align:start;background:var(--surface);border-radius:12px;padding:6px;display:flex;flex-direction:column;gap:2px;font-size:9.5px}
+.xpc .ic{height:52px;border-radius:9px;background:#F5F5F7;display:flex;align-items:center;justify-content:center}
+.xpc .pe{font-size:1.9rem;line-height:1;font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif}
+.xpc .br{font-size:7.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.xpc b{font-size:10px;line-height:1.15;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.3em}
+.xpc .pr{font-weight:800;font-size:10.5px}
+/* "Cómo funciona": el teléfono baja contigo y se queda a la altura de cada paso */
+@media (min-width:901px){
+  .how .sticky{top:max(84px,calc(50vh - 280px))!important}
+  .how .step{min-height:46vh;justify-content:center}
+  .how .steps{padding-bottom:12vh}
+}
+#xsCat.xcat{display:flex!important;flex-direction:column}
+#xsCat .xrow{display:flex!important;flex-direction:row!important;background:transparent!important;padding:0 0 2px!important;border-radius:0!important;gap:6px}
+#xsCat .xpc{display:flex;flex-direction:column;background:var(--surface)!important;padding:6px!important}
+#xsCat .xpc .ic{padding:0!important;background:#F5F5F7!important}
+.xs .tabs i{background:none!important;font-style:normal;font-size:13px;line-height:16px;text-align:center;filter:grayscale(1) opacity(.6)}
+.xs .tabs .on i{filter:none}
+.xs .tabs span:nth-child(1) i::before{content:"🏠"}.xs .tabs span:nth-child(2) i::before{content:"🔍"}.xs .tabs span:nth-child(3) i::before{content:"💬"}.xs .tabs span:nth-child(4) i::before{content:"📊"}.xs .tabs span:nth-child(5) i::before{content:"💞"}.xs .tabs span:nth-child(6) i::before{content:"✨"}
 </style>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
@@ -1494,7 +1522,7 @@ footer.af .fl a:first-child{padding-left:0;border-left:0}
               <div class="body">
                 <div class="gchips"><span class="on">Todo</span><span>Ropa</span><span>Tecnología</span><span>Motor</span><span>Ocio</span><span>Viajes</span></div>
                 <div class="xcat" id="xsCat"></div>
-                <div class="tiny" style="font-size:9px">Precios simulados. Marcas como ejemplo; iconos desde la web de cada tienda.</div>
+                <div class="tiny" style="font-size:9px">Desliza las filas: se mueven solas. Precios simulados, marcas como ejemplo.</div>
               </div>
               <div class="tabs"><span><i></i>Inicio</span><span class="on"><i></i>Explorar</span><span><i></i>Comité</span><span><i></i>Hábitos</span><span><i></i>Pareja</span></div>
             </div>
@@ -2652,7 +2680,7 @@ function renderDash() {
 function renderStory() {
   try {
     const bt = $("#bentoTk"); if (bt) bt.innerHTML = ticketHTML({ lines: dash.lines.slice(0, 6), total: dash.saved, date: fmtDate(Date.now()), time: fmtTime(Date.now()), goals: [{ name: "Viaje a París", pct: 90, prog: Math.min(GOAL, dash.goal), amount: GOAL, pctDone: Math.min(100, Math.round(dash.goal / GOAL * 100)) }, { name: "Regalo de comunión", pct: 10, prog: Math.min(150, dash.goal / 9), amount: 150, pctDone: Math.min(100, Math.round(dash.goal / 9 / 150 * 100)) }], pctSaved: Math.round(dash.saved / (dash.saved + 130.49) * 100), stamp: "No comprado" });
-    if ($("#bentoGoals") && $("#bentoGoals").children.length) [0, 1, 2].forEach((k) => { const sl = $(`#bentoGoals [data-k="${k}"]`); if (sl) sl.innerHTML = destHTML(k); });
+    if ($("#bentoGoals") && $("#bentoGoals").children.length) [0, 1, 2, 3].forEach((k) => { const sl = $(`#bentoGoals [data-k="${k}"]`); if (sl) sl.innerHTML = destHTML(k); });
     const pg = $("#parGoal"); if (pg) { pg.textContent = `${eur(Math.min(GOAL, dash.goal))} de ${eur(GOAL)}`; $("#parBar").style.width = Math.min(100, Math.round(dash.goal / GOAL * 100)) + "%"; }
     const po = $("#parOut"); if (po) { $("#parThrV").textContent = eur(PARTNER_THR); const list = [cur].concat(CATALOG.filter((p) => p !== cur).slice(0, 3)).filter(Boolean); const n = CATALOG.filter((p) => p.price > PARTNER_THR).length;
       po.innerHTML = list.map((p) => `<div><span>${pemo(p)} ${esc(p.name)}</span><b class="${p.price > PARTNER_THR ? "c" : "o"}">${p.price > PARTNER_THR ? "Se lo consultas a Sofía" : "Decides tú"}</b></div>`).join("") + `<p>${n} de ${CATALOG.length} productos de la demo pasarían por Sofía. Ella opina, no bloquea.</p>`; }
@@ -2810,17 +2838,18 @@ renderPicker(); setProduct(CATALOG[0]); renderDash(); renderChart();
 const DESTS = [
   [["Viaje a París", "🗼", "#7B5CFF", "#FF8A5B", 1800], ["Viaje a Roma", "🏛️", "#E2725B", "#F4C15D", 1200], ["Viaje a Singapur", "🌇", "#0EA5A4", "#2F6BFF", 2600], ["Viaje a Pekín", "🏯", "#C0392B", "#F39C12", 2200], ["Viaje a Nueva York", "🗽", "#1F6FEB", "#19D3C5", 2400], ["Viaje a Tokio", "🗻", "#E84393", "#6C5CE7", 2800]],
   [["Regalo de comunión del sobrino", "🎁", "#FF6B6B", "#FFB86B", 150], ["Regalo de pedida", "💍", "#B07CFF", "#FF9AC1", 900], ["Regalo de boda de tu amiga", "💐", "#F368E0", "#FF9F43", 250], ["Cumpleaños de mamá", "🎂", "#FF7675", "#FDCB6E", 120]],
-  [["Entrada del piso", "🏠", "#00B894", "#0984E3", 30000], ["Fondo de emergencia", "🛟", "#0984E3", "#74B9FF", 3000], ["Coche nuevo", "🚗", "#2D3436", "#636E72", 12000], ["Portátil para estudiar", "💻", "#6C5CE7", "#A29BFE", 900]]];
-const DSPLIT = [70, 10, 20];
-let dIdx = [0, 0, 0];
+  [["Entrada del piso", "🏠", "#00B894", "#0984E3", 30000], ["Fondo de emergencia", "🛟", "#0984E3", "#74B9FF", 3000], ["Coche nuevo", "🚗", "#2D3436", "#636E72", 12000], ["Portátil para estudiar", "💻", "#6C5CE7", "#A29BFE", 900]],
+  [["Concierto de tu grupo favorito", "🎤", "#FD79A8", "#E84393", 180], ["Curso de surf", "🏄", "#00CEC9", "#0984E3", 320], ["Máster de inglés", "🎓", "#2D3436", "#6C5CE7", 1500], ["Clases de piano", "🎹", "#636E72", "#B2BEC3", 400]]];
+const DSPLIT = [60, 10, 15, 15];
+let dIdx = [0, 0, 0, 0];
 function destHTML(k) {
   const [name, emo, c1, c2, amount] = DESTS[k][dIdx[k] % DESTS[k].length], bote = (typeof dash !== "undefined" ? dash.goal / GOALPCT * 100 : BOTE0);
   const prog = Math.min(amount, bote * DSPLIT[k] / 100), pct = Math.min(100, Math.round(prog / amount * 100));
-  return `<div class="dg" style="--c1:${c1};--c2:${c2}"><span class="emo" aria-hidden="true">${emo}</span><span class="pct">${DSPLIT[k]} % del bote</span><span class="lock">${pct >= 100 ? "Cumplido" : "Bloqueado"}</span><div class="gt">${esc(name)}</div><div class="gs">${eur(prog)} de ${eur(amount)}${pct >= 100 ? "" : ". Te faltan " + eur(amount - prog)}</div><div class="gbar"><i style="width:${pct}%"></i></div></div>`;
+  return `<div class="dg" style="--c1:${c1};--c2:${c2}"><span class="emo" aria-hidden="true">${emo}</span><span class="tags"><span class="pct">${DSPLIT[k]} % del bote</span><span class="lock">${pct >= 100 ? "Cumplido" : "Bloqueado"}</span></span><div class="gt">${esc(name)}</div><div class="gs">${eur(prog)} de ${eur(amount)}${pct >= 100 ? "" : ". Te faltan " + eur(amount - prog)}</div><div class="gbar"><i style="width:${pct}%"></i></div></div>`;
 }
 function renderDests(swap) {
   const box = $("#bentoGoals"); if (!box) return;
-  if (!box.children.length || !swap) { box.innerHTML = [0, 1, 2].map((k) => `<div class="dslot" data-k="${k}">${destHTML(k)}</div>`).join(""); return; }
+  if (!box.children.length || !swap) { box.innerHTML = [0, 1, 2, 3].map((k) => `<div class="dslot" data-k="${k}">${destHTML(k)}</div>`).join(""); return; }
   const k = swap - 1, slot = box.querySelector(`[data-k="${k}"]`); if (!slot) return;
   slot.classList.add("out"); setTimeout(() => { slot.innerHTML = destHTML(k); slot.classList.remove("out"); }, 380);
 }
@@ -2830,7 +2859,7 @@ $("#bentoTk").innerHTML = ticketHTML({ lines: bentoLines, total: SAVED0, date: f
 const bentoVotes = genVotes(CATALOG.find((p) => p.id === "decathlon-bici"), GYM);
 $("#bentoChat").innerHTML = chatHTML({ group: GYM, product: CATALOG.find((p) => p.id === "decathlon-bici"), votes: bentoVotes.slice(0, 2), typing: bentoVotes[2].who, t0: Date.now() - 300000 });
 renderDests();
-{ let t = 0; setInterval(() => { const box = $("#bentoGoals"); if (!box || document.hidden) return; const r = box.getBoundingClientRect(); if (r.bottom < 0 || r.top > innerHeight) return; const k = t++ % 3; dIdx[k]++; renderDests(k + 1); }, 2600); }
+{ let t = 0; setInterval(() => { const box = $("#bentoGoals"); if (!box || document.hidden) return; const r = box.getBoundingClientRect(); if (r.bottom < 0 || r.top > innerHeight) return; const k = t++ % 4; dIdx[k]++; renderDests(k + 1); }, 2600); }
 $("#bentoGoals").addEventListener("click", (e) => { const sl = e.target.closest(".dslot"); if (!sl) return; const k = Number(sl.dataset.k); dIdx[k]++; renderDests(k + 1); });
 bindCal($("#bentoCal"));
 /* Taller de puntos: mueve los controles y mira el nivel, los puntos y las insignias que tendrías */
@@ -2847,7 +2876,13 @@ function renderPlay() {
 $("#ptsPlay").innerHTML = PLAY.map(([id, l, min, max, def, st]) => `<label class="psl"><span>${l}<b id="pv_${id}"></b></span><input type="range" data-id="${id}" min="${min}" max="${max}" step="${st}" value="${def}" aria-label="${l}"></label>`).join("");
 $("#ptsPlay").addEventListener("input", (e) => { if (!e.target.dataset.id) return; playV[e.target.dataset.id] = Number(e.target.value); renderPlay(); });
 renderPlay();
-$("#xsCat").innerHTML = ["apple-iphone", "xiaomi-patinete", "sony-ps5", "ryanair-roma"].map((id) => { const p = CATALOG.find((x) => x.id === id); return `<div style="--c:${CATS[p.cat][1]}"><div class="ic">${icon(p.ico || p.cat)}</div><span class="br">${brandChip(p.brand, p.shop)}</span><b>${p.name}</b><span class="pr">${eur(p.price)}</span></div>`; }).join("");
+{ const row = (list) => `<div class="xrow">${list.map((p) => `<div class="xpc"><div class="ic"><span class="pe">${pemo(p)}</span></div><span class="br">${esc(p.brand)}${p.shop && p.shop !== p.brand ? " en " + esc(p.shop) : ""}</span><b>${esc(p.name)}</b><span class="pr">${eur(p.price, p.price % 1 ? 2 : 0)}</span></div>`).join("")}</div>`;
+  const half = Math.ceil(CATALOG.length / 2);
+  $("#xsCat").innerHTML = row(CATALOG.slice(0, half)) + row(CATALOG.slice(half));
+  const rows = $$("#xsCat .xrow"); let pauseX = 0;
+  rows.forEach((r, i) => { r.addEventListener("pointerenter", () => { pauseX = Date.now() + 5000; }); r.addEventListener("touchstart", () => { pauseX = Date.now() + 6000; }, { passive: true });
+    r.addEventListener("pointerdown", (e) => { if (e.pointerType !== "mouse") return; const x0 = e.clientX, s0 = r.scrollLeft; const mv = (ev) => { r.scrollLeft = s0 - (ev.clientX - x0); }; const up = () => { removeEventListener("pointermove", mv); removeEventListener("pointerup", up); }; addEventListener("pointermove", mv); addEventListener("pointerup", up); }); });
+  setInterval(() => { if (Date.now() < pauseX || document.hidden) return; rows.forEach((r, i) => { const rc = r.getBoundingClientRect(); if (!rc.width || rc.bottom < 0 || rc.top > innerHeight) return; const step = (r.firstElementChild ? r.firstElementChild.offsetWidth : 100) + 6; const end = r.scrollLeft + r.clientWidth >= r.scrollWidth - 4; r.scrollTo({ left: end ? 0 : r.scrollLeft + (i ? step : step), behavior: reduce ? "auto" : "smooth" }); }); }, 2200); }
 $("#xsChat").innerHTML = chatHTML({ group: GYM, product: CATALOG.find((p) => p.id === "decathlon-bici"), votes: bentoVotes, t0: Date.now() - 300000 }) + `<div class="acard" style="background:var(--green-soft);color:var(--green)"><b>Resumen: 2 esperar, 1 comprar.</b><span class="sub">Decides tú.</span></div>`;
 $("#xsTicket").innerHTML = `<div class="tkwrap"><div class="tk">${ticketHTML({ lines: DEMO_LINES.slice(0, 4), total: SAVED0, date: fmtDate(Date.now()), time: fmtTime(Date.now()), goals: [{ name: "Viaje a París", pct: 90, prog: 1136.64, amount: 1800, pctDone: 63 }, { name: "Regalo de comunión", pct: 10, prog: 126.29, amount: 150, pctDone: 84 }], pctSaved: 79, stamp: "No comprado", compact: true })}</div></div>`;
 $("#xsCal").innerHTML = `<div class="acard cal" id="xsCalBox"></div><div class="acard"><div class="lbl" style="color:var(--muted)">Tu momento de riesgo</div><div style="font-weight:800;font-size:14px">Los jueves, por la noche</div><div class="tiny">4 de tus 15 impulsos del mes</div></div>`;

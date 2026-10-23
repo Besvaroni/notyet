@@ -621,6 +621,17 @@ input,select,textarea{border-radius:14px}
   h1{font-size:3rem}
 }
 .toast{bottom:auto;top:calc(14px + env(safe-area-inset-top,0px));z-index:60}
+
+/* Explorar con dibujos de producto, como en la portada */
+.pc .ic{background:#F5F5F7!important}
+.pc .ic::before,.pc .ic::after{display:none!important}
+.pc .ic .pe{font-size:3.4rem;line-height:1;filter:drop-shadow(0 8px 8px rgba(0,0,0,.14));font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif;transition:transform .35s var(--ease)}
+.pc:hover .ic .pe{transform:scale(1.08)}
+.pc.picked{box-shadow:0 0 0 2px var(--brand),var(--shadow);animation:pick 1.2s var(--ease)}
+@keyframes pick{0%{transform:scale(.96)}40%{transform:scale(1.03)}100%{transform:none}}
+.gprod .ic.pe{background:#F5F5F7!important;font-size:1.8rem;font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif}
+.lroll .lstage figure,.lroll .lstrip button{cursor:pointer}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .pc .ic,:root:not([data-theme="light"]) .gprod .ic.pe{background:#2C2C2E!important}}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -1495,12 +1506,35 @@ function decide(it, status) {
 
 /* ---------- Explorar ---------- */
 let cat = "todo";
+const PEMO_RULES = [[/zapatill|running|pegasus|sneaker/, "👟"], [/vestido/, "👗"], [/chaqueta|abrigo|plum[ií]fero|acolchad/, "🧥"], [/sudadera|camiseta|polo/, "👕"], [/pantal|vaquer|jean/, "👖"], [/bolso|mochila/, "👜"], [/gafas/, "🕶️"], [/reloj|watch/, "⌚"], [/auricular|cascos|airpods|nova/, "🎧"], [/port[aá]til|ideapad|macbook|ordenador/, "💻"], [/m[oó]vil|iphone|smartphone|galaxy s|pixel/, "📱"], [/tablet|ipad/, "📱"], [/monitor|televis|tele |tv\b/, "🖥️"], [/consola|playstation|xbox|switch|videojuego/, "🎮"], [/c[aá]mara/, "📷"], [/bici/, "🚲"], [/patinete/, "🛴"], [/mancuern|pesas|gym|gimnasio/, "🏋️"], [/esterilla|yoga/, "🧘"], [/sushi/, "🍣"], [/pizza/, "🍕"], [/hamburgues|burger/, "🍔"], [/caf[eé]|c[aá]psula/, "☕"], [/queso|vino|gourmet|delicatessen|cesta/, "🧺"], [/picoteo|cena|pedido|domicilio/, "🥡"], [/vuelo|escapada|viaje|hotel|fin de semana/, "✈️"], [/crema|facial|s[eé]rum|cosm[eé]t|perfume|maquillaje/, "🧴"], [/masaj/, "💆"], [/vela|decora/, "🕯️"], [/l[aá]mpara/, "💡"], [/freidora|sart[eé]n|robot de cocina/, "🍳"], [/sof[aá]|sill[aó]n|silla/, "🛋️"], [/colch[oó]n|cama/, "🛏️"], [/coche|neum[aá]tico|accesorios para el coche/, "🚗"], [/moto|casco/, "🏍️"], [/streaming|suscrip|netflix|spotify|disney/, "📺"], [/entrada|concierto|festival/, "🎟️"], [/libro|curso|m[aá]ster|formaci/, "📚"], [/juguete|lego|peluche/, "🧸"], [/perro|gato|mascota|pienso|rascador/, "🐾"], [/planta|jard[ií]n|maceta|barbacoa/, "🪴"], [/joya|anillo|collar|pulsera/, "💍"]];
+const PEMO_CAT = { ropa: "👕", tech: "📱", deporte: "🏃", viajes: "✈️", comida: "🧺", bienestar: "🧴", casa: "🏠", motor: "🚗", ocio: "🎟️", mascotas: "🐾", peques: "🧸", formacion: "📚", jardin: "🪴", lujo: "💎", otros: "🛍️" };
+function pemo(p) {
+  if (!p) return "🛍️";
+  const n = String(p.name || "").toLowerCase();
+  for (const [re, e] of PEMO_RULES) if (re.test(n)) return e;
+  const c = p.cat || ((typeof CATALOG !== "undefined" && CATALOG.find((x) => x.name === p.name)) || {}).cat;
+  return PEMO_CAT[c] || "🛍️";
+}
+PEMO_RULES.unshift([/s[uú]per|compra del/, "🛒"], [/aeropuerto|viaje de noche|taxi/, "🚕"], [/limpieza/, "🧽"], [/corte y peinado|peluquer/, "💇"], [/p[aá]del/, "🎾"], [/gimnasio|cuota/, "🏋️"], [/lavander/, "🧺"], [/s[aá]banas/, "🛏️"], [/robot aspirador/, "🤖"], [/aspirador/, "🧹"], [/smart tv|televisor/, "📺"], [/juego para|switch|pack de juegos/, "🎮"], [/rat[oó]n/, "🖱️"], [/jersey|camisa/, "👔"], [/neum/, "🛞"], [/cine/, "🍿"], [/hotel|casa rural/, "🏨"], [/ave |tren/, "🚄"], [/vuelo/, "✈️"], [/pienso|rascador|perro|gato/, "🐾"], [/peluche|lego|cocinita/, "🧸"], [/riego|cortac/, "🌱"], [/pulsera|gafas de sol/, "💎"], [/masaje/, "💆"], [/spotify|premium familiar/, "🎵"], [/caf[eé] y tarta|starbucks/, "☕"], [/pizza/, "🍕"]);
+
+// Tocar una marca de la pasarela: se elige su categoría y se marca su primer producto
+const brandCat = (n) => Object.keys(BRANDS).find((k) => (BRANDS[k] || []).includes(n));
+let pickPid = null;
+function pickBrandApp(n) {
+  let p = CATALOG.find((x) => x.brand === n || x.shop === n);
+  const c = (p && p.cat) || brandCat(n) || "otros";
+  if (!p) { p = { id: "b-" + slug(n), cat: c, brand: n, shop: n, url: DOM[n] ? "https://" + DOM[n] : "", name: "Capricho de " + n, price: 60, say: "¿Lo quieres o lo quieres ahora? Mañana lo ves con otros ojos." }; CATALOG.push(p); }
+  cat = c; pickPid = p.id; renderExplorar();
+  const el = document.querySelector(`#catalog [data-pid="${p.id}"]`); if (el) { el.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" }); }
+  toast(`${n}: ${p.name}. Toca "Lo quiero" para pasarlo por el freno`);
+}
+document.addEventListener("click", (e) => { const b = e.target.closest("#brandRoll .lstrip button, #brandRoll .lstage figure"); if (!b) return; const n = b.dataset.n || (b.querySelector("[title]") || {}).title || b.getAttribute("aria-label") || b.getAttribute("title"); if (n) pickBrandApp(n); });
 function renderExplorar() {
   const all = catsAll(), chips = [["todo", "Todo"]].concat(Object.entries(all).map(([k, v]) => [k, v[0]]));
   $("#catChips").innerHTML = chips.map(([k, l]) => `<label><input type="radio" name="cat" value="${k}" ${k === cat ? "checked" : ""}><span>${esc(l)}</span></label>`).join("");
   const list = CATALOG.filter((p) => cat === "todo" || p.cat === cat);
-  const card = (p) => `<article class="pc" data-pid="${p.id}" style="--c:${CAT(p.cat)[1]}">
-      <div class="ic">${icon(p.ico || p.cat)}${logoSrc(p.brand) ? favImg(p.brand, "main", 128) + `<span class="cic">${icon(p.ico || p.cat)}</span>` : ""}</div>
+  const card = (p) => `<article class="pc${p.id === pickPid ? " picked" : ""}" data-pid="${p.id}" style="--c:${CAT(p.cat)[1]}">
+      <div class="ic"><span class="pe">${pemo(p)}</span></div>
       <div class="br">${brandChip(p.brand, p.shop)}</div>
       <div class="nm">${esc(p.name)}</div>
       <div class="pr">${eur(p.price, 2)} <span class="tiny">simulado</span></div>
@@ -2090,7 +2124,7 @@ function openGate(key, prod) {
   $("#gShop").value = prod ? prod.shop : s ? s[0] : "";
   $("#gName2").value = prod ? prod.name : ""; $("#gPrice").value = prod ? String(prod.price).replace(".", ",") : "";
   $("#gProd").hidden = !prod; $("#gNameLab").hidden = !!prod; $("#gFields").hidden = !!prod;
-  if (prod) { $("#gProd").style.setProperty("--c", CAT(prod.cat)[1]); $("#gProd").innerHTML = `<span class="ic">${icon(prod.ico || prod.cat)}${favImg(prod.brand, "fav")}</span><div class="grow"><div class="br">${brandChip(prod.brand, prod.shop)}</div><div class="nm">${esc(prod.name)}</div><div class="tiny">Precio simulado</div></div><b class="mono">${eur(prod.price, 2)}</b>`; }
+  if (prod) { $("#gProd").style.setProperty("--c", CAT(prod.cat)[1]); { const web = prod.url || (DOM[prod.brand] ? "https://" + DOM[prod.brand] : ""); $("#gProd").innerHTML = `<span class="ic pe">${pemo(prod)}</span><div class="grow"><div class="br">${brandChip(prod.brand, prod.shop)}</div><div class="nm">${esc(prod.name)}</div><div class="tiny">Precio simulado${web ? ` - <a class="link" href="${web}" target="_blank" rel="noopener">Ver en la web de ${esc(prod.brand)} ↗</a>` : ""}</div></div><b class="mono">${eur(prod.price, 2)}</b>`; } }
   renderGateCats(prod ? prod.cat : "ropa");
   const why = $('input[name="gwhy"][value="Me apetece"]'); if (why) why.checked = true;
   const buy = $("#gBuy"), url = prod ? prod.url : s ? s[1] : null; buy.href = url || "#"; buy.hidden = false;
