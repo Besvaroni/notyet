@@ -1082,6 +1082,82 @@ footer.af .fl a:first-child{padding-left:0;border-left:0}
 .parout p{margin:4px 0 0;color:var(--navy-muted);font-size:.78rem}
 .dg{min-height:124px}
 .dg .emo{font-size:4.4rem}
+
+/* ===== v16: teléfono de la portada ===== */
+.hs .body{overflow-y:auto!important;scrollbar-width:none;overscroll-behavior:contain}
+.hs .body::-webkit-scrollbar{display:none}
+.hs .body>*{flex-shrink:0}
+.ph .scr>.tabs .tb i{background:none!important;width:auto;height:18px;font-size:15px;font-style:normal;line-height:18px;filter:grayscale(1) opacity(.6);transition:transform .25s var(--ease)}
+.ph .scr>.tabs .tb.on i{filter:none;transform:scale(1.12)}
+#hpHome .dzr{cursor:pointer;border-radius:8px}
+#hpHome .dzr:hover{background:var(--bg2)}
+#hpHome .dz{padding:10px 12px;border-radius:16px}
+#hpHome .dzr{padding:6px 0;gap:8px}#hpHome .dzr .e{width:26px;height:26px;font-size:.95rem;border-radius:8px}
+#hpHome .dzr .n{font-size:10px}#hpHome .dzr .n small{font-size:8.5px}#hpHome .dzr b{font-size:10px}
+#hpHome .dzh b{font-size:11px}#hpHome .dzh span{font-size:8.5px}#hpHome .dzt span{font-size:10px}#hpHome .dzt small{font-size:8.5px}#hpHome .dzt b{font-size:1.15rem}
+#hpHome .dzk,#hpHome .dzg .r{font-size:8.5px}#hpHome .dzs{font-size:7.5px;top:8px;right:10px}
+.hli{display:flex;width:100%;justify-content:space-between;align-items:center;text-align:left;font-size:10px;padding:5px 0;border-top:1px solid var(--line);cursor:pointer}
+.hli .w{font-size:9px}
+.hundo{display:flex;align-items:center;justify-content:space-between;gap:8px;background:var(--fg);color:var(--bg);border-radius:12px;padding:7px 10px;font-size:9.5px;animation:dzIn .4s var(--ease)}
+.hundo button{background:var(--bg);color:var(--fg);border-radius:999px;padding:4px 10px;font-weight:800;font-size:9px}
+.bigemo{font-size:3.4rem;line-height:1.1;filter:drop-shadow(0 8px 10px rgba(0,0,0,.18))}
+.okp{font-size:8.5px;font-weight:800;color:#17A35A;background:color-mix(in srgb,#17A35A 12%,transparent);border-radius:999px;padding:2px 8px;white-space:nowrap}
+.app .litem{display:flex;justify-content:space-between;align-items:center;gap:6px;font-size:10px}
+.app .litem small{color:var(--muted);font-size:8.5px}
+.hrow{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;scroll-snap-type:x proximity;cursor:grab;padding-bottom:2px}
+.hrow::-webkit-scrollbar{display:none}
+.hchips button{flex:none;background:var(--bg2);border-radius:999px;padding:5px 10px;font-size:9.5px;font-weight:700;color:var(--fg);white-space:nowrap}
+.hchips button.on{background:var(--fg);color:var(--bg)}
+.hsh{display:flex;flex-direction:column;gap:5px}
+.hsht{align-self:flex-start;font-family:var(--f-display);font-weight:900;font-size:13px;letter-spacing:-.02em;color:var(--fg)}
+.hsht span{color:var(--muted);font-weight:600;font-size:10px}
+.hcount{font-size:10px;color:var(--muted)}
+.hpc2{flex:none;width:104px;scroll-snap-align:start;background:var(--surface);border-radius:12px;padding:6px;display:flex;flex-direction:column;gap:2px;box-shadow:0 1px 3px rgba(0,0,0,.08);font-size:9px;text-align:left}
+.hgrid .hpc2{width:auto}
+.hpc2 .ic{height:58px;border-radius:9px;background:#F5F5F7;display:flex;align-items:center;justify-content:center;position:relative}
+.hpc2 .pe{font-size:1.9rem;line-height:1;font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif}
+.hpc2 .lgb{position:absolute;left:4px;top:4px;width:16px;height:16px;border-radius:5px;background:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,.12)}
+.hpc2 .lgb img.logo{width:12px!important;height:12px!important;position:static;mix-blend-mode:normal}
+.hpc2 .lgb .ini{font-size:5px}
+.hpc2 b{font-size:9px;line-height:1.2;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.4em}
+.hpc2 .m{font-size:8px;color:var(--muted)}
+.hpc2 .pr{font-weight:800;font-size:10.5px}
+.hpc2 .pbtn{padding:4px 8px;font-size:8.5px;margin-top:3px;background:transparent;color:var(--fg);border:1.2px solid var(--brand)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .hpc2 .ic{background:#2C2C2E}}
+.share3{display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
+.share3 button{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:3px;background:var(--bg2);border-radius:10px;padding:6px 2px;font-size:7.5px;font-weight:700;color:var(--fg);min-width:0;height:44px}
+.share3 i{width:20px;height:20px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-style:normal;font-size:8px;font-weight:900;flex:none}
+.share3 span{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hsay{display:flex;gap:5px}
+.hsay input{flex:1;min-width:0;font:inherit;font-size:10px;border:1px solid var(--line);border-radius:999px;padding:6px 10px;background:var(--surface);color:var(--fg)}
+.hdec{display:flex;gap:5px;flex-wrap:wrap}
+.app .pbtn.sm{padding:3px 8px;font-size:8.5px}
+.app .chatapp .msgs{max-height:190px;overflow-y:auto;scrollbar-width:none}
+.pbtn.dl{width:100%;gap:6px;position:relative;overflow:hidden}
+.pbtn.dl .arr{display:inline-block}
+.pbtn.dl.go .arr{animation:dlArr 1.1s cubic-bezier(.6,0,.4,1)}
+@keyframes dlArr{0%{transform:translateY(0)}45%{transform:translateY(14px);opacity:0}46%{transform:translateY(-14px);opacity:0}100%{transform:translateY(0);opacity:1}}
+.pbtn.dl.done{background:#17A35A}
+.hdash{display:flex;flex-direction:column;gap:6px;margin-top:6px;animation:dzIn .5s var(--ease)}
+.hkpi{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}
+.hkpi div{background:var(--bg2);border-radius:9px;padding:6px;display:flex;flex-direction:column}
+.hkpi b{font-size:11px;font-weight:800}.hkpi span{font-size:7.5px;color:var(--muted)}
+.hdt{font-size:8.5px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-top:4px}
+.hbars{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;height:64px;align-items:end}
+.hbars div{display:flex;align-items:flex-end;justify-content:center;gap:2px;height:100%;position:relative;padding-bottom:10px}
+.hbars i{width:6px;border-radius:2px 2px 0 0;display:block;animation:hbUp .8s var(--ease) both}
+.hbars i.r{background:#FF5A5F}.hbars i.g{background:#17A35A}
+.hbars span{position:absolute;bottom:0;font-size:7px;color:var(--muted)}
+@keyframes hbUp{from{transform:scaleY(0);transform-origin:bottom}to{transform:scaleY(1);transform-origin:bottom}}
+.hhb{display:grid;grid-template-columns:62px 1fr 34px;align-items:center;gap:5px;font-size:8.5px}
+.hhb i{height:6px;border-radius:3px;background:var(--line);overflow:hidden;display:block}
+.hhb i b{display:block;height:100%;background:#17A35A;border-radius:3px;animation:hbW .9s var(--ease) both}
+.hhb i b.c{background:#FF5A5F}
+.hhb em{font-style:normal;text-align:right;font-weight:700}
+@keyframes hbW{from{width:0}}
+.hrng{display:flex;flex-direction:column;gap:4px;font-size:10px}
+.hrng input{width:100%;accent-color:#FF5A5F}
+.hq button{font-size:8.5px}
 </style>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
@@ -1194,6 +1270,7 @@ footer.af .fl a:first-child{padding-left:0;border-left:0}
           <div class="hs app" data-hs="habitos"><div class="st"><span>9:41</span><span>Hábitos</span></div><div class="body" id="hpHab"></div></div>
           <div class="hs app" data-hs="pareja"><div class="st"><span>9:41</span><span>Pareja</span></div><div class="body" id="hpPar"></div></div>
           <div class="hs app" data-hs="ia"><div class="st"><span>9:41</span><span>Pregúntale</span></div><div class="body" id="hpIa"></div></div>
+          <div class="hs app" data-hs="item"><div class="st"><span>9:41</span><span>Detalle</span></div><div class="body" id="hpItem"></div></div>
           <div class="hs app" data-hs="netchat"><div class="st"><span>9:41</span><span>Invitación</span></div><div class="body" id="hpNet"></div></div>
           <div class="dim" id="heroDim"></div>
           <div class="sheet" id="heroSheet">
@@ -2825,6 +2902,210 @@ $("#prog").addEventListener("click", (e) => {
 $("#prog").addEventListener("keydown", (e) => { if ((e.key === "Enter" || e.key === " ") && e.target.dataset && e.target.dataset.bd) { e.preventDefault(); e.target.click(); } });
 $("#simPct").addEventListener("input", (e) => { simPct = Number(e.target.value); renderSim(); renderChart(true); });
 try { renderDash(); renderChart(true); } catch (e) {}
+
+/* ===== v16: el teléfono de la portada se maneja como la app ===== */
+// Más categorías y muchos más productos y servicios
+CATS.servicios = ["Servicios", "#14B8A6"]; PEMO_CAT.servicios = "🛎️";
+PEMO_RULES.unshift([/s[uú]per|compra del/, "🛒"], [/aeropuerto|viaje de noche|taxi/, "🚕"], [/limpieza/, "🧽"], [/corte y peinado|peluquer/, "💇"], [/p[aá]del/, "🎾"], [/gimnasio|cuota/, "🏋️"], [/lavander/, "🧺"], [/s[aá]banas/, "🛏️"], [/robot aspirador/, "🤖"], [/aspirador/, "🧹"], [/smart tv|televisor/, "📺"], [/juego para|switch|pack de juegos/, "🎮"], [/rat[oó]n/, "🖱️"], [/jersey|camisa/, "👔"], [/neum/, "🛞"], [/cine/, "🍿"], [/hotel|casa rural/, "🏨"], [/ave |tren/, "🚄"], [/vuelo/, "✈️"], [/pienso|rascador|perro|gato/, "🐾"], [/peluche|lego|cocinita/, "🧸"], [/riego|cortac/, "🌱"], [/pulsera|gafas de sol/, "💎"], [/masaje/, "💆"], [/spotify|premium familiar/, "🎵"], [/caf[eé] y tarta|starbucks/, "☕"], [/pizza/, "🍕"]);
+[["hm-abrigo", "ropa", "H&M", "Abrigo de lana", 79.99], ["mango-bolso", "ropa", "Mango", "Bolso de piel", 59.99], ["pull-camisa", "ropa", "Pull&Bear", "Camisa oversize", 25.99], ["md-jersey", "ropa", "Massimo Dutti", "Jersey de cachemir", 129], ["levis-501", "ropa", "Levi's", "Vaqueros 501", 110], ["uniqlo-plumas", "ropa", "Uniqlo", "Plumífero ultraligero", 69.9],
+ ["apple-ipad", "tech", "Apple", "iPad Air 11 pulgadas", 699], ["samsung-tv", "tech", "Samsung", "Smart TV 55 pulgadas", 549], ["sony-xm5", "tech", "Sony", "Auriculares WH-1000XM5", 349], ["xiaomi-robot", "tech", "Xiaomi", "Robot aspirador", 249], ["nintendo-switch", "tech", "Nintendo", "Nintendo Switch OLED", 319], ["canon-r50", "tech", "Canon", "Cámara EOS R50", 799], ["logi-mx", "tech", "Logitech", "Ratón MX Master 3S", 109],
+ ["dec-esterilla", "deporte", "Decathlon", "Esterilla de yoga", 24.99], ["garmin-265", "deporte", "Garmin", "Reloj Forerunner 265", 449], ["dec-mancuernas", "deporte", "Decathlon", "Mancuernas ajustables", 89.99], ["asics-nimbus", "deporte", "Asics", "Zapatillas Gel-Nimbus", 189.99], ["dec-mtb", "deporte", "Decathlon", "Bicicleta de montaña", 399],
+ ["iberia-ny", "viajes", "Iberia", "Vuelo Madrid-Nueva York", 620], ["booking-lisboa", "viajes", "Booking", "Hotel en Lisboa, 2 noches", 230], ["airbnb-rural", "viajes", "Airbnb", "Casa rural, fin de semana", 310], ["renfe-ave", "viajes", "Renfe", "AVE Madrid-Barcelona", 89],
+ ["ubereats-burger", "comida", "Uber Eats", "Hamburguesas a domicilio", 28.5], ["justeat-pizza", "comida", "Just Eat", "Pizza familiar a domicilio", 24.9], ["starbucks-cafe", "comida", "Starbucks", "Café y tarta", 9.8],
+ ["sephora-perfume", "bienestar", "Sephora", "Perfume 100 ml", 119], ["rituals-set", "bienestar", "Rituals", "Set de baño", 49.5], ["druni-serum", "bienestar", "Druni", "Sérum facial", 34.95],
+ ["ikea-sofa", "casa", "IKEA", "Sofá de tres plazas", 599], ["ikea-lampara", "casa", "IKEA", "Lámpara de pie", 49.99], ["zarahome-sabanas", "casa", "Zara Home", "Juego de sábanas", 69.99], ["dyson-v15", "casa", "Dyson", "Aspiradora V15", 699], ["cecotec-freidora", "casa", "Cecotec", "Freidora de aire", 69.9],
+ ["norauto-neum", "motor", "Norauto", "Neumáticos, juego de 4", 360], ["motocard-casco", "motor", "Motocard", "Casco de moto integral", 199], ["amazon-dashcam", "motor", "Amazon", "Cámara para el coche", 79],
+ ["ps5-juego", "ocio", "PlayStation", "Juego para PS5", 79.99], ["spotify-fam", "ocio", "Spotify", "Premium familiar, 12 meses", 215], ["disney-anual", "ocio", "Disney+", "Suscripción anual", 89.9], ["steam-pack", "ocio", "Steam", "Pack de juegos", 39.99], ["cinesa-dos", "ocio", "Cinesa", "Cine para dos con palomitas", 28],
+ ["tiendanimal-pienso", "mascotas", "Tiendanimal", "Pienso premium 12 kg", 64.99], ["kiwoko-rascador", "mascotas", "Kiwoko", "Rascador para gato", 59.99], ["zooplus-cama", "mascotas", "Zooplus", "Cama ortopédica para perro", 79],
+ ["lego-technic", "peques", "LEGO", "LEGO Technic", 149.99], ["imaginarium-cocina", "peques", "Imaginarium", "Cocinita de madera", 89], ["toys-peluche", "peques", "Toys R Us", "Peluche gigante", 39.99],
+ ["udemy-ingles", "formacion", "Udemy", "Curso de inglés online", 19.99], ["domestika-foto", "formacion", "Domestika", "Curso de fotografía", 14.9],
+ ["leroy-riego", "jardin", "Leroy Merlin", "Kit de riego automático", 39.9], ["bauhaus-cortacesped", "jardin", "Bauhaus", "Cortacésped eléctrico", 149],
+ ["lv-speedy", "lujo", "Louis Vuitton", "Bolso Speedy", 1650], ["loewe-gafas", "lujo", "Loewe", "Gafas de sol", 390],
+ ["glovo-super", "servicios", "Glovo", "Compra del súper a casa", 55], ["uber-aeropuerto", "servicios", "Uber", "Viaje al aeropuerto", 32], ["cabify-noche", "servicios", "Cabify", "Viaje de noche", 18], ["crono-limpieza", "servicios", "Cronoshare", "Limpieza del hogar, 3 horas", 45], ["treatwell-corte", "servicios", "Treatwell", "Corte y peinado", 35], ["treatwell-masaje", "servicios", "Treatwell", "Masaje de 60 minutos", 60], ["playtomic-padel", "servicios", "Playtomic", "Clases de pádel, bono de 5", 75], ["basicfit-cuota", "servicios", "Basic-Fit", "Gimnasio, cuota mensual", 29.99], ["lavanderia", "servicios", "Mr Jeff", "Lavandería a domicilio", 25]
+].forEach(([id, cat, brand, name, price]) => { if (!CATALOG.some((x) => x.id === id)) CATALOG.push({ id, cat, brand, shop: brand, name, price, bul: ["Precio simulado", "Envío o reserva estándar", "Cancelación según la tienda"], say: `¿Lo necesitas o te apetece? ${eur(price, price % 1 ? 2 : 0)} son ${num(price / WAGE, 1)} horas de trabajo.`, alts: [["Opción parecida más sencilla", Math.round(price * .7)], ["Reacondicionado, segunda mano o plan básico", Math.round(price * .5)]] }); });
+try { if ($("#catf") && typeof renderPicker === "function") renderPicker(); } catch (e) {}
+
+// Mes real en la cabecera y emojis en la barra de pestañas
+{ const st = $('#heroPh .hs[data-hs="home"] .st span:last-child'); if (st) { const mm = MONTHS[new Date().getMonth()]; st.textContent = mm.charAt(0).toUpperCase() + mm.slice(1); }
+  const TI = { home: "🏠", explorar: "🔍", comite: "💬", habitos: "📊", pareja: "💞", ia: "✨" }; $$("#heroPh .tb").forEach((t) => { const i = t.querySelector("i"); if (i) i.textContent = TI[t.dataset.go] || "•"; }); }
+const heroStop = () => { heroAuto = false; heroTimers.forEach((t) => { clearTimeout(t); clearInterval(t); }); heroTimers = []; };
+var heroUndo = null, heroDrawChat = null, heroMine = [], parMsgs = [], iaMsgs = [], heroDrag = false;
+const now5 = () => fmtTime(Date.now());
+
+function hpHome() {
+  const prog = hero.goal, pctSaved = Math.round((hero.total) / (hero.total + 130.49) * 100);
+  const und = heroUndo ? `<div class="hundo"><span>${heroUndo.kind === "skip" ? "No compraste" : heroUndo.kind === "buy" ? "Compraste" : "Compraste más barato"}: ${esc(heroUndo.name)}</span><button type="button" data-hundo="1">Deshacer</button></div>` : "";
+  const wl = [["samsung-watch", "Ya puedes decidir"], ["zara-chaqueta", "Faltan 18 h"]].map(([id, t]) => { const p = CATALOG.find((x) => x.id === id); return p ? `<button type="button" class="litem hli" data-hwant="${id}"><span>${pemo(p)} ${esc(p.name)}</span><span class="w">${t} ›</span></button>` : ""; }).join("");
+  $("#hpHome").innerHTML = und + `<div class="tkwrap"><div class="tk">${ticketHTML({ lines: hero.lines.slice(0, 4), total: hero.total, date: fmtDate(Date.now()), time: fmtTime(Date.now()), goals: [{ name: "Viaje a París", pct: GOALPCT, prog, amount: GOAL, pctDone: Math.min(100, Math.round(prog / GOAL * 100)) }], pctSaved, compact: true })}</div></div>
+    <div class="acard">${scoreHTML(hero.pts)}</div>
+    <div class="acard"><div class="lbl" style="color:var(--muted)">En espera</div>${wl}</div>
+    <button class="btn grad small" id="heroBuy" type="button">Apuntar un capricho</button>`;
+  $$("#hpHome .dzr").forEach((r, i) => { r.dataset.hli = i; r.tabIndex = 0; r.setAttribute("role", "button"); });
+  $("#heroBuy").addEventListener("click", () => { heroStop(); heroUp(); });
+  let li = 0; LEVELS.forEach((l, k) => { if (hero.pts >= l[0]) li = k; });
+  const n = hero.lines.length;
+  $("#fcSkip").textContent = `${n} compras descartadas`; $("#fcSaved").textContent = `Este mes, ${num(hero.total, 2)} € que siguen en tu cuenta`;
+  $("#fcLevel").textContent = `Nivel ${li + 1}: ${LEVELS[li][1]}`; $("#fcPts").textContent = `${num(hero.pts)} puntos. Cada "no" suma, y cambiar el destino cuesta la racha`;
+  const fg = $("#fcGoal"); if (fg) fg.textContent = `${eur(prog)} de ${eur(GOAL)} con lo que no gastaste. ${GOALPCT} % del bote`;
+}
+function hpItem(i) {
+  const l = hero.lines[i]; if (!l) return; hpShow("item");
+  $("#hpItem").innerHTML = `<div class="acard" style="align-items:center;text-align:center"><div class="bigemo">${pemo(l)}</div><b style="font-size:13px">${esc(l.name)}</b><span class="tiny" style="font-size:9.5px">${esc(l.shop || "")} - ${eur(l.price, 2)}</span><span class="okp">No comprado</span></div>
+    <div class="acard"><div class="litem"><span>Al bote de París</span><b>${eur(l.price * GOALPCT / 100)}</b></div><div class="litem"><span>Puntos ganados</span><b>+${10 + Math.round(l.price / 10)}</b></div><div class="litem"><span>Horas de trabajo que te ahorras</span><b>${num(l.price / WAGE, 1)} h</b></div></div>
+    <p class="tiny" style="font-size:9px">Si al final lo compraste, márcalo: NotYet lo saca del bote y te quita los puntos. Sin trampas.</p>
+    <div style="display:flex;gap:6px;margin-top:auto"><button class="pbtn ghost" type="button" data-hitemundo="${i}">Al final lo compré</button><button class="pbtn" type="button" data-hback="home">Volver</button></div>`;
+}
+function hpResult(kind) {
+  heroRun++;
+  heroUndo = { snap: JSON.parse(JSON.stringify(hero)), cur: HPcur, kind, name: HPcur.name };
+  if (kind === "skip") { hero.lines.unshift({ name: HPcur.name, shop: HPcur.shop, price: HPcur.price, cat: HPcur.cat }); hero.total += HPcur.price; hero.goal += HPcur.price * GOALPCT / 100; hero.pts += 10 + Math.round(HPcur.price / 10); }
+  else if (kind === "cheaper") { hero.pts += 5 + Math.round(heroSave() / 10); }
+  else hero.pts += 2;
+  $$("#heroPh .tb").forEach((t) => t.classList.toggle("on", t.dataset.go === "home"));
+  hpShow("home"); hpHome(); hpCap(kind);
+  if (kind !== "buy") { const d = document.createElement("div"); d.className = "ptsfly inph"; d.textContent = kind === "skip" ? `+${10 + Math.round(HPcur.price / 10)} pts` : `+${5 + Math.round(heroSave() / 10)} pts`; $("#heroPh .scr").appendChild(d); setTimeout(() => d.remove(), 1400); }
+  if (heroAuto) hT(() => { heroReset(); heroStart(); }, 5200);
+}
+function heroReset() {
+  heroTimers.forEach((t) => { clearTimeout(t); clearInterval(t); }); heroTimers = []; heroRun++; HPcur = HP; heroGroup = GYM; heroCat = "todo"; heroUndo = null; heroMine = []; parMsgs = []; iaMsgs = []; $$("#heroPh .tb").forEach((t) => t.classList.toggle("on", t.dataset.go === "home"));
+  hero = { lines: DEMO_LINES.slice(), total: SAVED0, goal: BOTE0 * GOALPCT / 100, pts: PTS0, path: null };
+  heroDown(); hpShow("home"); hpHome(); hpFacts(); hpCap("home");
+}
+// Explorar: categorías deslizables y estanterías con todo lo de cada una
+function hpCard(p) { return `<div class="hpc2"><span class="ic"><span class="pe">${pemo(p)}</span>${logoSrc(p.brand) ? `<span class="lgb">${favImg(p.brand, "", 64)}</span>` : ""}</span><b>${esc(p.name)}</b><span class="m">${esc(p.brand)}</span><span class="pr">${eur(p.price, p.price % 1 ? 2 : 0)}</span><button class="pbtn" type="button" data-hwant="${p.id}">Lo quiero</button></div>`; }
+function hpExplorar() {
+  const keys = Object.keys(CATS).filter((k) => CATALOG.some((p) => p.cat === k));
+  if (heroCat !== "todo" && !keys.includes(heroCat)) heroCat = "todo";
+  const chips = [["todo", "Todo"]].concat(keys.map((k) => [k, CATS[k][0]]));
+  const body = heroCat === "todo"
+    ? keys.map((k) => { const l = CATALOG.filter((p) => p.cat === k); return `<div class="hsh"><button type="button" class="hsht" data-hcat="${k}">${esc(CATS[k][0])} <span>${l.length} ›</span></button><div class="hrow">${l.map(hpCard).join("")}</div></div>`; }).join("")
+    : (() => { const l = CATALOG.filter((p) => p.cat === heroCat); return `<div class="hcount">${l.length} productos y servicios de ${esc(CATS[heroCat][0].toLowerCase())}</div><div class="hgrid">${l.map(hpCard).join("")}</div>`; })();
+  $("#hpExp").innerHTML = `<div class="hchips hrow">${chips.map(([k, l]) => `<button type="button" class="${k === heroCat ? "on" : ""}" data-hcat="${k}">${l}</button>`).join("")}</div>${body}<p class="tiny" style="font-size:8.5px">Desliza las categorías y las filas. Productos, servicios y precios de ejemplo.</p>`;
+  $("#hpExp").scrollTop = 0; const ch = $("#hpExp .hchips"), on = ch && ch.querySelector(".on"); if (on) ch.scrollLeft = Math.max(0, on.offsetLeft - 40);
+}
+// Comité: redes con su color, sin huecos raros
+const NGL = { WhatsApp: "W", Telegram: "✈", Instagram: "IG", TikTok: "♪", Facebook: "f", X: "X", Teams: "T", Slack: "#", Snapchat: "S", LinkedIn: "in", SMS: "SMS", Copiar: "⎘" };
+function askScreen() {
+  return `<div class="acard"><div class="lbl" style="color:var(--muted)">¿A quién le preguntas?</div><div class="tiny" style="font-size:9px">Sobre: ${esc(HPcur.name)}, ${eur(HPcur.price, 2)}</div><div class="hgrp">${GROUPS.map((g) => `<button type="button" class="${g.id === heroGroup.id ? "on" : ""}" data-hg="${g.id}">${esc(g.name)}</button>`).join("")}<button type="button" data-hg="new">+ Nuevo grupo</button></div></div><div class="acard"><div class="lbl" style="color:var(--muted)">Invita por donde quieras</div><div class="share3">${Object.keys(NGL).map((n) => `<button type="button" data-hnet="${n}"><i style="background:${(NETS_INFO[n] || ["#5C6478"])[0]};color:${n === "Snapchat" ? "#111" : "#fff"}">${NGL[n]}</i><span>${n}</span></button>`).join("")}</div><div class="tiny" id="hpNote" style="font-size:9px;min-height:12px">Toca una red para ver cómo llega.</div></div><button class="pbtn coral" type="button" data-hask="1" style="margin-top:auto">Abrir la votación</button>`;
+}
+const bubMe = (t) => `<div class="cm me">${av("Tú", "background:var(--green)")}<div class="bub"><b>Tú</b>${esc(t)}<span class="tm">${now5()} ✓✓</span></div></div>`;
+const bubOt = (w, t) => `<div class="cm">${av(w)}<div class="bub"><b>${esc(w)}</b>${t ? esc(t) : '<span class="typing"><i></i><i></i><i></i></span>'}${t ? `<span class="tm">${now5()}</span>` : ""}</div></div>`;
+function groupReply(v) {
+  const t = fold(v);
+  if (/barat|oferta|segunda|wallapop|vinted/.test(t)) return "Míralo en Wallapop o Vinted, seguro que sale más barato.";
+  if (/necesit|uso|usar|falta/.test(t)) return "Si de verdad lo vas a usar, adelante. Si no, espera a mañana.";
+  if (/caro|precio|cuesta/.test(t)) return `Son ${eur(HPcur.price, 2)}: ${num(HPcur.price / WAGE, 1)} horas de curro. Yo me lo pensaba.`;
+  const r = ["Espera 24 horas y lo ves con otros ojos.", "¿Lo necesitas ya o te apetece?", "Si cabe en tu tope del mes, hazlo sin culpa."];
+  return r[Math.floor(Math.random() * r.length)];
+}
+function hpVotes() {
+  const run = ++heroRun; hpShow("chat"); heroMine = [];
+  const votes = genVotes(HPcur, heroGroup), got = [], t0 = Date.now();
+  const draw = (typing) => {
+    const inp = $("#hpChat .hsay input"), val = inp ? inp.value : "", foc = inp && document.activeElement === inp;
+    const favor = got.filter((v) => v.vote !== "buy").length;
+    $("#hpChat").innerHTML = chatHTML({ group: heroGroup, product: HPcur, votes: got, typing, t0 }) + `<div class="summ" style="font-size:10px;padding:8px 10px">${got.length ? `${favor} de ${got.length} te sugieren no comprarlo hoy. Decides tú.` : "Votación abierta: los votos van llegando."}</div><form class="hsay" data-hsay="chat"><input type="text" maxlength="80" placeholder="Escribe al grupo" aria-label="Mensaje al grupo"><button class="pbtn" type="submit">Enviar</button></form><div class="hdec"><button class="pbtn green" type="button" data-hres="skip">Hago caso: no lo compro</button><button class="pbtn ghost" type="button" data-hres="buy">Lo compro</button><button class="pbtn ghost" type="button" data-hpath="wait">Me espero 24 h</button></div>`;
+    const ms = $("#hpChat .msgs"); if (ms) { if (heroMine.length) ms.insertAdjacentHTML("beforeend", heroMine.map((m) => m.me ? bubMe(m.t) : bubOt(m.w, m.t)).join("")); ms.scrollTop = ms.scrollHeight; }
+    const ni = $("#hpChat .hsay input"); if (ni) { ni.value = val; if (foc) ni.focus(); }
+  };
+  heroDrawChat = draw; draw(null);
+  let i = 0;
+  const step = () => { if (run !== heroRun) return; if (i >= votes.length) { draw(null); if (heroAuto) hT(() => hpResult("skip"), 2600); return; } draw(votes[i].who); const id = setTimeout(() => { if (run !== heroRun) return; got.push(votes[i]); i++; draw(null); heroTimers.push(setTimeout(step, 500)); }, reduce ? 100 : 1000); heroTimers.push(id); };
+  heroTimers.push(setTimeout(step, 600));
+}
+// Hábitos: calendario vivo y "Descargar dashboard"
+function hpHab() {
+  const m0 = MONTHS[new Date().getMonth()], m = m0.charAt(0).toUpperCase() + m0.slice(1);
+  $("#hpHab").innerHTML = `<div class="acard"><div class="lbl" style="color:var(--muted)">${m}</div><div class="kv"><div><b style="color:var(--green)">${eur(hero.total)}</b><small>no gastado</small></div><div><b style="color:var(--coral)">130 €</b><small>gastado</small></div></div></div><div class="acard cal" id="hpCal"></div><div class="acard"><button class="pbtn dl" type="button" data-hdl="1"><span class="arr">↓</span> Descargar dashboard</button><div id="hpDash"></div></div>`;
+  bindCal($("#hpCal"));
+}
+function hpDashHTML() {
+  const M = ["may", "jun", "jul", "ago", "sep", "oct"], sav = [40, 95, 160, 210, 310, Math.round(hero.total)], imp = [340, 290, 250, 210, 170, 130], mx = Math.max(...sav, ...imp);
+  const bars = M.map((x, i) => `<div><i class="r" style="height:${imp[i] / mx * 100}%"></i><i class="g" style="height:${sav[i] / mx * 100}%"></i><span>${x}</span></div>`).join("");
+  const byShop = {}; hero.lines.forEach((l) => { byShop[l.shop || "Otros"] = (byShop[l.shop || "Otros"] || 0) + l.price; }); const top = Object.entries(byShop).sort((a, b) => b[1] - a[1]).slice(0, 4), tmax = top.length ? top[0][1] : 1;
+  return `<div class="hdash"><div class="hkpi"><div><b>${eur(hero.total)}</b><span>no gastado este mes</span></div><div><b>${hero.lines.length}</b><span>compras evitadas</span></div><div><b>${Math.round(hero.total / (hero.total + 130.49) * 100)} %</b><span>de lo que querías</span></div></div>
+    <div class="hdt">Seis meses: impulsos en rojo, no gastado en verde</div><div class="hbars">${bars}</div>
+    <div class="hdt">Dónde más te frenas</div>${top.map(([k, v]) => `<div class="hhb"><span>${esc(k)}</span><i><b style="width:${v / tmax * 100}%"></b></i><em>${eur(v)}</em></div>`).join("")}
+    <div class="hdt">Tus momentos de riesgo</div><div class="hhb"><span>Jueves noche</span><i><b class="c" style="width:100%"></b></i><em>4</em></div><div class="hhb"><span>Domingo tarde</span><i><b class="c" style="width:75%"></b></i><em>3</em></div><div class="hhb"><span>Viernes noche</span><i><b class="c" style="width:50%"></b></i><em>2</em></div>
+    <p class="tiny" style="font-size:8.5px">Simulado: en la app se guarda como PDF en tu móvil.</p></div>`;
+}
+// Pareja: pacto que se mueve y consulta en vivo con Sofía
+var parThrH = 150;
+function hpPareja() {
+  const list = [HPcur].concat(["samsung-watch", "ikea-sofa", "zara-chaqueta", "glovo-super"].map((id) => CATALOG.find((x) => x.id === id))).filter((p, i, a) => p && a.indexOf(p) === i).slice(0, 4);
+  const chat = parMsgs.length ? `<div class="chatapp"><div class="msgs">${parMsgs.map((m) => m.me ? bubMe(m.t) : bubOt("Sofía", m.t)).join("")}</div></div><form class="hsay" data-hsay="par"><input type="text" maxlength="80" placeholder="Escribe a Sofía" aria-label="Mensaje a Sofía"><button class="pbtn" type="submit">Enviar</button></form>${parMsgs.some((m) => !m.me && m.t) ? `<div class="hdec"><button class="pbtn green" type="button" data-hres="skip">Vale, no lo compro</button><button class="pbtn ghost" type="button" data-hres="buy">Lo compro igual</button></div>` : ""}` : "";
+  $("#hpPar").innerHTML = `<div class="acard"><div class="lbl" style="color:var(--muted)">Pacto en pareja</div><label class="hrng"><span>Se consultan las compras de más de <b id="hParV">${eur(parThrH)}</b></span><input type="range" min="30" max="600" step="10" value="${parThrH}" data-hparthr="1" aria-label="Importe a partir del cual se consulta"></label><div class="tiny" style="font-size:9px">Lo fijáis los dos. Sofía opina, no bloquea.</div></div><div class="acard" id="hParList">${parList(list)}</div>${chat}`;
+  const ms = $("#hpPar .msgs"); if (ms) ms.scrollTop = ms.scrollHeight;
+}
+function parList(list) { return list.map((p) => `<div class="litem"><span>${pemo(p)} ${esc(p.name)} <small>${eur(p.price, p.price % 1 ? 2 : 0)}</small></span>${p.price > parThrH ? `<button type="button" class="pbtn coral sm" data-hpask="${p.id}">Consultar</button>` : '<span class="okp">Decides tú</span>'}</div>`).join(""); }
+function sofiaSays(p, v) {
+  const t = fold(v || ""), left = Math.max(0, GOAL - hero.goal);
+  if (/porfa|por favor|venga|merezco/.test(t)) return "Vale, pero que sea el único capricho del mes.";
+  if (/no lo compro|espero|mañana/.test(t)) return "¡Bien! Eso va directo al bote de París.";
+  if (p.price > 400) return `Es mucho. ¿Lo dejamos para el mes que viene? Nos faltan ${eur(left)} para París.`;
+  if (p.cat === "deporte") return "Si lo vas a usar de verdad, adelante. ¿Probamos un mes en el gym primero?";
+  return `Por mí vale, pero acuérdate: nos faltan ${eur(left)} para París.`;
+}
+// Pregúntale: asistente con tus datos de la demo
+function iaAnswer(q) {
+  const t = fold(q), left = Math.max(0, GOAL - hero.goal), perM = Math.max(1, hero.total * GOALPCT / 100), months = Math.ceil(left / perM), pct = Math.round(hero.total / (hero.total + 130.49) * 100);
+  if (/punto|nivel|insignia/.test(t)) { let li = 0; LEVELS.forEach((l, k) => { if (hero.pts >= l[0]) li = k; }); const nx = LEVELS[li + 1]; return `Tienes ${num(hero.pts)} puntos: nivel ${li + 1}, ${LEVELS[li][1]}.${nx ? ` Te faltan ${nx[0] - hero.pts} para ${nx[1]}.` : ""}`; }
+  if (/paris|viaje|destino|llego|meta/.test(t)) return left <= 0 ? "¡Ya tienes el viaje a París! Puedes crear otro destino." : `Te faltan ${eur(left)} para París. A este ritmo, unos ${months} ${months === 1 ? "mes" : "meses"}.`;
+  if (/me compro|deberia|comprar|compro/.test(t)) return `${HPcur.name} cuesta ${eur(HPcur.price, 2)}: ${num(HPcur.price / WAGE, 1)} horas de tu trabajo y ${HPcur.price > HBUDGET ? "se pasa de tu tope semanal" : "cabe en tu tope semanal"}. Yo esperaría 24 horas y miraría antes la opción más barata.`;
+  if (/dejado|no compre|lista|descart/.test(t)) return `Lo que no compraste: ${hero.lines.slice(0, 5).map((l) => l.name).join(", ")}.`;
+  if (/gasto|tienta|donde|tienda|categor/.test(t)) { const by = {}; hero.lines.forEach((l) => { by[l.shop] = (by[l.shop] || 0) + 1; }); const top = Object.entries(by).sort((a, b) => b[1] - a[1])[0]; return top ? `Donde más te tienta es ${top[0]}: ${top[1]} de tus ${hero.lines.length} caprichos frenados. Tu momento de riesgo, los jueves por la noche.` : "Aún no hay datos."; }
+  if (/ahorr|llevo|cuanto|sobra/.test(t)) return `Este mes no has gastado ${eur(hero.total)} en ${hero.lines.length} caprichos: el ${pct} % de lo que ibas a gastar. Regla general, no asesoramiento: primero un colchón, luego París.`;
+  return 'Puedo contarte lo que ahorras, tus destinos, tus puntos, dónde más te tienta y si te compensa una compra. Prueba: "¿Cuándo llego a París?"';
+}
+function hpIa() {
+  const qs = ["¿Cuánto llevo ahorrado?", "¿Cuándo llego a París?", "¿Dónde más me tienta?", `¿Me compro ${HPcur.name}?`, "¿Cuántos puntos tengo?"];
+  if (!iaMsgs.length) iaMsgs = [{ w: "NotYet", t: `Hola. Llevas ${eur(hero.total)} sin gastar este mes. Pregúntame lo que quieras sobre tus compras.` }];
+  $("#hpIa").innerHTML = `<div class="chatapp"><div class="msgs">${iaMsgs.map((m) => m.me ? bubMe(m.t) : bubOt("NotYet", m.t)).join("")}</div></div><div class="hgrp hq">${qs.map((q) => `<button type="button" data-hq="${esc(q)}">${esc(q)}</button>`).join("")}</div><form class="hsay" data-hsay="ia"><input type="text" maxlength="100" placeholder="Pregunta sobre tus compras" aria-label="Pregunta"><button class="pbtn" type="submit">Enviar</button></form><p class="tiny" style="font-size:8.5px">Con los datos de la demo. En la app, responde tu IA con tus datos reales. No es asesoramiento financiero.</p>`;
+  const ms = $("#hpIa .msgs"); if (ms) ms.scrollTop = ms.scrollHeight;
+}
+function iaAsk(q) { iaMsgs.push({ me: 1, t: q }, { w: "NotYet", t: "" }); hpIa(); setTimeout(() => { iaMsgs[iaMsgs.length - 1].t = iaAnswer(q); hpIa(); }, 700); }
+function hpTab(name) {
+  $$("#heroPh .tb").forEach((t) => t.classList.toggle("on", t.dataset.go === name));
+  if (name === "home") { hpShow("home"); hpHome(); hpCap("home"); return; }
+  if (name === "explorar") { hpExplorar(); hpShow("explorar"); hpCap("explorar"); return; }
+  if (name === "comite") { $("#hpComite").innerHTML = askScreen(); hpShow("comite"); hpCap("comite"); return; }
+  if (name === "habitos") { hpHab(); hpShow("habitos"); hpCap("habitos"); return; }
+  if (name === "pareja") { hpPareja(); hpShow("pareja"); hpCap("pareja"); return; }
+  if (name === "ia") { hpIa(); hpShow("ia"); hpCap("ia"); }
+}
+// Eventos nuevos del teléfono
+$("#heroPh").addEventListener("click", (e) => {
+  if (heroDrag) { e.stopPropagation(); e.preventDefault(); heroDrag = false; }
+}, true);
+$("#heroPh").addEventListener("click", (e) => {
+  const li = e.target.closest("[data-hli]"), un = e.target.closest("[data-hundo]"), iu = e.target.closest("[data-hitemundo]"), dl = e.target.closest("[data-hdl]"), pa = e.target.closest("[data-hpask]"), q = e.target.closest("[data-hq]");
+  if (!(li || un || iu || dl || pa || q)) return;
+  heroStop();
+  if (li) { hpItem(Number(li.dataset.hli)); return; }
+  if (un && heroUndo) { hero = heroUndo.snap; HPcur = heroUndo.cur; heroUndo = null; hpHome(); hpFacts(); heroUp(); return; }
+  if (iu) { const l = hero.lines.splice(Number(iu.dataset.hitemundo), 1)[0]; if (l) { hero.total -= l.price; hero.goal -= l.price * GOALPCT / 100; hero.pts = Math.max(0, hero.pts - (10 + Math.round(l.price / 10))); } hpTab("home"); return; }
+  if (dl) { if (dl.classList.contains("go")) return; dl.classList.add("go"); dl.innerHTML = '<span class="arr">↓</span> Descargando...'; setTimeout(() => { dl.classList.remove("go"); dl.classList.add("done"); dl.innerHTML = "✓ Dashboard descargado"; $("#hpDash").innerHTML = hpDashHTML(); const b = $("#hpHab"); if (b) b.scrollTo({ top: b.scrollHeight, behavior: reduce ? "auto" : "smooth" }); }, 1100); return; }
+  if (pa) { const p = CATALOG.find((x) => x.id === pa.dataset.hpask); if (!p) return; HPcur = p; hpFacts(); parMsgs = [{ me: 1, t: `${p.name}, ${eur(p.price, 2)} en ${p.shop}. ¿Qué te parece?` }, { w: "Sofía", t: "" }]; hpPareja(); setTimeout(() => { parMsgs[parMsgs.length - 1].t = sofiaSays(p); hpPareja(); }, 1100); return; }
+  if (q) { iaAsk(q.dataset.hq); }
+});
+$("#heroPh").addEventListener("keydown", (e) => { if ((e.key === "Enter" || e.key === " ") && e.target.dataset && e.target.dataset.hli != null) { e.preventDefault(); e.target.click(); } });
+$("#heroPh").addEventListener("submit", (e) => {
+  const f = e.target.closest("[data-hsay]"); if (!f) return; e.preventDefault();
+  const inp = f.querySelector("input"), v = inp.value.trim(); if (!v) return; heroAuto = false;
+  if (f.dataset.hsay === "chat") { const w = heroGroup.members[Math.floor(Math.random() * heroGroup.members.length)][0]; heroMine.push({ me: 1, t: v }); inp.value = ""; heroMine.push({ w, t: "" }); heroDrawChat && heroDrawChat(null); setTimeout(() => { heroMine[heroMine.length - 1].t = groupReply(v); heroDrawChat && heroDrawChat(null); }, 1000); }
+  else if (f.dataset.hsay === "par") { parMsgs.push({ me: 1, t: v }, { w: "Sofía", t: "" }); hpPareja(); setTimeout(() => { parMsgs[parMsgs.length - 1].t = sofiaSays(HPcur, v); hpPareja(); }, 1000); }
+  else if (f.dataset.hsay === "ia") iaAsk(v);
+});
+$("#heroPh").addEventListener("input", (e) => { if (!e.target.dataset || !e.target.dataset.hparthr) return; heroStop(); parThrH = Number(e.target.value); $("#hParV").textContent = eur(parThrH); const list = [HPcur].concat(["samsung-watch", "ikea-sofa", "zara-chaqueta", "glovo-super"].map((id) => CATALOG.find((x) => x.id === id))).filter((p, i, a) => p && a.indexOf(p) === i).slice(0, 4); $("#hParList").innerHTML = parList(list); });
+// arrastrar con el ratón las filas deslizables
+$("#heroPh").addEventListener("pointerdown", (e) => {
+  const r = e.target.closest(".hrow"); if (!r || e.pointerType !== "mouse") return;
+  const x0 = e.clientX, s0 = r.scrollLeft; heroDrag = false;
+  const mv = (ev) => { const dx = ev.clientX - x0; if (Math.abs(dx) > 5) heroDrag = true; r.scrollLeft = s0 - dx; };
+  const up = () => { removeEventListener("pointermove", mv); removeEventListener("pointerup", up); setTimeout(() => { heroDrag = false; }, 0); };
+  addEventListener("pointermove", mv); addEventListener("pointerup", up);
+});
+try { heroReset(); } catch (e) {}
 })();
 </script>
 
