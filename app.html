@@ -318,6 +318,17 @@ details.card[open] summary::after{content:"−"}
 .goal .gbar i{display:block;height:100%;background:#fff;transition:width .8s var(--ease)}
 .goal .lock{position:absolute;top:10px;right:10px;font-size:.66rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;background:rgba(0,0,0,.35);border-radius:999px;padding:4px 9px;backdrop-filter:blur(4px)}
 .goal .pct{position:absolute;top:10px;left:12px;font-family:var(--f-mono);font-weight:700;font-size:.8rem;background:rgba(0,0,0,.35);border-radius:999px;padding:3px 8px}
+/* Fotos realistas de destinos, con fundido, zoom lento y entrada escalonada; si falta la foto se ve el dibujo */
+.goal{min-height:150px;transition:transform .35s var(--ease),box-shadow .35s ease;animation:goalIn .6s var(--ease) both}
+.goal:nth-child(2){animation-delay:.07s}.goal:nth-child(3){animation-delay:.14s}.goal:nth-child(n+4){animation-delay:.2s}
+.goal img.scene-ph{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-1;opacity:0;transform:scale(1.04);transition:opacity .9s ease}
+.goal img.scene-ph.on{opacity:1;animation:goalKB 16s ease-in-out infinite alternate}
+.goal:has(img.scene-ph.on)::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(to top,rgba(0,0,0,.78) 0%,rgba(0,0,0,.28) 50%,rgba(0,0,0,.1) 100%)}
+@media (hover:hover){.goal:hover{transform:translateY(-3px);box-shadow:0 16px 36px rgba(0,0,0,.35)}}
+.goal:active{transform:scale(.98)}
+@keyframes goalIn{from{opacity:0;transform:translateY(12px) scale(.98)}to{opacity:1;transform:none}}
+@keyframes goalKB{from{transform:scale(1.04) translate(0,0)}to{transform:scale(1.12) translate(-2%,-2%)}}
+@media (prefers-reduced-motion:reduce){.goal,.goal img.scene-ph.on{animation:none}}
 .gpick{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
 .gpick label{cursor:pointer;flex-direction:column;align-items:center;gap:4px;font-size:.66rem;text-align:center}
 .gpick input{position:absolute;opacity:0;width:1px;height:1px}
@@ -1835,7 +1846,7 @@ function ticketHTML(o) {
 /* ---------- Inicio ---------- */
 const GOALIMGS = ["paris", "playa", "piso", "boda", "coche", "fondo", "regalo", "portatil", "moto", "bebe", "mascota", "estudios", "bici"];
 const GOALNAMES = { paris: "Viaje", playa: "Playa", piso: "Piso", boda: "Boda", coche: "Coche", fondo: "Fondo", regalo: "Regalo", portatil: "Portátil", moto: "Moto", bebe: "Bebé", mascota: "Mascota", estudios: "Estudios", bici: "Bici" };
-const scene = (img) => `<svg class="scene" aria-hidden="true"><use href="#sc-${GOALIMGS.includes(img) ? img : "fondo"}"/></svg>`;
+const scene = (img) => { const k = GOALIMGS.includes(img) ? img : "fondo"; return `<svg class="scene" aria-hidden="true"><use href="#sc-${k}"/></svg><img class="scene-ph" src="/img/destinos/${k}.jpg" alt="" loading="lazy" decoding="async" onload="this.classList.add('on')" onerror="this.remove()">`; };
 function renderInicio() {
   const d = new Date();
   $("#monthTitle").textContent = MONTHS[d.getMonth()].charAt(0).toUpperCase() + MONTHS[d.getMonth()].slice(1);
