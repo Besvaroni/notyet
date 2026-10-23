@@ -58,7 +58,7 @@ const eur=(n)=>n?new Intl.NumberFormat("es-ES",{style:"currency",currency:"EUR",
 const ls=(k,v)=>{try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v);}catch(e){return null;}};
 let voter=ls("ny.voter"); if(!voter){const a=new Uint8Array(12);crypto.getRandomValues(a);voter=Array.from(a,(x)=>x.toString(16).padStart(2,"0")).join("");ls("ny.voter",voter);}
 const id=new URLSearchParams(location.search).get("p")||"";
-let P=null,V=[],pick=null;
+let P=null,V=[],pick=(()=>{const c=new URLSearchParams(location.search).get("c");return ["si","no","barato"].includes(c)?c:null;})();
 const OPT={voto:[["si","Sí, cómpralo","✅","#17A35A"],["no","No, espera","✋","#FF5A5F"],["barato","Busca más barato","🔎","#2F6BFF"]],permiso:[["si","Sí, te doy permiso","✅","#17A35A"],["no","No, esta vez no","✋","#FF5A5F"],["barato","Busca algo más barato","🔎","#2F6BFF"]]};
 function tally(){const c={si:0,no:0,barato:0};V.forEach((v)=>c[v.choice]=(c[v.choice]||0)+1);return c;}
 function resHTML(){const c=tally(),n=V.length||1,o=OPT[P.kind]||OPT.voto;

@@ -1403,6 +1403,7 @@ footer.fv{background:#000;color:#fff;padding:56px 0 24px;font-size:.95rem}
 .filmpp:focus-visible{outline:2px solid #fff;outline-offset:2px}
 .filmsub{margin-top:18px;color:#86868b;font-size:.9rem}
 @media (max-width:700px){.film{padding:64px 0 56px}.filmbox{aspect-ratio:9/16;max-width:420px;border-radius:24px;margin-top:30px}}
+.seg .segl{display:inline-flex;align-items:center;padding:8px 14px;border-radius:999px;font-weight:600;font-size:.9rem;color:inherit;text-decoration:none;opacity:.85}.seg .segl:hover{opacity:1;background:rgba(255,255,255,.12)}@media (max-width:640px){.seg{display:none!important}}
 </style>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
@@ -1474,9 +1475,8 @@ footer.fv{background:#000;color:#fff;padding:56px 0 24px;font-size:.95rem}
 <header class="nav">
   <div class="nav-in">
     <a class="brand" href="#producto" data-view="producto"><svg aria-hidden="true"><use href="#logoMark"/></svg>NotYet</a>
-    <div class="seg" role="tablist" aria-label="Sección">
-      <button role="tab" id="tab-producto" aria-selected="true" data-view="producto" type="button">Producto</button>
-      <button role="tab" id="tab-negocio" aria-selected="false" data-view="negocio" type="button">Negocio</button>
+    <div class="seg" aria-label="Secciones">
+      <a class="segl" href="#film">Vídeo</a><a class="segl" href="#precios">Precios</a><a class="segl" href="#faq">Preguntas</a>
     </div>
     <a class="btn light small" href="laboratorio.html" target="_blank" rel="noopener">Laboratorio</a>
     <a class="navlog" href="https://notyetapp.app/app?entrar=1">Entrar</a>
@@ -1904,7 +1904,7 @@ footer.fv{background:#000;color:#fff;padding:56px 0 24px;font-size:.95rem}
     <p class="lead reveal" style="margin-top:16px">Para ayudarte a decidir no hace falta saberlo todo de ti.</p>
     <div class="facts">
       <div class="fact reveal"><b>Sin cuenta bancaria</b><p>Registras lo que tú quieres. No leemos tus movimientos ni tu navegación.</p></div>
-      <div class="fact reveal"><b>Tus datos, contigo</b><p>En el prototipo todo se guarda en tu navegador. Si algún día hay cuentas, te diremos qué guardamos, cuánto tiempo y para qué.</p></div>
+      <div class="fact reveal"><b>Tus datos, contigo</b><p>Sin cuenta, todo se queda en tu móvil. Con cuenta, tus compras y metas se guardan cifradas en servidores de la Unión Europea para que las tengas en cualquier dispositivo, y lo borras todo con un toque.</p></div>
       <div class="fact reveal"><b>Nunca te bloqueamos</b><p>"Comprar igualmente" está siempre a un clic. Y a veces NotYet te dirá: cómpratelo, pero mejor.</p></div>
       <div class="fact reveal"><b>Sin comisiones ocultas</b><p>Ninguna tienda paga por salir primero. El orden es el precio, nada más.</p></div>
     </div>
@@ -1914,7 +1914,7 @@ footer.fv{background:#000;color:#fff;padding:56px 0 24px;font-size:.95rem}
 <section id="precios">
   <div class="wrap center">
     <h2 class="h2 reveal">Gratis para empezar.<br>Paga solo por lo que te haga ahorrar.</h2>
-    <p class="lead reveal" style="margin-top:16px">Precios hipotéticos para experimentar durante el piloto, no precios validados.</p>
+    <p class="lead reveal" style="margin-top:16px">Sin permanencia: cancelas cuando quieras desde tu cuenta.</p>
     <div class="plans">
       <article class="plan reveal">
         <div class="name">Gratis</div>
@@ -1947,15 +1947,16 @@ footer.fv{background:#000;color:#fff;padding:56px 0 24px;font-size:.95rem}
         <button class="btn grad" type="button" data-open="plus">Probar Plus</button>
       </article>
       <article class="plan reveal">
-        <div class="name">NotYet Pareja</div>
+        <div class="name">NotYet Pareja y familia</div>
         <div class="amount">3,99 € <small>al mes</small></div><div class="who" style="margin-top:-4px">o <a href="https://buy.stripe.com/cNi6oJbaK4xz3xWc882oE03" target="_blank" rel="noopener">34,99 € al año</a>, ahorras un 27 %</div>
-        <div class="who">Para dos personas con una meta en común.</div>
+        <div class="who">Para dos adultos con una meta en común, y sus hijos.</div>
         <ul>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg>Todo lo de Plus</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg>Plus también en el móvil de tu pareja, con un enlace</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg>Pacto en pareja: las compras grandes se consultan</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg>Modo familia: tus hijos te piden permiso por correo o WhatsApp y contestas con un toque</li>
         </ul>
-        <button class="btn ghost" type="button" data-open="pareja">Probar Pareja</button>
+        <button class="btn ghost" type="button" data-open="pareja">Probar Pareja y familia</button>
       </article>
     </div>
     <p class="tiny reveal" style="margin-top:22px">Precios finales con impuestos incluidos. Pago seguro con tarjeta a través de Stripe. Sin permanencia: cancelas cuando quieras y conservas el plan hasta el final del periodo pagado. <b>Invita a un amigo:</b> él tiene el primer mes de Plus gratis y tú ganas un mes cuando pague el suyo. <a href="condiciones.html">Condiciones de la suscripción</a>.</p>
@@ -1966,8 +1967,8 @@ footer.fv{background:#000;color:#fff;padding:56px 0 24px;font-size:.95rem}
   <div class="wrap">
     <h2 class="h2 center reveal">Preguntas frecuentes.</h2>
     <div class="faq reveal">
-      <details><summary>¿El comité funciona por WhatsApp?</summary><div class="a">No hace falta. Creas tus grupos dentro de la app, invitas con un enlace y cada miembro vota desde su móvil. WhatsApp queda como opción para quien prefiera mandar la pregunta por ahí. En el prototipo los votos de los grupos se simulan: todavía no hay servidor detrás.</div></details>
-      <details><summary>¿De dónde salen las reseñas de "mereció la pena"?</summary><div class="a">Del detector de arrepentimientos: días después de comprar, NotYet pregunta a cada persona si lo usa o se arrepiente. Con muchos usuarios, esas respuestas se agregan por producto (sin nombres) y te dicen si quien ya lo compró lo volvería a comprar. En la demo son simuladas.</div></details>
+      <details><summary>¿El comité funciona por WhatsApp?</summary><div class="a">No hace falta. Creas tus grupos dentro de la app, invitas con un enlace y cada miembro vota desde su móvil. Mandas un enlace por WhatsApp, Telegram, Instagram o donde quieras: tus amigos votan con un toque sin instalar nada y el resultado llega a tu app. Si alguien contesta en el chat, lo apuntas a mano.</div></details>
+      <details><summary>¿De dónde salen las reseñas de "mereció la pena"?</summary><div class="a">Del detector de arrepentimientos: días después de comprar, NotYet pregunta a cada persona si lo usa o se arrepiente. Con muchos usuarios, esas respuestas se agregan por producto (sin nombres) y te dicen si quien ya lo compró lo volvería a comprar. Mientras no haya suficientes respuestas de un producto, no te enseñamos ninguna.</div></details>
       <details><summary>¿"Buscar más barato" compara de verdad?</summary><div class="a">Hoy te lleva directamente a los resultados de ese producto en cada sitio (Google Shopping, idealo, Amazon y eBay de barato a caro, Wallapop, Vinted, Back Market y tiendas por categoría) y, en Amazon, a su historial de precios. El análisis de "lo que te compensa" con nuevo, reacondicionado y segunda mano es simulado en la demo; el barrido automático necesita fuentes de datos con licencia y está explicado en la vista Negocio.</div></details>
       <details><summary>¿Para qué sirven los puntos?</summary><div class="a">Para que volver apetezca. Cada "no" suma, hay niveles e insignias, y el destino se bloquea al crearlo para que no te hagas trampas. Las recompensas de marcas no existen todavía: si llegan, será con acuerdos reales y sin convertir el ahorro en gasto.</div></details>
       <details><summary>¿Hay una IA? ¿De quién?</summary><div class="a">En la app hay un "Pregúntale" que responde con tus compras, tu bote, tu tope y tus destinos. Dentro de claude.ai usa tu propia cuenta de Claude, con tu permiso. Fuera, eliges en Ajustes la IA donde estés dado de alta (Claude, OpenAI o Gemini) y pegas tu clave, que se queda en tu navegador; sin clave, responde por reglas. Nunca recomienda productos financieros concretos ni promete rentabilidades: no es asesoramiento.</div></details>
@@ -1979,7 +1980,7 @@ footer.fv{background:#000;color:#fff;padding:56px 0 24px;font-size:.95rem}
       <details><summary>¿Me va a prohibir comprar?</summary><div class="a">Nunca. "Comprar igualmente" está siempre a un clic. Y cuando una compra encaja con tu presupuesto, NotYet te lo dirá y te ayudará a comprarla mejor.</div></details>
       <details><summary>¿Qué es el comité de compras?</summary><div class="a">Una votación privada con uno de tus grupos (amigos, gym, curro, familia) o con tu pareja: comprar, esperar o buscar más barato. Cada uno justifica su voto y NotYet resume las opiniones. Nadie decide por ti.</div></details>
       <details><summary>¿Las marcas y los precios de la demo son reales?</summary><div class="a">Las marcas y tiendas se citan solo como ejemplo de dónde salta el freno. Los precios, las alternativas y las personas de la demostración son simulados: en la versión real los precios saldrían de comparadores y la gente serían tus amigos de verdad.</div></details>
-      <details><summary>¿Qué incluye cada plan?</summary><div class="a">Gratis: freno y espera de 24 horas con aviso, resumen del mes, puntos e insignias, hasta 15 compras al mes, 1 destino y 1 grupo de comité. Plus (2,99 € al mes o 24,99 € al año): todo sin límite, panel de evolución, hábitos, retos y el asistente Pregúntale. Pareja (3,99 € al mes o 34,99 € al año): todo Plus, también en el móvil de tu pareja, y el pacto en pareja.</div></details>
+      <details><summary>¿Qué incluye cada plan?</summary><div class="a">Gratis: freno y espera de 24 horas con aviso, resumen del mes, puntos e insignias, hasta 15 compras al mes, 1 destino y 1 grupo de comité. Plus (2,99 € al mes o 24,99 € al año): todo sin límite, panel de evolución, hábitos, retos y el asistente Pregúntale. Pareja y familia (3,99 € al mes o 34,99 € al año): todo Plus, también en el móvil de tu pareja, el pacto en pareja y el modo familia para tus hijos.</div></details>
     </div>
   </div>
 </section>
@@ -2309,7 +2310,7 @@ function showView(key, scroll) {
 }
 $$("[data-view]").forEach((b) => b.addEventListener("click", (e) => { e.preventDefault(); showView(b.dataset.view, true); }));
 const hash = (location.hash || "").slice(1).toLowerCase();
-showView(hash === "negocio" ? "negocio" : "producto", false);
+showView("producto", false);
 if (hash && hash !== "negocio" && hash !== "producto") { const t = document.getElementById(hash); if (t) setTimeout(() => t.scrollIntoView(), 50); }
 
 /* ===== v4: datos y ayudas compartidas con la app ===== */
@@ -3098,9 +3099,9 @@ if ("IntersectionObserver" in window) { const so = new IntersectionObserver((es)
 const modal = $("#modal"), mForm = $("#mForm"), mDone = $("#mDone");
 let lastFocus = null;
 const COPY = {
-  beta: ["Empieza con NotYet", "Te enviamos el enlace para empezar por WhatsApp o con la extensión de Chrome.", "Apúntame", "Listo. En la versión real recibirías ahora el enlace para empezar."],
-  plus: ["NotYet Plus, 2,99 € al mes", "El pago con tarjeta se abre en los próximos días. Mientras, empieza gratis.", "Empezar gratis", ""],
-  pareja: ["NotYet Pareja, 3,99 € al mes", "El pago con tarjeta se abre en los próximos días. Mientras, empezad gratis.", "Empezar gratis", ""]
+  beta: ["Empieza con NotYet", "Te enviamos el enlace para empezar por WhatsApp o con la extensión de Chrome.", "Apúntame", "Listo. Abre la app y empieza."],
+  plus: ["NotYet Plus, 2,99 € al mes", "Pago seguro con tarjeta a través de Stripe. Cancelas cuando quieras.", "Empezar gratis", ""],
+  pareja: ["NotYet Pareja y familia, 3,99 € al mes", "Pago seguro con tarjeta a través de Stripe. Cancelas cuando quieras.", "Empezar gratis", ""]
 };
 const PAY_LINKS = { plus: "https://buy.stripe.com/28E8wRbaK8NPgkI2xy2oE00", pareja: "https://buy.stripe.com/5kQeVf2Ee8NPb0o4FG2oE01" }; // pega aquí los enlaces de pago de Stripe (Payment Links) de cada plan
 const APP_URL = "app.html";
