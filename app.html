@@ -1092,7 +1092,7 @@ body.indemo .wrap{padding-top:52px}
       <button type="button" data-sec="fLogo"><i>🏷️</i><span>Logos de las marcas</span></button>
       <a href="privacidad.html"><i>🔒</i><span>Privacidad</span></a>
       <a href="condiciones.html"><i>📄</i><span>Condiciones</span></a>
-      <a href="mailto:alfonsodeborbon.02@gmail.com"><i>❓</i><span>Ayuda</span></a>
+      <a href="mailto:support@notyetapp.app"><i>❓</i><span>Ayuda</span></a>
       <button type="button" class="out" id="menuOut" hidden><i>↩︎</i><span>Cerrar sesión</span></button>
     </nav>
     <div class="card acct" id="acctCard"></div>
@@ -1134,7 +1134,7 @@ body.indemo .wrap{padding-top:52px}
       <h2>Datos</h2>
       <p class="tiny">Todo se guarda solo en este navegador: NotYet no tiene tus compras en ningún servidor. Si cambias de móvil o borras el navegador, se pierden, así que guarda de vez en cuando una copia y ábrela en el móvil nuevo. Tu plan de pago se recupera aparte, en Tu plan.</p><div class="actions"><button class="btn small" id="bkSave" type="button">Guardar copia de seguridad</button><label class="btn ghost small" style="cursor:pointer">Restaurar una copia<input type="file" id="bkLoad" accept=".json,application/json" hidden></label></div>
       <label class="chips" style="flex-direction:row;align-items:center"><input type="checkbox" id="favToggle" checked><span>Mostrar el logo real de cada marca (se carga desde su web)</span></label>
-      <div class="actions"><button class="btn ghost small" id="loadDemo" type="button">Cargar datos de ejemplo</button><button class="btn ghost small" id="clearEx" type="button">Quitar ejemplos</button><button class="btn ghost small" id="wipe" type="button" style="color:var(--coral)">Borrar todos mis datos</button></div><p class="tiny">¿Dudas, una devolución o algo que no va? Escríbenos a <a href="mailto:alfonsodeborbon.02@gmail.com">alfonsodeborbon.02@gmail.com</a>. <a href="privacidad.html" target="_blank" rel="noopener">Privacidad</a> - <a href="condiciones.html" target="_blank" rel="noopener">Condiciones</a> - <a href="aviso-legal.html" target="_blank" rel="noopener">Aviso legal</a></p>
+      <div class="actions"><button class="btn ghost small" id="loadDemo" type="button">Cargar datos de ejemplo</button><button class="btn ghost small" id="clearEx" type="button">Quitar ejemplos</button><button class="btn ghost small" id="wipe" type="button" style="color:var(--coral)">Borrar todos mis datos</button></div><p class="tiny">¿Dudas, una devolución o algo que no va? Escríbenos a <a href="mailto:support@notyetapp.app">support@notyetapp.app</a>. <a href="privacidad.html" target="_blank" rel="noopener">Privacidad</a> - <a href="condiciones.html" target="_blank" rel="noopener">Condiciones</a> - <a href="aviso-legal.html" target="_blank" rel="noopener">Aviso legal</a></p>
     </div>
     <form class="card" id="fAI">
       <h2>Tu IA, privada</h2>
@@ -1510,7 +1510,7 @@ function load() {
 function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} try { syncSoon(); } catch (e) {} }
 /* ---------- Planes: Gratis, Plus y Pareja. Lo que promete cada plan en la web es exactamente lo que se desbloquea aquí ---------- */
 const PAY = { plus: "https://buy.stripe.com/28E8wRbaK8NPgkI2xy2oE00", pareja: "https://buy.stripe.com/5kQeVf2Ee8NPb0o4FG2oE01", portal: "https://billing.stripe.com/p/login/28E8wRbaK8NPgkI2xy2oE00", plusY: "https://buy.stripe.com/28E4gB4Mm1ln8Sgdcc2oE02", parejaY: "https://buy.stripe.com/cNi6oJbaK4xz3xWc882oE03", plusTrial: "https://buy.stripe.com/6oU00ldiSggh4C03BC2oE04" };
-const CONTACT = "alfonsodeborbon.02@gmail.com";
+const CONTACT = "support@notyetapp.app";
 const FREE_ITEMS = 15, FREE_GOALS = 1, FREE_GROUPS = 1;
 const planOf = () => (S.plan && S.plan.tier) || "gratis";
 const hasPlus = () => tourOn || planOf() !== "gratis";
