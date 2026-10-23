@@ -8,6 +8,33 @@
 const ORIGINS = ["https://notyetapp.app", "https://www.notyetapp.app", "https://besvaroni.github.io", "https://notyet-9op.pages.dev"];
 const DAY = 864e5, CODE_TTL = 10 * 60e3, SESSION_TTL = 120 * DAY, MAX_DATA = 400000, REWARD_DAYS = 30, REWARD_CENTS = 299;
 const MAIL_FROM = "NotYet <codigo@notyetapp.app>";
+// Entrar con Google / Microsoft: los ID de cliente son publicos (no son secretos). Microsoft vacio = desactivado
+const OIDC = {
+  google: { aud: "598545986571-2ul55vakdrk3jane6gscgitf98t4m8gl.apps.googleusercontent.com", jwks: "https://www.googleapis.com/oauth2/v3/certs", iss: (i) => i === "https://accounts.google.com" || i === "accounts.google.com" },
+  microsoft: { aud: "", jwks: "https://login.microsoftonline.com/consumers/discovery/v2.0/keys", iss: (i) => i === "https://login.microsoftonline.com/9188040d-6c67-4c5b-b112-36a304b66dad/v2.0" },
+};
+const JWKS_CACHE = {};
+const b64uDec = (t) => Uint8Array.from(atob(t.replace(/-/g, "+").replace(/_/g, "/") + "===".slice((t.length + 3) % 4)), (c) => c.charCodeAt(0));
+async function verifyIdToken(provider, jwt, nonce, env) {
+  const cfg = OIDC[provider]; const aud = (env && env[provider.toUpperCase() + "_CLIENT_ID"]) || (cfg && cfg.aud);
+  if (!cfg || !aud) return { error: "Este acceso aún no está activado" };
+  const parts = String(jwt || "").split("."); if (parts.length !== 3) return { error: "Token no válido" };
+  let head, pay; try { head = JSON.parse(new TextDecoder().decode(b64uDec(parts[0]))); pay = JSON.parse(new TextDecoder().decode(b64uDec(parts[1]))); } catch (e) { return { error: "Token no válido" }; }
+  if (head.alg !== "RS256" || !head.kid) return { error: "Token no válido" };
+  let keys = JWKS_CACHE[provider];
+  if (!keys || keys.t < now() - 3600e3 || !keys.k.some((k) => k.kid === head.kid)) { const r = await fetch(cfg.jwks); keys = JWKS_CACHE[provider] = { t: now(), k: (await r.json()).keys || [] }; }
+  const jwk = keys.k.find((k) => k.kid === head.kid); if (!jwk) return { error: "Token no válido" };
+  const key = await crypto.subtle.importKey("jwk", { kty: jwk.kty, n: jwk.n, e: jwk.e, alg: "RS256", ext: true }, { name: "RSASSA-PKCS1-v1_5", hash: "SHA-256" }, false, ["verify"]);
+  const ok = await crypto.subtle.verify("RSASSA-PKCS1-v1_5", key, b64uDec(parts[2]), enc.encode(parts[0] + "." + parts[1]));
+  if (!ok) return { error: "Token no válido" };
+  const t = Math.floor(now() / 1000);
+  if (pay.aud !== aud || !cfg.iss(pay.iss) || !(pay.exp > t) || (pay.iat && pay.iat > t + 300)) return { error: "Token caducado o de otra app" };
+  if (!nonce || pay.nonce !== nonce) return { error: "Vuelve a intentarlo" };
+  const email = String(pay.email || (provider === "microsoft" ? pay.preferred_username : "") || "").trim().toLowerCase();
+  if (!okEmail(email)) return { error: "Tu cuenta no comparte el correo" };
+  if (provider === "google" && pay.email_verified !== true && pay.email_verified !== "true") return { error: "Tu correo de Google no está verificado" };
+  return { email, sub: pay.sub };
+}
 
 const hdr = (req) => { const o = req.headers.get("Origin") || ""; return { "Access-Control-Allow-Origin": ORIGINS.includes(o) || /^https:\/\/[a-z0-9-]+\.notyet[a-z0-9-]*\.pages\.dev$/.test(o) ? o : ORIGINS[0], "Access-Control-Allow-Methods": "GET, POST, PUT, OPTIONS", "Access-Control-Allow-Headers": "Content-Type, Authorization", "Content-Type": "application/json", "Vary": "Origin", "Cache-Control": "no-store" }; };
 const now = () => Date.now();
@@ -177,6 +204,26 @@ export default {
         await env.DB.prepare("DELETE FROM codes WHERE email = ?").bind(email).run();
         return "";
       };
+      // Entrar con Google o Microsoft (Outlook, Hotmail): el proveedor ya confirma el correo
+      if (path === "/auth/oidc" && req.method === "POST") {
+        const b = await body(); const provider = b.provider === "microsoft" ? "microsoft" : "google";
+        if (await limited(env, "oidc:" + ip, 40, 3600e3)) return out({ ok: false, error: "Demasiados intentos. Espera un rato." }, 429);
+        const v = await verifyIdToken(provider, b.id_token, String(b.nonce || ""), env); if (v.error) return out({ ok: false, error: v.error }, 400);
+        const ref = String(b.ref || "").toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 12);
+        let u = await env.DB.prepare("SELECT * FROM users WHERE email = ?").bind(v.email).first(), isNew = false;
+        if (!u) {
+          const id = b64u(rnd(12)); let r = refCode();
+          for (let i = 0; i < 4 && (await env.DB.prepare("SELECT 1 FROM users WHERE ref = ?").bind(r).first()); i++) r = refCode();
+          const by = ref ? await env.DB.prepare("SELECT id, email FROM users WHERE ref = ?").bind(ref).first() : null;
+          await env.DB.prepare("INSERT INTO users (id, email, ref, referred_by, created, bonus_until, verified) VALUES (?, ?, ?, ?, ?, 0, 1)").bind(id, v.email, r, by && by.email !== v.email ? by.id : null, now()).run();
+          u = await env.DB.prepare("SELECT * FROM users WHERE id = ?").bind(id).first(); isNew = true;
+          if (u.referred_by) await env.DB.prepare("INSERT OR IGNORE INTO referrals (referee_id, referrer_id, status, created) VALUES (?, ?, 'pending', ?)").bind(u.id, u.referred_by, now()).run();
+        } else if (!u.verified) {
+          // cuenta a medias con ese correo: la confirma el proveedor y se borra la contrasena que nadie habia confirmado
+          await env.DB.prepare("UPDATE users SET verified = 1, pw_hash = NULL, pw_salt = NULL WHERE id = ?").bind(u.id).run();
+        }
+        return out({ ok: true, token: await newSession(u.id), email: v.email, isNew, invited: !!u.referred_by });
+      }
       // Crear cuenta: correo + contrasena; se confirma el correo con un codigo
       if (path === "/auth/register" && req.method === "POST") {
         const b = await body(); const email = em(b.email), ref = String(b.ref || "").toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 12);
