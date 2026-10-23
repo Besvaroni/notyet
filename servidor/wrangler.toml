@@ -1,0 +1,15 @@
+# NotYet - servidor de pagos, cuentas e invitaciones (Cloudflare Workers, plan gratuito)
+# Cloudflare lo publica solo cada vez que cambia esta carpeta en GitHub.
+# Los secretos STRIPE_SECRET y RESEND_KEY se guardan en Cloudflare, no aquí.
+name = "notyet-pagos"
+main = "worker.js"
+compatibility_date = "2026-10-01"
+workers_dev = true
+
+[observability]
+enabled = true
+
+[[d1_databases]]
+binding = "DB"
+database_name = "notyet"
+database_id = "313d87b7-e9b1-4d2e-bfb4-d49a65a09ea1"
