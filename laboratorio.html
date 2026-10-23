@@ -646,6 +646,14 @@ svg.chart .bar{transition:y .5s var(--ease),height .5s var(--ease)}
 @media (max-width:1000px){.ch2{grid-template-columns:1fr}.carlist{grid-template-columns:1fr 1fr}.det{grid-template-columns:1fr}.detpane{position:static}}
 @media (max-width:560px){.carlist{grid-template-columns:1fr}}
 
+
+/* Logos: iniciales cuando la marca no publica un icono nítido */
+.logo-ini{display:inline-flex!important;align-items:center;justify-content:center;border-radius:8px;background:var(--fg);color:var(--bg);font-weight:800;letter-spacing:-.02em;font-size:.62rem;width:22px;height:22px;flex:none;line-height:1}
+.lroll .lstage .logo-ini{width:52px;height:52px;border-radius:14px;font-size:1.15rem}
+.lroll .lstrip .logo-ini{width:22px;height:22px;font-size:.6rem;border-radius:6px}
+.lroll .lstage figure img{object-fit:contain;height:auto!important}
+.lroll .lstage figcaption{font-size:.95rem!important;letter-spacing:-.01em!important;text-transform:none!important;color:var(--fg)!important;font-weight:800!important}
+.lroll .lstage{height:100px!important}
 </style>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="lg" gradientUnits="userSpaceOnUse" x1="14" y1="10" x2="54" y2="44"><stop offset="0" stop-color="#19D3C5"/><stop offset=".55" stop-color="#2F6BFF"/><stop offset="1" stop-color="#7B5CFF"/></linearGradient><linearGradient id="g-paris" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6B4CE6"/><stop offset=".6" stop-color="#FF7A59"/><stop offset="1" stop-color="#FFC46B"/></linearGradient><linearGradient id="g-regalo" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFB84D"/><stop offset="1" stop-color="#FF5A5F"/></linearGradient><symbol id="logoMark" viewBox="0 0 64 64">
       <path d="M8 14h6.5l4.6 22h28.4l4.4-13.5" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
@@ -819,7 +827,7 @@ svg.chart .bar{transition:y .5s var(--ease),height .5s var(--ease)}
 
 <footer>
   <div class="wrap">
-    <div><b>NotYet Lab</b> - prototipo con datos simulados. "NotYet" es un nombre provisional.</div>
+    <div><b>NotYet Lab</b> - prototipo con datos simulados.</div>
     <div>Marcas y tiendas citadas como ejemplo y sin relación comercial. El icono de cada tienda o red social se carga desde su propia web a través del servicio de iconos de Google; antes de publicar, que un abogado confirme ese uso. Las bonificaciones de bancos, empresas y marcas son propuestas, no ofertas.</div>
     <div>Fuente de las cifras de la portada: "La Red del Cambio", 6.ª edición (2026), Wallapop y Netquest.</div>
   </div>
@@ -890,8 +898,21 @@ function logoSrc(name, px) {
   if (LOGO_URLS[name]) return { src: LOGO_URLS[name], cls: "own", fb: favUrl(name) };
   return h >= 96 ? { src: favUrl(name, 128), cls: "favi", fb: favUrl(name, 64) } : { src: favUrl(name, 64), cls: "favi", fb: null };
 }
+
+// Logos nítidos: un icono nunca se amplía más allá de su tamaño real; si la marca solo publica uno diminuto (16 px) o el genérico, se muestran sus iniciales
+window.logoFit = function (img) {
+  try {
+    const w = img.naturalWidth || 0, n = img.getAttribute("title") || "";
+    if (w && w < 30) {
+      const s = document.createElement("span"); s.className = "ini logo-ini"; s.title = n;
+      s.textContent = (n.replace(/[^A-Za-zÁÉÍÓÚÑáéíóúñ0-9 ]/g, "").split(/\s+/).filter(Boolean).map((x) => x[0]).join("").slice(0, 2) || n.slice(0, 2)).toUpperCase();
+      img.replaceWith(s); return;
+    }
+    if (w) { const cap = Math.round(w * 1.15); img.style.maxWidth = cap + "px"; img.style.maxHeight = cap + "px"; }
+  } catch (e) {}
+};
 const LOGO_ERR = "if(this.dataset.fb){this.src=this.dataset.fb;this.classList.remove('bf','own');this.classList.add('favi');delete this.dataset.fb}else{this.remove()}";
-const favImg = (name, cls, px) => { const l = logoSrc(name, px); return l ? `<img class="logo ${l.cls} ${cls || ""}" src="${l.src}" alt="" loading="lazy" decoding="async" title="${esc(name)}"${l.fb ? ` data-fb="${l.fb}"` : ""} onerror="${LOGO_ERR}">` : ""; };
+const favImg = (name, cls, px) => { const l = logoSrc(name, px); return l ? `<img class="logo ${l.cls} ${cls || ""}" src="${l.src}" alt="" loading="lazy" decoding="async" title="${esc(name)}"${l.fb ? ` data-fb="${l.fb}"` : ""} onload="logoFit(this)" onerror="${LOGO_ERR}">` : ""; };
 function brandChip(brand, shop) {
   const b = brand || shop || "", who = DOM[b] ? b : shop;
   const ini = `<span class="ini">${esc(b.replace(/[^A-Za-zÁÉÍÓÚÑ0-9]/g, "").slice(0, 2).toUpperCase() || "?")}</span>`;

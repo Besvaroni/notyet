@@ -878,6 +878,19 @@ img.logo.favi{mix-blend-mode:multiply}
 @media (max-width:640px){.bcard.w6{grid-column:span 1}.play{grid-template-columns:1fr}}
 
 .sheet .facts{padding:2px 8px}.sheet .facts div{font-size:9.5px;padding:4px 0;gap:5px}
+
+/* Cabecera de la marca: el logo de NotYet sobre fondo oscuro */
+.brandhead{display:flex;justify-content:center}
+.brandhead .wm{display:inline-flex;align-items:center;gap:12px;padding:16px 26px;border-radius:20px;background:#0B1024;color:#fff;font-family:var(--f-display);font-weight:800;font-size:1.9rem;letter-spacing:-.03em;box-shadow:0 18px 40px -22px rgba(11,16,36,.8)}
+.brandhead .wm svg{width:48px;height:48px}
+
+/* Logos: iniciales cuando la marca no publica un icono nítido */
+.logo-ini{display:inline-flex!important;align-items:center;justify-content:center;border-radius:8px;background:var(--fg);color:var(--bg);font-weight:800;letter-spacing:-.02em;font-size:.62rem;width:22px;height:22px;flex:none;line-height:1}
+.lroll .lstage .logo-ini{width:52px;height:52px;border-radius:14px;font-size:1.15rem}
+.lroll .lstrip .logo-ini{width:22px;height:22px;font-size:.6rem;border-radius:6px}
+.lroll .lstage figure img{object-fit:contain;height:auto!important}
+.lroll .lstage figcaption{font-size:.95rem!important;letter-spacing:-.01em!important;text-transform:none!important;color:var(--fg)!important;font-weight:800!important}
+.lroll .lstage{height:100px!important}
 </style>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
@@ -1397,32 +1410,16 @@ img.logo.favi{mix-blend-mode:multiply}
       <details><summary>¿Me va a prohibir comprar?</summary><div class="a">Nunca. "Comprar igualmente" está siempre a un clic. Y cuando una compra encaja con tu presupuesto, NotYet te lo dirá y te ayudará a comprarla mejor.</div></details>
       <details><summary>¿Qué es el comité de compras?</summary><div class="a">Una votación privada con uno de tus grupos (amigos, gym, curro, familia) o con tu pareja: comprar, esperar o buscar más barato. Cada uno justifica su voto y NotYet resume las opiniones. Nadie decide por ti.</div></details>
       <details><summary>¿Las marcas y los precios de la demo son reales?</summary><div class="a">Las marcas y tiendas se citan solo como ejemplo de dónde salta el freno. Los precios, las alternativas y las personas de la demostración son simulados: en la versión real los precios saldrían de comparadores y la gente serían tus amigos de verdad.</div></details>
-      <details><summary>¿Qué incluye cada plan?</summary><div class="a">Gratis: freno, espera de 24 horas, recordatorios y contador básico. Plus: objetivos, comité ilimitado, informe de hábitos y análisis de productos. Pareja: todo Plus para dos, con metas, votaciones y presupuesto compartidos.</div></details>
+      <details><summary>¿Qué incluye cada plan?</summary><div class="a">Gratis: freno y espera de 24 horas con aviso, ticket, puntos e insignias, hasta 15 compras al mes, 1 destino y 1 grupo de comité. Plus (2,99 € al mes o 24,99 € al año): todo sin límite, panel de evolución, hábitos, retos y el asistente Pregúntale. Pareja (3,99 € al mes o 34,99 € al año): todo Plus, también en el móvil de tu pareja, y el pacto en pareja.</div></details>
     </div>
   </div>
 </section>
 
 <section class="marca" id="marca">
   <div class="wrap center">
-    <p class="eyebrow reveal">La marca</p>
-    <h2 class="h2 reveal" style="margin-top:12px">Un cerebro en el carrito.</h2>
-    <p class="lead reveal" style="margin-top:16px">Piénsatelo antes de meterlo en el carrito. El logo es un dibujo propio, no copia ningún icono existente, y funciona en claro, en oscuro y como icono de app.</p>
-    <div class="ltoggle reveal" role="group" aria-label="Versión del logo"><button type="button" aria-pressed="true" data-logo="logoMark">Cerebro y carrito</button><button type="button" aria-pressed="false" data-logo="logoHand">Mano y carrito</button></div>
-    <div class="logo-grid">
-      <div class="lcard dark reveal"><span class="wm"><svg class="lg-use" aria-hidden="true"><use href="#logoMark"/></svg>NotYet</span></div>
-      <div class="lcard reveal"><svg aria-hidden="true"><use href="#logoIcon"/></svg><span class="tiny">Icono de la app y de la extensión de Chrome</span></div>
-    </div>
-    <div class="swatches reveal" aria-label="Colores de la marca">
-      <div class="sw"><i style="background:#19D3C5"></i>Teal<b>#19D3C5</b></div>
-      <div class="sw"><i style="background:#2F6BFF"></i>Azul<b>#2F6BFF</b></div>
-      <div class="sw"><i style="background:#7B5CFF"></i>Violeta<b>#7B5CFF</b></div>
-      <div class="sw"><i style="background:#0B1024"></i>Marino<b>#0B1024</b></div>
-      <div class="sw"><i style="background:#17A35A"></i>Ahorro<b>#17A35A</b></div>
-      <div class="sw"><i style="background:#D98E00"></i>Espera<b>#D98E00</b></div>
-      <div class="sw"><i style="background:#FF5A5F"></i>Comité<b>#FF5A5F</b></div>
-      <div class="sw"><i style="background:#FFFDF7"></i>Recibo<b>#FFFDF7</b></div>
-    </div>
-    <div class="namebox reveal"><b>Nombre: "NotYet", provisional</b><p>El nombre definitivo llevará un doble sentido detrás, lo que la marca te dice sin decirlo. Mientras tanto, "NotYet" aparece como texto en la web, la app y la extensión, así que cambiarlo es un buscar y reemplazar.</p></div>
+    <div class="brandhead reveal"><span class="wm"><svg aria-hidden="true"><use href="#logoMark"/></svg>NotYet</span></div>
+    <h2 class="h2 reveal" style="margin-top:22px">Un cerebro en el carrito.</h2>
+    <p class="lead reveal" style="margin-top:16px">Piénsatelo antes de meterlo en el carrito.</p>
   </div>
 </section>
 
@@ -1780,8 +1777,21 @@ function logoSrc(name, px) {
   if (LOGO_URLS[name]) return { src: LOGO_URLS[name], cls: "own", fb: favUrl(name) };
   return h >= 96 ? { src: favUrl(name, 128), cls: "favi", fb: favUrl(name, 64) } : { src: favUrl(name, 64), cls: "favi", fb: null };
 }
+
+// Logos nítidos: un icono nunca se amplía más allá de su tamaño real; si la marca solo publica uno diminuto (16 px) o el genérico, se muestran sus iniciales
+window.logoFit = function (img) {
+  try {
+    const w = img.naturalWidth || 0, n = img.getAttribute("title") || "";
+    if (w && w < 30) {
+      const s = document.createElement("span"); s.className = "ini logo-ini"; s.title = n;
+      s.textContent = (n.replace(/[^A-Za-zÁÉÍÓÚÑáéíóúñ0-9 ]/g, "").split(/\s+/).filter(Boolean).map((x) => x[0]).join("").slice(0, 2) || n.slice(0, 2)).toUpperCase();
+      img.replaceWith(s); return;
+    }
+    if (w) { const cap = Math.round(w * 1.15); img.style.maxWidth = cap + "px"; img.style.maxHeight = cap + "px"; }
+  } catch (e) {}
+};
 const LOGO_ERR = "if(this.dataset.fb){this.src=this.dataset.fb;this.classList.remove('bf','own');this.classList.add('favi');delete this.dataset.fb}else{this.remove()}";
-const favImg = (name, cls, px) => { const l = logoSrc(name, px); return l ? `<img class="logo ${l.cls} ${cls || ""}" src="${l.src}" alt="" loading="lazy" decoding="async" title="${esc(name)}"${l.fb ? ` data-fb="${l.fb}"` : ""} onerror="${LOGO_ERR}">` : ""; };
+const favImg = (name, cls, px) => { const l = logoSrc(name, px); return l ? `<img class="logo ${l.cls} ${cls || ""}" src="${l.src}" alt="" loading="lazy" decoding="async" title="${esc(name)}"${l.fb ? ` data-fb="${l.fb}"` : ""} onload="logoFit(this)" onerror="${LOGO_ERR}">` : ""; };
 function brandChip(brand, shop) {
   const b = brand || shop || "", who = DOM[b] ? b : shop;
   const ini = `<span class="ini">${esc(b.replace(/[^A-Za-zÁÉÍÓÚÑ0-9]/g, "").slice(0, 2).toUpperCase() || "?")}</span>`;

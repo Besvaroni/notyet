@@ -485,6 +485,38 @@ textarea{font:inherit;color:var(--fg);background:var(--bg2);border:1px solid var
 .caseit .actions{margin-top:6px}
 .iaact{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
 .iaact button{background:var(--fg);color:var(--bg);border:0;border-radius:999px;padding:6px 11px;font:inherit;font-size:.78rem;font-weight:800;cursor:pointer}
+
+/* Ordenador: menú lateral, contenido más ancho y letra más grande. En el móvil no cambia nada */
+@media (min-width:1000px){
+  html{font-size:17px}
+  body{font-size:16.5px}
+  .tabbar{top:0;bottom:0;right:auto;width:232px;border-top:0;border-right:1px solid var(--line);padding:96px 14px 20px}
+  .tabbar .in{max-width:none;flex-direction:column;justify-content:flex-start;gap:4px}
+  .tabbar button{flex-direction:row;justify-content:flex-start;gap:12px;font-size:1rem;padding:12px 14px;min-width:0;width:100%}
+  .tabbar button svg{width:22px;height:22px}
+  .tabbar button[aria-selected="true"]{background:color-mix(in srgb,var(--brand) 12%,transparent)}
+  .wrap{max-width:820px;margin-left:calc(232px + max(28px,(100vw - 232px - 820px) / 2));margin-right:auto;padding-block:22px 48px;padding-inline:0}
+  .top{position:fixed;top:0;left:0;width:232px;padding:26px 22px;z-index:8;flex-direction:column;align-items:flex-start;gap:14px}
+  .top .r{position:fixed;left:14px;bottom:22px;width:204px;flex-direction:column;align-items:stretch}
+  .top .r .btn{justify-content:center}
+  .top .r .ibtn{width:100%;gap:8px;font-weight:700}
+  .top .r .ibtn::after{content:"Ajustes"}
+  .tk{zoom:1.18}
+  .brand{font-size:1.45rem}.brand svg{width:38px;height:38px}
+  .card{padding:22px;border-radius:24px}
+  .vhead h1{font-size:2.4rem}
+  .fab{right:36px;bottom:36px;width:64px;height:64px}
+  .sheet-back{align-items:center}
+  .sheet{border-radius:28px;max-height:86vh;max-width:600px}
+}
+
+/* Logos: iniciales cuando la marca no publica un icono nítido */
+.logo-ini{display:inline-flex!important;align-items:center;justify-content:center;border-radius:8px;background:var(--fg);color:var(--bg);font-weight:800;letter-spacing:-.02em;font-size:.62rem;width:22px;height:22px;flex:none;line-height:1}
+.lroll .lstage .logo-ini{width:52px;height:52px;border-radius:14px;font-size:1.15rem}
+.lroll .lstrip .logo-ini{width:22px;height:22px;font-size:.6rem;border-radius:6px}
+.lroll .lstage figure img{object-fit:contain;height:auto!important}
+.lroll .lstage figcaption{font-size:.95rem!important;letter-spacing:-.01em!important;text-transform:none!important;color:var(--fg)!important;font-weight:800!important}
+.lroll .lstage{height:100px!important}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -861,8 +893,21 @@ function logoSrc(name, px) {
   if (LOGO_URLS[name]) return { src: LOGO_URLS[name], cls: "own", fb: favUrl(name) };
   return h >= 96 ? { src: favUrl(name, 128), cls: "favi", fb: favUrl(name, 64) } : { src: favUrl(name, 64), cls: "favi", fb: null };
 }
+
+// Logos nítidos: un icono nunca se amplía más allá de su tamaño real; si la marca solo publica uno diminuto (16 px) o el genérico, se muestran sus iniciales
+window.logoFit = function (img) {
+  try {
+    const w = img.naturalWidth || 0, n = img.getAttribute("title") || "";
+    if (w && w < 30) {
+      const s = document.createElement("span"); s.className = "ini logo-ini"; s.title = n;
+      s.textContent = (n.replace(/[^A-Za-zÁÉÍÓÚÑáéíóúñ0-9 ]/g, "").split(/\s+/).filter(Boolean).map((x) => x[0]).join("").slice(0, 2) || n.slice(0, 2)).toUpperCase();
+      img.replaceWith(s); return;
+    }
+    if (w) { const cap = Math.round(w * 1.15); img.style.maxWidth = cap + "px"; img.style.maxHeight = cap + "px"; }
+  } catch (e) {}
+};
 const LOGO_ERR = "if(this.dataset.fb){this.src=this.dataset.fb;this.classList.remove('bf','own');this.classList.add('favi');delete this.dataset.fb}else{this.remove()}";
-const favImg = (name, cls, px) => { const l = logoSrc(name, px); return l ? `<img class="logo ${l.cls} ${cls || ""}" src="${l.src}" alt="" loading="lazy" decoding="async" title="${esc(name)}"${l.fb ? ` data-fb="${l.fb}"` : ""} onerror="${LOGO_ERR}">` : ""; };
+const favImg = (name, cls, px) => { const l = logoSrc(name, px); return l ? `<img class="logo ${l.cls} ${cls || ""}" src="${l.src}" alt="" loading="lazy" decoding="async" title="${esc(name)}"${l.fb ? ` data-fb="${l.fb}"` : ""} onload="logoFit(this)" onerror="${LOGO_ERR}">` : ""; };
 function brandChip(brand, shop) {
   const b = brand || shop || "", who = DOM[b] ? b : shop;
   const ini = `<span class="ini">${esc(b.replace(/[^A-Za-zÁÉÍÓÚÑ0-9]/g, "").slice(0, 2).toUpperCase() || "?")}</span>`;
