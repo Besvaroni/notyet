@@ -708,6 +708,27 @@ input,select,textarea{border-radius:14px}
 .hopts{display:flex;gap:8px;flex-wrap:wrap}
 .honp{display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end}
 .honp label{flex:1;min-width:120px}
+
+.authlogo{display:flex;flex-direction:column;align-items:center;gap:6px;margin-top:6px}
+.authlogo b{font-family:var(--f-display);font-size:2.2rem;font-weight:900;letter-spacing:-.05em}
+.authsub{text-align:center;color:var(--muted);margin:2px 0 6px}
+.authbtns{display:flex;flex-direction:column;gap:10px}
+.authb{display:flex;align-items:center;gap:14px;border:1.5px solid var(--fg);border-radius:999px;padding:13px 22px;background:var(--surface);color:var(--fg);font-weight:700;font-size:1rem;transition:background .2s}
+.authb:hover{background:var(--bg2)}
+.authb span{flex:1;text-align:center;margin-right:20px}
+.authnote{text-align:center}
+.top10{display:flex;flex-direction:column;gap:10px;margin-bottom:8px}
+.t10h b{font-family:var(--f-display);font-size:1.45rem;font-weight:900;letter-spacing:-.03em;display:block}
+.t10h span{font-size:.85rem;color:var(--muted)}
+.t10row{display:flex;gap:16px;overflow-x:auto;scrollbar-width:none;padding:4px 2px 10px;scroll-snap-type:x proximity}
+.t10row::-webkit-scrollbar{display:none}
+.t10{flex:none;width:170px;display:flex;flex-direction:column;gap:6px;text-align:left;scroll-snap-align:start}
+.t10c{position:relative;height:230px;border-radius:18px;overflow:visible;background:linear-gradient(160deg,color-mix(in srgb,var(--c) 35%,#fff),var(--c));display:flex;align-items:center;justify-content:center;box-shadow:0 14px 28px -18px color-mix(in srgb,var(--c) 70%,#000);transition:transform .3s var(--ease)}
+.t10:hover .t10c{transform:translateY(-4px)}
+.t10c .e{font-size:4.6rem;filter:drop-shadow(0 12px 14px rgba(0,0,0,.25));font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif}
+.t10c .n{position:absolute;left:-6px;bottom:-14px;font-family:var(--f-display);font-weight:900;font-size:5.2rem;line-height:1;color:#fff;-webkit-text-stroke:3px #0B1024;paint-order:stroke}
+.t10t{font-weight:700;font-size:.92rem;line-height:1.2;margin-top:12px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.t10s{font-size:.78rem;color:#17A35A;font-weight:700}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -1335,7 +1356,7 @@ if (API && S.plan && S.plan.src !== "cuenta" && S.plan.email && S.plan.l4 && Dat
 
 /* ---------- Cuenta (entrar con un código al correo), sincronización e invitaciones ---------- */
 const SESS_KEY = "notyet.session";
-let SESS = (() => { try { return JSON.parse(localStorage.getItem(SESS_KEY) || "null"); } catch (e) { return null; } })(), ME = null, acctStep = "login", acctEmail = "", acctBusy = false;
+let SESS = (() => { try { return JSON.parse(localStorage.getItem(SESS_KEY) || "null"); } catch (e) { return null; } })(), ME = null, acctStep = "start", acctEmail = "", acctBusy = false;
 const saveSess = () => { try { if (SESS) localStorage.setItem(SESS_KEY, JSON.stringify(SESS)); else localStorage.removeItem(SESS_KEY); } catch (e) {} };
 async function apiAuth(path, method, body) {
   try {
@@ -1402,13 +1423,15 @@ function renderAcct() {
   const pwIn = (id, label, ac) => `<label>${label}<span class="pwrow"><input type="password" id="${id}" name="${id}" autocomplete="${ac}" minlength="8" required><button class="link pwshow" type="button" data-pw="${id}">Mostrar</button></span></label>`;
   const busy = acctBusy ? " disabled" : "";
   let html = `<h2>Tu cuenta</h2>${gift}`;
-  if (st === "register") html += `<p class="tiny">Crea tu cuenta con tu correo y una contraseña. Así guardas tus compras, destinos y puntos y los tienes en cualquier móvil u ordenador.</p><form id="acForm" class="acform">${emailIn("username")}${pwIn("acPw", "Contraseña (mínimo 8 caracteres)", "new-password")}${pwIn("acPw2", "Repite la contraseña", "new-password")}<button class="btn small" type="submit"${busy}>${acctBusy ? "Creando…" : "Crear cuenta"}</button></form><p class="tiny">¿Ya tienes cuenta? <button class="link" type="button" data-ac="login">Entrar</button></p><p class="tiny">Al crear la cuenta aceptas las <a href="condiciones.html" target="_blank" rel="noopener">condiciones</a> y la <a href="privacidad.html" target="_blank" rel="noopener">política de privacidad</a>.</p>`;
+  if (st === "start") html += `<div class="authlogo"><svg aria-hidden="true" width="44" height="44"><use href="#logoMark"/></svg><b>NotYet</b></div><p class="authsub">Entra o crea tu cuenta para continuar</p><div class="authbtns"><button type="button" class="authb" data-prov="Google"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="#4285F4" d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"/></svg><span>Continuar con Google</span></button><button type="button" class="authb" data-prov="Apple"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/></svg><span>Continuar con Apple</span></button><button type="button" class="authb" data-prov="Facebook"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="#0866FF" d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/></svg><span>Continuar con Facebook</span></button><button type="button" class="authb" data-ac="login"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg><span>Continuar con tu correo</span></button></div><p class="tiny authnote" id="authNote">Sirve cualquier correo: Gmail, Outlook, iCloud… Al continuar aceptas las <a href="condiciones.html">condiciones</a> y la <a href="privacidad.html">política de privacidad</a>.</p>`;
+  else if (st === "register") html += `<p class="tiny">Crea tu cuenta con tu correo y una contraseña. Así guardas tus compras, destinos y puntos y los tienes en cualquier móvil u ordenador.</p><form id="acForm" class="acform">${emailIn("username")}${pwIn("acPw", "Contraseña (mínimo 8 caracteres)", "new-password")}${pwIn("acPw2", "Repite la contraseña", "new-password")}<button class="btn small" type="submit"${busy}>${acctBusy ? "Creando…" : "Crear cuenta"}</button></form><p class="tiny">¿Ya tienes cuenta? <button class="link" type="button" data-ac="login">Entrar</button></p><p class="tiny">Al crear la cuenta aceptas las <a href="condiciones.html" target="_blank" rel="noopener">condiciones</a> y la <a href="privacidad.html" target="_blank" rel="noopener">política de privacidad</a>.</p>`;
   else if (st === "confirm") html += `<p class="tiny">Te hemos enviado un código de 6 cifras a <b>${esc(acctEmail)}</b> para confirmar que el correo es tuyo. Solo se hace una vez. Mira también en correo no deseado.</p><form id="acForm" class="acform"><input class="code" id="acCode" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="000000" aria-label="Código de 6 cifras"><button class="btn small" type="submit"${busy}>Confirmar y entrar</button></form><p class="tiny"><button class="link" type="button" id="acAgain" data-purpose="signup">Reenviar el código</button> - <button class="link" type="button" data-ac="login">Volver</button></p>`;
   else if (st === "forgot") html += `<p class="tiny">Escribe el correo de tu cuenta y te enviaremos un código para poner una contraseña nueva.</p><form id="acForm" class="acform">${emailIn("username")}<button class="btn small" type="submit"${busy}>Enviarme el código</button></form><p class="tiny"><button class="link" type="button" data-ac="login">Volver a entrar</button></p>`;
   else if (st === "reset") html += `<p class="tiny">Si hay una cuenta con <b>${esc(acctEmail)}</b>, te hemos enviado un código de 6 cifras. Ponlo aquí con tu contraseña nueva.</p><form id="acForm" class="acform"><input class="code" id="acCode" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="000000" aria-label="Código de 6 cifras">${pwIn("acPw", "Contraseña nueva (mínimo 8 caracteres)", "new-password")}${pwIn("acPw2", "Repite la contraseña nueva", "new-password")}<button class="btn small" type="submit"${busy}>Guardar y entrar</button></form><p class="tiny"><button class="link" type="button" id="acAgain" data-purpose="reset">Reenviar el código</button> - <button class="link" type="button" data-ac="login">Volver</button></p>`;
   else html += `<p class="tiny">Entra para guardar tus compras, destinos y puntos en tu cuenta y tenerlos en cualquier móvil u ordenador. Sin cuenta, NotYet sigue funcionando en este dispositivo.</p><form id="acForm" class="acform">${emailIn("username")}${pwIn("acPw", "Contraseña", "current-password")}<button class="btn small" type="submit"${busy}>${acctBusy ? "Entrando…" : "Entrar"}</button></form><p class="tiny"><button class="link" type="button" data-ac="forgot">¿Has olvidado tu contraseña?</button></p><p class="tiny">¿No tienes cuenta? <button class="link" type="button" data-ac="register"><b>Crear cuenta</b></button></p>`;
   a.innerHTML = html;
   a.querySelectorAll("[data-ac]").forEach((b) => (b.onclick = () => { const e = $("#acEmail"); if (e && e.value) acctEmail = e.value.trim().toLowerCase(); acctStep = b.dataset.ac; renderAcct(); }));
+  a.querySelectorAll("[data-prov]").forEach((b) => (b.onclick = () => { const n = $("#authNote"); if (n) n.innerHTML = `<b>Continuar con ${b.dataset.prov} llega muy pronto.</b> Hay que dar de alta NotYet en ${b.dataset.prov} para activarlo. De momento entra con tu correo: si es de Gmail, usa ese mismo y luego podrás vincularlo.`; }));
   a.querySelectorAll("[data-pw]").forEach((b) => (b.onclick = () => { const i = $("#" + b.dataset.pw); i.type = i.type === "password" ? "text" : "password"; b.textContent = i.type === "password" ? "Mostrar" : "Ocultar"; }));
   const again = $("#acAgain"); if (again) again.onclick = async () => { const j = await apiAuth("/auth/resend", "POST", { email: acctEmail, purpose: again.dataset.purpose }); toast(j.ok ? "Código reenviado a " + acctEmail : j.error || "No he podido reenviarlo"); };
   $("#acForm").onsubmit = (e) => { e.preventDefault(); acctSubmit(st); };
@@ -1419,7 +1442,7 @@ async function preHash(email, pw) {
   const bits = await crypto.subtle.deriveBits({ name: "PBKDF2", hash: "SHA-256", salt: new TextEncoder().encode("notyet:" + email), iterations: 150000 }, k, 256);
   return btoa(String.fromCharCode(...new Uint8Array(bits))).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
 }
-async function acctEnter(j, msg) { SESS = { token: j.token, email: acctEmail, synced: 0 }; saveSess(); acctStep = "login"; toast(msg); await pullData(true); await refreshMe(); render(); }
+async function acctEnter(j, msg) { SESS = { token: j.token, email: acctEmail, synced: 0 }; saveSess(); acctStep = "start"; toast(msg); await pullData(true); await refreshMe(); render(); }
 async function acctSubmit(st) {
   const v = (id) => { const e = $("#" + id); return e ? e.value : ""; };
   if ($("#acEmail")) acctEmail = v("acEmail").trim().toLowerCase();
@@ -1765,6 +1788,25 @@ document.addEventListener("click", (e) => {
     save(); toast(it.cheaper ? `Apuntado: compraste otro por ${eur(paid, 2)}. Te ahorraste ${eur(it.cheaper, 2)} frente al original` : `Apuntado: ${eur(paid, 2)} en ${shop}. -${Math.max(0, before - stats().pts)} puntos`); render(); }
 });
 { const _ri3 = renderInicio; renderInicio = function () { _ri3.apply(this, arguments); try { renderHonest(); } catch (e) {} }; }
+
+
+/* ---------- Top 10: lo que más frena la comunidad, lo que más ahorro genera y lo tuyo ---------- */
+const hseed = (t) => { let h = 2166136261; for (const c of String(t)) { h ^= c.charCodeAt(0); h = Math.imul(h, 16777619); } return ((h >>> 0) % 1000) / 1000; };
+function topLists() {
+  const pool = CATALOG.filter((p) => !["vivienda", "seguros", "finanzas", "legal", "donaciones", "apuestas", "alcohol"].includes(p.cat));
+  const frena = pool.map((p) => ({ p, k: .45 + hseed(p.id + "f") * .5 })).sort((a, b) => b.k - a.k).slice(0, 10).map((x) => ({ p: x.p, tag: `${Math.round(x.k * 10)} de 10 lo frenan` }));
+  const ahorro = pool.map((p) => ({ p, k: p.price * (.3 + hseed(p.id + "a") * .5) })).sort((a, b) => b.k - a.k).slice(0, 10).map((x) => ({ p: x.p, tag: `${eur(x.k, 0)} ahorrados de media` }));
+  const mine = {}; S.items.forEach((i) => { const c = i.cat || "otros"; mine[c] = (mine[c] || 0) + 1; });
+  const cats = Object.keys(mine).sort((a, b) => mine[b] - mine[a]);
+  const seen = new Set(S.items.map((i) => i.pid));
+  let para = cats.length ? pool.filter((p) => cats.slice(0, 4).includes(p.cat) && !seen.has(p.id)).sort((a, b) => hseed(a.id + "u") - hseed(b.id + "u")).slice(0, 10) : [];
+  if (para.length < 10) para = para.concat(frena.map((x) => x.p).filter((p) => !para.includes(p))).slice(0, 10);
+  return [["Top 10 de la semana: lo más frenado", "Lo que más personas deciden no comprar", frena], ["Top 10: lo que más ahorro genera", "Donde la gente encuentra alternativas más baratas", ahorro], [cats.length ? "Para ti: según lo que miras y frenas" : "Para ti: empieza a usar NotYet y aprenderé", cats.length ? `Basado en ${cats.slice(0, 3).map((c) => catName(c).toLowerCase()).join(", ")}` : "De momento, lo más popular", para.map((p) => ({ p, tag: CAT(p.cat)[0] }))]];
+}
+function topHTML() {
+  return topLists().map(([t, sub, l]) => `<section class="top10"><div class="t10h"><b>${esc(t)}</b><span>${esc(sub)}</span></div><div class="t10row">${l.map((x, i) => `<button type="button" class="t10" data-want="${x.p.id}" style="--c:${CAT(x.p.cat)[1]}"><span class="t10c"><span class="e">${pemo(x.p)}</span><span class="n">${i + 1}</span></span><span class="t10t">${esc(x.p.name)}</span><span class="t10s">${esc(x.tag)}</span></button>`).join("")}</div></section>`).join("") + '<p class="tiny">Los Top 10 se calculan con lo que deciden los usuarios de forma anónima; mientras haya pocos, las cifras son simuladas.</p>';
+}
+{ const _rx = renderExplorar; renderExplorar = function () { _rx.apply(this, arguments); try { if (!exQ && cat === "todo") $("#catalog").insertAdjacentHTML("afterbegin", topHTML()); } catch (e) {} }; }
 
 $("#exSearch").addEventListener("input", (e) => { exQ = e.target.value.trim(); renderExplorar(); });
 setInterval(() => { const h = $("#exHero .exh"); if (!h || document.hidden || tab !== "explorar") return; h.classList.add("out"); setTimeout(() => { exFeat++; $("#exHero").innerHTML = exHeroHTML(); }, 350); }, 4200);
