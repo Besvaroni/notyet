@@ -892,6 +892,48 @@ img.logo.favi{mix-blend-mode:multiply}
 .lroll .lstage figure img{object-fit:contain;height:auto!important}
 .lroll .lstage figcaption{font-size:.95rem!important;letter-spacing:-.01em!important;text-transform:none!important;color:var(--fg)!important;font-weight:800!important}
 .lroll .lstage{height:100px!important}
+
+/* Panel interactivo bajo la tienda: precio objetivo, categorías e histórico */
+.leftcol{display:flex;flex-direction:column;gap:24px;min-width:0}
+.xpanel{background:var(--surface);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);padding:18px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.xtabs{display:flex;gap:6px;flex-wrap:wrap}
+.xtabs button{padding:8px 14px;border-radius:999px;font-weight:700;font-size:.86rem;border:1px solid var(--line);background:var(--surface);color:var(--muted);cursor:pointer}
+.xtabs button[aria-selected="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.xbody{min-height:250px}
+.xnote{margin:0}
+.xrange{display:flex;flex-direction:column;gap:6px;font-weight:700;font-size:.9rem}
+.xrange input{width:100%;accent-color:var(--brand)}
+.xrange .row2{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.xrange b{font-family:var(--f-mono);font-size:1.15rem}
+.xbest{border-radius:16px;padding:12px 14px;background:color-mix(in srgb,#17A35A 12%,transparent);font-weight:700;font-size:.92rem;margin:10px 0}
+.xbest.no{background:color-mix(in srgb,#D98E00 14%,transparent)}
+.xoffers{display:flex;flex-direction:column;gap:6px}
+.xoffers div{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center;padding:9px 12px;border-radius:12px;background:var(--bg2);font-size:.88rem;transition:opacity .3s}
+.xoffers div.out{opacity:.38}
+.xoffers div.win{box-shadow:inset 0 0 0 2px #17A35A}
+.xoffers b{font-family:var(--f-mono)}
+.xoffers .k{font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.xlinks{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.xlinks a{font-size:.8rem;font-weight:700;padding:6px 10px;border-radius:999px;border:1px solid var(--line);color:var(--fg);text-decoration:none}
+.xdonut{display:grid;grid-template-columns:180px 1fr;gap:18px;align-items:center}
+.xdonut svg{width:180px;height:180px}
+.xdonut path{cursor:pointer;transition:opacity .25s,transform .25s;transform-origin:90px 90px}
+.xdonut path.dim{opacity:.28}
+.xleg{display:flex;flex-direction:column;gap:4px}
+.xleg button{display:grid;grid-template-columns:12px 1fr auto;gap:8px;align-items:center;text-align:left;font-size:.84rem;padding:5px 8px;border-radius:10px;background:none;border:0;color:var(--fg);cursor:pointer}
+.xleg button.on{background:var(--bg2);font-weight:800}
+.xleg i{width:12px;height:12px;border-radius:4px;display:block}
+.xleg b{font-family:var(--f-mono);font-weight:700}
+.xdet{font-size:.9rem;font-weight:700;margin-top:10px;padding:10px 12px;border-radius:12px;background:var(--bg2)}
+.xhist svg{width:100%;height:auto;display:block}
+.xhist rect{cursor:pointer;transition:opacity .2s}
+.xhist rect:hover{opacity:.75}
+.xseg{display:flex;gap:6px;margin-bottom:10px}
+.xseg button{padding:5px 12px;border-radius:999px;font-size:.8rem;font-weight:700;border:1px solid var(--line);background:none;color:var(--muted);cursor:pointer}
+.xseg button[aria-pressed="true"]{background:var(--bg2);color:var(--fg)}
+.xlegend{display:flex;gap:14px;font-size:.78rem;font-weight:700;color:var(--muted);margin-top:6px;flex-wrap:wrap}
+.xlegend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+@media (max-width:560px){.xdonut{grid-template-columns:1fr;justify-items:center}}
 </style>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
@@ -1217,6 +1259,7 @@ img.logo.favi{mix-blend-mode:multiply}
     <div class="picker reveal" id="picker" role="group" aria-label="Producto de la demo"></div>
     <div class="auto reveal"><button class="btn ghost small" id="autoBtn" type="button">Ver la demo automática (3 compras)</button></div>
     <div class="demo-grid">
+      <div class="leftcol">
       <div class="browser reveal">
         <div class="bbar"><i></i><i></i><i></i><span class="url" id="url">tienda simulada</span></div>
         <div class="stage" id="stage">
@@ -1278,6 +1321,12 @@ img.logo.favi{mix-blend-mode:multiply}
             <div class="dec"><button class="btn ghost" id="restart" type="button">Probar con otro producto</button></div>
           </div>
         </div>
+      </div>
+      <div class="xpanel reveal" id="xpanel" aria-label="Tu panel, datos simulados">
+        <div class="xtabs" role="tablist"><button type="button" role="tab" aria-selected="true" data-x="precio">Busca por tu precio</button><button type="button" role="tab" aria-selected="false" data-x="cats">En qué se va</button><button type="button" role="tab" aria-selected="false" data-x="hist">Antes y ahora</button></div>
+        <div class="xbody" id="xbody"></div>
+        <p class="tiny xnote">Datos y precios simulados para la demo. En la versión real las ofertas vendrán de tiendas y comparadores con acuerdo o API pública, nunca copiando datos privados.</p>
+      </div>
       </div>
       <aside class="dash reveal" aria-label="Tu mes, datos simulados">
         <div class="dash-head"><span class="eyebrow">Tu mes</span><span class="chip blue">Plus</span></div>
@@ -2438,6 +2487,73 @@ function calc() {
 }
 [cs, cp, cv, cf, cco, ccop].forEach((i) => i.addEventListener("input", calc));
 calc();
+
+/* ---------- Panel interactivo (datos simulados) ---------- */
+let xTab = "precio", xMax = null, xMaxFor = null, xCat = null, xMode = "mes", xSel = null;
+const xSeed = (str) => { let h = 2166136261; for (const ch of str) { h ^= ch.charCodeAt(0); h = Math.imul(h, 16777619); } return () => { h ^= h << 13; h ^= h >>> 17; h ^= h << 5; return ((h >>> 0) % 1000) / 1000; }; };
+const XMONTHS = ["nov", "dic", "ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct"];
+function xPrecio() {
+  const a = analyze(cur), list = a.opts.filter((o) => o.p != null && o.p > 0).sort((x, y) => x.p - y.p);
+  if (xMaxFor !== cur.id) { xMax = Math.round(cur.price * 0.75); xMaxFor = cur.id; }
+  const lo = Math.max(1, Math.floor(Math.min(...list.map((o) => o.p)) * 0.6)), hi = Math.ceil(cur.price * 1.1);
+  const ok = list.filter((o) => o.p <= xMax), win = ok.length ? ok[ok.length - 1] : null;
+  const left = win ? cur.price - win.p : 0;
+  const best = win ? `<div class="xbest">Lo que más se acerca a tu precio: ${esc(win.t)} por ${eur(win.p, win.p % 1 ? 2 : 0)}. ${left > 0 ? `Te ahorras ${eur(left, left % 1 ? 2 : 0)} frente a donde estabas: van a tu bote (${eur(left * GOALPCT / 100, 0)} más cerca de París).` : "Es el precio que ya tenías."}</div>` : `<div class="xbest no">Nada por debajo de ${eur(xMax)}. Sube un poco el tope o espera 24 horas: muchas veces el precio baja o se te pasan las ganas.</div>`;
+  const rows = list.map((o) => `<div class="${o.p > xMax ? "out" : ""} ${o === win ? "win" : ""}"><span>${esc(o.t)}</span><span class="k">${esc((KIND[o.kind] || ["", ""])[0] || o.kind)}</span><b>${eur(o.p, o.p % 1 ? 2 : 0)}</b></div>`).join("");
+  const links = linksFor(cur).map(([t, u]) => `<a href="${u}" target="_blank" rel="noopener">Buscar en ${esc(t)}</a>`).join("");
+  return `<label class="xrange"><span class="row2"><span>Quiero gastar como mucho</span><b id="xMaxV">${eur(xMax)}</b></span><input type="range" id="xMax" min="${lo}" max="${hi}" step="1" value="${Math.min(hi, Math.max(lo, xMax))}" aria-label="Precio máximo que quieres pagar"></label>
+    <p class="tiny" style="margin:6px 0 0">${esc(cur.name)} cuesta ${eur(cur.price, 2)} en ${esc(cur.shop)}. Mueve el tope y NotYet te enseña lo que más se acerca, como un comparador de vuelos pero para cualquier compra.</p>
+    ${best}<div class="xoffers">${rows}</div>${links ? `<div class="xlinks">${links}</div>` : ""}`;
+}
+function xData() {
+  const r = xSeed("cats"), keys = Object.keys(CATS), out = {};
+  keys.forEach((k) => { out[k] = { spent: Math.round(60 + r() * 520), saved: Math.round(30 + r() * 380) }; });
+  out[cur.cat].saved += Math.round(cur.price);
+  return out;
+}
+function xCats() {
+  const d = xData(), keys = Object.keys(d).sort((a, b) => (d[b].spent + d[b].saved) - (d[a].spent + d[a].saved)).slice(0, 8);
+  const tot = keys.reduce((s, k) => s + d[k].spent, 0); if (!xCat || !keys.includes(xCat)) xCat = keys.includes(cur.cat) ? cur.cat : keys[0];
+  let ang = -Math.PI / 2; const R = 82, r0 = 50, C = 90;
+  const paths = keys.map((k) => { const a = (d[k].spent / tot) * Math.PI * 2, a2 = ang + a, big = a > Math.PI ? 1 : 0;
+    const p = (rr, t) => `${(C + rr * Math.cos(t)).toFixed(2)} ${(C + rr * Math.sin(t)).toFixed(2)}`;
+    const path = `<path d="M${p(R, ang)} A${R} ${R} 0 ${big} 1 ${p(R, a2)} L${p(r0, a2)} A${r0} ${r0} 0 ${big} 0 ${p(r0, ang)}Z" fill="${CATS[k][1]}" data-xc="${k}" class="${k === xCat ? "" : "dim"}"><title>${CATS[k][0]}: ${eur(d[k].spent)} gastados</title></path>`; ang = a2; return path; }).join("");
+  const s = d[xCat], pct = Math.round((s.saved / (s.spent + s.saved)) * 100);
+  const leg = keys.map((k) => `<button type="button" data-xc="${k}" class="${k === xCat ? "on" : ""}"><i style="background:${CATS[k][1]}"></i><span>${CATS[k][0]}</span><b>${Math.round((d[k].spent / tot) * 100)} %</b></button>`).join("");
+  return `<div class="xdonut"><svg viewBox="0 0 180 180" role="img" aria-label="Gasto por categoría en 12 meses">${paths}<text x="90" y="86" text-anchor="middle" font-weight="800" font-size="15" style="fill:var(--fg)">${eur(tot)}</text><text x="90" y="104" text-anchor="middle" font-weight="700" font-size="10" style="fill:var(--muted)">gastado en 12 meses</text></svg><div class="xleg">${leg}</div></div>
+    <div class="xdet">${CATS[xCat][0]}: ${eur(s.spent)} gastados y ${eur(s.saved)} que no gastaste gracias a esperar. Conservas el ${pct} % de lo que ibas a gastar en ${CATS[xCat][0].toLowerCase()}${xCat === cur.cat ? `, contando ${esc(cur.name)} si no lo compras` : ""}.</div>`;
+}
+function xHist() {
+  const r = xSeed("hist"), W = 320, H = 150, B = 22, n = 12, bw = 9;
+  let acc = 0; const rows = XMONTHS.map((m, i) => { const before = i < 3; const imp = Math.round((before ? 320 : 260 - i * 14) + r() * 70); const sav = before ? 0 : Math.round(90 + i * 22 + r() * 60) + (i === n - 1 ? Math.round(cur.price) : 0); acc += sav; return { m, imp, sav, acc }; });
+  const max = xMode === "mes" ? Math.max(...rows.map((x) => Math.max(x.imp, x.sav))) : Math.max(...rows.map((x) => x.acc));
+  const y = (v) => H - B - (v / max) * (H - B - 10), step = (W - 20) / n;
+  let g = `<line x1="10" x2="${W - 10}" y1="${H - B}" y2="${H - B}" stroke="var(--line)"/>`;
+  rows.forEach((x, i) => { const cx = 10 + step * i + step / 2;
+    if (xMode === "mes") { g += `<rect x="${(cx - bw - 1).toFixed(1)}" y="${y(x.imp).toFixed(1)}" width="${bw}" height="${(H - B - y(x.imp)).toFixed(1)}" rx="2" fill="#FF5A5F" data-xi="${i}"><title>${x.m}: ${eur(x.imp)} en compras por impulso</title></rect><rect x="${(cx + 1).toFixed(1)}" y="${y(x.sav).toFixed(1)}" width="${bw}" height="${(H - B - y(x.sav)).toFixed(1)}" rx="2" fill="#17A35A" data-xi="${i}"><title>${x.m}: ${eur(x.sav)} no gastados</title></rect>`; }
+    else g += `<rect x="${(cx - 7).toFixed(1)}" y="${y(x.acc).toFixed(1)}" width="14" height="${(H - B - y(x.acc)).toFixed(1)}" rx="3" fill="#17A35A" data-xi="${i}"><title>${x.m}: ${eur(x.acc)} acumulados</title></rect>`;
+    g += `<text x="${cx.toFixed(1)}" y="${H - 7}" text-anchor="middle" font-weight="700" font-size="8.5" style="fill:${i === xSel ? "var(--fg)" : "var(--muted)"}">${x.m}</text>`; });
+  g += `<line x1="${10 + step * 3}" x2="${10 + step * 3}" y1="8" y2="${H - B}" stroke="var(--muted)" stroke-dasharray="3 3"/><text x="${10 + step * 3 + 4}" y="16" font-weight="800" font-size="8.5" style="fill:var(--muted)">Empiezas con NotYet</text>`;
+  const sel = xSel == null ? rows[n - 1] : rows[xSel], first = rows.slice(0, 3).reduce((s, x) => s + x.imp, 0) / 3, last = rows.slice(-3).reduce((s, x) => s + x.imp, 0) / 3;
+  return `<div class="xhist"><div class="xseg"><button type="button" data-xm="mes" aria-pressed="${xMode === "mes"}">Mes a mes</button><button type="button" data-xm="acc" aria-pressed="${xMode === "acc"}">Acumulado</button></div>
+    <svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Compras por impulso y dinero no gastado, últimos 12 meses">${g}</svg>
+    <div class="xlegend">${xMode === "mes" ? `<span><i style="background:#FF5A5F"></i>Compras por impulso</span>` : ""}<span><i style="background:#17A35A"></i>${xMode === "mes" ? "No gastado" : "No gastado acumulado"}</span></div>
+    <div class="xdet">${sel.m === "oct" ? "Este mes" : "En " + sel.m}: ${eur(sel.imp)} en compras por impulso y ${eur(sel.sav)} que no gastaste${sel.m === "oct" ? `, contando ${esc(cur.name)} si no lo compras` : ""}. Desde que empezaste, las compras por impulso bajan un ${Math.round((1 - last / first) * 100)} % y llevas ${eur(rows[n - 1].acc)} para tus destinos. Toca una barra para ver otro mes.</div></div>`;
+}
+function renderPanel() {
+  const box = $("#xbody"); if (!box || !cur) return;
+  box.innerHTML = xTab === "precio" ? xPrecio() : xTab === "cats" ? xCats() : xHist();
+  $$("#xpanel [data-x]").forEach((b) => b.setAttribute("aria-selected", String(b.dataset.x === xTab)));
+}
+$("#xpanel").addEventListener("click", (e) => {
+  const t = e.target.closest("[data-x]"); if (t) { xTab = t.dataset.x; renderPanel(); return; }
+  const c = e.target.closest("[data-xc]"); if (c) { xCat = c.dataset.xc; renderPanel(); return; }
+  const m = e.target.closest("[data-xm]"); if (m) { xMode = m.dataset.xm; renderPanel(); return; }
+  const i = e.target.closest("[data-xi]"); if (i) { xSel = Number(i.dataset.xi); renderPanel(); }
+});
+$("#xpanel").addEventListener("input", (e) => { if (e.target.id !== "xMax") return; xMax = Number(e.target.value); const keep = e.target; renderPanel(); const n = $("#xMax"); if (n) n.focus(); });
+{ const _sp = setProduct; setProduct = function (p) { const r = _sp.apply(this, arguments); try { renderPanel(); } catch (e) {} return r; }; }
+try { renderPanel(); } catch (e) {}
 })();
 </script>
 
