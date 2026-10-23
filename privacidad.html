@@ -4,9 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="Política de privacidad de NotYet.">
-<link rel="canonical" href="https://besvaroni.github.io/notyet/privacidad.html">
-<meta property="og:type" content="website"><meta property="og:site_name" content="NotYet"><meta property="og:title" content="NotYet - Decide mejor antes de pagar"><meta property="og:description" content="Política de privacidad de NotYet."><meta property="og:url" content="https://besvaroni.github.io/notyet/privacidad.html"><meta property="og:image" content="https://besvaroni.github.io/notyet/notyet-logo.png"><meta property="og:locale" content="es_ES">
-<meta name="twitter:card" content="summary"><meta name="robots" content="index,follow">
+<meta name="robots" content="index,follow">
+<link rel="icon" href="notyet-logo.png">
 <title>Política de privacidad - NotYet</title>
 <style>
 :root{--bg:#FBFBFD;--fg:#1D1D1F;--muted:#6E6E73;--line:#D2D2D7;--blue:#0071E3}
@@ -15,57 +14,47 @@ body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.55 -apple-system,
 main{max-width:720px;margin:0 auto;padding:48px 20px 80px}
 h1{font-size:2rem;letter-spacing:-.02em;margin:0 0 6px}
 h2{font-size:1.2rem;margin:32px 0 8px}
-p,li{color:var(--fg)}
 .muted{color:var(--muted)}
-.box{border:1px solid var(--line);border-radius:12px;padding:14px 16px;color:var(--muted);font-size:.92rem;margin:20px 0}
+.box{border:1px solid var(--line);border-radius:12px;padding:14px 16px;font-size:.95rem;margin:20px 0}
 a{color:var(--blue)}
+nav{font-size:.9rem;margin-bottom:28px}
+footer{margin-top:48px;font-size:.85rem;color:var(--muted)}
 </style>
 </head>
 <body>
 <main>
-<h1>Política de privacidad de NotYet</h1>
-<p class="muted">Última actualización: 21 de octubre de 2026</p>
-<div class="box">Borrador preparado para la fase de piloto. Antes de publicar la extensión conviene que lo revise un profesional y rellenar los datos de contacto marcados entre corchetes.</div>
-
-<h2>Quién es el responsable</h2>
-<p>[Nombre y apellidos o razón social] - [correo de contacto]</p>
-
-<h2>Qué hace NotYet</h2>
-<p>NotYet es una extensión para el navegador Chrome que, cuando pulsas el botón de pagar en algunas tiendas online, muestra una ventana que te propone esperar 24 horas, comparar precios o preguntar a tus amigos antes de completar la compra. Tú decides siempre; la extensión nunca bloquea una compra.</p>
-
-<h2>Qué datos trata y dónde se guardan</h2>
+<nav><a href="index.html">NotYet</a> - <a href="app.html">Abrir la app</a></nav>
+<h1>Política de privacidad</h1>
+<p class="muted">Última actualización: 23 de octubre de 2026</p>
+<div class="box"><b>En corto</b>: tus compras, destinos y puntos se quedan en tu móvil; NotYet no tiene una base de datos con ellos. Solo si pagas un plan, Stripe guarda tu correo y tus datos de pago para cobrarte, y un pequeño servidor comprueba con Stripe que el pago es real, sin guardar nada.</div>
+<h2>Responsable</h2>
+<p>Alfonso de Borbón Escrivá de Romaní. <span id="datos-pendientes">NIF y domicilio: se publicarán aquí al completar el alta como autónomo. Mientras tanto puedes pedirlos escribiendo al correo de contacto.</span> Contacto: <a href="mailto:alfonsodeborbon.02@gmail.com">alfonsodeborbon.02@gmail.com</a>.</p>
+<h2>Datos que se quedan en tu dispositivo</h2>
+<p>Lo que apuntas en la app (productos, precios, tiendas, decisiones, destinos, presupuesto, puntos, pareja, grupos y ajustes) se guarda en el almacenamiento local de tu navegador. No se envía a ningún servidor nuestro. Si borras el navegador o cambias de móvil, se pierde salvo que hayas guardado una copia de seguridad desde Ajustes. Puedes borrarlo todo en Ajustes, Borrar todos mis datos.</p>
+<h2>Datos de pago (solo si contratas un plan)</h2>
+<p>El pago lo gestiona Stripe Payments Europe, Ltd. (Irlanda). Stripe recoge tu correo, tu nombre si lo das, tu país y los datos de tu tarjeta, y nos deja ver el correo, el estado de la suscripción y los 4 últimos dígitos de la tarjeta. Nunca vemos el número completo. Usamos estos datos para cobrarte, enviarte recibos, gestionar cancelaciones y devoluciones, atenderte y cumplir las obligaciones fiscales y contables.</p>
+<p>Base legal: la ejecución del contrato que haces al suscribirte y el cumplimiento de obligaciones legales. Plazo: mientras dure la suscripción y después el tiempo que exijan las normas fiscales y mercantiles.</p>
+<h2>Servidor de comprobación</h2>
+<p>Cuando vuelves de pagar, o cuando recuperas tu plan en otro móvil con tu correo y los 4 últimos dígitos de la tarjeta, la app consulta un pequeño servidor alojado en Cloudflare, Inc. Ese servidor pregunta a Stripe si hay una suscripción activa y responde sí o no. No guarda los datos que recibe. Cloudflare puede registrar de forma técnica la dirección IP y la hora de la petición durante un tiempo limitado por seguridad. Una vez a la semana la app repite la comprobación para saber si la suscripción sigue activa.</p>
+<h2>Alojamiento de la web</h2>
+<p>La web y la app se sirven desde Cloudflare (y durante la transición también desde GitHub Pages, de GitHub, Inc.). Como cualquier web, al visitarla esos proveedores reciben tu dirección IP y datos técnicos del navegador para poder mostrártela.</p>
+<h2>Servicios que tú activas</h2>
 <ul>
-  <li>En las páginas de las tiendas incluidas, la extensión lee el texto del botón que pulsas y el nombre y el precio del producto que aparecen en la página, para rellenar la ventana.</li>
-  <li>Si decides esperar o comprar, guarda en tu propio navegador: el nombre del producto, el precio, la tienda, la dirección de la página, la fecha y tu decisión.</li>
-  <li>Estos datos se almacenan únicamente en tu navegador (almacenamiento local de la extensión). No se envían a ningún servidor nuestro ni de terceros.</li>
-  <li>La extensión no utiliza cookies, no incluye herramientas de analítica ni publicidad y no accede a tus cuentas de las tiendas ni a tus datos bancarios.</li>
+<li><b>Logos de las marcas</b>: si dejas activado "Mostrar el logo real de cada marca", tu navegador descarga el icono desde la web de esa marca, que recibe tu IP. Puedes desactivarlo en Ajustes.</li>
+<li><b>Asistente Pregúntale</b>: con reglas, todo se queda en tu móvil. Si eliges una IA con tu clave (Claude, OpenAI o Gemini), tu pregunta y un resumen de tus datos van directamente desde tu móvil a ese servicio, bajo sus condiciones. Tu clave se guarda solo en tu navegador.</li>
+<li><b>Comparar precios, comité y pareja</b>: abren tiendas, comparadores o WhatsApp a petición tuya; esos servicios tienen sus propias políticas.</li>
 </ul>
-
-<h2>Permisos que solicita y para qué</h2>
-<ul>
-  <li><b>Almacenamiento (storage):</b> guardar en tu navegador las compras en espera y tus decisiones.</li>
-  <li><b>Alarmas (alarms):</b> programar el aviso que te recuerda la compra a las 24 horas.</li>
-  <li><b>Notificaciones (notifications):</b> mostrarte ese aviso.</li>
-  <li><b>Acceso a las páginas de las tiendas incluidas:</b> necesario para detectar el botón de pagar y mostrar la ventana. La extensión solo se activa en las tiendas de su lista.</li>
-</ul>
-
-<h2>Enlaces a otros servicios</h2>
-<p>Cuando pulsas "Buscar más barato" o "Preguntar a amigos", se abren a petición tuya páginas de terceros (comparadores de precios, tiendas o WhatsApp). Esas páginas tienen sus propias políticas de privacidad.</p>
-
-<h2>Durante el piloto</h2>
-<p>El botón "Copiar resumen para el piloto" genera un texto con recuentos (número de frenos, esperas y compras evitadas, ahorro estimado y nombres de tiendas). No incluye productos ni direcciones. Solo se comparte si tú lo pegas voluntariamente en el formulario del piloto.</p>
-
-<h2>Conservación y borrado</h2>
-<p>Los datos permanecen en tu navegador hasta que los borras o desinstalas la extensión. Al desinstalarla, Chrome elimina su almacenamiento.</p>
-
+<h2>Lo que no hacemos</h2>
+<p>No vendemos datos, no hay publicidad, no usamos cookies de seguimiento ni herramientas de analítica de terceros en la app.</p>
+<h2>Transferencias fuera de la UE</h2>
+<p>Stripe y Cloudflare pueden tratar datos en Estados Unidos. Lo hacen con garantías del RGPD: el Marco de Privacidad de Datos UE-EE. UU. y cláusulas contractuales tipo de la Comisión Europea.</p>
+<h2>Tus derechos</h2>
+<p>Puedes pedir acceso, rectificación, supresión, oposición, limitación y portabilidad de tus datos escribiendo a <a href="mailto:alfonsodeborbon.02@gmail.com">alfonsodeborbon.02@gmail.com</a>. Los datos que están solo en tu móvil los controlas tú directamente desde Ajustes. Si crees que no hemos atendido bien tu petición, puedes reclamar ante la Agencia Española de Protección de Datos (aepd.es).</p>
 <h2>Menores</h2>
-<p>NotYet no está dirigida a menores de 14 años y no recoge datos de forma consciente de ellos.</p>
-
-<h2>Cambios en esta política</h2>
-<p>Si la extensión empieza a tratar datos de otra forma, se actualizará esta página y la fecha de arriba.</p>
-
-<h2>Contacto</h2>
-<p>Para cualquier duda sobre privacidad: [correo de contacto].</p>
+<p>NotYet no está dirigida a menores de 14 años. Para contratar un plan de pago hay que ser mayor de edad.</p>
+<h2>Cambios</h2>
+<p>Si cambia la forma de tratar los datos, actualizaremos esta página y su fecha.</p>
+<footer>NotYet - <a href="aviso-legal.html">Aviso legal</a> - <a href="privacidad.html">Privacidad</a> - <a href="condiciones.html">Condiciones</a> - <a href="mailto:alfonsodeborbon.02@gmail.com">alfonsodeborbon.02@gmail.com</a></footer>
 </main>
 </body>
 </html>
