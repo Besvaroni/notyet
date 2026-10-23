@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>¿Me lo compro? Vota en NotYet</title>
+<meta name="description" content="Tu amigo se está pensando una compra. Vota con un toque: sí, no o busca más barato.">
+<meta property="og:title" content="¿Me lo compro? Vota con un toque">
+<meta property="og:description" content="Tu amigo se lo está pensando con NotYet. Dile sí, no o que busque más barato. Sin instalar nada.">
+<meta property="og:image" content="https://notyetapp.app/notyet-logo.png">
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%2319D3C5%22/%3E%3Cstop%20offset%3D%22.55%22%20stop-color%3D%22%232F6BFF%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%237B5CFF%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2215%22%20fill%3D%22url%28%23g%29%22/%3E%3Cpath%20d%3D%22M11%2017h6l4.3%2020.5h26.4l4.1-12.6%22%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-width%3D%224%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22/%3E%3Ccircle%20cx%3D%2224.5%22%20cy%3D%2247.5%22%20r%3D%223.8%22%20fill%3D%22%23fff%22/%3E%3Ccircle%20cx%3D%2244%22%20cy%3D%2247.5%22%20r%3D%223.8%22%20fill%3D%22%23fff%22/%3E%3Cpath%20d%3D%22M37%2013.5c-2-2.6-6.5-3-8.9-.4-3.5-.6-6.9%202.2-6.3%205.8-3%201.5-3.3%205.8-.7%208-.7%203.4%202%206.7%205.4%206.7%201.7%202.8%205.9%203.5%208.5%201.1l2-1.5%202%201.5c2.6%202.4%206.8%201.7%208.5-1.1%203.4%200%206.1-3.3%205.4-6.7%202.6-2.2%202.3-6.5-.7-8%20.6-3.6-2.8-6.4-6.3-5.8C43.5%2010.5%2039%2010.9%2037%2013.5z%22%20fill%3D%22%23fff%22/%3E%3Cpath%20d%3D%22M37%2015c.8%205.1.5%2011.9-.2%2019M27.8%2020.5c2.5-.6%204.5.6%205.2%202.8M46.2%2020.5c-2.5-.6-4.5.6-5.2%202.8M26.5%2027.5c2.3-.5%204.6.5%205.8%202.5M47.5%2027.5c-2.3-.5-4.6.5-5.8%202.5%22%20stroke%3D%22%232F6BFF%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20fill%3D%22none%22%20opacity%3D%22.9%22/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F5F5F7;--card:#fff;--fg:#0B1024;--muted:#5C6478;--line:#E3E6EE;--brand:#2F6BFF;--green:#17A35A;--coral:#FF5A5F;--amber:#D98E00;--grad:linear-gradient(135deg,#19D3C5,#2F6BFF 55%,#7B5CFF)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0B1024;--card:#1A2240;--fg:#F4F6FB;--muted:#9AA3B8;--line:#2A3453;--brand:#6D9BFF}}
+:root[data-theme="dark"]{--bg:#0B1024;--card:#1A2240;--fg:#F4F6FB;--muted:#9AA3B8;--line:#2A3453;--brand:#6D9BFF}
+*{box-sizing:border-box}html,body{margin:0}
+body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--fg);min-height:100vh}
+.top{display:flex;align-items:center;gap:8px;padding:18px 16px;max-width:560px;margin:0 auto;font:800 1.2rem 'Inter Tight',sans-serif}.top a{color:inherit;text-decoration:none;display:flex;align-items:center;gap:8px}.top svg{width:28px;height:28px;color:var(--fg)}
+main{max-width:560px;margin:0 auto;padding:0 16px 40px}
+.card{background:var(--card);border-radius:24px;padding:22px;box-shadow:0 1px 2px rgba(11,16,36,.05),0 20px 40px -24px rgba(11,16,36,.25);margin-bottom:14px}
+.ask{color:var(--muted);font-weight:600;font-size:.95rem;margin:0 0 10px}
+.prod{display:flex;gap:16px;align-items:center}
+.emo{width:84px;height:84px;flex:none;border-radius:20px;background:var(--bg);display:grid;place-items:center;font-size:3rem}
+.prod h1{font:800 1.45rem/1.15 'Inter Tight',sans-serif;margin:0 0 4px;letter-spacing:-.01em}
+.prod .pr{font-weight:800;font-size:1.25rem}.prod .sh{color:var(--muted);font-size:.9rem}
+.q{font:800 1.3rem 'Inter Tight',sans-serif;margin:22px 0 12px}
+.opts{display:grid;gap:10px}
+.opt{display:flex;align-items:center;gap:14px;width:100%;padding:16px 18px;border-radius:18px;border:2px solid var(--line);background:var(--card);color:var(--fg);font:inherit;font-weight:700;font-size:1.08rem;cursor:pointer;text-align:left;transition:border-color .2s,transform .15s}
+.opt:hover{transform:translateY(-1px)}.opt i{font-style:normal;font-size:1.6rem}
+.opt.on{border-color:var(--c);background:color-mix(in srgb,var(--c) 10%,var(--card))}
+label{display:block;font-size:.85rem;font-weight:600;color:var(--muted);margin-top:14px}
+input,textarea{width:100%;margin-top:6px;font:inherit;font-size:1rem;padding:12px 14px;border-radius:14px;border:1px solid var(--line);background:var(--bg);color:var(--fg)}
+textarea{min-height:70px;resize:vertical}
+.send{margin-top:16px;width:100%;border:0;border-radius:999px;padding:15px;font:inherit;font-weight:700;font-size:1.05rem;background:var(--fg);color:var(--card);cursor:pointer}
+.send[disabled]{opacity:.4;cursor:not-allowed}
+.res h2{font:800 1.2rem 'Inter Tight',sans-serif;margin:0 0 12px}
+.bar{display:flex;align-items:center;gap:10px;margin:8px 0;font-weight:600}.bar span{width:120px;flex:none}.bar b{width:34px;text-align:right}
+.bar .t{flex:1;height:12px;border-radius:99px;background:var(--bg);overflow:hidden}.bar .t i{display:block;height:100%;background:var(--c);border-radius:99px;transition:width .6s}
+.cm{border-top:1px solid var(--line);padding:10px 0;font-size:.95rem}.cm b{display:block}.cm small{color:var(--muted)}
+.cta{background:var(--grad);color:#fff}.cta h3{margin:0 0 6px;font:800 1.25rem 'Inter Tight',sans-serif}.cta p{margin:0 0 14px;opacity:.95;line-height:1.45}
+.cta a{display:inline-block;background:#fff;color:#0B1024;text-decoration:none;font-weight:700;border-radius:999px;padding:12px 20px}
+.tiny{font-size:.8rem;color:var(--muted);line-height:1.45}
+.msg{text-align:center;padding:40px 10px}
+.ok{display:flex;gap:10px;align-items:center;font-weight:700;color:var(--green);margin-bottom:10px}
+.lnk{color:var(--brand);font-weight:600;font-size:.9rem}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="lg" gradientUnits="userSpaceOnUse" x1="14" y1="10" x2="54" y2="44"><stop offset="0" stop-color="#19D3C5"/><stop offset=".55" stop-color="#2F6BFF"/><stop offset="1" stop-color="#7B5CFF"/></linearGradient>
+<symbol id="logoMark" viewBox="0 0 64 64"><path d="M8 14h6.5l4.6 22h28.4l4.4-13.5" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22.5" cy="46.5" r="4" fill="currentColor"/><circle cx="43.5" cy="46.5" r="4" fill="currentColor"/><path d="M36 10.5c-2.2-2.8-7-3.2-9.6-.4-3.8-.6-7.4 2.4-6.8 6.2-3.2 1.6-3.6 6.2-.8 8.6-.8 3.6 2.2 7.2 5.8 7.2 1.8 3 6.4 3.8 9.2 1.2l2.2-1.6 2.2 1.6c2.8 2.6 7.4 1.8 9.2-1.2 3.6 0 6.6-3.6 5.8-7.2 2.8-2.4 2.4-7-.8-8.6.6-3.8-3-6.8-6.8-6.2C43 7.3 38.2 7.7 36 10.5z" fill="url(#lg)"/></symbol></defs></svg>
+<div class="top"><a href="/"><svg aria-hidden="true"><use href="#logoMark"/></svg>NotYet</a></div>
+<main id="m"><div class="card msg">Cargando la votación…</div></main>
+<script>
+(function(){"use strict";
+const API="https://notyet-pagos.alfonsodeborbon-02.workers.dev";
+const $=(s)=>document.querySelector(s);
+const esc=(s)=>String(s==null?"":s).replace(/[&<>"']/g,(c)=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c]);
+const eur=(n)=>n?new Intl.NumberFormat("es-ES",{style:"currency",currency:"EUR",minimumFractionDigits:n%1?2:0}).format(n):"";
+const ls=(k,v)=>{try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v);}catch(e){return null;}};
+let voter=ls("ny.voter"); if(!voter){const a=new Uint8Array(12);crypto.getRandomValues(a);voter=Array.from(a,(x)=>x.toString(16).padStart(2,"0")).join("");ls("ny.voter",voter);}
+const id=new URLSearchParams(location.search).get("p")||"";
+let P=null,V=[],pick=null;
+const OPT={voto:[["si","Sí, cómpralo","✅","#17A35A"],["no","No, espera","✋","#FF5A5F"],["barato","Busca más barato","🔎","#2F6BFF"]],permiso:[["si","Sí, te doy permiso","✅","#17A35A"],["no","No, esta vez no","✋","#FF5A5F"],["barato","Busca algo más barato","🔎","#2F6BFF"]]};
+function tally(){const c={si:0,no:0,barato:0};V.forEach((v)=>c[v.choice]=(c[v.choice]||0)+1);return c;}
+function resHTML(){const c=tally(),n=V.length||1,o=OPT[P.kind]||OPT.voto;
+ return `<div class="card res"><h2>${V.length} ${V.length===1?"voto":"votos"} hasta ahora</h2>${o.map(([k,l,e,col])=>`<div class="bar" style="--c:${col}"><span>${e} ${esc(l.split(",")[0])}</span><div class="t"><i style="width:${Math.round((c[k]||0)/n*100)}%"></i></div><b>${c[k]||0}</b></div>`).join("")}${V.filter((v)=>v.comment).slice(-8).map((v)=>`<div class="cm"><b>${esc(v.name)}</b>${esc(v.comment)}</div>`).join("")}</div>`;}
+function draw(done){const o=OPT[P.kind]||OPT.voto,perm=P.kind==="permiso",who=P.asker||"Tu amigo";
+ const head=`<div class="card"><p class="ask">${perm?`${esc(who)} te pide permiso para comprar`:`${esc(who)} se está pensando comprar`}</p><div class="prod"><div class="emo">${esc(P.emoji||"🛍️")}</div><div><h1>${esc(P.title)}</h1><div class="pr">${eur(P.price)}</div><div class="sh">${P.shop?"en "+esc(P.shop):""}${P.url?` - <a class="lnk" href="${esc(P.url)}" target="_blank" rel="noopener nofollow">ver producto</a>`:""}</div></div></div>`;
+ let body="";
+ if(!P.open) body=`<p class="q">${P.decision?"Ya ha decidido":"La votación está cerrada"}</p></div>`;
+ else if(done) body=`<div class="ok">✓ Voto enviado. Le llega al momento a ${esc(who)}.</div><button type="button" class="lnk" style="border:0;background:none;padding:0;cursor:pointer" id="again">Cambiar mi voto</button></div>`;
+ else body=`<p class="q">${perm?"¿Le das permiso?":"¿Se lo compra?"}</p><div class="opts">${o.map(([k,l,e,col])=>`<button type="button" class="opt${pick===k?" on":""}" data-c="${k}" style="--c:${col}"><i>${e}</i>${esc(l)}</button>`).join("")}</div>
+  <label>Tu nombre<input id="nm" maxlength="30" autocomplete="given-name" placeholder="Para que sepa quién eres" value="${esc(ls("ny.name")||"")}"></label>
+  <label>¿Por qué? (opcional)<textarea id="cmt" maxlength="200" placeholder="${perm?"Ej.: ahorra la mitad y te ayudo con el resto":"Ej.: ya tienes unas parecidas"}"></textarea></label>
+  <button type="button" class="send" id="send" ${pick?"":"disabled"}>Enviar mi voto</button><p class="tiny">Sin cuenta y sin instalar nada. Solo verá tu nombre, tu voto y tu comentario.</p></div>`;
+ const cta=`<div class="card cta"><h3>${perm?"Controla las compras en familia":"¿Tú también compras por impulso?"}</h3><p>${perm?"Con NotYet tus hijos te piden permiso antes de comprar y tú ves en qué se les va el dinero.":"NotYet te frena un segundo antes de pagar, te enseña opciones más baratas y convierte lo que no gastas en ahorro para tus planes."}</p><a href="/app?src=votar">Probar NotYet gratis</a></div>`;
+ $("#m").innerHTML=head+body+(done||!P.open?resHTML():"")+cta;
+ $("#m").querySelectorAll("[data-c]").forEach((b)=>b.onclick=()=>{pick=b.dataset.c;$("#m").querySelectorAll("[data-c]").forEach((x)=>x.classList.toggle("on",x===b));$("#send").disabled=false;});
+ const s=$("#send"); if(s) s.onclick=send; const ag=$("#again"); if(ag) ag.onclick=()=>draw(false);
+}
+async function load(){
+ if(!/^[A-Za-z0-9_-]{10,24}$/.test(id)){$("#m").innerHTML=`<div class="card msg">Este enlace no es válido. Pídele a tu amigo que te lo vuelva a mandar.</div>`;return;}
+ try{const j=await fetch(API+"/poll/"+id).then((r)=>r.json()); if(!j.ok){$("#m").innerHTML=`<div class="card msg">${esc(j.error||"No he podido abrir la votación")}</div>`;return;} P=j.poll;V=j.votes||[]; const mine=(JSON.parse(ls("ny.answered")||"[]")).find((x)=>x.id===id); draw(!!mine);}
+ catch(e){$("#m").innerHTML=`<div class="card msg">No hay conexión ahora mismo. Vuelve a intentarlo en un momento.</div>`;}
+}
+async function send(){
+ const b=$("#send"); b.disabled=true; b.textContent="Enviando…"; const name=$("#nm").value.trim(),comment=$("#cmt").value.trim(); if(name) ls("ny.name",name);
+ try{const j=await fetch(API+"/poll/"+id+"/vote",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({voter,name,choice:pick,comment})}).then((r)=>r.json());
+  if(!j.ok){b.disabled=false;b.textContent="Enviar mi voto";alertMsg(j.error);return;}
+  const L=JSON.parse(ls("ny.answered")||"[]").filter((x)=>x.id!==id); L.unshift({id,kind:P.kind,title:P.title,price:P.price,shop:P.shop,asker:P.asker,choice:pick,at:Date.now()}); ls("ny.answered",JSON.stringify(L.slice(0,100)));
+  const k=await fetch(API+"/poll/"+id).then((r)=>r.json()); if(k.ok){P=k.poll;V=k.votes||[];} draw(true);
+ }catch(e){b.disabled=false;b.textContent="Enviar mi voto";alertMsg("No hay conexión ahora mismo");}
+}
+function alertMsg(t){let n=$("#err"); if(!n){n=document.createElement("p");n.id="err";n.className="tiny";n.style.color="var(--coral)";$("#send").after(n);} n.textContent=t;}
+load(); setInterval(()=>{if(P&&!document.hidden&&$(".res")) fetch(API+"/poll/"+id).then((r)=>r.json()).then((j)=>{if(j.ok){V=j.votes||[];const r=$(".res");if(r)r.outerHTML=resHTML();}}).catch(()=>{});},15000);
+})();
+</script></body></html>

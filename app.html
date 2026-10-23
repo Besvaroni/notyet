@@ -793,6 +793,26 @@ button.xrow:hover .xn{text-decoration:underline}
 .lvrow b{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:var(--bg2);color:var(--fg);font-size:.85rem}
 .lvrow span{flex:1}.lvrow.done{color:var(--fg)}.lvrow.done b{background:#17A35A;color:#fff}
 .lvrow.on{color:var(--fg);font-weight:700;background:var(--bg2)}.lvrow.on b{background:var(--brand);color:#fff}
+
+.plink{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:10px 0}
+.plink code{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;background:var(--bg2);border-radius:10px;padding:10px 12px;font-size:.85rem}
+.pnets{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 10px}
+.pnets a,.pnets button{display:inline-flex;align-items:center;gap:6px;padding:8px 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--fg);font:inherit;font-size:.85rem;font-weight:600;text-decoration:none;cursor:pointer}
+.ptally{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.pman{margin-top:12px;border-top:1px solid var(--line);padding-top:10px}.pman summary{cursor:pointer;font-weight:600;font-size:.92rem}
+.pmrow{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:8px}.pmrow input{flex:1;min-width:120px}
+.fam .frow{display:flex;gap:12px;align-items:center;padding:8px 0;border-top:1px solid var(--line)}.fam .frow>span{font-size:1.5rem}.fam .frow b{display:block;font-size:.95rem}.fam .frow small{color:var(--muted)}
+.fkpi{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}.fkpi div{background:var(--bg2);border-radius:14px;padding:10px;text-align:center}.fkpi b{display:block;font-size:1.1rem}.fkpi small{color:var(--muted);font-size:.75rem}
+
+.charts .cgrid{display:grid;grid-template-columns:1fr;gap:6px}@media (min-width:760px){.charts .cgrid{grid-template-columns:1fr 1fr}}
+.donut{display:flex;gap:14px;align-items:center}.donut svg{width:140px;height:140px;flex:none}
+.donut ul{list-style:none;margin:0;padding:0;flex:1;min-width:0;font-size:.85rem}.donut li{display:flex;gap:8px;align-items:center;padding:3px 0}.donut li i{width:10px;height:10px;border-radius:3px;flex:none}.donut li span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lg2,.cmpk{display:flex;gap:14px;font-size:.8rem;color:var(--muted);margin-bottom:4px}.lg2 i,.cmpk i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+.cmpk .c1,.cmp .c1{background:var(--brand)}.cmpk .c0,.cmp .c0{background:var(--line)}
+.cmp{display:grid;grid-template-columns:110px 1fr auto 54px;gap:10px;align-items:center;padding:6px 0;font-size:.88rem}
+.cmp .cb{display:flex;flex-direction:column;gap:3px}.cmp .cb i{display:block;height:8px;border-radius:99px;min-width:2px}
+.cmp em{font-style:normal;font-weight:700;font-size:.8rem;text-align:right}.cmp em.ok{color:var(--green)}.cmp em.bad{color:var(--coral)}
+.pbi{display:flex;gap:12px;align-items:center;margin-top:16px;padding:14px;border-radius:16px;background:var(--bg2)}.pbi>div{flex:1}.pbi b{display:block}.pbi small{display:block;color:var(--muted);font-size:.82rem;line-height:1.4;margin-top:2px}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -900,6 +920,7 @@ button.xrow:hover .xn{text-decoration:underline}
   <!-- COMITÉ -->
   <section class="view" id="v-comite" hidden>
     <div class="vhead"><h1>Comité</h1><span class="tag">Tus grupos votan</span></div>
+    <div class="card" id="pollCard" hidden></div>
     <div class="card">
       <p class="tiny">Convierte una compra en una votación privada dentro de la app: comprar, esperar o buscar más barato. Cada grupo opina a su manera; NotYet resume sin decidir por ti.</p>
       <label for="voteItem">Compra a votar<select id="voteItem"></select></label>
@@ -937,7 +958,7 @@ button.xrow:hover .xn{text-decoration:underline}
 
   <!-- PAREJA -->
   <section class="view" id="v-pareja" hidden>
-    <div class="vhead"><h1>Pareja</h1><span class="tag">Ahorrar acompañado</span></div>
+    <div class="vhead"><h1>Pareja y familia</h1><span class="tag">Ahorrar acompañado</span></div>
     <div id="pareja" class="view"></div>
   </section>
 
@@ -1114,6 +1135,7 @@ button.xrow:hover .xn{text-decoration:underline}
     <button class="opt" type="button" data-g="wait"><i class="i-a">⏱</i><span>Me espero 24 horas<small>Te lo recordamos mañana. +3 puntos</small></span></button>
     <button class="opt" type="button" data-g="compare"><i class="i-b">€</i><span>Buscar más barato<small>Análisis de mercado y enlaces directos a cada sitio</small></span></button>
     <button class="opt" type="button" data-g="committee"><i class="i-c">?</i><span>Preguntar al comité<small>Tus grupos votan dentro de la app</small></span></button>
+    <button class="opt" type="button" id="gPerm" hidden><i class="i-c">👪</i><span id="gPermT">Pedir permiso<small>Le llega un enlace y te contesta con un toque</small></span></button>
     <a class="opt" id="gBuy" target="_blank" rel="noopener" href="#" style="text-decoration:none"><i class="i-b">→</i><span>Comprar igualmente<small>Queda apuntado, sin culpa</small></span></a>
     <button class="btn ghost small" id="gClose" type="button">Solo voy a mirar</button>
   </div>
@@ -2770,6 +2792,143 @@ document.addEventListener("click", (e) => {
   else if (r.dataset.redeem === "pot" && free >= PT_POT) { S.ptsSpent = (S.ptsSpent || 0) + PT_POT; S.ptsPot = (S.ptsPot || 0) + PT_POT_EUR; save(); toast(`${eur(PT_POT_EUR)} más en tu bote para tus destinos`); render(); xpRender(); }
 });
 { const _ri4 = renderInicio; renderInicio = function () { _ri4.apply(this, arguments); try { const sc = $("#scoreCard"); if (sc && !sc.querySelector("[data-xp=pts]")) sc.insertAdjacentHTML("beforeend", `<button type="button" class="ptsbtn" data-xp="pts">Canjear puntos: ${num(ptsFree())} disponibles ›</button>`); } catch (e) {} }; }
+
+/* ---------- Votación real por enlace: WhatsApp, Telegram, Instagram, Facebook... y el resultado vuelve solo ---------- */
+const VMAP = { si: ["buy", "Comprar"], no: ["wait", "Esperar"], barato: ["cheap", "Más barato"] };
+const pollLink = (it) => it.poll ? "https://notyetapp.app/votar?p=" + it.poll.id : "";
+async function ensurePoll(it, kind) {
+  if (it.poll && (!kind || it.poll.kind === kind)) return it.poll;
+  try {
+    const r = await fetch(API + "/poll", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ title: it.name, price: it.price || 0, shop: it.shop || "", url: it.url || "", emoji: pemo(it), asker: (S.fam && S.fam.me) || (SESS && SESS.email ? SESS.email.split("@")[0] : "") || "Tu amigo", kind: kind || "voto" }) }).then((x) => x.json());
+    if (!r.ok) { toast(r.error || "No he podido crear la votación"); return null; }
+    it.poll = { id: r.id, key: r.key, kind: kind || "voto", at: now() }; save(); return it.poll;
+  } catch (e) { toast("Sin conexión: no he podido crear el enlace. Vuelve a probar."); return null; }
+}
+{ const _vt = voteText; voteText = function (it) { const l = pollLink(it); if (!l) return _vt.apply(this, arguments); return it.poll.kind === "permiso" ? `¿Me das permiso para comprar esto?\n${it.name}${it.price ? " - " + eur(it.price, 2) : ""}${it.shop ? " en " + it.shop : ""}\nContéstame con un toque aquí: ${l}` : `¿Me compro esto?\n${it.name}${it.price ? " - " + eur(it.price, 2) : ""}${it.shop ? " en " + it.shop : ""}\nVota con un toque (sí, no o busca más barato): ${l}\nMe lo estoy pensando con NotYet.`; }; }
+{ const _sl = shareLinks; shareLinks = function (it) { const l = pollLink(it); const out = _sl.apply(this, arguments); if (!l) return out; const u = encodeURIComponent(l), t = encodeURIComponent(voteText(it)); return out.map(([n, href, c]) => [n, n === "Telegram" ? "https://t.me/share/url?url=" + u + "&text=" + t : n === "Facebook" ? "https://www.facebook.com/sharer/sharer.php?u=" + u : n === "Teams" ? "https://teams.microsoft.com/share?href=" + u + "&msgText=" + t : n === "X" ? "https://twitter.com/intent/tweet?text=" + t : n === "LinkedIn" ? "https://www.linkedin.com/sharing/share-offsite/?url=" + u : href.replace(/text=[^&]*/, "text=" + t).replace(/body=[^&]*/, "body=" + t), c]); }; }
+// Al elegir red en el freno o en Comité: se crea el enlace y el botón "Enviar de verdad" ya lo lleva
+{ const _on2 = openNetChat; openNetChat = function (net, it) { const r = _on2.apply(this, arguments); if (it && !it.poll) ensurePoll(it).then((pl) => { if (!pl) return; const link = shareLinks(it).find(([n]) => n === net), send = $("#netSend"); if (link && send) send.href = link[1]; renderComite(); }); return r; }; }
+function mergePoll(it, votes) {
+  const manual = (it.votes || []).filter((v) => v.src === "manual");
+  const remote = votes.map((v) => ({ who: v.name || "Alguien", text: v.comment || (v.choice === "si" ? "Adelante" : v.choice === "no" ? "Yo me esperaría" : "Mira si lo hay más barato"), vote: VMAP[v.choice][0], vl: VMAP[v.choice][1], src: "link", at: v.at }));
+  const before = (it.votes || []).filter((v) => v.src === "link").length;
+  it.votes = remote.concat(manual); if (!it.voteAt) it.voteAt = it.poll.at; it.voteGroup = it.voteGroup || (S.group || "amigos");
+  return remote.length - before;
+}
+async function syncPolls(force) {
+  const L = S.items.filter((i) => i.poll && (force || now() - (i.poll.at || 0) < 21 * 24 * H) && (i.status === "wait" || force));
+  let fresh = 0;
+  for (const it of L.slice(0, 12)) { try { const j = await fetch(API + "/poll/" + it.poll.id).then((r) => r.json()); if (j.ok) { const n = mergePoll(it, j.votes || []); if (n > 0) fresh += n; it.poll.n = (j.votes || []).length; } } catch (e) {} }
+  if (fresh) { save(); toast(fresh === 1 ? "Ha llegado un voto nuevo de tus amigos" : `Han llegado ${fresh} votos nuevos de tus amigos`); render(); }
+}
+setInterval(() => { if (!document.hidden) syncPolls(); }, 20000);
+document.addEventListener("visibilitychange", () => { if (!document.hidden) syncPolls(); });
+setTimeout(() => syncPolls(), 1500);
+function pollCardHTML(it) {
+  const l = pollLink(it), c = { buy: 0, wait: 0, cheap: 0 }; (it.votes || []).filter((v) => v.src).forEach((v) => c[v.vote]++);
+  const n = (it.votes || []).filter((v) => v.src).length;
+  return `<div class="row between"><h2>Votación de verdad</h2><span class="tag">${n} ${n === 1 ? "voto" : "votos"}</span></div>
+  <p class="tiny">Manda el enlace a tu grupo de WhatsApp, Telegram, Instagram, Facebook o donde quieras. Tus amigos votan con un toque, sin instalar nada, y el resultado aparece aquí solo.</p>
+  ${l ? `<div class="plink"><code>${esc(l.replace("https://", ""))}</code><button type="button" class="btn small" data-pl="copy">Copiar</button><button type="button" class="btn ghost small" data-pl="share">Compartir</button></div>
+  <div class="pnets">${shareLinks(it).filter(([n]) => ["WhatsApp", "Telegram", "Facebook", "SMS", "Correo"].includes(n)).map(([n, u, col]) => `<a href="${u}" target="_blank" rel="noopener" style="--c:${col}">${netIcon(n)}${n}</a>`).join("")}<button type="button" data-pl="share">${netIcon("Instagram")}Instagram</button></div>
+  <div class="ptally"><span class="pill no">Comprar ${c.buy}</span><span class="pill">Esperar ${c.wait}</span><span class="pill blue">Más barato ${c.cheap}</span><button type="button" class="link" data-pl="sync">Actualizar</button></div>`
+  : `<button type="button" class="btn" data-pl="make">Crear enlace de votación</button>`}
+  <details class="pman"><summary>¿Te han contestado en el grupo? Apúntalo a mano</summary><div class="pmrow"><input id="pmName" maxlength="30" placeholder="Quién (Lucía)"><button type="button" class="btn small green" data-pm="buy">Sí</button><button type="button" class="btn small coral" data-pm="wait">No</button><button type="button" class="btn small ghost" data-pm="cheap">Más barato</button></div><p class="tiny">Si hicisteis una encuesta de WhatsApp, Telegram o Instagram, pasa aquí cada voto y cuenta igual.</p></details>`;
+}
+{ const _rc = renderComite; renderComite = function () { _rc.apply(this, arguments); try { const it = S.items.find((i) => String(i.id) === $("#voteItem").value && i.status === "wait"); const pc = $("#pollCard"); if (!pc) return; pc.hidden = !it; if (it) pc.innerHTML = pollCardHTML(it); } catch (e) {} }; }
+document.addEventListener("click", async (e) => {
+  const b = e.target.closest("[data-pl],[data-pm]"); if (!b || !b.closest("#pollCard")) return;
+  const it = S.items.find((i) => String(i.id) === $("#voteItem").value); if (!it) return;
+  if (b.dataset.pm) { const who = ($("#pmName").value || "").trim() || "Un amigo"; it.votes = (it.votes || []).concat([{ who, text: "Lo dijo en el grupo", vote: b.dataset.pm, vl: VMAP[{ buy: "si", wait: "no", cheap: "barato" }[b.dataset.pm]][1], src: "manual", at: now() }]); if (!it.voteAt) it.voteAt = now(); save(); renderComite(); toast("Voto de " + who + " apuntado"); return; }
+  const k = b.dataset.pl;
+  if (k === "make") { b.disabled = true; b.textContent = "Creando…"; if (await ensurePoll(it)) { toast("Enlace listo: mándalo a tu grupo"); } renderComite(); }
+  else if (k === "copy") { try { await navigator.clipboard.writeText(voteText(it)); toast("Copiado. Pégalo en tu grupo."); } catch (x) { toast("Copia el enlace a mano"); } }
+  else if (k === "share") { if (navigator.share) { try { await navigator.share({ title: it.poll && it.poll.kind === "permiso" ? "¿Me das permiso?" : "¿Me lo compro?", text: voteText(it), url: pollLink(it) }); } catch (x) {} } else { try { await navigator.clipboard.writeText(voteText(it)); toast("Copiado. Pégalo en Instagram o donde quieras."); } catch (x) {} } }
+  else if (k === "sync") { await syncPolls(true); renderComite(); toast("Votos al día"); }
+});
+
+/* ---------- Modo familia: tus hijos te piden permiso y ves en qué se les va el dinero ---------- */
+function famAnswered() { try { return JSON.parse(localStorage.getItem("ny.answered") || "[]").filter((x) => x.kind === "permiso"); } catch (e) { return []; } }
+function famHTML() {
+  const f = S.fam || {}, ans = famAnswered();
+  const mine = S.items.filter((i) => i.poll && i.poll.kind === "permiso");
+  const sum = (l, k) => l.filter((x) => x.choice === k).reduce((a, x) => a + (x.price || 0), 0);
+  let h = `<div class="card fam"><div class="row between"><h2>Familia</h2><span class="tag">Permisos y control</span></div>`;
+  if (!f.role) h += `<p class="tiny">Para hijos y padres: antes de comprar, el hijo pide permiso con un enlace y el padre o la madre contesta con un toque. Así sabéis qué se compra y por qué, sin espiar a nadie.</p><div class="actions"><button type="button" class="btn small" data-fam="padre">Soy madre o padre</button><button type="button" class="btn ghost small" data-fam="hijo">Soy hijo o hija</button></div>`;
+  else if (f.role === "hijo") {
+    h += `<p class="tiny">Cuando vayas a comprar algo, en el freno tendrás el botón <b>Pedir permiso a ${esc(f.to || "mamá o papá")}</b>. Le llega por WhatsApp y te contesta aquí.</p><div class="two"><label>Tu nombre<input id="famMe" maxlength="20" value="${esc(f.me || "")}" placeholder="Lucas"></label><label>A quién pides permiso<input id="famTo" maxlength="20" value="${esc(f.to || "")}" placeholder="Mamá"></label></div><button type="button" class="btn small" data-fam="save">Guardar</button>`;
+    h += mine.length ? `<h3 class="ph3">Tus peticiones</h3>${mine.slice(-8).reverse().map((i) => { const v = (i.votes || []).filter((x) => x.src).slice(-1)[0]; return `<div class="frow"><span>${pemo(i)}</span><div><b>${esc(i.name)}</b><small>${eur(i.price || 0)} - ${v ? (v.vote === "buy" ? "✅ Te ha dado permiso" : v.vote === "wait" ? "✋ Esta vez no" : "🔎 Busca algo más barato") : "Esperando respuesta"}</small></div></div>`; }).join("")}` : "";
+  } else {
+    const ok = ans.filter((x) => x.choice === "si"), no = ans.filter((x) => x.choice !== "si");
+    h += `<p class="tiny">Tus hijos te mandan un enlace cuando quieren comprar algo. Lo que respondas desde este móvil se resume aquí.</p><div class="two"><label>Tu nombre (lo verán tus hijos)<input id="famMe" maxlength="20" value="${esc(f.me || "")}" placeholder="Mamá"></label><label>Tope al mes por hijo (€)<input id="famCap" inputmode="decimal" value="${f.cap || ""}" placeholder="40"></label></div><button type="button" class="btn small" data-fam="save">Guardar</button>`;
+    h += `<div class="fkpi"><div><b>${ans.length}</b><small>peticiones</small></div><div><b>${eur(sum(ans, "si"))}</b><small>autorizado</small></div><div><b>${eur(no.reduce((a, x) => a + (x.price || 0), 0))}</b><small>frenado</small></div></div>`;
+    h += ans.length ? ans.slice(0, 10).map((x) => `<div class="frow"><span>${x.choice === "si" ? "✅" : x.choice === "no" ? "✋" : "🔎"}</span><div><b>${esc(x.asker || "Tu hijo")}: ${esc(x.title)}</b><small>${eur(x.price || 0)}${x.shop ? " en " + esc(x.shop) : ""} - ${new Date(x.at).toLocaleDateString("es-ES")}</small></div></div>`).join("") : `<p class="tiny">Aún no has respondido ninguna petición. Pídele a tu hijo que active "Soy hijo o hija" en su NotYet.</p>`;
+    if (f.cap && ok.length) { const m0 = new Date(); m0.setDate(1); m0.setHours(0, 0, 0, 0); const mes = ok.filter((x) => x.at >= m0.getTime()).reduce((a, x) => a + (x.price || 0), 0); h += `<p class="tiny">Este mes has autorizado ${eur(mes)} de un tope de ${eur(f.cap)}${mes > f.cap ? ": te has pasado del tope" : ""}.</p>`; }
+  }
+  if (f.role) h += `<p class="tiny"><button type="button" class="link" data-fam="reset">Cambiar de papel</button></p>`;
+  return h + `<p class="tiny">Pensado para usar en familia y con transparencia: tu hijo sabe que te pide permiso. Para menores de 14 años, la cuenta debe abrirla el padre o la madre.</p></div>`;
+}
+{ const _rp = renderPareja; renderPareja = function () { _rp.apply(this, arguments); try { const box = $("#pareja"); if (box) { const old = box.querySelector(".fam"); if (old) old.remove(); box.insertAdjacentHTML("beforeend", famHTML()); } } catch (e) {} }; }
+document.addEventListener("click", (e) => {
+  const b = e.target.closest("[data-fam]"); if (!b) return; const k = b.dataset.fam; S.fam = S.fam || {};
+  if (k === "padre" || k === "hijo") S.fam.role = k;
+  else if (k === "reset") S.fam = {};
+  else if (k === "save") { const me = $("#famMe"), to = $("#famTo"), cap = $("#famCap"); if (me) S.fam.me = me.value.trim(); if (to) S.fam.to = to.value.trim(); if (cap) S.fam.cap = parse(cap.value) || 0; toast("Guardado"); }
+  save(); renderPareja(); famGate();
+});
+function famGate() { const g = $("#gPerm"); if (!g) return; const kid = S.fam && S.fam.role === "hijo"; g.hidden = !kid; if (kid) $("#gPermT").firstChild.textContent = "Pedir permiso a " + (S.fam.to || "mamá o papá"); }
+famGate();
+$("#gPerm").addEventListener("click", () => {
+  if (!canAdd()) { closeGate(); return; }
+  const it = gateItem("wait"); S.items.push(it); save(); closeGate();
+  const w = window.open("about:blank", "_blank");
+  ensurePoll(it, "permiso").then((pl) => { if (!pl) { if (w) w.close(); return; } const url = "https://wa.me/?text=" + encodeURIComponent(voteText(it)); if (w) w.location.href = url; else location.href = url; selectedVote = it.id; showTab("comite"); render(); toast("Petición enviada. Te avisamos cuando conteste."); });
+});
+
+/* ---------- Entrar o registrarse desde la web (?entrar=1 / ?registro=1) ---------- */
+(function fromWeb() { const q = new URLSearchParams(location.search); const reg = q.has("registro"); if (!reg && !q.has("entrar")) return; try { history.replaceState(null, "", location.pathname + location.hash); } catch (e) {} setTimeout(() => { const t = $("#tour"); if (t) t.hidden = true; if (SESS) { showTab("ajustes"); toast("Ya has entrado con " + (SESS.email || "tu cuenta")); return; } acctStep = "start"; showTab("ajustes"); try { acctMenu("acctCard"); } catch (e) {} renderAcct(); if (reg) regMsg = true; try { renderAcct(); } catch (e) {} }, 350); })();
+var regMsg = false;
+{ const _ra = renderAcct; renderAcct = function () { try { _ra.apply(this, arguments); } catch (e) {} const n = $("#authNote"); if (n && regMsg && acctStep === "start" && !SESS) n.innerHTML = "<b>Crea tu cuenta gratis</b> con Google o con tu correo. Tus compras, destinos y puntos quedan guardados en cualquier móvil u ordenador."; }; }
+
+/* ---------- Gráficos: en qué gastas, en qué te frenas, precios y comparativa; exportación para Power BI ---------- */
+function donutSVG(rows, label) {
+  const tot = rows.reduce((a, r) => a + r.v, 0); if (!tot) return `<div class="empty tiny">Sin datos en este periodo</div>`;
+  const R = 52, C = 2 * Math.PI * R; let off = 0;
+  const arcs = rows.map((r) => { const len = C * r.v / tot, a = `<circle r="${R}" cx="70" cy="70" fill="none" stroke="${r.c}" stroke-width="22" stroke-dasharray="${len.toFixed(2)} ${(C - len).toFixed(2)}" stroke-dashoffset="${(-off).toFixed(2)}" transform="rotate(-90 70 70)"><title>${esc(r.n)}: ${eur(r.v)}</title></circle>`; off += len; return a; }).join("");
+  return `<div class="donut"><svg viewBox="0 0 140 140" role="img" aria-label="${esc(label)}">${arcs}<text x="70" y="66" text-anchor="middle" font-size="9" fill="var(--muted)">${esc(label)}</text><text x="70" y="82" text-anchor="middle" font-size="14" font-weight="800" fill="var(--fg)">${eur(tot)}</text></svg><ul>${rows.slice(0, 6).map((r) => `<li><i style="background:${r.c}"></i><span>${esc(r.n)}</span><b>${Math.round(r.v / tot * 100)} %</b></li>`).join("")}</ul></div>`;
+}
+function byCat(list) { const m = {}; list.forEach((i) => { const k = i.cat || "otros"; m[k] = (m[k] || 0) + (i.price || 0); }); return Object.entries(m).map(([k, v]) => ({ n: catName(k), v, c: CAT(k)[1] })).sort((a, b) => b.v - a.v); }
+function histoSVG(list) {
+  const B = [[0, 10, "<10"], [10, 25, "10-25"], [25, 50, "25-50"], [50, 100, "50-100"], [100, 250, "100-250"], [250, 1e9, "250+"]];
+  const rows = B.map(([a, b, l]) => ({ l, s: list.filter((i) => i.status === "skip" && i.price >= a && i.price < b).length, g: list.filter((i) => (i.status === "buy" || i.status === "impulse") && i.price >= a && i.price < b).length }));
+  const max = Math.max(1, ...rows.map((r) => r.s + r.g)), W = 320, Hh = 140, pb = 22, bw = 36, gap = (W - 20 - bw * 6) / 5;
+  let g = ""; rows.forEach((r, i) => { const x = 10 + i * (bw + gap), hs = (Hh - pb - 10) * r.s / max, hg = (Hh - pb - 10) * r.g / max, y0 = Hh - pb; g += `<rect x="${x}" y="${(y0 - hs).toFixed(1)}" width="${bw}" height="${hs.toFixed(1)}" rx="3" fill="var(--green)"><title>${r.l} €: ${r.s} frenadas</title></rect><rect x="${x}" y="${(y0 - hs - hg).toFixed(1)}" width="${bw}" height="${hg.toFixed(1)}" rx="3" fill="var(--coral)"><title>${r.l} €: ${r.g} compradas</title></rect><text x="${x + bw / 2}" y="${Hh - 8}" text-anchor="middle" font-size="9" fill="var(--muted)">${r.l}</text>${r.s + r.g ? `<text x="${x + bw / 2}" y="${(y0 - hs - hg - 4).toFixed(1)}" text-anchor="middle" font-size="9" font-weight="700" fill="var(--fg)">${r.s + r.g}</text>` : ""}`; });
+  return `<svg class="dchart" viewBox="0 0 ${W} ${Hh}" role="img" aria-label="Decisiones por rango de precio">${g}</svg>`;
+}
+function monthTot(off) { const d = new Date(); const a = new Date(d.getFullYear(), d.getMonth() - off, 1).getTime(), b = new Date(d.getFullYear(), d.getMonth() - off + 1, 1).getTime(); const L = S.items.filter((i) => i.status !== "wait" && (i.decided || i.start || 0) >= a && (i.decided || i.start || 0) < b); const sum = (f) => L.filter(f).reduce((x, i) => x + (i.price || 0), 0); return { saved: sum((i) => i.status === "skip"), spent: sum((i) => i.status === "buy" || i.status === "impulse"), cheaper: L.reduce((x, i) => x + (i.cheaper || 0), 0), n: L.length }; }
+function compHTML() {
+  const a = monthTot(0), b = monthTot(1), d = new Date(), mn = (o) => MONTHS[(d.getMonth() - o + 12) % 12];
+  const row = (l, x, y, good) => { const max = Math.max(1, x, y), dp = y ? Math.round((x - y) / y * 100) : null, up = x >= y; return `<div class="cmp"><span>${l}</span><div class="cb"><i class="c1" style="width:${(x / max * 100).toFixed(1)}%"></i><i class="c0" style="width:${(y / max * 100).toFixed(1)}%"></i></div><b>${eur(x)}</b><em class="${(up === good) ? "ok" : "bad"}">${dp === null ? (x ? "nuevo" : "igual") : (dp > 0 ? "+" : "") + dp + " %"}</em></div>`; };
+  return `<div class="cmpk"><span><i class="c1"></i>${esc(mn(0))}</span><span><i class="c0"></i>${esc(mn(1))}</span></div>${row("No gastado", a.saved, b.saved, true)}${row("Gastado", a.spent, b.spent, false)}${row("Ahorro comprando mejor", a.cheaper, b.cheaper, true)}`;
+}
+function chartsHTML() {
+  const d = dashData(dashPer), list = d.items;
+  return `<div class="card charts"><div class="row between"><h2>Gráficos</h2><span class="tag">${esc((PERN[dashPer] || ["este periodo"])[0])}</span></div>
+  <div class="cgrid"><div><h3 class="ph3">En qué gastas</h3>${donutSVG(byCat(list.filter((i) => i.status === "buy" || i.status === "impulse")), "Gastado")}</div><div><h3 class="ph3">En qué te frenas</h3>${donutSVG(byCat(list.filter((i) => i.status === "skip")), "No gastado")}</div></div>
+  <h3 class="ph3">Decisiones por precio</h3><div class="lg2"><span><i style="background:var(--green)"></i>Frenadas</span><span><i style="background:var(--coral)"></i>Compradas</span></div>${histoSVG(list)}
+  <h3 class="ph3">Este mes frente al anterior</h3>${compHTML()}
+  <div class="pbi"><div><b>Llévatelo a Power BI o Excel</b><small>Una tabla con cada compra: fecha, categoría, tienda, canal, para quién, decisión, precio y ahorro. En Power BI: Obtener datos, Texto/CSV.</small></div><button type="button" class="btn small" data-pbi>Descargar CSV</button></div></div>`;
+}
+{ const _rh = renderHabitos; renderHabitos = function () { _rh.apply(this, arguments); try { const h = $("#habits"); if (!h) return; const o = h.querySelector(".charts"); if (o) o.remove(); h.insertAdjacentHTML("beforeend", chartsHTML()); } catch (e) {} }; }
+function pbiCSV() {
+  const cols = ["id", "fecha", "anio", "mes", "dia_semana", "hora", "producto", "tienda", "categoria", "tipo", "frecuencia", "para", "canal", "estado", "decision", "precio", "precio_original", "ahorro_mas_barato", "no_gastado", "gastado", "horas_espera", "votos_si", "votos_no", "votos_mas_barato", "motivo", "ejemplo"];
+  const q = (v) => { const t = v == null ? "" : String(v); return /[",\n;]/.test(t) ? '"' + t.replace(/"/g, '""') + '"' : t; };
+  const DEC = { skip: "No comprado", buy: "Comprado pensado", impulse: "Comprado por impulso", wait: "En espera" };
+  const real = S.items.filter((i) => !i.ex), rows = (real.length ? real : S.items).map((i) => { const t = new Date(i.decided || i.start || now()), v = (k) => (i.votes || []).filter((x) => x.vote === k).length, pr = Number(i.price || 0);
+    return [i.id, t.toISOString().slice(0, 10), t.getFullYear(), t.getMonth() + 1, ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"][t.getDay()], t.getHours(), i.name, i.shop || "", catName(i.cat || "otros"), i.tipo || "", i.freq || "una", i.para || "yo", i.channel || (i.votes && i.votes.length ? "Comité" : "Sin consultar"), i.status, DEC[i.status] || i.status, pr.toFixed(2), i.orig ? Number(i.orig).toFixed(2) : "", Number(i.cheaper || 0).toFixed(2), i.status === "skip" ? pr.toFixed(2) : "0.00", i.status === "buy" || i.status === "impulse" ? pr.toFixed(2) : "0.00", i.hours || 0, v("buy"), v("wait"), v("cheap"), i.why || "", i.ex ? "sí" : "no"].map(q).join(","); });
+  return "﻿" + cols.join(",") + "\n" + rows.join("\n") + "\n";
+}
+document.addEventListener("click", (e) => { if (!e.target.closest("[data-pbi]")) return; const n = S.items.filter((i) => !i.ex).length || S.items.length; if (!n) { toast("Aún no hay compras apuntadas para exportar"); return; } const blob = new Blob([pbiCSV()], { type: "text/csv;charset=utf-8" }), a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "notyet-compras-" + new Date().toISOString().slice(0, 10) + ".csv"; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500); toast(`Descargadas ${n} compras para Power BI o Excel`); });
 render(); route();
 setInterval(render, 60000);
 })();
