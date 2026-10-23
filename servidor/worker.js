@@ -4,6 +4,8 @@
 // - La contrasena llega ya reforzada desde el movil (PBKDF2 en el navegador) y aqui se vuelve a cifrar con sal propia: nunca se guarda en claro.
 // - Guarda tus datos de la app para tenerlos en cualquier movil (base de datos D1 en la UE).
 // - Invitaciones: tu amigo tiene el primer mes de Plus gratis; cuando paga su primer mes, tu ganas un mes.
+// - Votaciones por enlace: los amigos votan si, no o mas barato con un toque y el resultado llega a la app. Permisos de hijos a padres.
+// - Entrar con Google (Microsoft preparado): se comprueba la firma del proveedor.
 // Secretos (los pega el dueno en Cloudflare, nunca en el codigo): STRIPE_SECRET (clave restringida rk_live_...), RESEND_KEY (envio de correos).
 const ORIGINS = ["https://notyetapp.app", "https://www.notyetapp.app", "https://besvaroni.github.io", "https://notyet-9op.pages.dev"];
 const DAY = 864e5, CODE_TTL = 10 * 60e3, SESSION_TTL = 120 * DAY, MAX_DATA = 400000, REWARD_DAYS = 30, REWARD_CENTS = 299;
@@ -76,7 +78,9 @@ async function schema(env) {
     env.DB.prepare("CREATE TABLE IF NOT EXISTS hits (k TEXT NOT NULL, t INTEGER)"),
     env.DB.prepare("CREATE INDEX IF NOT EXISTS i_codes ON codes(email)"),
     env.DB.prepare("CREATE INDEX IF NOT EXISTS i_ref ON referrals(referrer_id)"),
-    env.DB.prepare("CREATE INDEX IF NOT EXISTS i_hits ON hits(k, t)")
+    env.DB.prepare("CREATE INDEX IF NOT EXISTS i_hits ON hits(k, t)"),
+    env.DB.prepare("CREATE TABLE IF NOT EXISTS polls (id TEXT PRIMARY KEY, key_hash TEXT NOT NULL, kind TEXT, title TEXT, price REAL, shop TEXT, url TEXT, emoji TEXT, asker TEXT, created INTEGER, expires INTEGER, decision TEXT)"),
+    env.DB.prepare("CREATE TABLE IF NOT EXISTS poll_votes (poll_id TEXT NOT NULL, voter TEXT NOT NULL, name TEXT, choice TEXT, comment TEXT, created INTEGER, PRIMARY KEY (poll_id, voter))")
   ]);
   for (const sql of ["ALTER TABLE users ADD COLUMN pw_hash TEXT", "ALTER TABLE users ADD COLUMN pw_salt TEXT", "ALTER TABLE users ADD COLUMN verified INTEGER DEFAULT 1"]) { try { await env.DB.prepare(sql).run(); } catch (e) {} }
   ready = true;
@@ -204,6 +208,38 @@ export default {
         await env.DB.prepare("DELETE FROM codes WHERE email = ?").bind(email).run();
         return "";
       };
+      // ---- Votaciones por enlace: tus amigos votan con un toque desde WhatsApp, Telegram o donde sea, sin cuenta ----
+      const clip = (x, n) => String(x == null ? "" : x).replace(/[\u0000-\u001f]/g, " ").trim().slice(0, n);
+      const pollM = path.match(/^\/poll\/([A-Za-z0-9_-]{10,24})(\/vote|\/decide)?$/);
+      if (path === "/poll" && req.method === "POST") {
+        if (await limited(env, "pollnew:" + ip, 30, 3600e3)) return out({ ok: false, error: "Has creado muchas votaciones seguidas. Espera un rato." }, 429);
+        const b = await body(); const title = clip(b.title, 120); if (!title) return out({ ok: false, error: "Falta qué quieres comprar" }, 400);
+        const id = b64u(rnd(9)), key = token(); const url = /^https:\/\/[^\s]{4,400}$/.test(String(b.url || "")) ? String(b.url) : "";
+        await env.DB.prepare("INSERT INTO polls (id, key_hash, kind, title, price, shop, url, emoji, asker, created, expires) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)").bind(id, await sha(key), b.kind === "permiso" ? "permiso" : "voto", title, Math.max(0, Math.min(1e6, Number(b.price) || 0)), clip(b.shop, 40), url, clip(b.emoji, 8), clip(b.asker, 30), now(), now() + 21 * DAY).run();
+        return out({ ok: true, id, key, link: "https://notyetapp.app/votar?p=" + id });
+      }
+      if (pollM && !pollM[2] && req.method === "GET") {
+        const p = await env.DB.prepare("SELECT * FROM polls WHERE id = ?").bind(pollM[1]).first(); if (!p) return out({ ok: false, error: "Esta votación no existe" }, 404);
+        const v = await env.DB.prepare("SELECT voter, name, choice, comment, created FROM poll_votes WHERE poll_id = ? ORDER BY created LIMIT 60").bind(p.id).all();
+        const votes = (v.results || []).map((x) => ({ id: x.voter.slice(0, 8), name: x.name, choice: x.choice, comment: x.comment, at: x.created }));
+        return out({ ok: true, poll: { id: p.id, kind: p.kind, title: p.title, price: p.price, shop: p.shop, url: p.url, emoji: p.emoji, asker: p.asker, created: p.created, open: p.expires > now() && !p.decision, decision: p.decision || null }, votes });
+      }
+      if (pollM && pollM[2] === "/vote" && req.method === "POST") {
+        if (await limited(env, "vote:" + ip, 60, 3600e3)) return out({ ok: false, error: "Demasiados votos seguidos. Espera un rato." }, 429);
+        const p = await env.DB.prepare("SELECT id, expires, decision FROM polls WHERE id = ?").bind(pollM[1]).first(); if (!p) return out({ ok: false, error: "Esta votación no existe" }, 404);
+        if (p.expires < now() || p.decision) return out({ ok: false, error: "Esta votación ya está cerrada" }, 409);
+        const b = await body(); const choice = ["si", "no", "barato"].includes(b.choice) ? b.choice : ""; if (!choice) return out({ ok: false, error: "Elige una opción" }, 400);
+        const voter = /^[A-Za-z0-9_-]{12,40}$/.test(String(b.voter || "")) ? String(b.voter) : "ip-" + (await sha(ip + p.id)).slice(0, 16);
+        const c = await env.DB.prepare("SELECT COUNT(*) AS c FROM poll_votes WHERE poll_id = ?").bind(p.id).first(); if (c && c.c >= 60) return out({ ok: false, error: "Esta votación ya tiene muchos votos" }, 409);
+        await env.DB.prepare("INSERT INTO poll_votes (poll_id, voter, name, choice, comment, created) VALUES (?, ?, ?, ?, ?, ?) ON CONFLICT(poll_id, voter) DO UPDATE SET name = excluded.name, choice = excluded.choice, comment = excluded.comment, created = excluded.created").bind(p.id, voter, clip(b.name, 30) || "Alguien", choice, clip(b.comment, 200), now()).run();
+        return out({ ok: true });
+      }
+      if (pollM && pollM[2] === "/decide" && req.method === "POST") {
+        const b = await body(); const p = await env.DB.prepare("SELECT id, key_hash FROM polls WHERE id = ?").bind(pollM[1]).first(); if (!p) return out({ ok: false, error: "Esta votación no existe" }, 404);
+        if (!sameStr(await sha(String(b.key || "")), p.key_hash)) return out({ ok: false, error: "No puedes cerrar esta votación" }, 403);
+        await env.DB.prepare("UPDATE polls SET decision = ? WHERE id = ?").bind(clip(b.decision, 20) || "cerrada", p.id).run();
+        return out({ ok: true });
+      }
       // Entrar con Google o Microsoft (Outlook, Hotmail): el proveedor ya confirma el correo
       if (path === "/auth/oidc" && req.method === "POST") {
         const b = await body(); const provider = b.provider === "microsoft" ? "microsoft" : "google";
