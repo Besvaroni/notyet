@@ -1033,7 +1033,20 @@ const hasPareja = () => tourOn || planOf() === "pareja";
 const monthItems = () => { const d = new Date(), m0 = new Date(d.getFullYear(), d.getMonth(), 1).getTime(); return S.items.filter((i) => !i.ex && (i.start || 0) >= m0).length; };
 function upsell(title, text, pareja) { return `<div class="card upsell"><span class="tag">${pareja ? "NotYet Pareja" : "NotYet Plus"}</span><h2>${esc(title)}</h2><p class="tiny">${esc(text)}</p><div class="actions">${pareja ? "" : `<a class="btn small" href="${PAY.plus}">Hazte Plus, 2,99 € al mes</a>`}<a class="btn ${pareja ? "small" : "ghost small"}" href="${PAY.pareja}">Pareja, 3,99 € al mes</a></div><p class="tiny">Pago seguro con tarjeta a través de Stripe. Cancela cuando quieras desde Ajustes.</p></div>`; }
 function canAdd() { if (hasPlus() || monthItems() < FREE_ITEMS) return true; toast(`El plan Gratis incluye ${FREE_ITEMS} compras apuntadas al mes. Hazte Plus para apuntar sin límite.`); showTab("ajustes"); return false; }
-(function planFromUrl() { const q = new URLSearchParams(location.search), t = q.get("plan"); if (t === "plus" || t === "pareja") { S.plan = { tier: t, since: Date.now(), ref: (q.get("cs") || q.get("inv") || "").slice(0, 80) }; save(); history.replaceState(null, "", location.pathname + location.hash); setTimeout(() => toast(t === "pareja" ? "NotYet Pareja activado. Pasa a tu pareja el enlace de Ajustes." : "NotYet Plus activado. Gracias."), 400); } })();
+// Servidor de comprobación (Cloudflare Worker, carpeta servidor/ del repositorio). Vacío = sin comprobación en servidor
+const API = "";
+const apiGet = async (path) => { const r = await fetch(API + path); return r.json(); };
+function setPlan(t, extra) { S.plan = Object.assign({ tier: t, since: (S.plan && S.plan.since) || Date.now(), checked: Date.now() }, extra || {}); save(); setTimeout(render, 0); }
+(async function planFromUrl() {
+  const q = new URLSearchParams(location.search), t = q.get("plan"), cs = q.get("cs") || "";
+  if (t !== "plus" && t !== "pareja") return;
+  history.replaceState(null, "", location.pathname + location.hash);
+  if (API && /^cs_/.test(cs)) { try { const r = await apiGet("/verify?cs=" + encodeURIComponent(cs)); if (r.ok) { setPlan(r.plan, { email: r.email, ref: cs }); toast(r.plan === "pareja" ? "NotYet Pareja activado. Pasa a tu pareja el enlace de Ajustes." : "NotYet Plus activado. Gracias."); } else toast("No hemos podido confirmar el pago: " + r.error); } catch (e) { toast("No hemos podido confirmar el pago ahora. Prueba en Ajustes con tu correo."); } return; }
+  setPlan(t, { ref: (cs || q.get("inv") || "").slice(0, 80) }); setTimeout(() => toast(t === "pareja" ? "NotYet Pareja activado. Pasa a tu pareja el enlace de Ajustes." : "NotYet Plus activado. Gracias."), 400);
+})();
+async function restorePlan(email, quiet) { try { const r = await apiGet("/restore?email=" + encodeURIComponent(email)); if (r.ok) { setPlan(r.plan, { email }); if (!quiet) toast("Plan recuperado: " + (r.plan === "pareja" ? "Pareja" : "Plus")); } else if (quiet) { S.plan = null; save(); setTimeout(render, 0); } else toast(r.error); } catch (e) { if (!quiet) toast("No he podido comprobarlo ahora. Prueba en un rato."); } }
+// Una vez a la semana se comprueba que la suscripción sigue activa (si se canceló, vuelve a Gratis)
+if (API && S.plan && S.plan.email && Date.now() - (S.plan.checked || 0) > 7 * 864e5) restorePlan(S.plan.email, true);
 const month0 = () => { const m = new Date(); m.setDate(1); m.setHours(0, 0, 0, 0); return m.getTime(); };
 const left = (it) => it.start + (it.hours || 0) * H - now();
 const thisMonth = (it) => (it.decided || it.start || 0) >= month0();
@@ -1719,8 +1732,9 @@ let goalsUnlocked = false;
 function renderPlanCard() {
   const t = planOf(), el = $("#planCard"); if (!el) return;
   const inv = location.origin + location.pathname + "?plan=pareja&inv=" + encodeURIComponent((S.plan && S.plan.ref) || "pareja");
-  el.innerHTML = t === "gratis" ? `<h2>Tu plan: Gratis</h2><p class="tiny">Incluye ${FREE_ITEMS} compras apuntadas al mes (llevas ${monthItems()}), ${FREE_GOALS} destino y ${FREE_GROUPS} grupo propio en el comité. Plus desbloquea todo eso sin límite, el panel de evolución con descarga, hábitos y retos, y el asistente Pregúntale. Pareja añade el pacto en pareja y Plus en el móvil de tu pareja.</p><div class="actions"><a class="btn small" href="${PAY.plus}">Plus, 2,99 € al mes</a><a class="btn ghost small" href="${PAY.pareja}">Pareja, 3,99 € al mes</a></div>`
+  el.innerHTML = t === "gratis" ? `<h2>Tu plan: Gratis</h2><p class="tiny">Incluye ${FREE_ITEMS} compras apuntadas al mes (llevas ${monthItems()}), ${FREE_GOALS} destino y ${FREE_GROUPS} grupo propio en el comité. Plus desbloquea todo eso sin límite, el panel de evolución con descarga, hábitos y retos, y el asistente Pregúntale. Pareja añade el pacto en pareja y Plus en el móvil de tu pareja.</p><div class="actions"><a class="btn small" href="${PAY.plus}">Plus, 2,99 € al mes</a><a class="btn ghost small" href="${PAY.pareja}">Pareja, 3,99 € al mes</a></div>${API ? `<form id="restoreForm" style="margin-top:10px"><label>¿Ya pagaste en otro móvil? Recupera tu plan con el correo del pago<input type="email" id="restoreEmail" placeholder="nombre@correo.com" autocomplete="email"></label><button class="btn ghost small" type="submit" style="margin-top:8px">Recuperar mi plan</button></form>` : ""}`
     : `<h2>Tu plan: ${t === "pareja" ? "Pareja" : "Plus"}</h2><p class="tiny">Activo en este móvil desde ${fmtDate(S.plan.since)}. Puedes cambiar la tarjeta, ver tus facturas o cancelar en el portal seguro de Stripe con el correo con el que pagaste.</p><div class="actions"><a class="btn ghost small" href="${PAY.portal}" target="_blank" rel="noopener">Gestionar o cancelar</a>${t === "pareja" ? `<button class="btn small" type="button" id="copyInv">Copiar el enlace para tu pareja</button>` : ""}</div>`;
+  const rf = $("#restoreForm"); if (rf) rf.onsubmit = (e) => { e.preventDefault(); const v = $("#restoreEmail").value.trim(); if (v) restorePlan(v, false); };
   const c = $("#copyInv"); if (c) c.onclick = async () => { try { await navigator.clipboard.writeText(inv); toast("Enlace copiado. Que tu pareja lo abra en su móvil."); } catch (e) { prompt("Copia este enlace para tu pareja:", inv); } };
 }
 function renderAjustes() {
