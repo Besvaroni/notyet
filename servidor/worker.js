@@ -118,6 +118,7 @@ export default {
     const body = async () => { if (req.method === "GET") return {}; const t = await req.text(); if (t.length > MAX_DATA + 2000) throw Object.assign(new Error("big"), { big: true }); try { return JSON.parse(t || "{}"); } catch (e) { return {}; } };
     try {
       if (env.DB) await schema(env);
+      if (path === "/") return out({ ok: true, service: "notyet", cuentas: !!env.DB, correo: !!env.RESEND_KEY, stripe: !!env.STRIPE_SECRET });
       // ---- Pagos ----
       if (path === "/verify") {
         const cs = url.searchParams.get("cs") || "";
