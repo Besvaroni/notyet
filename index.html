@@ -934,6 +934,110 @@ img.logo.favi{mix-blend-mode:multiply}
 .xlegend{display:flex;gap:14px;font-size:.78rem;font-weight:700;color:var(--muted);margin-top:6px;flex-wrap:wrap}
 .xlegend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
 @media (max-width:560px){.xdonut{grid-template-columns:1fr;justify-items:center}}
+
+/* ===== v14: más Apple ===== */
+:root{--f-display:-apple-system,BlinkMacSystemFont,"SF Pro Display","Inter Tight","Segoe UI",Roboto,sans-serif}
+/* Producto: el objeto concreto sobre fondo claro, como una foto de tienda */
+.prod.c{background:radial-gradient(120% 90% at 50% 62%,color-mix(in srgb,var(--c,#2F6BFF) 16%,#FFFFFF) 0%,#F5F5F7 72%)}
+.prod.c::after{display:none}
+.prod .pemo{font-size:clamp(5rem,11vw,8.5rem);line-height:1;filter:drop-shadow(0 18px 18px rgba(0,0,0,.18));font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif}
+.prod .pemo.pop{animation:pemoPop .7s cubic-bezier(.2,.9,.25,1.25)}
+@keyframes pemoPop{from{opacity:0;transform:translateY(14px) scale(.82)}to{opacity:1;transform:none}}
+.prod .brandtag{box-shadow:0 2px 8px rgba(0,0,0,.08)}
+/* Selector de productos: tarjetas tipo tienda */
+.pk{width:178px;border-radius:22px;padding:10px 10px 12px;gap:6px;transition:transform .35s var(--ease),box-shadow .35s var(--ease),border-color .2s}
+.pk:hover{transform:translateY(-3px);box-shadow:0 16px 30px -18px rgba(0,0,0,.35)}
+.pk[aria-pressed="true"]{border-color:var(--fg);box-shadow:0 0 0 1px var(--fg)}
+.pk .ic{height:104px;border-radius:16px;background:#F5F5F7}
+.pk .ic::after{display:none}
+.pk .ic .pe{font-size:3.4rem;line-height:1;filter:drop-shadow(0 8px 8px rgba(0,0,0,.14));font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif;transition:transform .4s var(--ease)}
+.pk:hover .ic .pe{transform:scale(1.08)}
+.pk .ic .lgb{position:absolute;left:8px;top:8px;width:26px;height:26px;border-radius:8px;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.12);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.pk .ic .lgb img.logo{width:18px!important;height:18px!important;max-width:18px!important;max-height:18px!important;mix-blend-mode:normal;position:static}
+.pk .ic .lgb .ini{font-size:.55rem}
+.pk .nm{font-weight:600;font-size:.88rem}
+.pk .pr{font-family:var(--f-display);font-size:1.05rem;font-weight:800;letter-spacing:-.02em}
+.pk .pick{margin-top:4px;text-align:center;border:1.5px solid var(--line);border-radius:999px;padding:6px 10px;font-size:.8rem;font-weight:700}
+.pk[aria-pressed="true"] .pick{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.ini.wk{background:#0B7A3E;color:#fff;font-weight:900;letter-spacing:-.02em}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .pk .ic{background:#2C2C2E}:root:not([data-theme="light"]) .prod.c{background:radial-gradient(120% 90% at 50% 62%,color-mix(in srgb,var(--c,#2F6BFF) 28%,#1C1C1E) 0%,#111 72%)}}
+/* Desglose del mes (sustituye al ticket) */
+.tkwrap{padding:0!important;display:block!important}
+.tk{background:transparent!important;color:var(--fg)!important;font-family:var(--f-text,-apple-system,BlinkMacSystemFont,sans-serif)!important;font-size:.92rem!important;line-height:1.35!important;padding:0!important;box-shadow:none!important;max-width:none!important;width:100%!important;letter-spacing:0!important;transform:none!important}
+.tk::before,.tk::after,.tk .paper{display:none!important}
+.dz{position:relative;display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:14px 16px}
+.dzh{display:flex;justify-content:space-between;align-items:baseline;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.dzh b{font-family:var(--f-display);font-size:1rem;letter-spacing:-.02em}
+.dzh span{font-size:.78rem;color:var(--muted)}
+.dzl{display:flex;flex-direction:column}
+.dzr{display:flex;align-items:center;gap:12px;padding:9px 0;border-bottom:1px solid var(--line);animation:dzIn .5s var(--ease) both}
+@keyframes dzIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.dzr .e{width:36px;height:36px;border-radius:10px;background:var(--bg2,#F5F5F7);display:flex;align-items:center;justify-content:center;font-size:1.25rem;flex:none}
+.dzr .n{flex:1;min-width:0;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dzr .n small{display:block;font-weight:400;font-size:.76rem;color:var(--muted)}
+.dzr b{font-variant-numeric:tabular-nums;font-weight:700;white-space:nowrap}
+.dze{padding:14px 0;color:var(--muted);font-size:.88rem}
+.dzt{display:flex;justify-content:space-between;align-items:flex-end;gap:10px;padding:12px 0 4px}
+.dzt span{font-weight:700}
+.dzt small{display:block;font-weight:400;font-size:.76rem;color:var(--muted)}
+.dzt b{font-family:var(--f-display);font-size:1.7rem;font-weight:900;letter-spacing:-.04em;font-variant-numeric:tabular-nums;white-space:nowrap}
+.dzgs{display:flex;flex-direction:column;gap:8px;border-top:1px solid var(--line);padding-top:10px;margin-top:6px}
+.dzk{font-size:.72rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.dzg .r{display:flex;justify-content:space-between;font-size:.82rem;gap:8px}
+.dzg .r span:last-child{color:var(--muted);white-space:nowrap}
+.dzg i{display:block;height:6px;border-radius:3px;background:var(--line);overflow:hidden;margin-top:4px}
+.dzg i b{display:block;height:100%;border-radius:3px;background:linear-gradient(90deg,#19D3C5,#2F6BFF);transition:width .8s var(--ease)}
+.dzs{position:absolute;right:14px;top:12px;font-size:.68rem;font-weight:800;color:#17A35A;background:color-mix(in srgb,#17A35A 12%,transparent);padding:3px 9px;border-radius:999px}
+.dzs~*{}
+.dz:has(.dzs) .dzh span{margin-right:96px}
+/* Columna izquierda: llega hasta abajo, igual que la derecha */
+.demo-grid{align-items:stretch}
+.leftcol>.prog{flex:1}
+.prog{background:var(--surface);border-radius:24px;box-shadow:var(--shadow);padding:22px;display:flex;flex-direction:column;gap:16px;min-width:0;border:1px solid var(--line)}
+.prog .bd{cursor:pointer;transition:transform .25s var(--ease),box-shadow .25s var(--ease)}
+.prog .bd:hover{transform:translateY(-2px)}
+.prog .bd.sel{box-shadow:0 0 0 2px var(--fg)}
+.bdinfo{background:var(--bg2,#F5F5F7);border-radius:16px;padding:12px 14px;font-size:.9rem;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;min-height:52px}
+.bdinfo>span:last-of-type{flex-basis:100%}
+.bdinfo .st{font-size:.7rem;font-weight:800;padding:2px 8px;border-radius:999px;background:var(--line);color:var(--muted);flex-basis:auto!important}
+.bdinfo .st.ok{background:color-mix(in srgb,#17A35A 14%,transparent);color:#17A35A}
+.bdgo{background:var(--fg);color:var(--bg);border-radius:999px;padding:7px 14px;font-weight:700;font-size:.82rem}
+.simbox{display:flex;flex-direction:column;gap:12px;border-top:1px solid var(--line);padding-top:16px}
+.prog .bdinfo{margin-top:auto}
+.simout{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.simout div{background:var(--bg2,#F5F5F7);border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.simout b{font-family:var(--f-display);font-size:1.15rem;font-weight:800;letter-spacing:-.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.simout span{font-size:.74rem;color:var(--muted);line-height:1.2}
+.dash .kpis{grid-template-columns:1fr 1fr}
+.dash .wlbox{margin-top:auto}
+.chcap{font-size:.8rem;color:var(--muted);margin:0 0 -10px}
+#chart .ghost{fill:#2F6BFF;opacity:.45;stroke:#2F6BFF;stroke-dasharray:2 2}
+@media (max-width:520px){.simout{grid-template-columns:1fr}}
+/* Pie de página como el de Apple */
+footer.af{background:var(--bg2,#F5F5F7);border-top:0;padding:28px 0 22px;font-size:.75rem;color:var(--muted)}
+footer.af .wrap{display:block}
+footer.af .fcols{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;padding-bottom:18px;border-bottom:1px solid var(--line)}
+footer.af h4{font-size:.75rem;font-weight:600;color:var(--fg);margin:0 0 8px;letter-spacing:0;font-family:inherit}
+footer.af .fcols a{display:block;color:var(--muted);text-decoration:none;margin:0 0 7px}
+footer.af a:hover{text-decoration:underline;color:var(--fg)}
+footer.af .fbot{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between;padding-top:14px}
+footer.af .fl{display:flex;flex-wrap:wrap}
+footer.af .fl a{color:var(--muted);text-decoration:none;padding:0 10px;border-left:1px solid var(--line)}
+footer.af .fl a:first-child{padding-left:0;border-left:0}
+@media (max-width:720px){footer.af .fcols{grid-template-columns:1fr 1fr}footer.af .fbot{flex-direction:column}}
+/* Transiciones suaves al aparecer, como en apple.com */
+.reveal.pre{opacity:0;transform:translateY(32px) scale(.985)}
+.reveal.in{transition:opacity 1s cubic-bezier(.2,.7,.2,1),transform 1s cubic-bezier(.2,.7,.2,1)}
+@media (prefers-reduced-motion:reduce){.prod .pemo.pop,.dzr{animation:none}.reveal.pre{transform:none}}
+.dash,.prog{justify-content:space-between}
+.dash .wlbox{margin-top:0}
+.simout b{white-space:normal;overflow:visible}
+.wl .wlr{display:flex;align-items:center;gap:12px;padding:9px 0;border-top:1px solid var(--line)}
+.wl .wlr .e{width:36px;height:36px;border-radius:10px;background:var(--bg2,#F5F5F7);display:flex;align-items:center;justify-content:center;font-size:1.25rem;flex:none}
+.wl .wlr .n{flex:1;min-width:0;font-weight:600;font-size:.9rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wl .wlr .n small{display:block;font-weight:400;font-size:.76rem;color:var(--muted)}
+.wl .wlr .t{font-size:.78rem;font-weight:700;color:#D98E00;white-space:nowrap}
+.wl .wlr .t.ok{color:#17A35A}
 </style>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
@@ -1067,7 +1171,7 @@ img.logo.favi{mix-blend-mode:multiply}
         <div class="fcard reveal"><b>Destino: Viaje a París</b><span id="fcGoal">1.137 € de 1.800 € con lo que no gastaste. 90 % del bote</span></div>
       </div>
     </div>
-    <div class="hcap reveal" id="hcap"><span class="hstep" id="hStep">Paso 1 de 4: Inicio</span><p id="hText">Tu ticket del mes, tus puntos y tus destinos. Toca "Apuntar un capricho" o espera un momento: la demo sigue sola.</p><div class="hdots" id="hDots"><i class="on"></i><i></i><i></i><i></i><button type="button" id="hReset">Reiniciar</button></div></div>
+    <div class="hcap reveal" id="hcap"><span class="hstep" id="hStep">Paso 1 de 4: Inicio</span><p id="hText">Tu resumen del mes, tus puntos y tus destinos. Toca "Apuntar un capricho" o espera un momento: la demo sigue sola.</p><div class="hdots" id="hDots"><i class="on"></i><i></i><i></i><i></i><button type="button" id="hReset">Reiniciar</button></div></div>
     <p class="tiny" style="margin-top:18px">Demo interactiva con datos simulados. Marcas citadas solo como ejemplo; el icono de cada tienda se carga desde su propia web.</p>
   </div>
 </section>
@@ -1080,8 +1184,8 @@ img.logo.favi{mix-blend-mode:multiply}
     <div class="bento">
       <article class="bcard w4 reveal">
         <span class="chip green" style="align-self:flex-start">Gratis</span>
-        <h3>El ticket de lo que no compraste</h3>
-        <p>Como el ticket de cualquier tienda, pero al revés: cada línea es un "no", abajo el total que sigue en tu cuenta, el porcentaje que has conservado y a qué destino va el bote.</p>
+        <h3>El desglose de lo que no compraste</h3>
+        <p>Como el extracto de tu banco, pero al revés: cada línea es un "no", abajo el total que sigue en tu cuenta, el porcentaje que has conservado y a qué destino va el bote.</p>
         <div class="vis pad0"><div class="tkwrap"><div class="tk" id="bentoTk"></div></div></div>
       </article>
       <article class="bcard reveal">
@@ -1139,7 +1243,7 @@ img.logo.favi{mix-blend-mode:multiply}
       <button role="tab" aria-selected="true" data-x="freno" type="button">Freno</button>
       <button role="tab" aria-selected="false" data-x="explorar" type="button">Explorar</button>
       <button role="tab" aria-selected="false" data-x="comite" type="button">Comité</button>
-      <button role="tab" aria-selected="false" data-x="objetivo" type="button">Ticket</button>
+      <button role="tab" aria-selected="false" data-x="objetivo" type="button">Resumen</button>
       <button role="tab" aria-selected="false" data-x="habitos" type="button">Hábitos</button>
       <button role="tab" aria-selected="false" data-x="logros" type="button">Logros</button>
       <button role="tab" aria-selected="false" data-x="pareja" type="button">Pareja</button>
@@ -1163,8 +1267,8 @@ img.logo.favi{mix-blend-mode:multiply}
         </div>
         <div class="xtext" data-x="objetivo">
           <span class="chip green" style="align-self:flex-start">Gratis</span>
-          <h3>Un ticket de verdad, al revés.</h3>
-          <ul><li>Cada "no" se imprime como una línea: artículo, tienda e importe.</li><li>Abajo, el total conservado, el porcentaje sobre lo que ibas a gastar y el destino del bote.</li><li>Varios destinos a la vez, con reparto: 90 % para París, 10 % para el regalo de comunión.</li><li>El progreso se construye con tus decisiones, no con tu cuenta bancaria.</li></ul>
+          <h3>Lo que no compras, línea a línea.</h3>
+          <ul><li>Cada "no" aparece como una línea: artículo, tienda e importe.</li><li>Abajo, el total conservado, el porcentaje sobre lo que ibas a gastar y el destino del bote.</li><li>Varios destinos a la vez, con reparto: 90 % para París, 10 % para el regalo de comunión.</li><li>El progreso se construye con tus decisiones, no con tu cuenta bancaria.</li></ul>
         </div>
         <div class="xtext" data-x="habitos">
           <span class="chip blue" style="align-self:flex-start">Plus</span>
@@ -1252,7 +1356,7 @@ img.logo.favi{mix-blend-mode:multiply}
     <div class="center">
       <span class="chip reveal">Demo con datos simulados</span>
       <h2 class="h2 reveal" style="margin-top:16px">Pruébalo con lo que quieras.</h2>
-      <p class="lead reveal" style="margin-top:14px">Elige un producto, intenta comprarlo y mira cómo cada decisión mueve tu ticket y tus puntos. Marcas reales citadas como ejemplo; precios simulados, no consultados en las tiendas.</p>
+      <p class="lead reveal" style="margin-top:14px">Elige un producto, intenta comprarlo y mira cómo cada decisión mueve tu resumen y tus puntos. Marcas reales citadas como ejemplo; precios simulados, no consultados en las tiendas.</p>
     </div>
     <div class="catf reveal" id="catf" role="group" aria-label="Categoría"></div>
     <div class="reveal" id="brandRoll" style="margin-top:12px"></div>
@@ -1264,7 +1368,7 @@ img.logo.favi{mix-blend-mode:multiply}
         <div class="bbar"><i></i><i></i><i></i><span class="url" id="url">tienda simulada</span></div>
         <div class="stage" id="stage">
           <div class="screen s-shop active" data-s="shop">
-            <div class="prod c" id="prodBox" aria-hidden="true"><span class="brandtag" id="pBrand"></span><svg class="pico" id="pIcon"><use href="#ic-ropa"/></svg></div>
+            <div class="prod c" id="prodBox" aria-hidden="true"><span class="brandtag" id="pBrand"></span><svg class="pico" id="pIcon" hidden><use href="#ic-ropa"/></svg><span class="pemo" id="pEmo" aria-hidden="true"></span></div>
             <div class="info">
               <h3 id="pName"></h3>
               <div class="bigprice" id="pPrice"></div>
@@ -1327,24 +1431,31 @@ img.logo.favi{mix-blend-mode:multiply}
         <div class="xbody" id="xbody"></div>
         <p class="tiny xnote">Datos y precios simulados para la demo. En la versión real las ofertas vendrán de tiendas y comparadores con acuerdo o API pública, nunca copiando datos privados.</p>
       </div>
+      <div class="prog reveal" id="prog" aria-label="Tu progreso, datos simulados">
+        <div class="dash-head"><span class="eyebrow">Tu progreso</span><span class="tiny">Toca una insignia</span></div>
+        <div id="dashScore"></div>
+        <div class="bdinfo" id="bdInfo" aria-live="polite"></div>
+      </div>
       </div>
       <aside class="dash reveal" aria-label="Tu mes, datos simulados">
         <div class="dash-head"><span class="eyebrow">Tu mes</span><span class="chip blue">Plus</span></div>
         <p class="dashprev" id="dashPrev"></p>
         <div class="tkwrap"><div class="tk" id="dashTk"></div></div>
-        <div id="dashScore"></div>
         <div class="kpis">
           <div class="kpi"><div class="v" id="kBrakes">9</div><div class="l">Frenos</div></div>
           <div class="kpi"><div class="v" id="kSkipped">6</div><div class="l">Descartadas</div></div>
           <div class="kpi"><div class="v" id="kCheaper">0 €</div><div class="l">Comprando mejor</div></div>
+          <div class="kpi"><div class="v" id="kYear">0 €</div><div class="l">Al año, a este ritmo</div></div>
         </div>
-        <svg class="chart" id="chart" viewBox="0 0 320 130" role="img" aria-label="Dinero no gastado por día del mes"></svg>
-        <div>
+        <p class="chcap" id="chartCap"></p>
+        <svg class="chart" id="chart" viewBox="0 0 320 170" role="img" aria-label="Dinero no gastado por día del mes"></svg>
+        <div class="simbox">
+          <label class="xrange"><span class="row2"><span>Si frenas este porcentaje de tus caprichos</span><b id="simV">85 %</b></span><input type="range" id="simPct" min="0" max="100" step="5" value="85" aria-label="Porcentaje de caprichos que frenas"></label>
+          <div class="simout" id="simOut"></div>
+        </div>
+        <div class="wlbox">
           <div class="eyebrow" style="margin-bottom:6px">En espera</div>
-          <div class="wl" id="wl">
-            <div><span>Galaxy Watch7</span><span>Ya puedes decidir</span></div>
-            <div><span>Chaqueta acolchada</span><span>Faltan 18 h</span></div>
-          </div>
+          <div class="wl" id="wl"></div>
         </div>
       </aside>
     </div>
@@ -1361,7 +1472,7 @@ img.logo.favi{mix-blend-mode:multiply}
         <div class="step" data-step="2"><span class="num">02</span><h3>NotYet lo evalúa y lo apunta.</h3><p>Registra el importe que estás pensando gastar, lo traduce a horas de trabajo si quieres y te recuerda tu objetivo.</p></div>
         <div class="step" data-step="3"><span class="num">03</span><h3>Eliges.</h3><p>Comprar, esperar 24 horas, comparar alternativas o pedir opinión a tu comité. NotYet no bloquea nunca.</p></div>
         <div class="step" data-step="4"><span class="num">04</span><h3>Mañana, un recordatorio.</h3><p>Al día siguiente te pregunta si lo sigues queriendo. Si compras, días después te pregunta si te arrepientes.</p></div>
-        <div class="step" data-step="5"><span class="num">05</span><h3>Tu panel aprende contigo.</h3><p>El ticket del mes, tus puntos, tu calendario de impulsos y el progreso hacia tus destinos. Solo con lo que tú registras.</p></div>
+        <div class="step" data-step="5"><span class="num">05</span><h3>Tu panel aprende contigo.</h3><p>El resumen del mes, tus puntos, tu calendario de impulsos y el progreso hacia tus destinos. Solo con lo que tú registras.</p></div>
       </div>
       <div class="sticky">
         <div class="ph sm" aria-hidden="true">
@@ -1403,7 +1514,7 @@ img.logo.favi{mix-blend-mode:multiply}
         <div class="who">Para frenar y empezar a ver lo que no gastas.</div>
         <ul>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg>Freno antes de pagar y espera de 24 horas con aviso</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg>Ticket del mes, puntos, niveles e insignias</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg>Resumen del mes, puntos, niveles e insignias</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg>Hasta 15 compras apuntadas al mes</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg>1 destino para tu bote</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg>Comité con 1 grupo propio</li>
@@ -1443,7 +1554,7 @@ img.logo.favi{mix-blend-mode:multiply}
   </div>
 </section>
 
-<section>
+<section id="faq">
   <div class="wrap">
     <h2 class="h2 center reveal">Preguntas frecuentes.</h2>
     <div class="faq reveal">
@@ -1460,7 +1571,7 @@ img.logo.favi{mix-blend-mode:multiply}
       <details><summary>¿Me va a prohibir comprar?</summary><div class="a">Nunca. "Comprar igualmente" está siempre a un clic. Y cuando una compra encaja con tu presupuesto, NotYet te lo dirá y te ayudará a comprarla mejor.</div></details>
       <details><summary>¿Qué es el comité de compras?</summary><div class="a">Una votación privada con uno de tus grupos (amigos, gym, curro, familia) o con tu pareja: comprar, esperar o buscar más barato. Cada uno justifica su voto y NotYet resume las opiniones. Nadie decide por ti.</div></details>
       <details><summary>¿Las marcas y los precios de la demo son reales?</summary><div class="a">Las marcas y tiendas se citan solo como ejemplo de dónde salta el freno. Los precios, las alternativas y las personas de la demostración son simulados: en la versión real los precios saldrían de comparadores y la gente serían tus amigos de verdad.</div></details>
-      <details><summary>¿Qué incluye cada plan?</summary><div class="a">Gratis: freno y espera de 24 horas con aviso, ticket, puntos e insignias, hasta 15 compras al mes, 1 destino y 1 grupo de comité. Plus (2,99 € al mes o 24,99 € al año): todo sin límite, panel de evolución, hábitos, retos y el asistente Pregúntale. Pareja (3,99 € al mes o 34,99 € al año): todo Plus, también en el móvil de tu pareja, y el pacto en pareja.</div></details>
+      <details><summary>¿Qué incluye cada plan?</summary><div class="a">Gratis: freno y espera de 24 horas con aviso, resumen del mes, puntos e insignias, hasta 15 compras al mes, 1 destino y 1 grupo de comité. Plus (2,99 € al mes o 24,99 € al año): todo sin límite, panel de evolución, hábitos, retos y el asistente Pregúntale. Pareja (3,99 € al mes o 34,99 € al año): todo Plus, también en el móvil de tu pareja, y el pacto en pareja.</div></details>
     </div>
   </div>
 </section>
@@ -1694,13 +1805,18 @@ img.logo.favi{mix-blend-mode:multiply}
 </div>
 </main>
 
-<footer>
+<footer class="af">
   <div class="wrap">
-    <span>NotYet - 2026 - <a href="mailto:alfonsodeborbon.02@gmail.com">alfonsodeborbon.02@gmail.com</a></span><span><a href="aviso-legal.html">Aviso legal</a> - <a href="privacidad.html">Privacidad</a> - <a href="condiciones.html">Condiciones</a></span>
-    <span>Las marcas y productos de la demostración de esta página se citan solo como ejemplo; sus precios, personas y cifras son simulados. NotYet no tiene relación con esas marcas.</span>
-    <a href="laboratorio.html" target="_blank" rel="noopener" style="text-decoration:underline">Laboratorio: el teléfono función a función y el modelo para empresas y bancos</a>
+    <nav class="fcols" aria-label="Mapa de la web">
+      <div><h4>NotYet</h4><a href="#demo">Pruébalo</a><a href="#precios">Precios</a><a href="app.html">Abrir la app</a></div>
+      <div><h4>Tu cuenta</h4><a href="app.html#ajustes">Entrar o crear cuenta</a><a href="#faq">Preguntas frecuentes</a></div>
+      <div><h4>Empresas y bancos</h4><a href="laboratorio.html" target="_blank" rel="noopener">Laboratorio</a></div>
+      <div><h4>Legal</h4><a href="aviso-legal.html">Aviso legal</a><a href="privacidad.html">Privacidad</a><a href="condiciones.html">Condiciones</a></div>
+    </nav>
+    <div class="fbot"><span>Copyright © <span id="fyear">2026</span> NotYet. Todos los derechos reservados.</span><span class="fl"><a href="privacidad.html">Política de privacidad</a><a href="condiciones.html">Condiciones de uso</a><a href="aviso-legal.html">Aviso legal</a></span><span>España</span></div>
   </div>
 </footer>
+<script>try{document.getElementById("fyear").textContent=new Date().getFullYear()}catch(e){}</script>
 
 <div class="modal" id="netModal" hidden>
   <div class="mcard" role="dialog" aria-modal="true" aria-labelledby="netModalTitle">
@@ -1841,11 +1957,12 @@ window.logoFit = function (img) {
   } catch (e) {}
 };
 const LOGO_ERR = "if(this.dataset.fb){this.src=this.dataset.fb;this.classList.remove('bf','own');this.classList.add('favi');delete this.dataset.fb}else{this.remove()}";
-const favImg = (name, cls, px) => { const l = logoSrc(name, px); return l ? `<img class="logo ${l.cls} ${cls || ""}" src="${l.src}" alt="" loading="lazy" decoding="async" title="${esc(name)}"${l.fb ? ` data-fb="${l.fb}"` : ""} onload="logoFit(this)" onerror="${LOGO_ERR}">` : ""; };
+const WEAKLOGO = { "El Corte Inglés": "ECI" };
+const favImg = (name, cls, px) => { if (WEAKLOGO[name] && !logoKey()) return `<span class="ini logo-ini wk" title="${esc(name)}">${WEAKLOGO[name]}</span>`; const l = logoSrc(name, px); return l ? `<img class="logo ${l.cls} ${cls || ""}" src="${l.src}" alt="" loading="lazy" decoding="async" title="${esc(name)}"${l.fb ? ` data-fb="${l.fb}"` : ""} onload="logoFit(this)" onerror="${LOGO_ERR}">` : ""; };
 function brandChip(brand, shop) {
   const b = brand || shop || "", who = DOM[b] ? b : shop;
   const ini = `<span class="ini">${esc(b.replace(/[^A-Za-zÁÉÍÓÚÑ0-9]/g, "").slice(0, 2).toUpperCase() || "?")}</span>`;
-  return `<span class="brand-chip">${favUrl(who) ? favImg(who, "", 64) : ini}<span class="nm">${esc(b)}${shop && shop !== brand ? " en " + esc(shop) : ""}</span></span>`;
+  return `<span class="brand-chip">${favUrl(who) && !WEAKLOGO[who] ? favImg(who, "", 64) : ini}<span class="nm">${esc(b)}${shop && shop !== brand ? " en " + esc(shop) : ""}</span></span>`;
 }
 const brandsOf = (cat) => cat === "todo" || !BRANDS[cat] ? Object.values(BRANDS).flatMap((l) => l.slice(0, 2)) : BRANDS[cat];
 // Pasarela de logos: uno grande que va cambiando, y debajo todos en pequeño; tocar uno lo pone delante
@@ -1879,28 +1996,28 @@ const icon = (k) => `<svg aria-hidden="true"><use href="#ic-${document.getElemen
 const slug = (s) => s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 const av = (n, extra) => `<span class="av" style="${extra || ""}">${esc(String(n || "?").charAt(0))}</span>`;
 
+
+// Imagen de cada producto: el objeto concreto (emoji grande, como una foto de producto), por palabras del nombre y, si no, por categoría
+const PEMO_RULES = [[/zapatill|running|pegasus|sneaker/, "👟"], [/vestido/, "👗"], [/chaqueta|abrigo|plum[ií]fero|acolchad/, "🧥"], [/sudadera|camiseta|polo/, "👕"], [/pantal|vaquer|jean/, "👖"], [/bolso|mochila/, "👜"], [/gafas/, "🕶️"], [/reloj|watch/, "⌚"], [/auricular|cascos|airpods|nova/, "🎧"], [/port[aá]til|ideapad|macbook|ordenador/, "💻"], [/m[oó]vil|iphone|smartphone|galaxy s|pixel/, "📱"], [/tablet|ipad/, "📱"], [/monitor|televis|tele |tv\b/, "🖥️"], [/consola|playstation|xbox|switch|videojuego/, "🎮"], [/c[aá]mara/, "📷"], [/bici/, "🚲"], [/patinete/, "🛴"], [/mancuern|pesas|gym|gimnasio/, "🏋️"], [/esterilla|yoga/, "🧘"], [/sushi/, "🍣"], [/pizza/, "🍕"], [/hamburgues|burger/, "🍔"], [/caf[eé]|c[aá]psula/, "☕"], [/queso|vino|gourmet|delicatessen|cesta/, "🧺"], [/picoteo|cena|pedido|domicilio/, "🥡"], [/vuelo|escapada|viaje|hotel|fin de semana/, "✈️"], [/crema|facial|s[eé]rum|cosm[eé]t|perfume|maquillaje/, "🧴"], [/masaj/, "💆"], [/vela|decora/, "🕯️"], [/l[aá]mpara/, "💡"], [/freidora|sart[eé]n|robot de cocina/, "🍳"], [/sof[aá]|sill[aó]n|silla/, "🛋️"], [/colch[oó]n|cama/, "🛏️"], [/coche|neum[aá]tico|accesorios para el coche/, "🚗"], [/moto|casco/, "🏍️"], [/streaming|suscrip|netflix|spotify|disney/, "📺"], [/entrada|concierto|festival/, "🎟️"], [/libro|curso|m[aá]ster|formaci/, "📚"], [/juguete|lego|peluche/, "🧸"], [/perro|gato|mascota|pienso|rascador/, "🐾"], [/planta|jard[ií]n|maceta|barbacoa/, "🪴"], [/joya|anillo|collar|pulsera/, "💍"]];
+const PEMO_CAT = { ropa: "👕", tech: "📱", deporte: "🏃", viajes: "✈️", comida: "🧺", bienestar: "🧴", casa: "🏠", motor: "🚗", ocio: "🎟️", mascotas: "🐾", peques: "🧸", formacion: "📚", jardin: "🪴", lujo: "💎", otros: "🛍️" };
+function pemo(p) {
+  if (!p) return "🛍️";
+  const n = String(p.name || "").toLowerCase();
+  for (const [re, e] of PEMO_RULES) if (re.test(n)) return e;
+  const c = p.cat || ((typeof CATALOG !== "undefined" && CATALOG.find((x) => x.name === p.name)) || {}).cat;
+  return PEMO_CAT[c] || "🛍️";
+}
 function ticketHTML(o) {
-  const lines = o.lines.map((l, i) => `<div class="row" style="animation-delay:${i * 60}ms"><span class="q">1</span><span class="n">${esc(l.name)}</span><span class="p">${num(l.price, 2)}</span></div><div class="sh">${esc(l.shop || "")}</div>`).join("");
-  const goals = (o.goals || []).map((g) => `<div class="gb"><span style="flex:1.4;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;text-transform:uppercase">${esc(g.name)}</span><i style="--w:${g.pctDone}%"></i><span class="p">${g.pctDone}%</span></div><div class="row f tiny"><span>${eur(g.prog)} de ${eur(g.amount)}</span><span>${g.pct}% del bote</span></div>`).join("");
-  const opn = String(Math.abs(Math.round((o.total || 0) * 100)) + 48213).slice(-6);
-  return `<div class="paper"></div>
-    <div class="c h">NotYet</div>
-    <div class="c f">Ticket de lo no comprado</div>
-    ${o.compact ? "" : '<div class="c f">Caja 01 - Tu cabeza fría</div>'}
-    <div class="row f tiny" style="margin-top:4px"><span>${o.date}</span><span>${o.time}</span><span>OP: ${opn}</span></div>
-    <div class="sep"></div>
-    <div class="row f tiny"><span>Ud. Artículo</span><span>Importe</span></div>
-    <div class="lines">${lines}</div>
-    <div class="sep"></div>
-    <div class="row"><span>Artículos</span><span class="p">${o.lines.length}</span></div>
-    <div class="tot"><div class="row"><span>TOTAL CONSERVADO</span><span class="p" ${o.id ? `id="${o.id}" data-v="${o.total}"` : ""}>${num(o.total, 2)} €</span></div></div>
-    <div class="row f tiny"><span>Forma de pago</span><span>NINGUNA</span></div>
-    ${o.pctSaved != null ? `<div class="row f tiny"><span>Ahorro sobre lo que ibas a gastar</span><span>${o.pctSaved}%</span></div>` : ""}
-    <div class="sep"></div>
-    <div class="c f tiny" style="margin-bottom:4px">DESTINO DEL BOTE</div>
-    ${goals}
-    ${o.compact ? "" : `<div class="sep"></div><div class="bc"></div><div class="bcn">${String(Math.round((o.total || 0) * 100)).padStart(8, "0").replace(/(\d{4})(?=\d)/g, "$1 ")} 202610</div><div class="c" style="margin-top:8px;font-weight:700">GRACIAS POR PENSÁRTELO</div><div class="c f tiny">Este ticket no admite devoluciones: no compraste nada</div>`}
-    ${o.stamp ? `<span class="stamp ok">${esc(o.stamp)}</span>` : ""}`;
+  const n = o.lines.length;
+  const lines = o.lines.map((l, i) => `<div class="dzr" style="animation-delay:${i * 50}ms"><span class="e" aria-hidden="true">${pemo(l)}</span><span class="n">${esc(l.name)}<small>${esc(l.shop || "")}</small></span><b>${num(l.price, 2)} €</b></div>`).join("");
+  const goals = (o.goals || []).map((g) => `<div class="dzg"><div class="r"><span>${esc(g.name)}</span><span>${eur(g.prog)} de ${eur(g.amount)}</span></div><i><b style="width:${g.pctDone}%"></b></i></div>`).join("");
+  return `<div class="dz">
+    <div class="dzh"><b>Lo que no compraste</b><span>${o.date}</span></div>
+    <div class="dzl">${lines || '<div class="dze">Cuando digas que no a un capricho, aparece aquí.</div>'}</div>
+    <div class="dzt"><span>Sigue en tu cuenta<small>${n} ${n === 1 ? "compra" : "compras"} sin hacer${o.pctSaved != null ? `, el ${o.pctSaved} % de lo que ibas a gastar` : ""}</small></span><b ${o.id ? `id="${o.id}" data-v="${o.total}"` : ""}>${num(o.total, 2)} €</b></div>
+    ${goals ? `<div class="dzgs"><span class="dzk">A dónde va</span>${goals}</div>` : ""}
+    ${o.stamp ? `<span class="dzs">${esc(o.stamp)}</span>` : ""}
+  </div>`;
 }
 function chatHTML(o) {
   const g = o.group, t0 = o.t0 || Date.now(), c = { wait: 0, buy: 0, cheap: 0 };
@@ -1947,13 +2064,13 @@ const GYM = { id: "gym", name: "Grupo del gym", members: [["Nerea", "entusiasta"
 const HP = { id: "nike-pegasus", name: "Zapatillas de running Pegasus 41", shop: "Nike", brand: "Nike", price: 139.99, cat: "deporte", alts: [["Modelo del año pasado (Pegasus 40)", 89.99], ["Zapatillas de running de Decathlon", 59.99]] };
 let HPcur = HP, heroGroup = GYM;
 const HCAP = {
-  home: ["Paso 1 de 4: Inicio", 0, 'Tu ticket del mes, tus puntos y tus destinos. Toca "Apuntar un capricho" o espera un momento: la demo sigue sola.'],
+  home: ["Paso 1 de 4: Inicio", 0, 'Tu resumen del mes, tus puntos y tus destinos. Toca "Apuntar un capricho" o espera un momento: la demo sigue sola.'],
   sheet: ["Paso 2 de 4: El freno", 1, () => `Vas a comprar ${HPcur.name} de ${eur(HPcur.price, 2)} en ${HPcur.shop}. NotYet te enseña cuánto te acerca a París, las horas de trabajo que cuesta, lo que dice la comunidad y los puntos que ganas si dices que no. Elige.`],
   wait: ["Paso 3 de 4: Esperar", 2, "Te esperas 24 horas. Nada se bloquea: mañana te preguntamos. Adelanta el reloj."],
   tomorrow: ["Paso 3 de 4: Mañana", 2, "Ha pasado un día. ¿Las sigues queriendo? La mayoría de los caprichos pierden fuerza con la almohada."],
   cmp: ["Paso 3 de 4: Más barato", 2, "Nuevo, modelo anterior o Decathlon: NotYet dice qué te compensa, enseña parecidos en otras tiendas y marca cuáles caben en tu tope semanal. Comprar mejor también suma puntos."],
   ask: ["Paso 3 de 4: Comité", 2, "Eliges el grupo (o creas uno) y por dónde invitas: WhatsApp, Instagram, TikTok, lo que uses. Los votos llegan dentro de la app y NotYet resume, no decide."],
-  skip: ["Paso 4 de 4: Resultado", 3, () => `Una línea más en el ticket: ${eur(HPcur.price, 2)} conservados, +${10 + Math.round(HPcur.price / 10)} puntos y París más cerca. Esto es NotYet: frena, no prohíbe.`],
+  skip: ["Paso 4 de 4: Resultado", 3, () => `Una línea más en tu resumen: ${eur(HPcur.price, 2)} conservados, +${10 + Math.round(HPcur.price / 10)} puntos y París más cerca. Esto es NotYet: frena, no prohíbe.`],
   cheaper: ["Paso 4 de 4: Resultado", 3, () => { const s = heroSave(); return `Has ahorrado ${eur(s)} comprando mejor: +${5 + Math.round(s / 10)} puntos. Cómpratelo, pero mejor.`; }],
   explorar: ["Explorar", 0, "Marcas y productos de ejemplo con su logo, sin caja. Toca \"Lo quiero\" y el freno salta con ese producto."],
   comite: ["Comité", 2, "Elige el grupo (o crea uno) y el canal. Al tocar una red ves cómo llega la invitación y cómo responden; los votos entran en NotYet."],
@@ -2217,15 +2334,18 @@ function communityHTML(p) {
 const WAGE = 12, BUDGET_LEFT = 20, PARTNER_THR = 150;
 const dash = { saved: SAVED0, brakes: 9, skipped: 6, cheaper: 0, pts: PTS0, lines: DEMO_LINES.slice(), goal: BOTE0 * GOALPCT / 100, days: [0, 0, 18, 0, 0, 59, 0, 0, 0, 25.99, 0, 0, 0, 156, 89, 0, 0, 0, 129, 0, 0] };
 const today = dash.days.length - 1;
+const xT = () => { try { return xTab; } catch (e) { return null; } };
+let simPct = 85, xLeft = null, selBd = null; const BASEPCT = 85;
+const BDINFO = { primer: ["Tu primer no", "La primera vez que decides no comprar algo. Ya la tienes.", null], frio: ["Cabeza fría", "5 compras descartadas en total.", null], racha: ["7 días sin impulsos", "Una semana seguida sin comprar por impulso.", null], comite: ["Comité convocado", "Pides opinión a un grupo antes de comprar.", "comite"], chollo: ["Cazachollos", "Compras algo más barato que lo que ibas a comprar. Mueve tu precio en Busca por tu precio y pulsa Ir a lo que compensa.", "chollo"], pareja: ["Pacto en pareja", "Activas una regla con tu pareja: las compras grandes se consultan. Va con el plan Pareja.", null], destino: ["Destino cumplido", "El bote llega al 100 % de un destino.", null], explorador: ["Explorador", "Registras caprichos en 5 categorías distintas.", null] };
 let cur = CATALOG[0], curCat = "todo", curGroup = "amigos", curDecided = false;
 function renderPicker() {
   $("#catf").innerHTML = [["todo", "Todo"]].concat(Object.entries(CATS).map(([k, v]) => [k, v[0]])).map(([k, l]) => `<button type="button" data-cat="${k}" aria-pressed="${k === curCat}">${l}</button>`).join("");
-  $("#picker").innerHTML = CATALOG.filter((p) => curCat === "todo" || p.cat === curCat).map((p) => `<button class="pk" type="button" data-pick="${p.id}" aria-pressed="${p.id === cur.id}" style="--c:${CATS[p.cat][1]}"><span class="ic">${icon(p.ico || p.cat)}${logoSrc(p.brand) ? favImg(p.brand, "main", 128) + `<span class="cic">${icon(p.ico || p.cat)}</span>` : ""}</span><span class="br">${brandChip(p.brand, p.shop)}</span><span class="nm">${p.name}</span><span class="pr">${eur(p.price, 2)}</span></button>`).join("");
+  $("#picker").innerHTML = CATALOG.filter((p) => curCat === "todo" || p.cat === curCat).map((p) => `<button class="pk" type="button" data-pick="${p.id}" aria-pressed="${p.id === cur.id}" style="--c:${CATS[p.cat][1]}"><span class="ic"><span class="pe">${pemo(p)}</span>${logoSrc(p.brand) ? `<span class="lgb">${favImg(p.brand, "", 64)}</span>` : ""}</span><span class="br">${brandChip(p.brand, p.shop)}</span><span class="nm">${p.name}</span><span class="pr">${eur(p.price, 2)}</span><span class="pick">${p.id === cur.id ? "Elegido" : "Probar"}</span></button>`).join("");
 }
 const catOfBrand = (b) => Object.keys(BRANDS).find((k) => BRANDS[k].includes(b)) || null;
 let rollNote = "";
 function renderRoll() { const bl = brandsOf(curCat); $("#brandRoll").innerHTML = logoRoll(curCat, curCat === "todo" ? "Dos marcas de cada categoría, de lujo a low cost. Toca una marca: se selecciona su categoría y la demo carga un producto suyo. Los logos se cargan desde la web de cada marca." : `${bl.length} marcas de ${CATS[curCat][0].toLowerCase()}: de ${bl[0]} a ${bl[bl.length - 1]}. Toca una para probar la demo con ella.`) + (rollNote ? `<p class="rollnote" id="rollNote">${rollNote}</p>` : ""); }
-const TPL = { ropa: ["Chaqueta", 89], tech: ["Auriculares inalámbricos", 179], deporte: ["Zapatillas de running", 120], viajes: ["Escapada de fin de semana", 240], comida: ["Pedido de capricho", 35], bienestar: ["Set de cuidado facial", 55], casa: ["Lámpara de diseño", 79], motor: ["Accesorios para el coche", 120], ocio: ["Suscripción anual", 99], mascotas: ["Cama para tu mascota", 49], peques: ["Juguete de construcción", 59], formacion: ["Curso online", 79], jardin: ["Herramienta de jardín", 89], lujo: ["Reloj", 2900] };
+const TPL = { ropa: ["Chaqueta", 89], tech: ["Auriculares inalámbricos", 179], deporte: ["Zapatillas de running", 120], viajes: ["Escapada de fin de semana", 240], comida: ["Cesta gourmet", 45], bienestar: ["Set de cuidado facial", 55], casa: ["Lámpara de diseño", 79], motor: ["Accesorios para el coche", 120], ocio: ["Suscripción anual", 99], mascotas: ["Cama para tu mascota", 49], peques: ["Juguete de construcción", 59], formacion: ["Curso online", 79], jardin: ["Herramienta de jardín", 89], lujo: ["Reloj", 2900] };
 function brandProduct(brand, cat) {
   const [t, pr] = TPL[cat] || ["Capricho", 60], id = "b-" + slug(brand);
   const p = { id, cat, brand, shop: brand, name: `${t} de ${brand}`, price: pr, bul: ["Precio simulado", "Envío estándar", "Devolución 30 días"], say: `¿Lo quieres o lo quieres ahora? ${eur(pr)} son muchas horas de trabajo; mañana lo ves con otros ojos.`, alts: [["Modelo anterior de " + brand, Math.round(pr * .72)], ["Reacondicionado o segunda mano", Math.round(pr * .55)]] };
@@ -2235,7 +2355,7 @@ function pickBrand(brand) {
   const cat = catOfBrand(brand); if (!cat) return;
   curCat = cat; stopAuto();
   const p = CATALOG.find((x) => x.brand === brand) || brandProduct(brand, cat);
-  rollNote = `${esc(brand)} es de ${CATS[cat][0].toLowerCase()}: abajo tienes esa categoría y la demo, el ticket y tus puntos ya van con ${esc(p.name)}.`;
+  rollNote = `${esc(brand)} es de ${CATS[cat][0].toLowerCase()}: abajo tienes esa categoría y la demo, tu resumen y tus puntos ya van con ${esc(p.name)}.`;
   renderPicker(); renderRoll();
   const list = brandsOf(cat).filter((n, i, a) => a.indexOf(n) === i && DOM[n]), el = $("#brandRoll .lroll"); if (el) { el.dataset.pause = String(Date.now() + 8000); rollSet(el, Math.max(0, list.indexOf(brand))); }
   renderPicker(); setProduct(p); const br = $("#demo .browser"); if (br) br.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
@@ -2248,7 +2368,7 @@ function setProduct(p) {
   cur = p; renderPicker();
   const sel = $("#picker .pk[aria-pressed=true]"); if (sel) $("#picker").scrollLeft = Math.max(0, sel.offsetLeft - 16);
   $("#url").textContent = `tienda simulada › ${slug(p.shop)} › ${slug(p.name)}`;
-  $("#prodBox").style.setProperty("--c", CATS[p.cat][1]); $("#pBrand").innerHTML = brandChip(p.brand, p.shop); $("#pIcon").innerHTML = `<use href="#ic-${document.getElementById("ic-" + (p.ico || p.cat)) ? (p.ico || p.cat) : "otros"}"/>`;
+  $("#prodBox").style.setProperty("--c", CATS[p.cat][1]); $("#pBrand").innerHTML = brandChip(p.brand, p.shop); { const pe = $("#pEmo"); if (pe) { pe.textContent = pemo(p); pe.classList.remove("pop"); void pe.offsetWidth; pe.classList.add("pop"); } } $("#pIcon").innerHTML = `<use href="#ic-${document.getElementById("ic-" + (p.ico || p.cat)) ? (p.ico || p.cat) : "otros"}"/>`;
   $("#pName").textContent = p.name; $("#pPrice").textContent = eur(p.price, 2); $("#pBul").innerHTML = p.bul.map((t) => `<span>${t}</span>`).join("");
   $("#bName").textContent = p.name; $("#bPrice").textContent = eur(p.price, 2);
   const f = [`<div class="g"><span aria-hidden="true">◎</span><span>Si no lo compras, ${eur(p.price * GOALPCT / 100)} más cerca de París (tu 90 % del bote)</span></div>`, `<div class="b"><span aria-hidden="true">⏱</span><span>Son ${num(p.price / WAGE, 1)} horas de tu trabajo</span></div>`];
@@ -2265,26 +2385,55 @@ function setProduct(p) {
 function renderDash() {
   const pv = !curDecided && cur, gain = pv ? 10 + Math.round(cur.price / 10) : 0, tot = dash.saved + (pv ? cur.price : 0), gl = dash.goal + (pv ? cur.price * GOALPCT / 100 : 0);
   const pctSaved = Math.round(tot / (tot + 130.49) * 100);
-  $("#dashPrev").innerHTML = pv ? `Si no compras <b>${esc(cur.name)}</b> (${esc(cur.brand)}): +${eur(cur.price, 2)} al ticket, +${gain} puntos y ${gl >= GOAL ? "el viaje a París cumplido" : eur(cur.price * GOALPCT / 100) + " más cerca de París"}.` : "Tu mes, con la decisión que acabas de tomar.";
-  $("#dashTk").innerHTML = ticketHTML({ lines: (pv ? [{ name: cur.name + " (en juego)", shop: cur.brand, price: cur.price }] : []).concat(dash.lines).slice(0, 7), total: tot, date: fmtDate(Date.now()), time: fmtTime(Date.now()), goals: [{ name: "Viaje a París", pct: GOALPCT, prog: Math.min(GOAL, gl), amount: GOAL, pctDone: Math.min(100, Math.round(gl / GOAL * 100)) }, { name: "Regalo de comunión", pct: 10, prog: Math.min(150, gl / 9), amount: 150, pctDone: Math.min(100, Math.round(gl / 9 / 150 * 100)) }], pctSaved, id: "kSaved", stamp: pv ? "Si no lo compras" : "No comprado" });
-  $("#dashScore").innerHTML = scoreHTML(dash.pts + gain, pv ? 2 : 1, ["primer", "frio", "comite", "explorador"].concat(dash.cheaper ? ["chollo"] : []));
+  const cheapTxt = pv && xT() === "precio" && xLeft > 0 ? ` O si lo compras a tu precio, te ahorras <b>${eur(xLeft, xLeft % 1 ? 2 : 0)}</b> igualmente.` : "";
+  $("#dashPrev").innerHTML = pv ? `Si no compras <b>${esc(cur.name)}</b> (${esc(cur.brand)}): +${eur(cur.price, 2)} a tu resumen, +${gain} puntos y ${gl >= GOAL ? "el viaje a París cumplido" : eur(cur.price * GOALPCT / 100) + " más cerca de París"}.${cheapTxt}` : "Tu mes, con la decisión que acabas de tomar.";
+  $("#dashTk").innerHTML = ticketHTML({ lines: (pv ? [{ name: cur.name + " (en juego)", shop: cur.brand, price: cur.price, cat: cur.cat }] : []).concat(dash.lines).slice(0, 8), total: tot, date: fmtDate(Date.now()), time: fmtTime(Date.now()), goals: [{ name: "Viaje a París", pct: GOALPCT, prog: Math.min(GOAL, gl), amount: GOAL, pctDone: Math.min(100, Math.round(gl / GOAL * 100)) }, { name: "Regalo de comunión", pct: 10, prog: Math.min(150, gl / 9), amount: 150, pctDone: Math.min(100, Math.round(gl / 9 / 150 * 100)) }], pctSaved, stamp: pv ? "" : "No comprado" });
+  const on = ["primer", "frio", "comite", "explorador"].concat(dash.cheaper ? ["chollo"] : []);
+  $("#dashScore").innerHTML = scoreHTML(dash.pts + gain, pv ? 2 : 1, on);
+  $$("#dashScore .bd").forEach((el, i) => { const id = BADGES[i][0]; el.dataset.bd = id; el.tabIndex = 0; el.setAttribute("role", "button"); el.classList.toggle("sel", id === selBd); });
+  renderBd(on);
   $("#kBrakes").textContent = dash.brakes; $("#kSkipped").textContent = dash.skipped; $("#kCheaper").textContent = eur(dash.cheaper);
+  const wl = [{ name: "Galaxy Watch7", shop: "Amazon", price: 319, t: "Ya puedes decidir", ok: 1 }, { name: "Chaqueta acolchada", shop: "Zara", price: 79.95, t: "Faltan 18 h" }, { name: "Portátil IdeaPad 15 pulgadas", shop: "PcComponentes", price: 649, t: "Faltan 6 h" }];
+  if (pv && !wl.some((w) => w.name === cur.name)) wl.unshift({ name: cur.name, shop: cur.brand, price: cur.price, t: "Ahora mismo" });
+  $("#wl").innerHTML = wl.slice(0, 4).map((w) => `<div class="wlr"><span class="e" aria-hidden="true">${pemo(w)}</span><span class="n">${esc(w.name)}<small>${esc(w.shop)} - ${eur(w.price, w.price % 1 ? 2 : 0)}</small></span><span class="t${w.ok ? " ok" : ""}">${w.t}</span></div>`).join("");
+  renderSim();
 }
-function renderChart() {
-  const svg = $("#chart"), W = 320, H = 130, padL = 30, padB = 22, top = 14;
-  const max = Math.max(60, ...dash.days);
-  const n = dash.days.length, slot = (W - padL - 6) / n, bw = Math.max(5, slot - 4);
+function renderBd(on) {
+  const box = $("#bdInfo"); if (!box) return;
+  if (!selBd) { box.innerHTML = `<span>Tienes <b>${on.length} de ${BADGES.length}</b> insignias. Toca cualquiera para ver cómo se gana.</span>`; return; }
+  const [t, d, act] = BDINFO[selBd], got = on.includes(selBd);
+  const extra = selBd === "frio" ? ` Llevas ${dash.skipped}.` : selBd === "racha" ? ` Llevas ${curDecided ? 1 : 2} ${curDecided ? "día" : "días"}: te faltan ${curDecided ? 6 : 5}.` : selBd === "destino" ? ` Te faltan ${eur(Math.max(0, GOAL - dash.goal))} para París.` : selBd === "explorador" ? " Llevas 6." : "";
+  box.innerHTML = `<b>${t}</b> <span class="st ${got ? "ok" : ""}">${got ? "Conseguida" : "Por conseguir"}</span><span>${d}${extra}</span>${act === "chollo" ? '<button type="button" class="bdgo" data-bdgo="chollo">Probar ahora</button>' : act === "comite" ? '<button type="button" class="bdgo" data-bdgo="comite">Preguntar al comité</button>' : ""}`;
+}
+function renderSim() {
+  const f = simPct / BASEPCT, month = dash.saved * f, year = month * 12, remain = Math.max(0, GOAL - dash.goal), perM = month * GOALPCT / 100;
+  const mParis = remain <= 0 ? 0 : perM > 0 ? Math.ceil(remain / perM) : null;
+  const ptsY = dash.pts + Math.round(11 * (dash.skipped * f * 10 + month / 10));
+  let li = 0; LEVELS.forEach((l, k) => { if (ptsY >= l[0]) li = k; });
+  const v = $("#simV"); if (v) v.textContent = simPct + " %";
+  const ky = $("#kYear"); if (ky) ky.textContent = eur(year);
+  const o = $("#simOut"); if (o) o.innerHTML = `<div><b>${eur(month)}</b><span>sin gastar al mes</span></div><div><b>${mParis == null ? "Nunca" : mParis === 0 ? "Ya" : mParis + (mParis === 1 ? " mes" : " meses")}</b><span>para tu viaje a París</span></div><div><b>${LEVELS[li][1]}</b><span>tu nivel en un año</span></div>`;
+}
+function ghostAmt() { if (curDecided || !cur) return 0; return xT() === "precio" && xLeft > 0 ? Math.min(cur.price, xLeft) : cur.price; }
+function renderChart(quick) {
+  const svg = $("#chart"); if (!svg) return; const W = 320, H = 170, padL = 30, padB = 22, top = 14;
+  const f = simPct / BASEPCT, days = dash.days.map((v) => v * f), g = ghostAmt();
+  const max = Math.max(60, ...days, days[today] + g);
+  const n = days.length, slot = (W - padL - 6) / n, bw = Math.max(5, slot - 4);
   const y = (v) => top + (H - padB - top) * (1 - v / max);
   const mono = "font-family:ui-monospace,Menlo,Consolas,monospace";
   let s = `<defs><linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#17A35A" stop-opacity=".35"/><stop offset="1" stop-color="#17A35A" stop-opacity="0"/></linearGradient></defs>`;
   [0, Math.round(max / 2), Math.round(max)].forEach((t) => { s += `<line x1="${padL}" x2="${W - 6}" y1="${y(t)}" y2="${y(t)}" style="stroke:var(--line)" stroke-width="1"/><text x="${padL - 6}" y="${y(t) + 4}" font-size="9" text-anchor="end" style="fill:var(--muted);${mono}">${t}</text>`; });
-  let acc = 0; const cum = dash.days.map((v) => (acc += v)), cmax = Math.max(1, acc);
+  let acc = 0; const cum = days.map((v, i) => (acc += v + (i === today ? g : 0))), cmax = Math.max(1, acc);
   const pts = cum.map((v, i) => `${(padL + i * slot + 2 + bw / 2).toFixed(1)},${(top + (H - padB - top) * (1 - v / cmax)).toFixed(1)}`);
-  s += `<path class="area" d="M${pts[0]} L${pts.join(" L")} L${(padL + (n - 1) * slot + 2 + bw / 2).toFixed(1)},${H - padB} L${(padL + 2 + bw / 2).toFixed(1)},${H - padB} Z"/><path class="line" d="M${pts.join(" L")}"/>`;
-  dash.days.forEach((v, i) => { const x = padL + i * slot + 2, h = Math.max(0, (H - padB - top) * v / max); s += `<rect class="bar" x="${x}" y="${y(v)}" width="${bw}" height="${h}" rx="2" style="fill:var(--green)" opacity="${v ? (i === today ? 1 : .65) : 0}"><title>Día ${i + 1}: ${num(v)} €</title></rect>`; });
+  const cl = quick ? " in" : "";
+  s += `<path class="area${cl}" d="M${pts[0]} L${pts.join(" L")} L${(padL + (n - 1) * slot + 2 + bw / 2).toFixed(1)},${H - padB} L${(padL + 2 + bw / 2).toFixed(1)},${H - padB} Z"/><path class="line${cl}" d="M${pts.join(" L")}"/>`;
+  days.forEach((v, i) => { const x = padL + i * slot + 2, h = Math.max(0, (H - padB - top) * v / max); s += `<rect class="bar${cl}" x="${x}" y="${y(v)}" width="${bw}" height="${h}" rx="2" style="fill:var(--green)" opacity="${v ? (i === today ? 1 : .65) : 0}"><title>Día ${i + 1}: ${num(v)} €</title></rect>`; });
+  if (g > 0) { const x = padL + today * slot + 2, hg = (H - padB - top) * g / max; s += `<rect class="ghost" x="${x}" y="${y(days[today] + g)}" width="${bw}" height="${hg}" rx="2"><title>Hoy, si no lo compras: ${num(g, 2)} €</title></rect>`; }
   [1, 10, 21].forEach((d) => { if (d <= n) s += `<text x="${padL + (d - 1) * slot + 2 + bw / 2}" y="${H - 6}" font-size="9" text-anchor="middle" style="fill:var(--muted);${mono}">${d}</text>`; });
   svg.innerHTML = s;
-  requestAnimationFrame(() => requestAnimationFrame(() => { $$("#chart .bar, #chart .area, #chart .line").forEach((el) => el.classList.add("in")); }));
+  const cap = $("#chartCap"); if (cap) cap.innerHTML = `Dinero no gastado este mes${simPct !== BASEPCT ? `, <b>simulando que frenas el ${simPct} %</b>` : ""}.${g > 0 ? ` La barra azul de hoy es ${esc(cur.name)}: ${eur(g, g % 1 ? 2 : 0)} si ${xT() === "precio" && xLeft > 0 ? "lo compras a tu precio" : "no lo compras"}.` : ""}`;
+  if (!quick) requestAnimationFrame(() => requestAnimationFrame(() => { $$("#chart .bar, #chart .area, #chart .line").forEach((el) => el.classList.add("in")); }));
 }
 function bumpDash(kind, amount) {
   dash.brakes += 1; curDecided = true;
@@ -2363,7 +2512,7 @@ $("#demoShare").addEventListener("click", async (e) => { const a = e.target.clos
 function result(kind) {
   show("result");
   const n = $("#resNum"), title = $("#resTitle"), text = $("#resText"); n.className = "bignum";
-  if (kind === "skip") { n.dataset.v = 0; countTo(n, cur.price, (v) => eur(v)); title.textContent = "Has decidido no gastar " + eur(cur.price); text.textContent = `Una línea más en tu ticket, +${10 + Math.round(cur.price / 10)} puntos y ${eur(cur.price * GOALPCT / 100)} más cerca de París. Si dentro de un tiempo lo sigues queriendo, ahí seguirá.`; bumpDash("skip", cur.price); }
+  if (kind === "skip") { n.dataset.v = 0; countTo(n, cur.price, (v) => eur(v)); title.textContent = "Has decidido no gastar " + eur(cur.price); text.textContent = `Una línea más en tu resumen, +${10 + Math.round(cur.price / 10)} puntos y ${eur(cur.price * GOALPCT / 100)} más cerca de París. Si dentro de un tiempo lo sigues queriendo, ahí seguirá.`; bumpDash("skip", cur.price); }
   else if (kind === "cheaper") { const b = bestAlt(cur), delta = b ? cur.price - b.p : 0; n.dataset.v = 0; countTo(n, delta, (v) => eur(v)); title.textContent = "Has ahorrado " + eur(delta); text.textContent = `${b ? b.t : ""} por ${eur(b ? b.p : cur.price)}${b && b.g ? ", con " + b.g + " meses de garantía" : ""}. Cómpratelo, pero mejor: +${5 + Math.round(delta / 10)} puntos.`; bumpDash("cheaper", delta); }
   else { n.className = "bignum neutral"; n.textContent = "✓"; title.textContent = "Comprado con la cabeza fría"; text.textContent = kind === "buyNow" ? "Has seguido adelante. Sin culpa: NotYet frena, no prohíbe. En unos días te preguntará si estás contento con la compra." : "Lo pensaste y lo sigues queriendo. Eso ya no es un impulso."; bumpDash("buy", 0); }
 }
@@ -2497,7 +2646,7 @@ function xPrecio() {
   if (xMaxFor !== cur.id) { xMax = Math.round(cur.price * 0.75); xMaxFor = cur.id; }
   const lo = Math.max(1, Math.floor(Math.min(...list.map((o) => o.p)) * 0.6)), hi = Math.ceil(cur.price * 1.1);
   const ok = list.filter((o) => o.p <= xMax), win = ok.length ? ok[ok.length - 1] : null;
-  const left = win ? cur.price - win.p : 0;
+  const left = win ? cur.price - win.p : 0; xLeft = left;
   const best = win ? `<div class="xbest">Lo que más se acerca a tu precio: ${esc(win.t)} por ${eur(win.p, win.p % 1 ? 2 : 0)}. ${left > 0 ? `Te ahorras ${eur(left, left % 1 ? 2 : 0)} frente a donde estabas: van a tu bote (${eur(left * GOALPCT / 100, 0)} más cerca de París).` : "Es el precio que ya tenías."}</div>` : `<div class="xbest no">Nada por debajo de ${eur(xMax)}. Sube un poco el tope o espera 24 horas: muchas veces el precio baja o se te pasan las ganas.</div>`;
   const rows = list.map((o) => `<div class="${o.p > xMax ? "out" : ""} ${o === win ? "win" : ""}"><span>${esc(o.t)}</span><span class="k">${esc((KIND[o.kind] || ["", ""])[0] || o.kind)}</span><b>${eur(o.p, o.p % 1 ? 2 : 0)}</b></div>`).join("");
   const links = linksFor(cur).map(([t, u]) => `<a href="${u}" target="_blank" rel="noopener">Buscar en ${esc(t)}</a>`).join("");
@@ -2554,6 +2703,15 @@ $("#xpanel").addEventListener("click", (e) => {
 $("#xpanel").addEventListener("input", (e) => { if (e.target.id !== "xMax") return; xMax = Number(e.target.value); const keep = e.target; renderPanel(); const n = $("#xMax"); if (n) n.focus(); });
 { const _sp = setProduct; setProduct = function (p) { const r = _sp.apply(this, arguments); try { renderPanel(); } catch (e) {} return r; }; }
 try { renderPanel(); } catch (e) {}
+{ const _rp = renderPanel; renderPanel = function () { _rp(); try { renderDash(); renderChart(true); } catch (e) {} }; }
+$("#prog").addEventListener("click", (e) => {
+  const go = e.target.closest("[data-bdgo]");
+  if (go) { if (go.dataset.bdgo === "chollo") { xTab = "precio"; renderPanel(); $("#xpanel").scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "center" }); const r = $("#xMax"); if (r) r.focus(); } else { $("#demoBuy").click(); setTimeout(() => { const b = $('[data-choose="friends"]'); if (b) b.click(); }, 400); $("#demo .browser").scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" }); } return; }
+  const b = e.target.closest("[data-bd]"); if (!b) return; selBd = selBd === b.dataset.bd ? null : b.dataset.bd; renderDash();
+});
+$("#prog").addEventListener("keydown", (e) => { if ((e.key === "Enter" || e.key === " ") && e.target.dataset && e.target.dataset.bd) { e.preventDefault(); e.target.click(); } });
+$("#simPct").addEventListener("input", (e) => { simPct = Number(e.target.value); renderSim(); renderChart(true); });
+try { renderDash(); renderChart(true); } catch (e) {}
 })();
 </script>
 
