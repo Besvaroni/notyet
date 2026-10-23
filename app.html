@@ -518,6 +518,18 @@ textarea{font:inherit;color:var(--fg);background:var(--bg2);border:1px solid var
 .lroll .lstage figure img{object-fit:contain;height:auto!important}
 .lroll .lstage figcaption{font-size:.95rem!important;letter-spacing:-.01em!important;text-transform:none!important;color:var(--fg)!important;font-weight:800!important}
 .lroll .lstage{height:100px!important}
+
+/* Cuenta e invitaciones */
+.acct .row3{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.acct input.code{font-family:var(--f-mono);font-size:1.4rem;letter-spacing:.4em;text-align:center}
+.acct .ok{display:flex;align-items:center;gap:8px;font-weight:700}
+.acct .ok i{width:10px;height:10px;border-radius:50%;background:#17A35A;display:inline-block}
+.invite .lnk{font-family:var(--f-mono);font-size:.82rem;padding:10px 12px;border-radius:12px;background:var(--bg2);word-break:break-all}
+.invite .stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.invite .stats div{background:var(--bg2);border-radius:14px;padding:10px;text-align:center}
+.invite .stats b{display:block;font-size:1.3rem;font-family:var(--f-display)}
+.invite .stats span{font-size:.72rem;color:var(--muted);font-weight:700}
+.giftband{border-radius:16px;padding:12px 14px;background:color-mix(in srgb,#17A35A 12%,transparent);font-weight:700;font-size:.92rem}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -684,7 +696,9 @@ textarea{font:inherit;color:var(--fg);background:var(--bg2);border:1px solid var
   <!-- AJUSTES -->
   <section class="view" id="v-ajustes" hidden>
     <div class="vhead"><h1>Ajustes</h1></div>
+    <div class="card acct" id="acctCard"></div>
     <div class="card" id="planCard"></div>
+    <div class="card invite" id="inviteCard" hidden></div>
     <div class="card" id="goalsCard">
       <h2>Tus destinos</h2>
       <p class="tiny">Lo que no gastas va a un bote y el bote se reparte entre tus destinos. Un destino se bloquea al crearlo: cambiarlo te cuesta la racha y 50 puntos, para que no te hagas trampas.</p>
@@ -1069,20 +1083,20 @@ function load() {
   } catch (e) {}
   return Object.assign({}, DEFAULT, { items: demoItems() });
 }
-function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} try { syncSoon(); } catch (e) {} }
 /* ---------- Planes: Gratis, Plus y Pareja. Lo que promete cada plan en la web es exactamente lo que se desbloquea aquí ---------- */
-const PAY = { plus: "https://buy.stripe.com/28E8wRbaK8NPgkI2xy2oE00", pareja: "https://buy.stripe.com/5kQeVf2Ee8NPb0o4FG2oE01", portal: "https://billing.stripe.com/p/login/28E8wRbaK8NPgkI2xy2oE00", plusY: "https://buy.stripe.com/28E4gB4Mm1ln8Sgdcc2oE02", parejaY: "https://buy.stripe.com/cNi6oJbaK4xz3xWc882oE03" };
+const PAY = { plus: "https://buy.stripe.com/28E8wRbaK8NPgkI2xy2oE00", pareja: "https://buy.stripe.com/5kQeVf2Ee8NPb0o4FG2oE01", portal: "https://billing.stripe.com/p/login/28E8wRbaK8NPgkI2xy2oE00", plusY: "https://buy.stripe.com/28E4gB4Mm1ln8Sgdcc2oE02", parejaY: "https://buy.stripe.com/cNi6oJbaK4xz3xWc882oE03", plusTrial: "https://buy.stripe.com/6oU00ldiSggh4C03BC2oE04" };
 const CONTACT = "alfonsodeborbon.02@gmail.com";
 const FREE_ITEMS = 15, FREE_GOALS = 1, FREE_GROUPS = 1;
 const planOf = () => (S.plan && S.plan.tier) || "gratis";
 const hasPlus = () => tourOn || planOf() !== "gratis";
 const hasPareja = () => tourOn || planOf() === "pareja";
 const monthItems = () => { const d = new Date(), m0 = new Date(d.getFullYear(), d.getMonth(), 1).getTime(); return S.items.filter((i) => !i.ex && (i.start || 0) >= m0).length; };
-function upsell(title, text, pareja) { return `<div class="card upsell"><span class="tag">${pareja ? "NotYet Pareja" : "NotYet Plus"}</span><h2>${esc(title)}</h2><p class="tiny">${esc(text)}</p><div class="actions">${pareja ? "" : `<a class="btn small" href="${PAY.plus}">Hazte Plus, 2,99 € al mes</a>`}<a class="btn ${pareja ? "small" : "ghost small"}" href="${PAY.pareja}">Pareja, 3,99 € al mes</a></div><p class="tiny">O al año: <a href="${PAY.plusY}">Plus 24,99 €</a> - <a href="${PAY.parejaY}">Pareja 34,99 €</a>. Pago seguro con tarjeta a través de Stripe. Cancela cuando quieras desde Ajustes. <a href="condiciones.html" target="_blank" rel="noopener">Condiciones</a></p></div>`; }
+function upsell(title, text, pareja) { return `<div class="card upsell"><span class="tag">${pareja ? "NotYet Pareja" : "NotYet Plus"}</span><h2>${esc(title)}</h2><p class="tiny">${esc(text)}</p><div class="actions">${pareja ? "" : S.refFrom ? `<a class="btn small" href="${PAY.plusTrial}">Plus: 1 mes gratis por invitación</a>` : `<a class="btn small" href="${PAY.plus}">Hazte Plus, 2,99 € al mes</a>`}<a class="btn ${pareja ? "small" : "ghost small"}" href="${PAY.pareja}">Pareja, 3,99 € al mes</a></div><p class="tiny">O al año: <a href="${PAY.plusY}">Plus 24,99 €</a> - <a href="${PAY.parejaY}">Pareja 34,99 €</a>. Pago seguro con tarjeta a través de Stripe. Cancela cuando quieras desde Ajustes. <a href="condiciones.html" target="_blank" rel="noopener">Condiciones</a></p></div>`; }
 function canAdd() { if (hasPlus() || monthItems() < FREE_ITEMS) return true; toast(`El plan Gratis incluye ${FREE_ITEMS} compras apuntadas al mes. Hazte Plus para apuntar sin límite.`); showTab("ajustes"); return false; }
 // Servidor de comprobación (Cloudflare Worker, carpeta servidor/ del repositorio). Vacío = sin comprobación en servidor
 const API = "https://notyet-pagos.alfonsodeborbon-02.workers.dev";
-const apiGet = async (path) => { const r = await fetch(API + path); return r.json(); };
+const apiGet = async (path) => { let h = {}; try { const ss = JSON.parse(localStorage.getItem("notyet.session") || "null"); if (ss && ss.token) h = { Authorization: "Bearer " + ss.token }; } catch (e) {} const r = await fetch(API + path, { headers: h }); return r.json(); };
 const apiPost = async (path, body) => { const r = await fetch(API + path, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) }); return r.json(); };
 function setPlan(t, extra) { S.plan = Object.assign({ tier: t, since: (S.plan && S.plan.since) || Date.now(), checked: Date.now() }, extra || {}); save(); setTimeout(render, 0); }
 (async function planFromUrl() {
@@ -1094,7 +1108,92 @@ function setPlan(t, extra) { S.plan = Object.assign({ tier: t, since: (S.plan &&
 })();
 async function restorePlan(email, quiet, l4) { l4 = l4 || (S.plan && S.plan.l4) || ""; if (quiet && !l4) return; try { const r = await apiPost("/restore", { email, last4: l4 }); if (r.ok) { setPlan(r.plan, { email, l4 }); if (!quiet) toast("Plan recuperado: " + (r.plan === "pareja" ? "Pareja" : "Plus")); } else if (quiet) { S.plan = null; save(); setTimeout(render, 0); } else toast(r.error); } catch (e) { if (!quiet) toast("No he podido comprobarlo ahora. Prueba en un rato."); } }
 // Una vez a la semana se comprueba que la suscripción sigue activa (si se canceló, vuelve a Gratis)
-if (API && S.plan && S.plan.email && S.plan.l4 && Date.now() - (S.plan.checked || 0) > 7 * 864e5) restorePlan(S.plan.email, true);
+if (API && S.plan && S.plan.src !== "cuenta" && S.plan.email && S.plan.l4 && Date.now() - (S.plan.checked || 0) > 7 * 864e5) restorePlan(S.plan.email, true);
+
+/* ---------- Cuenta (entrar con un código al correo), sincronización e invitaciones ---------- */
+const SESS_KEY = "notyet.session";
+let SESS = (() => { try { return JSON.parse(localStorage.getItem(SESS_KEY) || "null"); } catch (e) { return null; } })(), ME = null, acctStep = "email", acctEmail = "", acctBusy = false;
+const saveSess = () => { try { if (SESS) localStorage.setItem(SESS_KEY, JSON.stringify(SESS)); else localStorage.removeItem(SESS_KEY); } catch (e) {} };
+async function apiAuth(path, method, body) {
+  try {
+    const r = await fetch(API + path, { method: method || "GET", headers: Object.assign({ "Content-Type": "application/json" }, SESS ? { Authorization: "Bearer " + SESS.token } : {}), body: body ? JSON.stringify(body) : undefined });
+    const j = await r.json().catch(() => ({ ok: false, error: "Sin respuesta del servidor" }));
+    if (r.status === 401 && SESS) { SESS = null; ME = null; saveSess(); setTimeout(render, 0); }
+    return j;
+  } catch (e) { return { ok: false, error: "No hay conexión ahora mismo" }; }
+}
+// Lo que se guarda en tu cuenta: tus datos de la app, nunca tu clave de IA
+function syncable() { const d = JSON.parse(JSON.stringify(S)); delete d.plan; delete d.refFrom; if (d.ai) delete d.ai.key; return d; }
+function mergeData(local, server) {
+  const out = Object.assign({}, local, server), keyOf = (x) => (x && typeof x === "object" ? x.id || JSON.stringify(x) : String(x)), when = (x) => (x && typeof x === "object" ? x.decided || x.start || x.since || 0 : 0);
+  ["items", "goals", "groups", "cats"].forEach((k) => {
+    const sv = Array.isArray(server[k]) ? server[k] : [], lv = Array.isArray(local[k]) ? local[k] : [], realSv = sv.some((x) => !(x && x.ex));
+    const m = new Map(); (realSv ? lv.filter((x) => !(x && x.ex)) : lv).concat(sv).forEach((x) => { const id = keyOf(x), o = m.get(id); if (!o || when(x) >= when(o)) m.set(id, x); });
+    out[k] = Array.from(m.values());
+  });
+  out.plan = local.plan; out.refFrom = local.refFrom;
+  if (local.ai && local.ai.key) out.ai = Object.assign({}, server.ai || {}, { key: local.ai.key });
+  return out;
+}
+async function pushNow() { if (!SESS || !API) return; const j = await apiAuth("/data", "PUT", { data: syncable() }); if (j.ok) { SESS.synced = j.updated; saveSess(); const l = $("#acctSync"); if (l) l.textContent = syncLabel(); } }
+function syncSoon() { if (!SESS || !API) return; clearTimeout(syncSoon.t); syncSoon.t = setTimeout(pushNow, 2500); }
+const syncLabel = () => (SESS && SESS.synced ? "Guardado en tu cuenta: " + new Date(SESS.synced).toLocaleString("es-ES", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }) : "Guardando en tu cuenta…");
+async function pullData(force) {
+  const j = await apiAuth("/data"); if (!j.ok) return;
+  if (j.data && (force || (j.updated || 0) > (SESS.synced || 0))) { S = Object.assign({}, DEFAULT, mergeData(S, j.data)); try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} SESS.synced = j.updated; saveSess(); setTimeout(render, 0); if (force) toast("Tus datos de la cuenta ya están en este dispositivo"); }
+  pushNow();
+}
+async function refreshMe() {
+  const j = await apiAuth("/me"); if (!j.ok) return; ME = j;
+  if (j.plan && j.plan !== "gratis") { if (planOf() !== j.plan || !S.plan || S.plan.src !== "cuenta") setPlan(j.plan, { email: j.email, src: "cuenta", until: j.until, trial: !!j.trial, how: j.source }); }
+  else if (S.plan && S.plan.src === "cuenta") { S.plan = null; save(); setTimeout(render, 0); }
+  renderAcct();
+}
+// Enlace de invitación recibido: ?ref=CODIGO
+(function refFromUrl() {
+  const q = new URLSearchParams(location.search), r = (q.get("ref") || "").toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 12);
+  if (!r) return; S.refFrom = r; save(); q.delete("ref");
+  history.replaceState(null, "", location.pathname + (q.toString() ? "?" + q : "") + location.hash);
+  setTimeout(() => toast("Te ha invitado un amigo: tu primer mes de Plus es gratis. Lo tienes en Ajustes."), 700);
+})();
+function renderAcct() {
+  const a = $("#acctCard"), iv = $("#inviteCard"); if (!a || !iv) return;
+  if (!API) { a.hidden = iv.hidden = true; return; }
+  const gift = S.refFrom && planOf() === "gratis" ? `<div class="giftband">Te ha invitado un amigo: tu primer mes de Plus es gratis. <a href="${PAY.plusTrial}">Empezar el mes gratis</a> (luego 2,99 € al mes, cancelas cuando quieras).</div>` : "";
+  if (SESS) {
+    a.innerHTML = `<h2>Tu cuenta</h2>${gift}<div class="ok"><i></i>Has entrado como ${esc(SESS.email || (ME && ME.email) || "")}</div><p class="tiny" id="acctSync">${syncLabel()}</p><p class="tiny">Tus compras, destinos y puntos se guardan en tu cuenta: entra con el mismo correo en otro móvil u ordenador y los tendrás ahí.</p><div class="row3"><button class="btn ghost small" type="button" id="acctOut">Cerrar sesión</button><button class="btn ghost small" type="button" id="acctDel" style="color:var(--coral)">Borrar mi cuenta</button></div>`;
+    const link = "https://notyetapp.app/app.html?ref=" + encodeURIComponent((ME && ME.ref) || "");
+    const r = (ME && ME.refs) || { invited: 0, pending: 0, rewarded: 0 }, bonus = ME && ME.bonus_until > Date.now() ? fmtDate(ME.bonus_until) : "";
+    const msg = "Estoy usando NotYet para frenar las compras por impulso y ahorrar para lo que de verdad quiero. Con mi enlace tienes el primer mes de Plus gratis: " + link;
+    iv.innerHTML = `<h2>Invita a tus amigos</h2><p class="tiny">Tu amigo tiene el <b>primer mes de Plus gratis</b>. Cuando pague su primer mes, tú ganas <b>un mes gratis</b>: si ya pagas, te lo descontamos de la cuota; si no, tienes Plus gratis 30 días. Sin límite de amigos.</p>${ME && ME.ref ? `<div class="lnk" id="invLink">${esc(link)}</div><div class="row3"><button class="btn small" type="button" id="invCopy">Copiar mi enlace</button><a class="btn ghost small" target="_blank" rel="noopener" href="https://wa.me/?text=${encodeURIComponent(msg)}">Enviar por WhatsApp</a>${navigator.share ? `<button class="btn ghost small" type="button" id="invShare">Compartir</button>` : ""}</div><div class="stats"><div><b>${r.invited}</b><span>Amigos invitados</span></div><div><b>${r.rewarded}</b><span>Ya pagan</span></div><div><b>${r.rewarded}</b><span>Meses ganados</span></div></div>${bonus ? `<p class="tiny">Tienes Plus gratis hasta el ${bonus}.</p>` : ""}` : `<p class="tiny">Cargando tu enlace…</p>`}`;
+    iv.hidden = false;
+    $("#acctOut").onclick = async () => { await pushNow(); await apiAuth("/auth/logout", "POST", {}); SESS = null; ME = null; saveSess(); if (S.plan && S.plan.src === "cuenta") { S.plan = null; save(); } render(); toast("Has cerrado sesión. Tus datos siguen en tu cuenta."); };
+    $("#acctDel").onclick = async (e) => { const b = e.currentTarget; if (!b.dataset.sure) { b.dataset.sure = "1"; b.textContent = "¿Seguro? Se borra tu cuenta y lo guardado en ella. Pulsa otra vez"; return; } const j = await apiAuth("/account/delete", "POST", {}); if (j.ok) { SESS = null; ME = null; saveSess(); if (S.plan && S.plan.src === "cuenta") S.plan = null; save(); render(); toast("Cuenta borrada. Lo que hay en este móvil sigue aquí; bórralo en Datos si quieres. Tu suscripción de pago, si la tienes, se cancela en Gestionar o cancelar."); } else toast(j.error || "No he podido borrarla ahora"); };
+    const cp = $("#invCopy"); if (cp) cp.onclick = async () => { try { await navigator.clipboard.writeText(link); toast("Enlace copiado"); } catch (err) { prompt("Copia tu enlace:", link); } };
+    const sh = $("#invShare"); if (sh) sh.onclick = () => navigator.share({ title: "NotYet", text: msg }).catch(() => {});
+    return;
+  }
+  iv.hidden = false;
+  iv.innerHTML = `<h2>Invita a tus amigos</h2><p class="tiny">Tu amigo tiene el primer mes de Plus gratis y tú ganas un mes cuando él pague el suyo. Entra con tu correo en Tu cuenta para tener tu enlace.</p>`;
+  if (acctStep === "code") {
+    a.innerHTML = `<h2>Tu cuenta</h2>${gift}<p class="tiny">Te hemos enviado un código de 6 cifras a <b>${esc(acctEmail)}</b>. Mira también en correo no deseado.</p><form id="acctForm2" style="display:flex;flex-direction:column;gap:8px"><input class="code" id="acctCode" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="000000" aria-label="Código de 6 cifras"><div class="row3"><button class="btn small" type="submit"${acctBusy ? " disabled" : ""}>Entrar</button><button class="link" type="button" id="acctBack">Cambiar de correo</button><button class="link" type="button" id="acctAgain">Reenviar código</button></div></form>`;
+    $("#acctBack").onclick = () => { acctStep = "email"; renderAcct(); };
+    $("#acctAgain").onclick = () => acctStart(acctEmail);
+    $("#acctForm2").onsubmit = async (e) => { e.preventDefault(); const code = $("#acctCode").value.replace(/\D/g, ""); if (code.length !== 6) { toast("Pon las 6 cifras"); return; } acctBusy = true; const j = await apiAuth("/auth/verify", "POST", { email: acctEmail, code, ref: S.refFrom || "" }); acctBusy = false; if (!j.ok) { toast(j.error || "No he podido entrar"); return; } SESS = { token: j.token, email: acctEmail, synced: 0 }; saveSess(); acctStep = "email"; toast(j.isNew ? "Cuenta creada. Ya se guarda todo en tu cuenta." : "Has entrado. Traigo tus datos…"); await pullData(true); await refreshMe(); render(); };
+    setTimeout(() => { const c = $("#acctCode"); if (c) c.focus(); }, 50);
+  } else {
+    a.innerHTML = `<h2>Tu cuenta</h2>${gift}<p class="tiny">Entra con tu correo, sin contraseña: te llega un código. Así guardas tus compras, destinos y puntos en tu cuenta, los tienes en cualquier móvil u ordenador, y consigues tu enlace para invitar a amigos. Sin cuenta, NotYet sigue funcionando solo en este dispositivo.</p><form id="acctForm" style="display:flex;flex-direction:column;gap:8px"><input type="email" id="acctEmail" placeholder="nombre@correo.com" autocomplete="email" aria-label="Tu correo" value="${esc(acctEmail)}"><div class="row3"><button class="btn small" type="submit"${acctBusy ? " disabled" : ""}>Enviarme el código</button></div></form><p class="tiny">Al crear la cuenta aceptas las <a href="condiciones.html" target="_blank" rel="noopener">condiciones</a> y la <a href="privacidad.html" target="_blank" rel="noopener">política de privacidad</a>.</p>`;
+    $("#acctForm").onsubmit = (e) => { e.preventDefault(); acctStart($("#acctEmail").value.trim().toLowerCase()); };
+  }
+}
+async function acctStart(email) {
+  if (!/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(email)) { toast("Pon un correo válido"); return; }
+  acctBusy = true; acctEmail = email; renderAcct();
+  const j = await apiAuth("/auth/start", "POST", { email }); acctBusy = false;
+  if (!j.ok) { toast(j.error || "No he podido enviar el código"); renderAcct(); return; }
+  acctStep = "code"; renderAcct(); toast("Código enviado a " + email);
+}
+if (SESS && API) { refreshMe(); pullData(false); }
 const month0 = () => { const m = new Date(); m.setDate(1); m.setHours(0, 0, 0, 0); return m.getTime(); };
 const left = (it) => it.start + (it.hours || 0) * H - now();
 const thisMonth = (it) => (it.decided || it.start || 0) >= month0();
@@ -1780,13 +1879,13 @@ let goalsUnlocked = false;
 function renderPlanCard() {
   const t = planOf(), el = $("#planCard"); if (!el) return;
   const inv = location.origin + location.pathname + "?plan=pareja&inv=" + encodeURIComponent((S.plan && S.plan.ref) || "pareja");
-  el.innerHTML = t === "gratis" ? `<h2>Tu plan: Gratis</h2><p class="tiny">Incluye ${FREE_ITEMS} compras apuntadas al mes (llevas ${monthItems()}), ${FREE_GOALS} destino y ${FREE_GROUPS} grupo propio en el comité. Plus desbloquea todo eso sin límite, el panel de evolución con descarga, hábitos y retos, y el asistente Pregúntale. Pareja añade el pacto en pareja y Plus en el móvil de tu pareja.</p><div class="actions"><a class="btn small" href="${PAY.plus}">Plus, 2,99 € al mes</a><a class="btn ghost small" href="${PAY.pareja}">Pareja, 3,99 € al mes</a></div><p class="tiny">Pagando al año: <a href="${PAY.plusY}">Plus 24,99 € (ahorras un 30 %)</a> - <a href="${PAY.parejaY}">Pareja 34,99 € (ahorras un 27 %)</a>. Precios finales, impuestos incluidos. <a href="condiciones.html" target="_blank" rel="noopener">Condiciones</a></p>${API ? `<form id="restoreForm" style="margin-top:10px"><label>¿Ya pagaste en otro móvil? Recupera tu plan con el correo del pago<input type="email" id="restoreEmail" placeholder="nombre@correo.com" autocomplete="email"></label><label style="margin-top:8px">Y los 4 últimos dígitos de la tarjeta con la que pagaste<input id="restoreL4" inputmode="numeric" maxlength="4" placeholder="1234" autocomplete="off"></label><button class="btn ghost small" type="submit" style="margin-top:8px">Recuperar mi plan</button></form>` : ""}`
+  el.innerHTML = t === "gratis" ? `<h2>Tu plan: Gratis</h2><p class="tiny">Incluye ${FREE_ITEMS} compras apuntadas al mes (llevas ${monthItems()}), ${FREE_GOALS} destino y ${FREE_GROUPS} grupo propio en el comité. Plus desbloquea todo eso sin límite, el panel de evolución con descarga, hábitos y retos, y el asistente Pregúntale. Pareja añade el pacto en pareja y Plus en el móvil de tu pareja.</p><div class="actions">${S.refFrom ? `<a class="btn small" href="${PAY.plusTrial}">Plus: 1 mes gratis, luego 2,99 € al mes</a>` : `<a class="btn small" href="${PAY.plus}">Plus, 2,99 € al mes</a>`}<a class="btn ghost small" href="${PAY.pareja}">Pareja, 3,99 € al mes</a></div><p class="tiny">Pagando al año: <a href="${PAY.plusY}">Plus 24,99 € (ahorras un 30 %)</a> - <a href="${PAY.parejaY}">Pareja 34,99 € (ahorras un 27 %)</a>. Precios finales, impuestos incluidos. <a href="condiciones.html" target="_blank" rel="noopener">Condiciones</a></p>${API ? `<form id="restoreForm" style="margin-top:10px"><label>¿Ya pagaste en otro móvil? Recupera tu plan con el correo del pago<input type="email" id="restoreEmail" placeholder="nombre@correo.com" autocomplete="email"></label><label style="margin-top:8px">Y los 4 últimos dígitos de la tarjeta con la que pagaste<input id="restoreL4" inputmode="numeric" maxlength="4" placeholder="1234" autocomplete="off"></label><button class="btn ghost small" type="submit" style="margin-top:8px">Recuperar mi plan</button></form>` : ""}`
     : `<h2>Tu plan: ${t === "pareja" ? "Pareja" : "Plus"}</h2><p class="tiny">Activo en este móvil desde ${fmtDate(S.plan.since)}. Puedes cambiar la tarjeta, ver tus facturas o cancelar en el portal seguro de Stripe con el correo con el que pagaste.</p><div class="actions"><a class="btn ghost small" href="${PAY.portal}" target="_blank" rel="noopener">Gestionar o cancelar</a>${t === "pareja" ? `<button class="btn small" type="button" id="copyInv">Copiar el enlace para tu pareja</button>` : ""}</div>`;
   const rf = $("#restoreForm"); if (rf) rf.onsubmit = (e) => { e.preventDefault(); const v = $("#restoreEmail").value.trim(), l = $("#restoreL4").value.trim(); if (!v || !/^\d{4}$/.test(l)) { toast("Pon tu correo y los 4 últimos dígitos de la tarjeta"); return; } restorePlan(v, false, l); };
   const c = $("#copyInv"); if (c) c.onclick = async () => { try { await navigator.clipboard.writeText(inv); toast("Enlace copiado. Que tu pareja lo abra en su móvil."); } catch (e) { prompt("Copia este enlace para tu pareja:", inv); } };
 }
 function renderAjustes() {
-  renderPlanCard();
+  renderPlanCard(); try { renderAcct(); } catch (e) {}
   const gp = goalsProgress();
   $("#goalsEd").innerHTML = gp.length ? gp.map((g) => `<div class="gi" data-gid="${g.id}"><svg aria-hidden="true"><use href="#sc-${GOALIMGS.includes(g.img) ? g.img : "fondo"}"/></svg><div class="grow"><b>${esc(g.name)} ${g.locked && !goalsUnlocked ? '<span class="pill blue">Bloqueado</span>' : ""}</b><span class="tiny">${eur(g.amount)} - ${g.pct}% del bote - ${g.pctDone}% conseguido</span></div>${goalsUnlocked || !g.locked ? `<button class="btn ghost small" type="button" data-gdel="${g.id}">Quitar</button>` : ""}</div>`).join("") : '<p class="tiny">Sin destinos todavía.</p>';
   $("#unlockGoals").hidden = goalsUnlocked || !gp.some((g) => g.locked);
