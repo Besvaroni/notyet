@@ -260,7 +260,7 @@ details.card[open] summary::after{content:"−"}
 
 /* ===== v4: ticket térmico ===== */
 .tkwrap{padding:12px 0 14px;display:flex;justify-content:center}
-.tk{--tp:#FBF9F1;--ink:#1F1F1F;--faint:#6E6E6E;position:relative;width:100%;max-width:340px;background:var(--tp);color:var(--ink);font-family:"Courier Prime","Courier New",ui-monospace,monospace;font-size:12.5px;line-height:1.35;padding:16px 16px 18px;box-shadow:0 18px 34px -14px rgba(0,0,0,.45);letter-spacing:.01em}
+.tk{--tp:#FBF9F1;--ink:#1F1F1F;--faint:#6E6E6E;position:relative;width:100%;max-width:340px;background:var(--tp);color:var(--fg);font-family:"Courier Prime","Courier New",ui-monospace,monospace;font-size:12.5px;line-height:1.35;padding:16px 16px 18px;box-shadow:0 18px 34px -14px rgba(0,0,0,.45);letter-spacing:.01em}
 .tk::before{content:"";position:absolute;left:0;right:0;top:-9px;height:9px;background:linear-gradient(45deg,transparent 6.4px,var(--tp) 0) 0 0/9px 9px repeat-x,linear-gradient(-45deg,transparent 6.4px,var(--tp) 0) 0 0/9px 9px repeat-x}
 .tk::after{content:"";position:absolute;left:0;right:0;bottom:-9px;height:9px;background:linear-gradient(135deg,transparent 6.4px,var(--tp) 0) 0 0/9px 9px repeat-x,linear-gradient(-135deg,transparent 6.4px,var(--tp) 0) 0 0/9px 9px repeat-x}
 .tk .paper{position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.022) 0 1px,transparent 1px 3px);pointer-events:none}
@@ -278,8 +278,8 @@ details.card[open] summary::after{content:"−"}
 .tk .tot{font-size:1.35em;font-weight:700;letter-spacing:-.01em}
 .tk .tot .row{align-items:center}
 .tk .gb{display:flex;align-items:center;gap:6px;font-size:.9em}
-.tk .gb i{flex:1;height:8px;border:1px solid var(--ink);display:block;background:repeating-linear-gradient(90deg,var(--ink) 0 3px,transparent 3px 4px) no-repeat;background-size:var(--w,0%) 100%}
-.tk .bc{height:40px;margin:10px auto 2px;background:repeating-linear-gradient(90deg,var(--ink) 0 2px,transparent 2px 3px,var(--ink) 3px 4px,transparent 4px 7px,var(--ink) 7px 10px,transparent 10px 12px,var(--ink) 12px 13px,transparent 13px 16px,var(--ink) 16px 18px,transparent 18px 20px);width:86%}
+.tk .gb i{flex:1;height:8px;border:1px solid var(--fg);display:block;background:repeating-linear-gradient(90deg,var(--fg) 0 3px,transparent 3px 4px) no-repeat;background-size:var(--w,0%) 100%}
+.tk .bc{height:40px;margin:10px auto 2px;background:repeating-linear-gradient(90deg,var(--fg) 0 2px,transparent 2px 3px,var(--fg) 3px 4px,transparent 4px 7px,var(--fg) 7px 10px,transparent 10px 12px,var(--fg) 12px 13px,transparent 13px 16px,var(--fg) 16px 18px,transparent 18px 20px);width:86%}
 .tk .bcn{text-align:center;font-size:.85em;letter-spacing:.18em}
 .tk .stamp{position:absolute;right:12px;top:16px;transform:rotate(-12deg);border:3px double #B23A3A;color:#B23A3A;border-radius:6px;padding:2px 8px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:.9em;opacity:.78;mix-blend-mode:multiply}
 .tk .stamp.ok{border-color:#1B7A43;color:#1B7A43}
@@ -318,17 +318,6 @@ details.card[open] summary::after{content:"−"}
 .goal .gbar i{display:block;height:100%;background:#fff;transition:width .8s var(--ease)}
 .goal .lock{position:absolute;top:10px;right:10px;font-size:.66rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;background:rgba(0,0,0,.35);border-radius:999px;padding:4px 9px;backdrop-filter:blur(4px)}
 .goal .pct{position:absolute;top:10px;left:12px;font-family:var(--f-mono);font-weight:700;font-size:.8rem;background:rgba(0,0,0,.35);border-radius:999px;padding:3px 8px}
-/* Fotos realistas de destinos, con fundido, zoom lento y entrada escalonada; si falta la foto se ve el dibujo */
-.goal{min-height:150px;transition:transform .35s var(--ease),box-shadow .35s ease;animation:goalIn .6s var(--ease) both}
-.goal:nth-child(2){animation-delay:.07s}.goal:nth-child(3){animation-delay:.14s}.goal:nth-child(n+4){animation-delay:.2s}
-.goal img.scene-ph{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-1;opacity:0;transform:scale(1.04);transition:opacity .9s ease}
-.goal img.scene-ph.on{opacity:1;animation:goalKB 16s ease-in-out infinite alternate}
-.goal:has(img.scene-ph.on)::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(to top,rgba(0,0,0,.78) 0%,rgba(0,0,0,.28) 50%,rgba(0,0,0,.1) 100%)}
-@media (hover:hover){.goal:hover{transform:translateY(-3px);box-shadow:0 16px 36px rgba(0,0,0,.35)}}
-.goal:active{transform:scale(.98)}
-@keyframes goalIn{from{opacity:0;transform:translateY(12px) scale(.98)}to{opacity:1;transform:none}}
-@keyframes goalKB{from{transform:scale(1.04) translate(0,0)}to{transform:scale(1.12) translate(-2%,-2%)}}
-@media (prefers-reduced-motion:reduce){.goal,.goal img.scene-ph.on{animation:none}}
 .gpick{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
 .gpick label{cursor:pointer;flex-direction:column;align-items:center;gap:4px;font-size:.66rem;text-align:center}
 .gpick input{position:absolute;opacity:0;width:1px;height:1px}
@@ -754,15 +743,6 @@ input,select,textarea{border-radius:14px}
 .pc .ic .fav,.xrow .fav{position:absolute;top:8px;right:8px;width:34px;height:34px;border-radius:50%;border:0;background:rgba(255,255,255,.92);display:grid;place-items:center;cursor:pointer;z-index:2;box-shadow:0 2px 8px rgba(0,0,0,.08)}
 .fav svg{fill:none;stroke:#0B1024;stroke-width:2;transition:transform .2s}
 .fav.on svg{fill:#FF2D55;stroke:#FF2D55;transform:scale(1.08)}
-/* Corazón sin círculo blanco detrás */
-.pc .ic .fav{background:transparent;box-shadow:none}
-.pc .ic .fav svg{filter:drop-shadow(0 1px 2px rgba(255,255,255,.6))}
-/* Fotos realistas de producto (Grok): fundido al cargar y zoom suave; si no hay foto se ve el icono de siempre */
-.pc .ic img.pimg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .6s ease,transform .6s var(--ease);z-index:1}
-.pc .ic img.pimg.on{opacity:1}
-.pc .ic:has(img.pimg.on) .pe{opacity:0}
-.pc .ic:has(img.pimg.on) .fav:not(.on) svg{stroke:#fff;filter:drop-shadow(0 1px 3px rgba(0,0,0,.55))}
-@media (hover:hover){.pc:hover .ic img.pimg.on{transform:scale(1.06)}}
 .xrow .fav{position:static;flex:none;background:var(--bg2);box-shadow:none}
 body.xpon{overflow:hidden}
 .xp{position:fixed;inset:0;z-index:300;background:rgba(11,16,36,.35);display:flex;justify-content:center}
@@ -914,13 +894,13 @@ body.indemo .wrap{padding-top:52px}
 @media (prefers-reduced-motion:reduce){.xth.ph img.p1{animation:none}}
 .xrow .xn{display:flex;flex-direction:column;gap:4px}
 .xsubs{display:flex;gap:6px;flex-wrap:wrap}
-.xsubs span{font-size:.72rem;font-weight:600;padding:3px 9px;border-radius:999px;background:var(--bg2);color:var(--ink);cursor:pointer}
+.xsubs span{font-size:.72rem;font-weight:600;padding:3px 9px;border-radius:999px;background:var(--bg2);color:var(--fg);cursor:pointer}
 .xsubs span:hover{background:var(--line)}
 .cimg{width:22px;height:22px;border-radius:50%;object-fit:cover;vertical-align:-6px;margin-right:2px}
 .xcred{text-align:center;margin:10px 0 4px}
 
 /* Menú de Cuenta con iconos de trazo */
-#acctMenu .mi{display:grid;place-items:center;width:34px;height:34px;border-radius:10px;background:var(--bg2);color:var(--ink);font-style:normal}
+#acctMenu .mi{display:grid;place-items:center;width:34px;height:34px;border-radius:10px;background:var(--bg2);color:var(--fg);font-style:normal}
 #acctMenu .out .mi{color:var(--coral)}
 /* Entrada de la cuenta */
 .card.acct.withhero{padding-top:0;overflow:hidden}
@@ -1023,10 +1003,30 @@ body.indemo .wrap{padding-top:52px}
 .onbnext{border:0;background:#fff;color:#000;font:inherit;font-weight:800;padding:13px 26px;border-radius:999px;cursor:pointer}
 @media (prefers-reduced-motion:reduce){.onbtrack{transition:none}.onbg:before{animation:none}}
 /* Oferta de demo al entrar */
-.toffer{position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:600;width:min(92vw,380px);background:var(--surface);color:var(--ink);border-radius:20px;padding:16px;box-shadow:0 20px 60px rgba(0,0,0,.25);display:flex;flex-direction:column;gap:6px;animation:obup .4s ease}
+.toffer{position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:600;width:min(92vw,380px);background:var(--surface);color:var(--fg);border-radius:20px;padding:16px;box-shadow:0 20px 60px rgba(0,0,0,.25);display:flex;flex-direction:column;gap:6px;animation:obup .4s ease}
 .toffer p{margin:0;color:var(--muted);font-size:.88rem}.toffer div{display:flex;gap:8px;margin-top:6px}
 /* Decisión en la votación */
 .pdec{margin-top:6px;padding:12px;border-radius:16px;background:var(--bg2);display:flex;flex-direction:column;gap:6px}
+
+/* v35: Mis grupos, espera a elegir, anillo, decididas, compartir ahorros */
+.mg h2{margin:0}.mg .mgl{display:flex;flex-direction:column;gap:10px;margin-top:10px}
+.mgc{border:1px solid var(--line);border-radius:18px;padding:12px;display:flex;flex-direction:column;gap:10px;background:var(--surface)}
+.mgc .mgh{display:flex;gap:12px;align-items:center}.mgc .mgi{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:color-mix(in srgb,var(--c) 14%,transparent);flex:none}
+.mgc .mgi svg{width:24px;height:24px}.mgc b{display:block;font-size:1rem}.mgc small{display:block;color:var(--muted);font-size:.8rem;line-height:1.35}
+.mgc .mga{display:flex;gap:8px;flex-wrap:wrap}.mgc .mga .btn{flex:1 1 auto}.mgc .hot{box-shadow:0 0 0 3px color-mix(in srgb,var(--brand) 35%,transparent)}
+.mgc .mgv{font-size:.8rem;color:var(--muted);border-top:1px dashed var(--line);padding-top:8px}
+.mgf{display:flex;flex-direction:column;gap:10px;margin-top:10px;border:1px solid var(--line);border-radius:18px;padding:14px}
+.mgf .nets{display:flex;gap:8px;flex-wrap:wrap}.mgf .nets label{cursor:pointer}.mgf .nets input{position:absolute;opacity:0;pointer-events:none}
+.mgf .nets span{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;padding:7px 12px;font-size:.86rem;font-weight:600}
+.mgf .nets input:checked+span{border-color:var(--fg);background:var(--fg);color:var(--bg)}.mgf .nets svg{width:16px;height:16px}
+.mgf .how{font-size:.8rem;color:var(--muted);background:color-mix(in srgb,var(--brand) 7%,transparent);border-radius:12px;padding:10px 12px;margin:0}
+.mgf .warn{color:#B4231B;font-size:.8rem;margin:0}
+.gwait{display:flex;flex-direction:column;gap:6px;margin:4px 0 2px}
+.wring{--p:0;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;flex:none;margin-left:10px;background:conic-gradient(var(--green) calc(var(--p)*1%),color-mix(in srgb,var(--fg) 9%,transparent) 0)}
+.wring b{width:31px;height:31px;border-radius:50%;background:var(--surface);display:grid;place-items:center;font-size:.66rem;font-weight:700;font-variant-numeric:tabular-nums}
+.hchips{display:flex;gap:8px;margin:2px 0 10px;flex-wrap:wrap}.hchips button{border:1px solid var(--line);background:none;color:var(--fg);border-radius:999px;padding:6px 12px;font:inherit;font-size:.84rem;font-weight:600;cursor:pointer}
+.hchips button[aria-pressed=true]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.shsav{margin-top:12px;width:100%;border:1.5px dashed color-mix(in srgb,currentColor 40%,transparent);background:none;color:inherit;border-radius:14px;padding:10px;font:inherit;font-weight:700;cursor:pointer}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -1161,7 +1161,7 @@ body.indemo .wrap{padding-top:52px}
       <div id="list"></div>
     </div>
     <div class="card">
-      <h2>Últimas decisiones</h2>
+      <div class="row between"><h2>Decididas</h2><span class="tiny" id="histSum"></span></div>
       <div class="hist" id="hist"></div>
     </div>
   </section>
@@ -1180,6 +1180,7 @@ body.indemo .wrap{padding-top:52px}
   <!-- COMITÉ -->
   <section class="view" id="v-comite" hidden>
     <div class="vhead"><h1>Comité</h1><span class="tag">Tus grupos votan</span></div>
+    <div class="card mg" id="myGroups"></div>
     <div class="card" id="pollCard" hidden></div>
     <div class="card">
       <p class="tiny">Convierte una compra en una votación privada dentro de la app: comprar, esperar o buscar más barato. Cada grupo opina a su manera; NotYet resume sin decidir por ti.</p>
@@ -1198,7 +1199,7 @@ body.indemo .wrap{padding-top:52px}
       <div class="actions" id="voteDec" hidden><button class="btn green small" type="button" data-vfinal="skip">No lo compro</button><button class="btn ghost small" type="button" data-vfinal="buy">Lo compro</button></div>
     </div>
     <div class="card" id="community" hidden></div>
-    <details class="card" id="newGroup">
+    <details class="card" id="newGroup" hidden>
       <summary>Crear un grupo nuevo</summary>
       <form id="fGroup" style="display:flex;flex-direction:column;gap:10px">
         <label for="ngName">Nombre del grupo<input id="ngName" maxlength="30" placeholder="Los del piso" autocomplete="off"></label>
@@ -1251,6 +1252,8 @@ body.indemo .wrap{padding-top:52px}
       <button type="button" data-sec="inviteCard"><i class="mi"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M12 8v13M3 12h18M12 8c-2-4-6-4-6-1.5S9 8 12 8zm0 0c2-4 6-4 6-1.5S15 8 12 8z"/></svg></i><span>Invita a un amigo</span></button>
       <button type="button" data-sec="goalsCard"><i class="mi"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/></svg></i><span>Tus destinos</span></button>
       <button type="button" data-sec="fMoney"><i class="mi"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="6" width="19" height="12" rx="2"/><circle cx="12" cy="12" r="2.8"/><path d="M6 9.5v5M18 9.5v5"/></svg></i><span>Tu dinero</span></button>
+      <button type="button" data-mgo="1"><i class="mi"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3 19c.9-3.2 3.2-5 6-5s5.1 1.8 6 5"/><circle cx="17" cy="9" r="2.4"/><path d="M16 14.2c2.4.2 4.2 1.8 5 4.8"/></svg></i><span>Mis grupos</span></button>
+      <button type="button" id="notifBtn"><i class="mi"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg></i><span>Avisos al acabar la espera</span></button>
       <button type="button" data-go="pareja"><i class="mi"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg></i><span>Pareja</span></button>
       <button type="button" data-sec="fPartner"><i class="mi"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 11 5 8l3-3M5 8h9a4 4 0 0 1 0 8h-2M16 13l3 3-3 3M19 16h-9"/></svg></i><span>Pacto con tu pareja</span></button>
       <button type="button" data-go="ia"><i class="mi"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 10h8M8 13h5"/></svg></i><span>Pregúntale a NotYet</span></button>
@@ -1392,6 +1395,7 @@ body.indemo .wrap{padding-top:52px}
     <div id="gHints" class="facts"></div>
     <div class="say" id="gSay" hidden></div>
     <div class="galt" id="gAlt" hidden></div>
+    <div class="gwait"><span class="tag">Cuánto te esperas</span><div class="chips" id="gWait" role="radiogroup" aria-label="Cuánto te esperas"></div></div>
     <button class="opt" type="button" data-g="wait"><i class="i-a">⏱</i><span>Me espero 24 horas<small>Te lo recordamos mañana. +3 puntos</small></span></button>
     <button class="opt" type="button" data-g="compare"><i class="i-b">€</i><span>Buscar más barato<small>Análisis de mercado y enlaces directos a cada sitio</small></span></button>
     <button class="opt" type="button" data-g="committee"><i class="i-c">?</i><span>Preguntar al comité<small>Tus grupos votan dentro de la app</small></span></button>
@@ -1841,7 +1845,7 @@ const spentIn = (a, b) => S.items.filter((i) => (i.status === "buy" || i.status 
 const spentPeriod = () => spentIn(periodStart(budgetPer()));
 const budgetLeft = () => (S.budget || 0) - spentPeriod();
 const bote = () => S.items.filter((i) => i.status === "skip").reduce((a, i) => a + (i.price || 0), 0) + S.items.reduce((a, i) => a + (i.cheaper || 0), 0);
-function human(ms) { if (ms <= 0) return "Ya puedes decidir"; const h = Math.floor(ms / H), m = Math.floor((ms % H) / 60000); return h >= 24 ? `Faltan ${Math.floor(h / 24)} d ${h % 24} h` : `Faltan ${h} h ${m} min`; }
+function human(ms) { if (ms <= 0) return "Ya puedes decidir"; const h = Math.floor(ms / H), m = Math.floor((ms % H) / 60000); return h >= 24 ? `Faltan ${Math.floor(h / 24)} d ${h % 24} h ${m} min` : `Faltan ${h} h ${m} min`; }
 function toast(msg) { const t = $("#toast"); t.textContent = msg; t.hidden = false; clearTimeout(toast.k); toast.k = setTimeout(() => { t.hidden = true; }, 2800); }
 function voteText(it) { return `¿Me compro esto?\n${it.name}${it.price ? " - " + eur(it.price, 2) : ""}${it.shop ? " en " + it.shop : ""}\nVotad: COMPRAR, ESPERAR o MÁS BARATO, y decidme por qué.\nMe lo estoy pensando con NotYet.`; }
 
@@ -1859,7 +1863,7 @@ function stats() {
   const first = S.items.length ? Math.min(...S.items.map((i) => i.start || now())) : now();
   const streak = Math.max(0, Math.floor((now() - (lastImp || first)) / (24 * H)));
   let pts = 0;
-  S.items.forEach((it) => { if (it.status === "skip") pts += 10 + Math.round((it.price || 0) / 10); else if (it.status === "buy") pts += 2; if (it.votes && it.votes.length) pts += 5; if (it.cheaper) pts += 5 + Math.round(it.cheaper / 10); if (it.status !== "impulse" && (it.hours || 0) >= 24) pts += 3; });
+  S.items.forEach((it) => { if (it.status === "skip") pts += 10 + Math.round((it.price || 0) / 10); else if (it.status === "buy") pts += 2; if (it.votes && it.votes.length) pts += 5; if (it.cheaper) pts += 5 + Math.round(it.cheaper / 10); if (it.status !== "impulse" && (it.hours || 0) >= 24) pts += (it.hours >= 720 ? 20 : it.hours >= 168 ? 10 : it.hours >= 72 ? 6 : 3); });
   pts += goalsDone * 100 + Math.min(streak, 30) * 2 - (S.penalty || 0);
   pts = Math.max(0, pts);
   let li = 0; LEVELS.forEach((l, k) => { if (pts >= l[0]) li = k; });
@@ -1919,7 +1923,7 @@ function ticketHTML(o) {
 /* ---------- Inicio ---------- */
 const GOALIMGS = ["paris", "playa", "piso", "boda", "coche", "fondo", "regalo", "portatil", "moto", "bebe", "mascota", "estudios", "bici"];
 const GOALNAMES = { paris: "Viaje", playa: "Playa", piso: "Piso", boda: "Boda", coche: "Coche", fondo: "Fondo", regalo: "Regalo", portatil: "Portátil", moto: "Moto", bebe: "Bebé", mascota: "Mascota", estudios: "Estudios", bici: "Bici" };
-const scene = (img) => { const k = GOALIMGS.includes(img) ? img : "fondo"; return `<svg class="scene" aria-hidden="true"><use href="#sc-${k}"/></svg><img class="scene-ph" src="/img/destinos/${k}.jpg" alt="" loading="lazy" decoding="async" onload="this.classList.add('on')" onerror="this.remove()">`; };
+const scene = (img) => `<svg class="scene" aria-hidden="true"><use href="#sc-${GOALIMGS.includes(img) ? img : "fondo"}"/></svg>`;
 function renderInicio() {
   const d = new Date();
   $("#monthTitle").textContent = MONTHS[d.getMonth()].charAt(0).toUpperCase() + MONTHS[d.getMonth()].slice(1);
@@ -1948,9 +1952,9 @@ function renderInicio() {
   $("#list").innerHTML = waiting.length ? waiting.map((it) => {
     const ms = left(it), ready = ms <= 0, pct = Math.min(100, Math.max(0, 100 - ms / ((it.hours || 24) * H) * 100));
     return `<div class="ticket" data-id="${it.id}">
-      <div class="row between"><div class="grow"><div class="name">${esc(it.name)}${it.ex ? ' <span class="tiny">(ejemplo)</span>' : ""}</div><div class="meta">${brandChip(it.brand || it.shop, it.shop)} <span>- ${esc(it.why || "")}</span></div></div><span class="mono" style="font-weight:700">${it.price ? eur(it.price) : ""}</span></div>
-      <div class="row"><span class="pill${ready ? " ok" : ""}">${ready ? "Decide" : "Esperando"}</span><div class="bar"><i style="width:${pct.toFixed(0)}%"></i></div><span class="tiny" style="white-space:nowrap">${human(ms)}</span></div>
-      <div class="actions"><button class="btn green small" type="button" data-act="skip" ${ready ? "" : "disabled"}>No lo compro</button><button class="btn ghost small" type="button" data-act="buy" ${ready ? "" : "disabled"}>Lo compro</button><button class="btn ghost small" type="button" data-act="compare">Comparar</button><button class="btn ghost small" type="button" data-act="vote">Comité</button>${ready ? "" : '<button class="link" type="button" data-act="skipwait" style="font-size:.85rem">Saltar espera (demo)</button>'}</div>
+      <div class="row between"><div class="grow"><div class="name">${esc(it.name)}${it.ex ? ' <span class="tiny">(ejemplo)</span>' : ""}</div><div class="meta">${brandChip(it.brand || it.shop, it.shop)} <span>- ${esc(it.why || "")}</span></div></div><span class="mono" style="font-weight:700">${it.price ? eur(it.price) : ""}</span><span class="wring" style="--p:${pct.toFixed(0)}"><b>${pct.toFixed(0)}%</b></span></div>
+      <div class="row"><span class="pill${ready ? " ok" : ""}">${ready ? "Decide" : "Esperando"}</span><div class="bar"><i style="width:${pct.toFixed(0)}%"></i></div><span class="tiny tleft" data-tl="${it.id}" style="white-space:nowrap">${human(ms)}${!ready && (it.hours || 24) >= 48 ? " - día " + Math.min(Math.round(it.hours / 24), Math.floor((now() - it.start) / (24 * H)) + 1) + " de " + Math.round(it.hours / 24) : ""}</span></div>
+      <div class="actions"><button class="btn green small" type="button" data-act="skip" ${ready ? "" : "disabled"}>No lo compro</button><button class="btn ghost small" type="button" data-act="buy" ${ready ? "" : "disabled"}>Lo compro</button><button class="btn ghost small" type="button" data-act="compare">Comparar</button><button class="btn ghost small" type="button" data-act="vote">Comité</button>${ready || !it.ex ? "" : '<button class="link" type="button" data-act="skipwait" style="font-size:.85rem">Saltar espera (ejemplo)</button>'}</div>
     </div>`;
   }).join("") : '<div class="empty">Nada en espera. Pulsa + cuando te entren ganas de comprar algo, o mira Explorar.</div>';
   // Historial
@@ -2180,7 +2184,7 @@ function favToggle(id, from) {
 }
 function favPaint() { $$("[data-fav]").forEach((b) => { const on = isFav(b.dataset.fav); b.classList.toggle("on", on); b.setAttribute("aria-pressed", String(on)); b.setAttribute("aria-label", on ? "Quitar de favoritos" : "Guardar en favoritos"); }); const d = $("#favDot"); if (d) d.hidden = !(SESS && (S.favs || []).length); }
 const HEART = '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 20s-7.5-4.4-7.5-10A4.3 4.3 0 0 1 12 7.6 4.3 4.3 0 0 1 19.5 10c0 5.6-7.5 10-7.5 10z"/></svg>';
-{ const _ec = exCard; exCard = function (p, i) { let h = _ec.apply(this, arguments); if (EVCATS.includes(p.cat) && p.cat !== "experiencias") h = h.replace('<div class="pr">', '<div class="pr">desde '); return h.replace('<div class="ic">', `<div class="ic"><img class="pimg" src="/img/productos/${slug(p.name)}.jpg" alt="" loading="lazy" decoding="async" onload="this.classList.add('on')" onerror="this.remove()"><button type="button" class="fav${isFav(p.id) ? " on" : ""}" data-fav="${p.id}" aria-label="Guardar en favoritos">${HEART}</button>`); }; }
+{ const _ec = exCard; exCard = function (p, i) { let h = _ec.apply(this, arguments); if (EVCATS.includes(p.cat) && p.cat !== "experiencias") h = h.replace('<div class="pr">', '<div class="pr">desde '); return h.replace('<div class="ic">', `<div class="ic"><button type="button" class="fav${isFav(p.id) ? " on" : ""}" data-fav="${p.id}" aria-label="Guardar en favoritos">${HEART}</button>`); }; }
 
 // Panel a pantalla completa: categorías, favoritos y buscador
 let xpMode = null, xpQ = "", xpIdeasSeed = 0;
@@ -3505,6 +3509,196 @@ document.addEventListener("click", (e) => { const b = e.target.closest("[data-pd
   if (k === "cheap") { selectedAn = it.id; showTab("analisis"); return; }
   decide(it, k); try { localStorage.removeItem("ny.resume"); } catch (x) {} save(); render(); toast(k === "skip" ? "Hecho: lo que no gastas va a tu meta. Puntos sumados." : "Apuntado como comprado tras consultarlo. Buena decisión pensada.");
 });
+
+/* ---------- v35: Mis grupos. Tus grupos de WhatsApp, Instagram, Facebook, TikTok o Telegram, con su enlace, en un sitio ---------- */
+const GNETS = [["WhatsApp", "#25D366", /(^|\.)whatsapp\.com$|^wa\.me$/], ["Instagram", "#E4405F", /(^|\.)instagram\.com$|^ig\.me$/], ["Facebook", "#1877F2", /(^|\.)facebook\.com$|^fb\.(me|com)$|^m\.me$|(^|\.)messenger\.com$/], ["TikTok", "#111111", /(^|\.)tiktok\.com$/], ["Telegram", "#2AABEE", /^t\.me$|(^|\.)telegram\.(me|org)$/], ["Otra", "#5C6478", null]];
+const GHOW = {
+  WhatsApp: "Cómo sacar el enlace: abre el grupo en WhatsApp, toca su nombre arriba, Invitar al grupo mediante enlace y Copiar enlace. Empieza por chat.whatsapp.com.",
+  Instagram: "Cómo sacar el enlace: abre el chat del grupo en Instagram, toca su nombre arriba y busca Invitar con enlace (o Compartir enlace) y Copiar.",
+  Facebook: "Cómo sacar el enlace: si es un grupo de Facebook, entra, toca Compartir y Copiar enlace (facebook.com/groups/...). Si es un chat de Messenger, toca su nombre, Invitar con enlace y Copiar.",
+  TikTok: "Cómo sacar el enlace: abre el chat del grupo en TikTok, toca los tres puntos y Compartir o Invitar con enlace. Si tu cuenta no lo ofrece, déjalo vacío: compartiremos la votación desde el menú del móvil.",
+  Telegram: "Cómo sacar el enlace: abre el grupo en Telegram, toca su nombre, Enlaces de invitación (o Añadir miembros, Invitar mediante enlace) y Copiar. Empieza por t.me.",
+  Otra: "Pega el enlace del grupo en la app que uséis: Signal, Discord, Slack o la que sea."
+};
+const gnet = (n) => GNETS.find((x) => x[0] === n) || GNETS[5];
+function netOfUrl(u) { try { const h = new URL(u).hostname.replace(/^www\./, "").toLowerCase(); const f = GNETS.find((x) => x[2] && x[2].test(h)); return f ? f[0] : "Otra"; } catch (e) { return ""; } }
+let mgEdit = null, mgReady = null;
+const mgVoteItem = () => { const v = $("#voteItem") && $("#voteItem").value; return S.items.find((i) => String(i.id) === String(v) && i.status === "wait") || S.items.filter((i) => i.status === "wait").sort((a, b) => (b.start || 0) - (a.start || 0))[0] || null; };
+function mgFormHTML(g) {
+  const net = (g && g.net) || "WhatsApp";
+  return `<form class="mgf" id="mgForm" data-gid="${g ? g.id : ""}">
+    <b>${g ? "Editar grupo" : "Crear un grupo"}</b>
+    <label>Nombre del grupo<input id="mgName" maxlength="30" value="${esc((g && g.name) || "")}" placeholder="Los del piso" autocomplete="off"></label>
+    <label>Personas, separadas por comas (como las llamas tú)<input id="mgPeople" maxlength="160" value="${esc(((g && g.members) || []).join(", "))}" placeholder="Ana, Dani" autocomplete="off"></label>
+    <span class="tag">Dónde tenéis el grupo</span>
+    <div class="nets" role="radiogroup" aria-label="Red del grupo">${GNETS.map(([n]) => `<label><input type="radio" name="mgnet" value="${n}" ${n === net ? "checked" : ""}><span>${n !== "Otra" ? netSvg(n, 16) : ""}${n}</span></label>`).join("")}</div>
+    <label>Enlace del grupo (opcional)<input id="mgLink" type="url" inputmode="url" maxlength="400" value="${esc((g && g.link) || "")}" placeholder="https://chat.whatsapp.com/..." autocomplete="off"></label>
+    <p class="how" id="mgHow">${GHOW[net]}</p><p class="warn" id="mgWarn" hidden></p>
+    <div class="actions"><button class="btn small" type="submit">${g ? "Guardar cambios" : "Crear grupo"}</button><button class="btn ghost small" type="button" data-mg="cancel">Cancelar</button>${g ? '<button class="link" type="button" data-mg="del" style="color:#B4231B">Borrar grupo</button>' : ""}</div>
+    <p class="tiny">El grupo de WhatsApp (o de la red que sea) sigue siendo vuestro: NotYet solo guarda su enlace para abrirlo y mandar la votación. No lee vuestras conversaciones ni añade a nadie.</p>
+  </form>`;
+}
+function renderMyGroups() {
+  const box = $("#myGroups"); if (!box) return;
+  const own = S.groups || [], it = mgVoteItem();
+  let h = `<div class="row between"><h2>Mis grupos</h2>${mgEdit ? "" : '<button class="btn small" type="button" data-mg="new">+ Crear grupo</button>'}</div>
+    <p class="tiny">Las personas a las que preguntas antes de comprar, con el enlace de vuestro grupo de WhatsApp, Instagram, Facebook, TikTok o Telegram. Desde aquí abres el chat o le mandas la votación con un toque.</p>`;
+  if (mgEdit === "new") h += mgFormHTML(null);
+  if (!own.length && mgEdit !== "new") h += `<div class="empty">Aún no tienes grupos. Crea uno con dos o tres personas de confianza y pega el enlace de vuestro grupo.</div>`;
+  h += `<div class="mgl">` + own.map((g) => {
+    if (mgEdit === g.id) return mgFormHTML(g);
+    const [n, col] = gnet(g.net || (g.link ? netOfUrl(g.link) : "Otra"));
+    const polls = S.items.filter((i) => i.poll && i.voteGroup === g.id).sort((a, b) => (b.poll.at || 0) - (a.poll.at || 0));
+    const last = polls[0], lv = last ? (last.votes || []).filter((v) => v.src) : [];
+    const hot = mgReady && mgReady.g === g.id;
+    return `<div class="mgc" data-gid="${g.id}"><div class="mgh"><span class="mgi" style="--c:${col}">${n !== "Otra" ? netSvg(n, 24) : av(g.name)}</span><div class="grow"><b>${esc(g.name)}</b><small>${n === "Otra" ? "Grupo" : n} - ${g.members.length} ${g.members.length === 1 ? "persona" : "personas"}${polls.length ? ` - ${polls.length} ${polls.length === 1 ? "votación" : "votaciones"}` : ""}</small><small>${esc(g.members.join(", "))}</small></div></div>
+      <div class="mga">${g.link ? `<a class="btn ghost small" href="${esc(g.link)}" target="_blank" rel="noopener">Abrir grupo</a>` : ""}<button class="btn small${hot ? " hot" : ""}" type="button" data-mg="send" ${it ? "" : "disabled"}>${hot ? (g.link ? "Abrir y pegar la votación" : "Compartir la votación") : "Mandar votación"}</button><button class="btn ghost small" type="button" data-mg="edit">Editar</button></div>
+      ${last ? `<div class="mgv">Última: ${esc(last.name)}, ${lv.length} ${lv.length === 1 ? "voto" : "votos"}${lv.length ? " (" + esc(lv.map((v) => v.who).slice(0, 5).join(", ")) + ")" : ""}${last.status === "wait" ? "" : " - decidida"}</div>` : it ? `<div class="mgv">Lista para votar: ${esc(it.name)}</div>` : `<div class="mgv">Apunta una compra con el + y podrás mandársela.</div>`}
+    </div>`;
+  }).join("") + `</div>`;
+  box.innerHTML = h;
+}
+function mgSave(form) {
+  const name = $("#mgName").value.trim(), members = $("#mgPeople").value.split(",").map((x) => x.trim()).filter(Boolean).slice(0, 12);
+  const net = (form.querySelector('input[name="mgnet"]:checked') || {}).value || "Otra";
+  let link = $("#mgLink").value.trim(); if (link && !/^https?:\/\//i.test(link)) link = "https://" + link;
+  if (!name) { toast("Ponle un nombre al grupo"); return; }
+  if (!members.length) { toast("Añade al menos una persona"); return; }
+  if (link) { try { const u = new URL(link); if (u.protocol !== "https:" && u.protocol !== "http:") throw 0; } catch (e) { toast("Ese enlace no parece válido. Cópialo otra vez desde el grupo."); return; } }
+  const gid = form.dataset.gid;
+  if (gid) { const g = (S.groups || []).find((x) => x.id === gid); if (g) Object.assign(g, { name, members, net, link, updated: now() }); toast("Grupo guardado"); }
+  else {
+    if (!hasPlus() && (S.groups || []).length >= FREE_GROUPS) { toast("El plan Gratis incluye un grupo propio. Hazte Plus para crear los que quieras."); return; }
+    const id = "g" + uid(); S.groups = (S.groups || []).concat([{ id, name, members, net, link, created: now() }]); S.group = id; toast("Grupo creado: " + name + ". Lo tienes aquí, en Comité, Mis grupos.");
+  }
+  mgEdit = null; save(); renderComite();
+}
+function mgShareUrl(net, it) { const t = encodeURIComponent(voteText(it)), u = encodeURIComponent(pollLink(it)); return net === "WhatsApp" ? "https://wa.me/?text=" + t : net === "Telegram" ? "https://t.me/share/url?url=" + u + "&text=" + t : net === "Facebook" ? "https://www.facebook.com/sharer/sharer.php?u=" + u : ""; }
+document.addEventListener("input", (e) => {
+  if (e.target.id === "mgLink") { const n = netOfUrl(e.target.value.trim().replace(/^(?!https?:\/\/)/i, "https://")), f = e.target.form, w = $("#mgWarn"); if (!f || !w) return; const sel = (f.querySelector('input[name="mgnet"]:checked') || {}).value; if (n && n !== "Otra" && n !== sel) { const r = f.querySelector(`input[name="mgnet"][value="${n}"]`); if (r) { r.checked = true; $("#mgHow").textContent = GHOW[n]; } } w.hidden = !(e.target.value.trim().length > 8 && sel && n === "Otra" && sel !== "Otra" && sel !== "TikTok"); w.textContent = `Ese enlace no parece de ${sel}. Si funciona, guárdalo igual.`; }
+});
+document.addEventListener("change", (e) => { if (e.target.name === "mgnet") { const h = $("#mgHow"); if (h) h.textContent = GHOW[e.target.value] || ""; const l = $("#mgLink"); if (l) l.placeholder = { WhatsApp: "https://chat.whatsapp.com/...", Instagram: "https://ig.me/j/...", Facebook: "https://facebook.com/groups/...", TikTok: "https://www.tiktok.com/...", Telegram: "https://t.me/+...", Otra: "https://..." }[e.target.value]; } });
+document.addEventListener("submit", (e) => { if (e.target.id === "mgForm") { e.preventDefault(); mgSave(e.target); } });
+document.addEventListener("click", async (e) => {
+  const b = e.target.closest("[data-mg]"); if (!b || !b.closest("#myGroups")) return;
+  const k = b.dataset.mg, card = b.closest("[data-gid]"), g = card && (S.groups || []).find((x) => x.id === card.dataset.gid);
+  if (k === "new") { mgEdit = "new"; renderMyGroups(); setTimeout(() => $("#mgName") && $("#mgName").focus(), 30); return; }
+  if (k === "cancel") { mgEdit = null; renderMyGroups(); return; }
+  if (k === "edit" && g) { mgEdit = g.id; renderMyGroups(); return; }
+  if (k === "del" && g) { if (!confirmDel(g)) return; S.groups = S.groups.filter((x) => x.id !== g.id); if (S.group === g.id) S.group = GROUPS[0].id; mgEdit = null; save(); renderComite(); toast("Grupo borrado"); return; }
+  if (k === "send" && g) {
+    const it = mgVoteItem(); if (!it) { toast("Primero apunta con el + lo que te tienta comprar"); return; }
+    S.group = g.id; it.voteGroup = g.id; selectedVote = it.id;
+    const net = g.net || (g.link ? netOfUrl(g.link) : "Otra");
+    if (!it.poll || !(mgReady && mgReady.g === g.id && mgReady.it === it.id)) {
+      if (!it.poll) { b.disabled = true; b.textContent = "Preparando la votación…"; const pl = await ensurePoll(it); if (!pl) { renderComite(); return; } }
+      it.voteGroup = g.id; save(); mgReady = { g: g.id, it: it.id }; renderComite();
+      toast(g.link ? "Votación lista. Toca otra vez y se abre el grupo: pega el mensaje y envíalo." : "Votación lista. Toca otra vez para compartirla.");
+      return;
+    }
+    const txt = voteText(it); mgReady = null; save();
+    try { localStorage.setItem("ny.resume", JSON.stringify({ id: it.id, at: now() })); } catch (x) {}
+    if (g.link) { try { navigator.clipboard.writeText(txt).catch(() => {}); } catch (x) {} window.open(g.link, "_blank", "noopener"); toast("Mensaje copiado. En el grupo, mantén pulsado y Pegar."); }
+    else { const u = mgShareUrl(net, it); if (u) window.open(u, "_blank", "noopener"); else if (navigator.share) { try { await navigator.share({ title: "¿Me lo compro?", text: txt, url: pollLink(it) }); } catch (x) {} } else { try { await navigator.clipboard.writeText(txt); toast("Copiado. Pégalo en el grupo."); } catch (x) {} } }
+    renderComite();
+  }
+});
+function confirmDel(g) { if (confirmDel.k === g.id && now() - confirmDel.t < 4000) { confirmDel.k = null; return true; } confirmDel.k = g.id; confirmDel.t = now(); toast("Toca otra vez Borrar grupo para confirmarlo"); return false; }
+{ const _rc5 = renderComite; renderComite = function () { _rc5.apply(this, arguments); try { if (!(mgEdit && document.activeElement && document.activeElement.closest && document.activeElement.closest("#mgForm"))) renderMyGroups(); } catch (e) {} }; }
+// Los grupos propios en la hoja del freno muestran su red
+{ const _rag = renderAskGroups; renderAskGroups = function () { _rag.apply(this, arguments); try { (S.groups || []).forEach((g) => { const r = document.querySelector(`#askGroups input[value="${g.id}"]`); if (r && g.net && g.net !== "Otra") r.nextElementSibling.insertAdjacentHTML("afterbegin", netSvg(g.net, 14) + " "); }); } catch (e) {} }; }
+document.addEventListener("click", (e) => { if (e.target.closest("[data-mgo]")) { e.preventDefault(); showTab("comite"); setTimeout(() => { const m = $("#myGroups"); if (m) m.scrollIntoView({ behavior: "smooth", block: "start" }); }, 60); } });
+
+/* ---------- v35: cuánto te esperas (24 h, 3 días, una semana, 30 días) ---------- */
+const WAITS = [[24, "24 h", "24 horas"], [72, "3 días", "3 días"], [168, "7 días", "una semana"], [720, "30 días", "30 días"]];
+const waitPts = (h) => h >= 720 ? 20 : h >= 168 ? 10 : h >= 72 ? 6 : 3;
+function paintWait() {
+  const h = S.waitH || 24, box = $("#gWait"); if (!box) return;
+  box.innerHTML = WAITS.map(([v, l]) => `<label><input type="radio" name="gwait" value="${v}" ${v === h ? "checked" : ""}><span>${l}</span></label>`).join("");
+  const w = WAITS.find((x) => x[0] === h) || WAITS[0], sp = document.querySelector('#gate [data-g="wait"] span');
+  if (sp) sp.innerHTML = `Me espero ${w[2]}<small>Te avisamos cuando acabe. +${waitPts(h)} puntos</small>`;
+}
+document.addEventListener("change", (e) => { if (e.target.name === "gwait") { S.waitH = Number(e.target.value) || 24; save(); paintWait(); } });
+{ const _og5 = openGate; openGate = function () { const r = _og5.apply(this, arguments); try { paintWait(); } catch (e) {} return r; }; }
+{ const _gi5 = gateItem; gateItem = function (status) { const it = _gi5.apply(this, arguments); if (status === "wait") it.hours = S.waitH || 24; return it; }; }
+
+/* ---------- v35: la cuenta atrás se mueve sola y avisa al acabar ---------- */
+function nyNotify(title, body, tag) {
+  try {
+    if (!("Notification" in window) || Notification.permission !== "granted") return;
+    const o = { body, icon: "/icon-192.png", badge: "/icon-192.png", tag: tag || "notyet", data: { url: "/app" } };
+    if (navigator.serviceWorker && navigator.serviceWorker.getRegistration) navigator.serviceWorker.getRegistration().then((r) => r ? r.showNotification(title, o) : new Notification(title, o)).catch(() => { try { new Notification(title, o); } catch (x) {} });
+    else new Notification(title, o);
+  } catch (e) {}
+}
+function tickWaits() {
+  let flip = false;
+  S.items.filter((i) => i.status === "wait").forEach((it) => {
+    const ms = left(it);
+    if (ms <= 0 && !it.ex && !it.notified) { it.notified = now(); flip = true; nyNotify("Se acabó la espera: " + it.name, (it.price ? eur(it.price) + ". " : "") + "¿Todavía lo quieres? Decide en NotYet.", "ny-" + it.id); }
+    const el = document.querySelector(`[data-tl="${it.id}"]`); if (el && ms > 0) el.textContent = human(ms) + ((it.hours || 24) >= 48 ? " - día " + Math.min(Math.round(it.hours / 24), Math.floor((now() - it.start) / (24 * H)) + 1) + " de " + Math.round(it.hours / 24) : "");
+    if (ms <= 0 && el && !el.closest(".ticket").querySelector(".pill.ok")) flip = true;
+  });
+  if (flip) { save(); if (tab === "inicio") renderInicio(); }
+}
+setInterval(() => { if (!document.hidden) tickWaits(); }, 30000);
+document.addEventListener("visibilitychange", () => { if (!document.hidden) setTimeout(tickWaits, 400); });
+setTimeout(tickWaits, 2500);
+function askNotif(force) {
+  if (!("Notification" in window)) { if (force) toast("Este navegador no permite avisos. Instala la app desde notyetapp.app/descarga."); return; }
+  if (Notification.permission === "granted") { if (force) toast("Los avisos ya están activados"); return; }
+  if (Notification.permission === "denied") { if (force) toast("Tienes los avisos bloqueados: actívalos en los ajustes del navegador para notyetapp.app"); return; }
+  if (!force) { try { if (localStorage.getItem("ny.notifAsk")) return; localStorage.setItem("ny.notifAsk", "1"); } catch (e) {} }
+  const d = document.createElement("div"); d.className = "toffer";
+  d.innerHTML = `<b>¿Te avisamos cuando acabe la espera?</b><p>Un aviso en el móvil para que decidas con la cabeza fría. Nada más.</p><div><button type="button" class="btn small" data-nf="yes">Avisarme</button><button type="button" class="btn ghost small" data-nf="no">Ahora no</button></div>`;
+  document.body.appendChild(d);
+  d.addEventListener("click", async (e) => { const b = e.target.closest("[data-nf]"); if (!b) return; d.remove(); if (b.dataset.nf === "yes") { try { const p = await Notification.requestPermission(); toast(p === "granted" ? "Hecho: te avisaremos al acabar cada espera" : "Sin avisos. Puedes activarlos en Cuenta cuando quieras."); } catch (x) {} } });
+}
+document.addEventListener("click", (e) => { if (e.target.closest('#gate [data-g="wait"]')) setTimeout(() => askNotif(false), 900); if (e.target.closest("#notifBtn")) askNotif(true); });
+
+/* ---------- v35: Decididas con filtro (todo, no comprado, comprado) y tasa de resistencia ---------- */
+let histF = "all", histAll = false;
+function renderHist() {
+  const box = $("#hist"); if (!box) return;
+  const done = S.items.filter((i) => i.status !== "wait").sort((a, b) => (b.decided || 0) - (a.decided || 0));
+  const sk = done.filter((i) => i.status === "skip"), bo = done.filter((i) => i.status !== "skip");
+  const rate = done.length ? Math.round(sk.length / done.length * 100) : 0, savedT = sk.reduce((a, i) => a + (i.price || 0), 0);
+  const sum = $("#histSum"); if (sum) sum.textContent = done.length ? `Resistes el ${rate} %` : "";
+  if (!done.length) { box.innerHTML = '<p class="tiny">Aquí verás lo que decidiste comprar o dejar pasar, y cuánto te has ahorrado.</p>'; return; }
+  const L = { skip: ["No comprado", "ok"], buy: ["Comprado", "no"], impulse: ["Sin esperar", "no"] };
+  const f = histF === "skip" ? sk : histF === "buy" ? bo : done, show = histAll ? f : f.slice(0, 6);
+  box.innerHTML = `<div class="hchips"><button type="button" data-hf="all" aria-pressed="${histF === "all"}">Todo ${done.length}</button><button type="button" data-hf="skip" aria-pressed="${histF === "skip"}">No comprado ${sk.length}</button><button type="button" data-hf="buy" aria-pressed="${histF === "buy"}">Comprado ${bo.length}</button></div>`
+    + (histF !== "buy" && savedT ? `<p class="tiny">En total has dejado de gastar <b>${eur(savedT)}</b> en ${sk.length} ${sk.length === 1 ? "capricho" : "caprichos"}.</p>` : "")
+    + show.map((it) => { const [t, c] = L[it.status] || ["", ""]; return `<div><span>${esc(it.name)}${it.ex ? ' <span class="tiny">(ejemplo)</span>' : ""}<small class="tiny" style="display:block">${it.decided ? new Date(it.decided).toLocaleDateString("es-ES", { day: "numeric", month: "short" }) : ""}${it.hours >= 48 ? " - esperó " + Math.round(it.hours / 24) + " días" : ""}</small></span><span><span class="pill ${c}">${t}</span> <span class="mono">${it.price ? eur(it.price) : ""}</span></span></div>`; }).join("")
+    + (f.length > 6 ? `<button type="button" class="link" data-hf="more">${histAll ? "Ver menos" : "Ver las " + f.length}</button>` : "");
+}
+document.addEventListener("click", (e) => { const b = e.target.closest("[data-hf]"); if (!b) return; if (b.dataset.hf === "more") histAll = !histAll; else { histF = b.dataset.hf; histAll = false; } renderHist(); });
+
+/* ---------- v35: compartir tus ahorros como imagen (Instagram, WhatsApp...) ---------- */
+async function shareSavings() {
+  const done = S.items.filter((i) => i.status !== "wait"), sk = done.filter((i) => i.status === "skip");
+  const rate = done.length ? Math.round(sk.length / done.length * 100) : 0, total = sk.reduce((a, i) => a + (i.price || 0), 0), month = savedMonth(), st = stats();
+  const c = document.createElement("canvas"); c.width = 1080; c.height = 1350; const x = c.getContext("2d");
+  x.fillStyle = "#0B0B0F"; x.fillRect(0, 0, 1080, 1350);
+  [["#2F6BFF", 200, 300], ["#7B5CFF", 880, 380], ["#E5468F", 760, 1100], ["#FF8A3D", 260, 1180]].forEach(([col, cx, cy]) => { const g = x.createRadialGradient(cx, cy, 0, cx, cy, 520); g.addColorStop(0, col + "88"); g.addColorStop(1, col + "00"); x.fillStyle = g; x.fillRect(0, 0, 1080, 1350); });
+  const F = '-apple-system, "SF Pro Display", "Inter Display", Inter, "Segoe UI", Roboto, sans-serif';
+  x.fillStyle = "#F5F5F7"; x.textAlign = "left"; x.font = `700 46px ${F}`; x.fillText("NotYet", 90, 140);
+  x.fillStyle = "#A1A1A6"; x.font = `500 46px ${F}`; x.fillText("Este mes no he gastado", 90, 420);
+  x.fillStyle = "#FFFFFF"; x.font = `800 190px ${F}`; x.fillText(eur(month), 84, 610);
+  x.fillStyle = "#A1A1A6"; x.font = `500 40px ${F}`; x.fillText(total > month ? `Y ${eur(total)} desde que uso NotYet` : "Pensándomelo antes de pagar", 90, 700);
+  const cells = [[String(sk.length), sk.length === 1 ? "capricho frenado" : "caprichos frenados"], [rate + " %", "de resistencia"], [String(st.streak), st.streak === 1 ? "día sin impulsos" : "días sin impulsos"]];
+  cells.forEach(([v, l], k) => { const X = 90 + k * 315; x.fillStyle = "rgba(255,255,255,.08)"; x.beginPath(); x.roundRect ? x.roundRect(X, 820, 285, 230, 36) : x.rect(X, 820, 285, 230); x.fill(); x.fillStyle = "#FFFFFF"; x.font = `800 ${v.length > 4 ? 70 : 84}px ${F}`; x.fillText(v, X + 32, 935); x.fillStyle = "#A1A1A6"; x.font = `500 30px ${F}`; x.fillText(l, X + 32, 1000); });
+  const gr = x.createLinearGradient(90, 0, 700, 0); gr.addColorStop(0, "#4C82FF"); gr.addColorStop(.4, "#8A6BFF"); gr.addColorStop(.7, "#E5468F"); gr.addColorStop(1, "#FF8A3D");
+  x.fillStyle = gr; x.font = `700 52px ${F}`; x.fillText("Antes de pagar, para un segundo.", 90, 1180);
+  x.fillStyle = "#A1A1A6"; x.font = `500 34px ${F}`; x.fillText("notyetapp.app", 90, 1250);
+  const blob = await new Promise((r) => c.toBlob(r, "image/png")); if (!blob) return;
+  const file = new File([blob], "mis-ahorros-notyet.png", { type: "image/png" }), txt = `Este mes no he gastado ${eur(month)} gracias a NotYet. Pruébalo: https://notyetapp.app`;
+  if (navigator.canShare && navigator.canShare({ files: [file] })) { try { await navigator.share({ files: [file], text: txt }); return; } catch (e) { if (e && e.name === "AbortError") return; } }
+  const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = file.name; document.body.appendChild(a); a.click(); a.remove(); toast("Imagen guardada. Súbela a tus historias o mándala por WhatsApp.");
+}
+document.addEventListener("click", (e) => { if (e.target.closest("[data-shsav]")) shareSavings(); });
+{ const _ri5 = renderInicio; renderInicio = function () { _ri5.apply(this, arguments); try { renderHist(); const t = $("#ticket"); if (t && !t.querySelector("[data-shsav]") && S.items.some((i) => i.status === "skip")) t.insertAdjacentHTML("beforeend", '<button type="button" class="shsav" data-shsav="1">Compartir mis ahorros</button>'); } catch (e) {} }; }
+
 render(); route();
 setInterval(render, 60000);
 })();
