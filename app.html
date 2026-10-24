@@ -1047,6 +1047,21 @@ body.indemo .wrap{padding-top:52px}
 .hchips{display:flex;gap:8px;margin:2px 0 10px;flex-wrap:wrap}.hchips button{border:1px solid var(--line);background:none;color:var(--fg);border-radius:999px;padding:6px 12px;font:inherit;font-size:.84rem;font-weight:600;cursor:pointer}
 .hchips button[aria-pressed=true]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
 .shsav{margin-top:12px;width:100%;border:1.5px dashed color-mix(in srgb,currentColor 40%,transparent);background:none;color:inherit;border-radius:14px;padding:10px;font:inherit;font-weight:700;cursor:pointer}
+
+/* v36: gamas de precio, tiendas de su nivel, tiendas propias, puntos explicados */
+.pband{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:8px 0 4px}
+.pband div{border:1px solid var(--line);border-radius:12px;padding:8px 6px;text-align:center;font-size:.74rem;color:var(--muted);line-height:1.25}
+.pband div b{display:block;color:var(--fg);font-size:.8rem}.pband div.on{border-color:var(--fg);background:var(--fg);color:var(--bg)}.pband div.on b{color:var(--bg)}
+.stl{display:flex;flex-direction:column;gap:6px;margin:6px 0 12px}
+.stl a{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:14px;padding:9px 12px;text-decoration:none;color:var(--fg);background:var(--surface)}
+.stl a .logo{width:22px;height:22px;object-fit:contain}.stl a .ini2{width:22px;height:22px;border-radius:6px;display:grid;place-items:center;background:color-mix(in srgb,var(--fg) 8%,transparent);font-size:.7rem;font-weight:700;flex:none}
+.stl a b{font-size:.92rem}.stl a small{display:block;color:var(--muted);font-size:.76rem}.stl a .go{margin-left:auto;color:var(--muted);font-size:.9rem}
+.stl a.mine{border-style:dashed}.stl .more[hidden]{display:none}.stl .more{display:contents}
+.stadd{border:1px dashed var(--line);border-radius:14px;padding:10px 12px;margin-top:6px}.stadd summary{cursor:pointer;font-weight:600;font-size:.9rem}
+.stadd form{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+.aisug{display:flex;flex-direction:column;gap:6px;margin-top:8px}.aisug .r{display:flex;gap:8px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:8px 10px}.aisug .r span{flex:1;font-size:.86rem}
+.ptsx{margin-top:10px;font-size:.84rem}.ptsx summary{cursor:pointer;font-weight:700}.ptsx ul{margin:8px 0 0;padding-left:18px;color:var(--muted);line-height:1.45}
+.hpt{font-size:.72rem;color:var(--muted);display:block}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -1883,7 +1898,7 @@ function stats() {
   const first = S.items.length ? Math.min(...S.items.map((i) => i.start || now())) : now();
   const streak = Math.max(0, Math.floor((now() - (lastImp || first)) / (24 * H)));
   let pts = 0;
-  S.items.forEach((it) => { if (it.status === "skip") pts += 10 + Math.round((it.price || 0) / 10); else if (it.status === "buy") pts += 2; if (it.votes && it.votes.length) pts += 5; if (it.cheaper) pts += 5 + Math.round(it.cheaper / 10); if (it.status !== "impulse" && (it.hours || 0) >= 24) pts += (it.hours >= 720 ? 20 : it.hours >= 168 ? 10 : it.hours >= 72 ? 6 : 3); });
+  const PB = ptsBreak(); S.items.forEach((it) => { pts += (PB[it.id] || {}).total || 0; });
   pts += goalsDone * 100 + Math.min(streak, 30) * 2 - (S.penalty || 0);
   pts = Math.max(0, pts);
   let li = 0; LEVELS.forEach((l, k) => { if (pts >= l[0]) li = k; });
@@ -2081,7 +2096,7 @@ function renderExplorar() {
   } else { const l = CATALOG.filter((p) => p.cat === cat); $cat.className = "grid"; $cat.innerHTML = l.map(exCard).join(""); }
   const bl = brandsOf(cat);
   $("#brandRoll").innerHTML = cat !== "todo" && BRANDS[cat] ? logoRoll(cat, `${bl.length} marcas de ${all[cat][0].toLowerCase()}. Toca una y te enseño su primer producto.`) : "";
-  $("#catNote").textContent = cat === "todo" ? `${CATALOG.length} productos, planes y servicios de ejemplo en ${keys.length} categorías. ¿Falta algo? Apúntalo con el botón de frenar y crea tu categoría.` : `${CATALOG.filter((p) => p.cat === cat).length} en ${all[cat][0].toLowerCase()}. Precios simulados.`;
+  $("#catNote").textContent = cat === "todo" ? `${CATALOG.length} productos, planes y servicios de ejemplo en ${keys.length} categorías. ¿Falta algo? Apúntalo con el botón de frenar y crea tu categoría.` : `${CATALOG.filter((p) => p.cat === cat).length} en ${all[cat][0].toLowerCase()}. Precios orientativos.`;
 }
 
 /* ---------- Control completo: más categorías, etiquetas en cada gasto, ahorro real y gastos fijos ---------- */
@@ -2558,8 +2573,8 @@ function similarCard(it) {
   const list = CATALOG.filter((p) => p.cat === cat && (!it.pid || p.id !== it.pid)).sort((a, b) => Math.abs(a.price - base) - Math.abs(b.price - base)).slice(0, 6).sort((a, b) => a.price - b.price);
   if (!cat || !list.length) return "";
   const fits = left != null ? list.filter((p) => p.price <= left) : [], cheaper = list.filter((p) => p.price < base);
-  const row = (p) => `<div class="simr"><span class="ic" style="--c:${CAT(p.cat)[1]}">${icon(p.ico || p.cat)}${logoSrc(p.brand) ? favImg(p.brand, "", 64) : ""}</span><div class="grow"><b>${esc(p.name)}</b><span class="tiny">${esc(p.brand)} en ${esc(p.shop)} - precio simulado</span></div><div class="simp"><span class="mono">${eur(p.price, 2)}</span>${p.price < base ? `<span class="tiny" style="color:var(--green)">${eur(base - p.price)} menos</span>` : p.price > base ? `<span class="tiny" style="color:var(--coral)">${eur(p.price - base)} más</span>` : ""}${left != null ? `<span class="pill ${p.price <= left ? "ok" : "no"}">${p.price <= left ? "cabe" : "se pasa"}</span>` : ""}</div><a class="btn ghost small" href="${SEARCH.base[0][1] + encodeURIComponent(p.name)}" target="_blank" rel="noopener">Ver</a></div>`;
-  return `<div class="card"><h2>Parecidos en otras tiendas</h2><p class="tiny">${cheaper.length ? `${cheaper.length} ${cheaper.length === 1 ? "opción más barata" : "opciones más baratas"} en ${catName(cat).toLowerCase()}. ` : `En ${catName(cat).toLowerCase()} no hay nada más barato en el catálogo de ejemplo: mira segunda mano verificada en los enlaces de arriba. `}${left != null ? `Tu tope ${pn}: te quedan ${eur(Math.max(0, left))}. ${fits.length ? fits.length + (fits.length === 1 ? " cabe" : " caben") + " sin pasarte." : "Ninguna cabe hoy: si esperas al siguiente periodo, entrarán."}` : "Ponte un tope en Ajustes y te marcaré cuáles caben."}</p><div class="siml">${list.map(row).join("")}</div><p class="tiny">Alternativas del catálogo de ejemplo con precios simulados; en la versión real saldrían de comparadores. Cada "Ver" abre la búsqueda de ese producto en Google Shopping.</p></div>`;
+  const row = (p) => `<div class="simr"><span class="ic" style="--c:${CAT(p.cat)[1]}">${icon(p.ico || p.cat)}${logoSrc(p.brand) ? favImg(p.brand, "", 64) : ""}</span><div class="grow"><b>${esc(p.name)}</b><span class="tiny">${esc(p.brand)} en ${esc(p.shop)} - precio orientativo</span></div><div class="simp"><span class="mono">${eur(p.price, 2)}</span>${p.price < base ? `<span class="tiny" style="color:var(--green)">${eur(base - p.price)} menos</span>` : p.price > base ? `<span class="tiny" style="color:var(--coral)">${eur(p.price - base)} más</span>` : ""}${left != null ? `<span class="pill ${p.price <= left ? "ok" : "no"}">${p.price <= left ? "cabe" : "se pasa"}</span>` : ""}</div><a class="btn ghost small" href="${SEARCH.base[0][1] + encodeURIComponent(p.name)}" target="_blank" rel="noopener">Ver</a></div>`;
+  return `<div class="card"><h2>Parecidos en otras tiendas</h2><p class="tiny">${cheaper.length ? `${cheaper.length} ${cheaper.length === 1 ? "opción más barata" : "opciones más baratas"} en ${catName(cat).toLowerCase()}. ` : `En ${catName(cat).toLowerCase()} no hay nada más barato en el catálogo de ejemplo: mira segunda mano verificada en los enlaces de arriba. `}${left != null ? `Tu tope ${pn}: te quedan ${eur(Math.max(0, left))}. ${fits.length ? fits.length + (fits.length === 1 ? " cabe" : " caben") + " sin pasarte." : "Ninguna cabe hoy: si esperas al siguiente periodo, entrarán."}` : "Ponte un tope en Ajustes y te marcaré cuáles caben."}</p><div class="siml">${list.map(row).join("")}</div><p class="tiny">Productos del catálogo NotYet con precio orientativo de su gama, no consultado en la tienda. Cada "Ver" abre la búsqueda de ese producto en Google Shopping, donde ves el precio real.</p></div>`;
 }
 const prodIco = (it) => { const p = it.pid ? byId(it.pid) : null; return (p && p.ico) || it.cat || "otros"; };
 function renderAnalisis() {
@@ -2569,8 +2584,8 @@ function renderAnalisis() {
   const diff = a && a.best && a.cheapest && a.cheapest !== a.best && !a.cheapest.orig && a.cheapest.p < a.best.p;
   const goUrl = a && a.best && !a.best.orig ? (a.best.kind === "reacond" ? "https://www.backmarket.es/es-es/search?q=" : a.best.kind === "segunda" ? "https://es.wallapop.com/app/search?keywords=" : "https://www.google.com/search?udm=28&hl=es&gl=es&q=") + encodeURIComponent(it.name) : null;
   box.innerHTML = `
-    <div class="card"><div class="gprod" style="--c:${CAT(it.cat)[1]}"><span class="ic">${icon(prodIco(it))}${favImg(it.brand || it.shop, "fav")}</span><div class="grow"><div class="br">${brandChip(it.brand || it.shop, it.shop)}</div><div class="nm">${esc(it.name)}</div><div class="tiny">${it.pid ? "Precio simulado" : "Lo que apuntaste"}</div></div><b class="mono">${eur(it.price, 2)}</b></div></div>
-    ${a ? `<div class="reco"><span class="tag">Lo que te compensa (simulado)</span><div class="big2">${esc(r.title)}</div><p>${esc(r.text)}</p>${diff ? `<p class="tiny">Lo más barato es ${esc(a.cheapest.t)} (${eur(a.cheapest.p)})${a.cheapest.g ? "" : ", pero sin garantía"}: por ${eur(a.best.p - a.cheapest.p)} más, ${esc(a.best.t)} te da ${a.best.g} meses de garantía.</p>` : ""}${goUrl ? `<div class="actions"><a class="btn green small" href="${goUrl}" target="_blank" rel="noopener" data-cheaper="${it.id}">Ir a lo que compensa (+puntos)</a></div>` : ""}</div>
+    <div class="card"><div class="gprod" style="--c:${CAT(it.cat)[1]}"><span class="ic">${icon(prodIco(it))}${favImg(it.brand || it.shop, "fav")}</span><div class="grow"><div class="br">${brandChip(it.brand || it.shop, it.shop)}</div><div class="nm">${esc(it.name)}</div><div class="tiny">${it.pid ? "Precio orientativo" : "Lo que apuntaste"}</div></div><b class="mono">${eur(it.price, 2)}</b></div></div>
+    ${a ? `<div class="reco"><span class="tag">Lo que te compensa (orientativo)</span><div class="big2">${esc(r.title)}</div><p>${esc(r.text)}</p>${diff ? `<p class="tiny">Lo más barato es ${esc(a.cheapest.t)} (${eur(a.cheapest.p)})${a.cheapest.g ? "" : ", pero sin garantía"}: por ${eur(a.best.p - a.cheapest.p)} más, ${esc(a.best.t)} te da ${a.best.g} meses de garantía.</p>` : ""}${goUrl ? `<div class="actions"><a class="btn green small" href="${goUrl}" target="_blank" rel="noopener" data-cheaper="${it.id}">Ir a lo que compensa</a></div>` : ""}</div>
     <div class="card"><h2>Todas las opciones</h2><div class="tbl">${a.opts.map((o) => `<div class="r${o === a.best ? " best" : ""}"><span class="t">${esc(o.t)}</span><span class="p">${o.p == null ? "" : eur(o.p)}</span><span class="m">${KIND[o.kind][0]}${o.g ? ", garantía " + o.g + " meses" : o.kind === "segunda" ? ", sin garantía" : ""}</span>${o.p != null && o.p < it.price && !o.orig ? `<span class="sv">${eur(it.price - o.p)} menos</span>` : "<span></span>"}</div>`).join("")}</div><p class="tiny">Regla sencilla: al precio se le suma un 15 % si no hay garantía y un 5 % si es reacondicionado; gana el más bajo. Las opciones y precios de esta tabla son orientativos de ejemplo: el precio real lo ves en cada tienda de abajo.</p></div>` :
     `<div class="card"><h2>Sin análisis todavía</h2><p class="tiny">Para lo que apuntas tú no inventamos precios: abajo tienes las tiendas de su mismo nivel, cada una abierta ya en la búsqueda de este producto, y la segunda mano que tiene sentido.</p></div>`}
     ${links.length ? `<div class="card"><h2>Buscar este producto</h2>${window._nyR ? `<p class="tiny">${esc(window._nyR.why)}</p>` : ""}${links.map(([t, L]) => `<div class="lgroup"><span class="tag">${t}</span><div class="glinks">${L.map(([n, u]) => `<a href="${u}" target="_blank" rel="noopener" data-lk="${esc(n.split(",")[0])}" class="${it.lastStore === n.split(",")[0] ? "on" : ""}">${favImg(n.split(",")[0], "", 64)}${esc(n)}</a>`).join("")}</div></div>`).join("")}<p class="tiny">Cada enlace abre la búsqueda de "${esc(it.name)}" en ese sitio: solo viaja el nombre del producto.</p>${it.cat !== "viajes" ? `<label for="asinUrl">Historial de precios en Amazon: pega el enlace del producto<input id="asinUrl" placeholder="https://www.amazon.es/dp/..." autocomplete="off" inputmode="url"></label><div id="asinOut" class="tiny"></div>` : ""}</div>` :
@@ -2583,7 +2598,7 @@ $("#analisis").addEventListener("click", (e) => {
   const lk = e.target.closest("[data-lk]");
   if (lk) { const it = S.items.find((i) => i.id === selectedAn); if (it) { it.lastStore = lk.dataset.lk; save(); $$("#analisis [data-lk]").forEach((a) => a.classList.toggle("on", a === lk)); } return; }
   const ch = e.target.closest("[data-cheaper]");
-  if (ch) { const it = S.items.find((i) => String(i.id) === ch.dataset.cheaper); if (it && !it.cheaper) { const a = analyze(it); it.cheaper = Math.max(0, it.price - (a.best ? a.best.p : it.price)); save(); flyPts(5 + Math.round(it.cheaper / 10), "por comprar mejor"); } return; }
+  if (ch) { const it = S.items.find((i) => String(i.id) === ch.dataset.cheaper); if (it) { const a = analyze(it); S.pendingCheck = { id: it.id, shop: a.best ? a.best.t.replace(/^Donde estabas: /, "") : it.shop, est: a.best ? a.best.p : it.price, t: now() }; save(); toast("Cuando vuelvas te pregunto a qué precio lo compraste: los puntos van según lo que ahorres"); } return; }
   const b = e.target.closest("[data-an]"); if (!b) return;
   const it = S.items.find((i) => i.id === selectedAn); if (!it) return;
   if (b.dataset.an === "skip") { if (it.status === "wait") decide(it, "skip"); save(); showTab("inicio"); }
@@ -2905,7 +2920,7 @@ function renderGateAlts() {
   if (!name || !price) { box.hidden = true; return; }
   gateAlts = altsFor(name, price, cat, shop0); box.hidden = false;
   const web = gateProd ? (gateProd.url || (DOM[gateProd.brand] ? "https://" + DOM[gateProd.brand] : "")) : (DOM[shop0] ? "https://" + DOM[shop0] : "");
-  box.innerHTML = `<div class="row between"><span class="tag">Parecidos en otras tiendas</span><span class="tiny">precio estimado</span></div>${gateAlts.map((a, i) => `<div class="galr"><span class="pe">${pemo({ name, cat })}</span><div class="grow"><b>${esc(a.shop)}</b><span class="tiny">${esc(a.kind)}${a.save > 0 ? ` - unos ${eur(a.save, 0)} menos` : ""}</span></div><b class="mono">${eur(a.est, a.est % 1 ? 2 : 0)}</b><a class="btn ghost small" href="${a.url}" target="_blank" rel="noopener" data-galt="${i}">Ver ↗</a></div>`).join("")}${web ? `<a class="galweb" href="${web}" target="_blank" rel="noopener" data-galt="orig">Ir a la web de ${esc((gateProd && gateProd.brand) || shop0)} ↗</a>` : ""}<p class="tiny">Precios estimados, no consultados: compruébalos en cada web. Cuando vuelvas, NotYet te pregunta a qué precio lo compraste.</p>`;
+  box.innerHTML = `<div class="row between"><span class="tag">Parecidos en otras tiendas</span><span class="tiny">precio orientativo</span></div>${gateAlts.map((a, i) => `<div class="galr"><span class="pe">${pemo({ name, cat })}</span><div class="grow"><b>${esc(a.shop)}</b><span class="tiny">${esc(a.kind)}${a.save > 0 ? ` - unos ${eur(a.save, 0)} menos` : ""}</span></div><b class="mono">${eur(a.est, a.est % 1 ? 2 : 0)}</b><a class="btn ghost small" href="${a.url}" target="_blank" rel="noopener" data-galt="${i}">Ver ↗</a></div>`).join("")}${web ? `<a class="galweb" href="${web}" target="_blank" rel="noopener" data-galt="orig">Ir a la web de ${esc((gateProd && gateProd.brand) || shop0)} ↗</a>` : ""}<p class="tiny">Precios estimados, no consultados: compruébalos en cada web. Cuando vuelvas, NotYet te pregunta a qué precio lo compraste.</p>`;
 }
 ["gName2", "gPrice", "gShop"].forEach((id) => $("#" + id).addEventListener("input", renderGateAlts));
 { const _og = openGate; openGate = function () { const r = _og.apply(this, arguments); renderGateAlts(); return r; }; }
@@ -2937,7 +2952,7 @@ document.addEventListener("visibilitychange", () => { if (!document.hidden) setT
 addEventListener("focus", () => setTimeout(openCheck, 400));
 $("#chk").addEventListener("click", (e) => {
   const b = e.target.closest("[data-chk]"); if (!b || !chkIt) return; const k = b.dataset.chk, pc = S.pendingCheck || {};
-  if (k === "buy") { const paid = parse($("#chkPrice").value) || chkIt.price, shop = $("#chkShop").value.trim() || chkIt.shop, orig = chkIt.orig || chkIt.price; chkIt.orig = orig; chkIt.price = paid; chkIt.paidAt = shop; chkIt.shop = shop; chkIt.cheaper = Math.max(0, Math.round((orig - paid) * 100) / 100); if (chkIt.status !== "impulse") { chkIt.status = "buy"; chkIt.decided = now(); } toast(chkIt.cheaper > 0 ? `Apuntado: ${eur(paid, 2)} en ${shop}. Te ahorraste ${eur(chkIt.cheaper, 2)}, que van a tu bote` : `Apuntado: ${eur(paid, 2)} en ${shop}`); }
+  if (k === "buy") { const paid = parse($("#chkPrice").value) || chkIt.price, shop = $("#chkShop").value.trim() || chkIt.shop, orig = chkIt.orig || chkIt.price; chkIt.orig = orig; chkIt.price = paid; chkIt.paidAt = shop; chkIt.shop = shop; chkIt.cheaper = Math.max(0, Math.round((orig - paid) * 100) / 100); chkIt.confirmed = now(); if (chkIt.status !== "impulse") { chkIt.status = "buy"; chkIt.decided = now(); } chkIt.inBudget = !S.budget || budgetLeft() >= 0; toast(chkIt.cheaper > 0 ? `Apuntado: ${eur(paid, 2)} en ${shop}. Te ahorraste ${eur(chkIt.cheaper, 2)}, que van a tu bote` : `Apuntado: ${eur(paid, 2)} en ${shop}`); }
   else if (k === "skip") { decide(chkIt, "skip"); }
   else { chkIt.start = now(); chkIt.hours = 24; toast("Te lo recuerdo mañana"); }
   S.pendingCheck = null; save(); closeCheck(); render();
@@ -3718,6 +3733,176 @@ async function shareSavings() {
 }
 document.addEventListener("click", (e) => { if (e.target.closest("[data-shsav]")) shareSavings(); });
 { const _ri5 = renderInicio; renderInicio = function () { _ri5.apply(this, arguments); try { renderHist(); const t = $("#ticket"); if (t && !t.querySelector("[data-shsav]") && S.items.some((i) => i.status === "skip")) t.insertAdjacentHTML("beforeend", '<button type="button" class="shsav" data-shsav="1">Compartir mis ahorros</button>'); } catch (e) {} }; }
+
+
+/* ---------- v36: gamas de precio orientativas por categoría (no son precios consultados) ---------- */
+var BANDS = { moda: [30, 120, 500], accesorios: [25, 100, 400], joyeria: [40, 150, 1500], belleza: [15, 40, 120], tech: [100, 400, 1200], hogar: [80, 300, 1500], bricolaje: [30, 120, 400], jardin: [40, 200, 800], deporte: [30, 100, 300], peques: [20, 60, 200], libros: [10, 20, 50], viajes: [150, 500, 1500], mascotas: [15, 50, 150], motor: [50, 200, 800], super: [30, 80, 200], otro: [30, 120, 500] };
+var TIERS = ["low", "medio", "premium", "lujo"], TIER_ES = { low: "Low cost", medio: "Gama media", premium: "Gama alta", lujo: "Lujo" };
+function detx(it) { const d = NYT.detect({ name: it.name, brand: it.brand, shop: it.shop, price: it.price, cat: it.cat }); if (!d.brand && it.cat !== "lujo" && (it.price || 0) > 0) { const b = BANDS[d.cat] || BANDS.otro, p = it.price; d.tier = p < b[0] ? "low" : p < b[1] ? "medio" : p < b[2] ? "premium" : "lujo"; d.tierLabel = TIER_ES[d.tier].toLowerCase(); } return d; }
+function bandsHTML(it, d) {
+  const b = BANDS[d.cat] || BANDS.otro, lab = [`hasta ${eur(b[0])}`, `${eur(b[0])} - ${eur(b[1])}`, `${eur(b[1])} - ${eur(b[2])}`, `desde ${eur(b[2])}`];
+  return `<div class="pband">${TIERS.map((t, k) => `<div class="${t === d.tier ? "on" : ""}"><b>${TIER_ES[t]}</b>${lab[k]}</div>`).join("")}</div><p class="tiny">${it.price ? `${eur(it.price)} en ${esc(d.catLabel.toLowerCase())}` : esc(d.catLabel)} es <b>${TIER_ES[d.tier].toLowerCase()}</b>${d.brand ? ` (${esc(NYT.brandName(d.brand))})` : ""}. Rangos orientativos de NotYet para esta categoría, no precios consultados: el precio real lo ves en cada tienda.</p>`;
+}
+
+/* ---------- v36: directorio de tiendas por categoría y nivel. Nunca se baja más de un escalón: si buscas un Hermès no te mando a AliExpress ---------- */
+var GS = (h) => "https://www.google.com/search?hl=es&gl=es&q=" + encodeURIComponent("site:" + h + " ") + "{q}";
+// [nombre, dominio, búsqueda dentro de la tienda ("" = Google solo en esa web), categorías, niveles, tipo]
+var STORES = [
+  ["Farfetch", "farfetch.com", "", "moda,accesorios,joyeria,deporte", "lujo,premium", "tienda"], ["Mytheresa", "mytheresa.com", "", "moda,accesorios,joyeria", "lujo", "tienda"], ["Net-a-Porter", "net-a-porter.com", "", "moda,accesorios,joyeria,belleza", "lujo", "tienda"], ["Mr Porter", "mrporter.com", "", "moda,accesorios,joyeria", "lujo", "tienda"], ["LuisaViaRoma", "luisaviaroma.com", "", "moda,accesorios", "lujo", "tienda"], ["SSENSE", "ssense.com", "", "moda,accesorios", "lujo,premium", "tienda"], ["24S", "24s.com", "", "moda,accesorios,belleza", "lujo", "tienda"], ["Harrods", "harrods.com", "", "moda,accesorios,joyeria,belleza,hogar", "lujo", "tienda"],
+  ["El Corte Inglés", "elcorteingles.es", "https://www.elcorteingles.es/search-nwx/1/?s={q}", "moda,accesorios,joyeria,belleza,tech,hogar,deporte,peques,libros,jardin,otro", "lujo,premium,medio", "tienda"],
+  ["The Outnet (outlet de lujo)", "theoutnet.com", "", "moda,accesorios", "lujo,premium", "outlet"], ["Las Rozas Village (outlet)", "lasrozasvillage.com", "", "moda,accesorios", "lujo,premium", "outlet"],
+  ["Vestiaire Collective (segunda mano de lujo)", "vestiairecollective.com", "", "moda,accesorios,joyeria", "lujo,premium", "segunda"], ["Collector Square (lujo de segunda mano)", "collectorsquare.com", "", "accesorios,joyeria", "lujo", "segunda"], ["Chrono24 (relojes)", "chrono24.es", "", "joyeria", "lujo,premium", "segunda"],
+  ["Zalando", "zalando.es", "https://www.zalando.es/catalogo/?q={q}", "moda,accesorios,deporte", "premium,medio,low", "tienda"], ["Zalando Lounge (outlet)", "zalando-lounge.es", "", "moda,accesorios", "premium,medio", "outlet"], ["Privalia (outlet)", "privalia.com", "", "moda,accesorios,hogar", "premium,medio", "outlet"],
+  ["Massimo Dutti", "massimodutti.com", "", "moda,accesorios", "premium", "tienda"], ["COS", "cos.com", "", "moda,accesorios", "premium", "tienda"], ["Arket", "arket.com", "", "moda,accesorios,hogar", "premium", "tienda"], ["Sandro", "sandro-paris.com", "", "moda,accesorios", "premium", "tienda"], ["Maje", "maje.com", "", "moda,accesorios", "premium", "tienda"], ["Scalpers", "scalperscompany.com", "", "moda,accesorios", "premium", "tienda"], ["El Ganso", "elganso.com", "", "moda,accesorios", "premium", "tienda"], ["Ralph Lauren", "ralphlauren.es", "", "moda,accesorios", "premium", "tienda"], ["Tommy Hilfiger", "es.tommy.com", "", "moda,accesorios", "premium", "tienda"],
+  ["Zara", "zara.com", "", "moda,accesorios", "medio", "tienda"], ["Mango", "mango.com", "", "moda,accesorios", "medio", "tienda"], ["H&M", "hm.com", "", "moda,accesorios,hogar", "medio,low", "tienda"], ["Uniqlo", "uniqlo.com", "", "moda", "medio", "tienda"], ["ASOS", "asos.com", "https://www.asos.com/es/search/?q={q}", "moda,accesorios", "medio,low", "tienda"], ["Pull&Bear", "pullandbear.com", "", "moda", "medio,low", "tienda"], ["Bershka", "bershka.com", "", "moda", "medio,low", "tienda"], ["Stradivarius", "stradivarius.com", "", "moda,accesorios", "medio,low", "tienda"], ["Springfield", "springfield.com", "", "moda", "medio", "tienda"], ["Cortefiel", "cortefiel.com", "", "moda", "medio", "tienda"],
+  ["Lefties", "lefties.com", "", "moda", "low", "tienda"], ["Kiabi", "kiabi.es", "", "moda,peques", "low", "tienda"], ["Shein", "shein.com", "", "moda,accesorios", "low", "importacion"],
+  ["Vinted (segunda mano)", "vinted.es", "https://www.vinted.es/catalog?search_text={q}", "moda,accesorios,peques,libros", "premium,medio,low", "segunda"], ["Wallapop (segunda mano)", "wallapop.com", "https://es.wallapop.com/app/search?keywords={q}", "moda,accesorios,tech,hogar,bricolaje,jardin,deporte,peques,libros,motor,otro", "medio,low", "segunda"],
+  ["Rabat", "rabat.net", "", "joyeria", "lujo", "tienda"], ["Joyería Suárez", "joyeriasuarez.com", "", "joyeria", "lujo,premium", "tienda"], ["TOUS", "tous.com", "", "joyeria,accesorios", "premium,medio", "tienda"], ["Pandora", "pandora.net", "", "joyeria", "premium,medio", "tienda"], ["Swarovski", "swarovski.com", "", "joyeria", "premium", "tienda"], ["Uno de 50", "unode50.com", "", "joyeria", "premium,medio", "tienda"], ["Aristocrazy", "aristocrazy.com", "", "joyeria", "medio", "tienda"], ["Singularu", "singularu.com", "", "joyeria", "low,medio", "tienda"],
+  ["Sephora", "sephora.es", "", "belleza", "lujo,premium,medio", "tienda"], ["Douglas", "douglas.es", "", "belleza", "lujo,premium,medio", "tienda"], ["Notino", "notino.es", "", "belleza", "premium,medio,low", "tienda"], ["Lookfantastic", "lookfantastic.es", "", "belleza", "premium,medio", "tienda"], ["Primor", "primor.eu", "", "belleza", "medio,low", "tienda"], ["Druni", "druni.es", "", "belleza", "medio,low", "tienda"], ["Perfumerías Arenal", "arenal.com", "", "belleza", "medio,low", "tienda"], ["Clarel", "clarel.es", "", "belleza", "low", "tienda"],
+  ["K-tuin (Apple)", "ktuin.com", "", "tech", "lujo,premium", "tienda"], ["MediaMarkt", "mediamarkt.es", "https://www.mediamarkt.es/es/search.html?query={q}", "tech,hogar", "lujo,premium,medio", "tienda"], ["Fnac", "fnac.es", "https://www.fnac.es/SearchResult/ResultList.aspx?Search={q}", "tech,libros", "lujo,premium,medio", "tienda"], ["PcComponentes", "pccomponentes.com", "https://www.pccomponentes.com/buscar/?query={q}", "tech", "premium,medio,low", "tienda"], ["Worten", "worten.es", "", "tech,hogar", "medio,low", "tienda"], ["Back Market (reacondicionado)", "backmarket.es", "https://www.backmarket.es/es-es/search?q={q}", "tech", "lujo,premium,medio,low", "reacond"],
+  ["Amazon", "amazon.es", "https://www.amazon.es/s?k={q}", "tech,hogar,bricolaje,jardin,deporte,peques,libros,mascotas,motor,belleza,super,otro", "premium,medio", "tienda"], ["Amazon, de barato a caro", "amazon.es", "https://www.amazon.es/s?k={q}&s=price-asc-rank", "moda,accesorios,joyeria,tech,hogar,bricolaje,jardin,deporte,peques,libros,mascotas,motor,belleza,super,otro", "low", "tienda"],
+  ["eBay", "ebay.es", "https://www.ebay.es/sch/i.html?_nkw={q}&_sop=15", "tech,motor,otro", "medio,low", "segunda"], ["AliExpress (importación)", "aliexpress.com", "https://es.aliexpress.com/wholesale?SearchText={q}", "tech,hogar,peques,deporte,otro", "low", "importacion"],
+  ["Westwing", "westwing.es", "", "hogar", "lujo,premium", "tienda"], ["Pamono (diseño vintage)", "pamono.es", "", "hogar", "lujo,premium", "segunda"], ["Kave Home", "kavehome.com", "", "hogar,jardin", "premium,medio", "tienda"], ["Zara Home", "zarahome.com", "", "hogar", "premium,medio", "tienda"], ["Maisons du Monde", "maisonsdumonde.com", "", "hogar,jardin", "medio", "tienda"], ["Sklum", "sklum.com", "", "hogar,jardin", "medio,low", "tienda"], ["IKEA", "ikea.com", "https://www.ikea.com/es/es/search/?q={q}", "hogar,jardin", "medio,low", "tienda"], ["Conforama", "conforama.es", "", "hogar", "low", "tienda"],
+  ["Leroy Merlin", "leroymerlin.es", "https://www.leroymerlin.es/buscador?query={q}", "bricolaje,jardin,hogar", "premium,medio,low", "tienda"], ["Bauhaus", "bauhaus.es", "", "bricolaje,jardin", "premium,medio", "tienda"], ["ManoMano", "manomano.es", "", "bricolaje,jardin", "medio,low", "tienda"], ["Bricomart", "bricomart.es", "", "bricolaje", "medio,low", "tienda"], ["Brico Depôt", "bricodepot.es", "", "bricolaje", "low", "tienda"], ["Verdecora", "verdecora.es", "", "jardin", "premium,medio", "tienda"],
+  ["Deporvillage", "deporvillage.com", "", "deporte", "premium,medio", "tienda"], ["Forum Sport", "forumsport.com", "", "deporte", "premium,medio", "tienda"], ["JD Sports", "jdsports.es", "", "deporte,moda", "premium,medio", "tienda"], ["Foot Locker", "footlocker.es", "", "deporte,moda", "premium,medio", "tienda"], ["Tradeinn", "tradeinn.com", "", "deporte", "premium,medio", "tienda"], ["Sprinter", "sprinter.es", "", "deporte", "medio,low", "tienda"], ["Decathlon", "decathlon.es", "https://www.decathlon.es/es/search?Ntt={q}", "deporte,peques", "medio,low", "tienda"],
+  ["Toys R Us", "toysrus.es", "", "peques", "premium,medio", "tienda"], ["Juguettos", "juguettos.com", "", "peques", "medio,low", "tienda"], ["Prénatal", "prenatal.es", "", "peques", "premium,medio", "tienda"],
+  ["Casa del Libro", "casadellibro.com", "", "libros", "premium,medio,low", "tienda"], ["Todos tus libros (librerías)", "todostuslibros.com", "", "libros", "premium,medio", "tienda"], ["Iberlibro (segunda mano)", "iberlibro.com", "", "libros", "medio,low", "segunda"],
+  ["Google Vuelos", "google.com/travel/flights", "https://www.google.com/travel/flights?hl=es&q={q}", "viajes", "lujo,premium,medio,low", "comparador"], ["Skyscanner", "skyscanner.es", "", "viajes", "premium,medio,low", "comparador"], ["Kayak", "kayak.es", "", "viajes", "premium,medio,low", "comparador"], ["Booking", "booking.com", "https://www.booking.com/searchresults.es.html?ss={q}", "viajes", "lujo,premium,medio,low", "tienda"], ["Mr & Mrs Smith (hoteles boutique)", "mrandmrssmith.com", "", "viajes", "lujo,premium", "tienda"], ["Airbnb", "airbnb.es", "", "viajes", "premium,medio,low", "tienda"], ["Trainline", "thetrainline.com", "", "viajes", "medio,low", "comparador"],
+  ["Tiendanimal", "tiendanimal.es", "", "mascotas", "premium,medio", "tienda"], ["Kiwoko", "kiwoko.com", "", "mascotas", "premium,medio", "tienda"], ["Zooplus", "zooplus.es", "", "mascotas", "medio,low", "tienda"], ["Miscota", "miscota.es", "", "mascotas", "medio,low", "tienda"],
+  ["Norauto", "norauto.es", "", "motor", "premium,medio", "tienda"], ["Feu Vert", "feuvert.es", "", "motor", "medio", "tienda"], ["Oscaro", "oscaro.es", "", "motor", "medio,low", "tienda"], ["Oponeo (neumáticos)", "oponeo.es", "", "motor", "premium,medio,low", "tienda"], ["coches.net (segunda mano)", "coches.net", "", "motor", "lujo,premium,medio,low", "segunda"],
+  ["Carrefour", "carrefour.es", "", "super,hogar,tech", "medio,low", "tienda"], ["Alcampo", "alcampo.es", "", "super", "medio,low", "tienda"], ["Mercadona", "tienda.mercadona.es", "", "super", "low,medio", "tienda"],
+  ["Google Shopping", "google.com/shopping", "https://www.google.com/search?udm=28&hl=es&gl=es&q={q}", "moda,accesorios,joyeria,belleza,tech,hogar,bricolaje,jardin,deporte,peques,libros,mascotas,motor,super,otro", "lujo,premium,medio,low", "comparador"], ["idealo (comparador)", "idealo.es", "https://www.idealo.es/resultados.html?q={q}", "tech,hogar,bricolaje,jardin,deporte,belleza,peques,mascotas,motor,otro", "premium,medio,low", "comparador"]
+].map(([n, h, u, c, t, k]) => ({ n, h, u: u || GS(h), cats: c.split(","), tiers: t.split(","), k, via: u ? "tienda" : "google" }));
+STORES.forEach((x) => { const b = x.n.split(" (")[0].split(",")[0]; if (typeof DOM !== "undefined" && !DOM[b] && !/google/.test(x.h)) DOM[b] = x.h.split("/")[0]; });
+var KIND_ES = { tienda: "", oficial: "web oficial", outlet: "outlet de su nivel", segunda: "segunda mano", reacond: "reacondicionado con garantía", importacion: "importación: más barato y más lento", comparador: "comparador" };
+function storeQ(it) { return encodeURIComponent(String(it.name || "").replace(/ y \d+ más$/, "").split(/\s+/).slice(0, 9).join(" ")); }
+function storesFor(it) {
+  const d = detx(it), ti = TIERS.indexOf(d.tier), lower = TIERS[ti - 1] || null;
+  const use = S.shopUse || {}, q = storeQ(it), here = String(it.shop || "").toLowerCase();
+  const mk = (x, why) => ({ n: x.n, u: x.u.replace(/\{q\}/g, q), h: x.h, k: x.k, via: x.via, why, mine: !!x.mine });
+  const score = (x, i) => (use[x.n] || 0) * 4 + (x.mine ? 6 : 0) - x.tiers.length * .6 - (x.k === "importacion" ? 5 : 0) - i * .01;
+  const pool = STORES.concat((S.myShops || []).map((m) => ({ n: m.n, h: m.h, u: m.u, cats: [m.cat], tiers: [m.tier], k: "tienda", via: m.u.includes("google.com/search") ? "google" : "tienda", mine: true })));
+  const fits = (x) => x.cats.includes(d.cat) || (d.cat !== "otro" && x.cats.includes("otro") && x.k === "comparador");
+  const notHere = (x) => !here || !x.n.toLowerCase().startsWith(here);
+  const same = pool.map((x, i) => [x, i]).filter(([x]) => fits(x) && x.tiers.includes(d.tier) && notHere(x) && !["segunda", "reacond", "comparador"].includes(x.k)).sort((a, b) => score(b[0], b[1]) - score(a[0], a[1])).map(([x]) => mk(x, KIND_ES[x.k]));
+  const cheaper = lower ? pool.map((x, i) => [x, i]).filter(([x]) => fits(x) && x.tiers.includes(lower) && !x.tiers.includes(d.tier) && notHere(x) && !["segunda", "reacond", "comparador"].includes(x.k) && (d.tier !== "medio" || x.k !== "importacion")).sort((a, b) => score(b[0], b[1]) - score(a[0], a[1])).map(([x]) => mk(x, KIND_ES[x.k])) : [];
+  const used = pool.map((x, i) => [x, i]).filter(([x]) => fits(x) && x.tiers.includes(d.tier) && ["segunda", "reacond"].includes(x.k)).sort((a, b) => score(b[0], b[1]) - score(a[0], a[1])).map(([x]) => mk(x, KIND_ES[x.k]));
+  const comp = pool.filter((x) => x.k === "comparador" && fits(x) && x.tiers.includes(d.tier)).map((x) => mk(x, KIND_ES[x.k]));
+  if (d.brand && d.tier !== "low") same.unshift({ n: "Web oficial de " + NYT.brandName(d.brand), u: "https://www.google.com/search?hl=es&gl=es&q=" + encodeURIComponent(NYT.brandName(d.brand) + " web oficial ") + q, h: "", k: "oficial", via: "google", why: "precio oficial y garantía" });
+  return { d, same, cheaper, used, comp };
+}
+function stRow(x) { const b = x.n.split(" (")[0].split(",")[0]; const logo = favImg(b, "", 64) || `<span class="ini2">${esc(b.charAt(0))}</span>`; return `<a href="${esc(x.u)}" target="_blank" rel="noopener" data-lk="${esc(b)}" data-st="${esc(x.n)}" class="${x.mine ? "mine" : ""}">${logo}<span><b>${esc(x.n)}</b>${x.why || x.mine || x.via === "google" ? `<small>${[x.mine ? "tu tienda" : "", x.why || "", x.via === "google" ? "vía Google, solo en esa web" : ""].filter(Boolean).join(" - ")}</small>` : ""}</span><span class="go">↗</span></a>`; }
+function stGroup(title, L, n, key) { if (!L.length) return ""; const top = L.slice(0, n), rest = L.slice(n); return `<span class="tag">${title}</span><div class="stl">${top.map(stRow).join("")}${rest.length ? `<span class="more" data-more="${key}" hidden>${rest.map(stRow).join("")}</span><button type="button" class="link" data-stmore="${key}">Ver ${rest.length} ${rest.length === 1 ? "tienda más" : "tiendas más"}</button>` : ""}</div>`; }
+function aiReady() { try { const c = aiCfg(); return c.prov === "auto" ? !!(window.claude && typeof window.claude.use === "function") : ["claude", "openai", "gemini"].includes(c.prov) && !!c.key; } catch (e) { return false; } }
+function storesHTML(it) {
+  const R = storesFor(it), d = R.d;
+  return `<h2>Dónde buscarlo</h2>${bandsHTML(it, d)}
+    ${stGroup("De su nivel: " + TIER_ES[d.tier].toLowerCase(), R.same, 5, "same")}
+    ${stGroup("Un escalón más asequible, calidad parecida", R.cheaper, 3, "cheap")}
+    ${stGroup("Segunda mano y reacondicionado de su nivel", R.used, 3, "used")}
+    ${stGroup("Comparadores", R.comp, 2, "comp")}
+    <p class="tiny">Cada enlace abre la búsqueda de "${esc(it.name)}" dentro de esa tienda (o en Google, solo en esa web), así llegas al producto y no a la portada. Nunca bajamos más de un escalón de gama. Cuando vuelvas, NotYet te pregunta si lo compraste y a qué precio.</p>
+    <details class="stadd"><summary>¿Conoces otra tienda que no está? Añádela</summary><form id="stAddF"><label>Nombre<input id="stN" maxlength="40" placeholder="La tienda de mi barrio" autocomplete="off"></label><label>Su web, o mejor: el enlace de la búsqueda de este producto en esa tienda<input id="stU" maxlength="400" inputmode="url" placeholder="https://..." autocomplete="off"></label><button class="btn small" type="submit">Guardar tienda</button><p class="tiny">Se guarda para ${esc(d.catLabel.toLowerCase())} de ${TIER_ES[d.tier].toLowerCase()} y sube en la lista cuanto más la uses.</p></form></details>
+    ${aiReady() ? `<div class="actions"><button type="button" class="btn ghost small" data-stai="1">Buscar más tiendas con IA</button></div><div class="aisug" id="stAI"></div>` : ""}
+    ${it.cat !== "viajes" ? `<label for="asinUrl">Historial de precios en Amazon: pega el enlace del producto<input id="asinUrl" placeholder="https://www.amazon.es/dp/..." autocomplete="off" inputmode="url"></label><div id="asinOut" class="tiny"></div>` : ""}`;
+}
+{ const _ra6 = renderAnalisis; renderAnalisis = function () { _ra6.apply(this, arguments); try { const it = S.items.find((i) => i.id === selectedAn); if (!it || it.cat === "comida") return; const g = $("#analisis .lgroup"); const card = g && g.closest(".card"); if (card) card.innerHTML = storesHTML(it); } catch (e) { console.warn(e); } }; }
+function templ(url, it) {
+  let u; try { u = new URL(url); } catch (e) { return ""; }
+  if (u.protocol !== "https:" && u.protocol !== "http:") return "";
+  const words = String(it.name || "").toLowerCase().split(/\s+/).filter((w) => w.length > 2);
+  for (const [k, v] of u.searchParams) { const lv = v.toLowerCase(); if (words.some((w) => lv.includes(w))) { u.searchParams.set(k, "QQQ"); return u.toString().replace("QQQ", "{q}"); } }
+  return GS(u.hostname.replace(/^www\./, ""));
+}
+document.addEventListener("submit", (e) => {
+  if (e.target.id !== "stAddF") return; e.preventDefault();
+  const it = S.items.find((i) => i.id === selectedAn); if (!it) return;
+  const n = $("#stN").value.trim(); let u = $("#stU").value.trim(); if (u && !/^https?:\/\//i.test(u)) u = "https://" + u;
+  if (!n || !u) { toast("Pon el nombre y la web de la tienda"); return; }
+  const t = templ(u, it); if (!t) { toast("Ese enlace no parece válido"); return; }
+  const d = detx(it);
+  let h = ""; try { h = new URL(u).hostname.replace(/^www\./, ""); } catch (x) {}
+  S.myShops = (S.myShops || []).filter((m) => m.n !== n).concat([{ n, h, u: t, cat: d.cat, tier: d.tier, at: now() }]); save(); renderAnalisis();
+  toast(t.includes("google.com/search") ? n + " guardada. La buscaremos a través de Google, solo en su web." : n + " guardada: buscará directamente dentro de su web.");
+});
+document.addEventListener("click", (e) => {
+  const m = e.target.closest("[data-stmore]"); if (m) { const sp = document.querySelector(`[data-more="${m.dataset.stmore}"]`); if (sp) { sp.hidden = !sp.hidden; m.textContent = sp.hidden ? m.textContent.replace("Ver menos", "Ver más") : "Ver menos"; } return; }
+  const a = e.target.closest("#analisis a[data-st]");
+  if (a) { const it = S.items.find((i) => i.id === selectedAn); const n = a.dataset.st; S.shopUse = S.shopUse || {}; S.shopUse[n] = (S.shopUse[n] || 0) + 1; if (it && it.status === "wait") { it.goneTo = n; S.pendingCheck = { id: it.id, shop: n.split(" (")[0], est: it.price, url: a.href, t: now() }; } save(); }
+});
+// Más tiendas con la IA del usuario: propone, el usuario decide cuáles guardar
+document.addEventListener("click", async (e) => {
+  const b = e.target.closest("[data-stai]"); if (!b) return; const it = S.items.find((i) => i.id === selectedAn); if (!it) return;
+  const R = storesFor(it), d = R.d, known = new Set(R.same.concat(R.cheaper, R.used, R.comp).map((x) => (x.h || "").split("/")[0]));
+  b.disabled = true; b.textContent = "Buscando tiendas…"; const box = $("#stAI");
+  const prompt = `Busco "${it.name}"${it.brand ? " de " + it.brand : ""}, unos ${Math.round(it.price || 0)} euros, en España. Es ${d.catLabel.toLowerCase()} de ${TIER_ES[d.tier].toLowerCase()}. Dame hasta 8 tiendas online reales que lo vendan en España, del mismo nivel o un escalón más asequible, nunca de gama mucho más baja. Incluye tiendas menos conocidas o especializadas. Ya conozco: ${[...known].filter(Boolean).slice(0, 30).join(", ")}. Responde SOLO con JSON: [{"n":"Nombre","web":"https://dominio"}]`;
+  let txt = "";
+  try { const cfg = aiCfg(), turns = [{ role: "user", content: "Eres un experto en comercio online en España. Solo respondes con JSON válido." }, { role: "user", content: prompt }];
+    if (cfg.prov === "auto") { const sample = await window.claude.use("sample"); const r = await sample(turns.slice(1).map((t, i) => i === 0 ? { role: "user", content: turns[0].content + "\n\n" + t.content } : t), { cache: false }); txt = r.text; }
+    else txt = await askProvider(cfg, turns);
+  } catch (x) { box.innerHTML = `<p class="tiny">No he podido hablar con la IA (${esc((x && (x.code || x.message)) || "error")}).</p>`; b.disabled = false; b.textContent = "Buscar más tiendas con IA"; return; }
+  let L = []; try { L = JSON.parse((txt.match(/\[[\s\S]*\]/) || ["[]"])[0]); } catch (x) {}
+  L = L.filter((x) => x && x.n && /^https:\/\/[a-z0-9.-]+\.[a-z]{2,}/i.test(x.web || "")).map((x) => ({ n: String(x.n).slice(0, 40), h: new URL(x.web).hostname.replace(/^www\./, "") })).filter((x) => !known.has(x.h)).slice(0, 8);
+  b.disabled = false; b.textContent = "Buscar más tiendas con IA";
+  box.innerHTML = L.length ? `<p class="tiny">Propuestas de tu IA. Ábrelas y guarda las que te convenzan: no las hemos comprobado.</p>` + L.map((x) => `<div class="r"><span><b>${esc(x.n)}</b> <small class="tiny">${esc(x.h)}</small></span><a class="btn ghost small" href="${esc(GS(x.h).replace("{q}", storeQ(it)))}" target="_blank" rel="noopener">Ver</a><button type="button" class="btn small" data-staiadd="${esc(x.n)}|${esc(x.h)}">Guardar</button></div>`).join("") : `<p class="tiny">La IA no ha propuesto tiendas nuevas que no tengamos ya.</p>`;
+});
+document.addEventListener("click", (e) => { const b = e.target.closest("[data-staiadd]"); if (!b) return; const it = S.items.find((i) => i.id === selectedAn); if (!it) return; const [n, h] = b.dataset.staiadd.split("|"); const d = detx(it); S.myShops = (S.myShops || []).filter((m) => m.n !== n).concat([{ n, h, u: GS(h), cat: d.cat, tier: d.tier, at: now(), ai: true }]); save(); b.textContent = "Guardada"; b.disabled = true; toast(n + " guardada en tus tiendas"); });
+
+// El freno: en vez de precios inventados por tienda, la gama de precio y tiendas de su nivel
+{ const _rga6 = renderGateAlts; renderGateAlts = function () { _rga6.apply(this, arguments); try {
+  const box = $("#gAlt"); if (!box || box.hidden) return;
+  const name = $("#gName2").value.trim() || (gateProd && gateProd.name) || "", price = parse($("#gPrice").value), shop0 = $("#gShop").value.trim();
+  const it = { name, price, shop: shop0, brand: gateProd && gateProd.brand, cat: gateProd ? gateProd.cat : gateCat() }; const R = storesFor(it);
+  const L = R.same.slice(0, 3).map((x) => ({ shop: x.n.split(" (")[0], kind: "de su nivel", url: x.u, est: price })).concat(R.cheaper.slice(0, 1).map((x) => ({ shop: x.n.split(" (")[0], kind: "un escalón más asequible", url: x.u, est: price }))).concat(R.used.slice(0, 1).map((x) => ({ shop: x.n.split(" (")[0], kind: x.why || "segunda mano", url: x.u, est: price })));
+  gateAlts = L; const web = gateProd ? (gateProd.url || (DOM[gateProd.brand] ? "https://" + DOM[gateProd.brand] : "")) : (DOM[shop0] ? "https://" + DOM[shop0] : "");
+  box.innerHTML = `<div class="row between"><span class="tag">Dónde buscarlo</span><span class="tiny">${TIER_ES[R.d.tier]}</span></div>${bandsHTML(it, R.d)}${L.map((a, i) => `<div class="galr">${favImg(a.shop, "", 64) || `<span class="pe">${pemo({ name, cat: it.cat })}</span>`}<div class="grow"><b>${esc(a.shop)}</b><span class="tiny">${esc(a.kind)}</span></div><a class="btn ghost small" href="${esc(a.url)}" target="_blank" rel="noopener" data-galt="${i}">Ver ↗</a></div>`).join("")}${web ? `<a class="galweb" href="${web}" target="_blank" rel="noopener" data-galt="orig">Ir a la web de ${esc((gateProd && gateProd.brand) || shop0)} ↗</a>` : ""}<p class="tiny">Cada "Ver" abre este producto buscado en esa tienda. Más tiendas en "Buscar más barato". Cuando vuelvas, te pregunto si lo compraste y a qué precio.</p>`;
+} catch (e) { console.warn(e); } }; }
+["gName2", "gPrice", "gShop"].forEach((id) => $("#" + id).addEventListener("input", () => renderGateAlts()));
+document.addEventListener("change", (e) => { if (e.target.name === "gcat") renderGateAlts(); });
+
+/* ---------- v36: puntos con lógica. Cuentan más si hay pruebas de que ibas a comprarlo de verdad ---------- */
+function evid(it) {
+  if (it.ex || it.src === "ext" || it.url || it.pid || it.goneTo || it.confirmed || (it.votes || []).some((v) => v.src === "link")) return "fuerte";
+  if (it.shop && (it.price || 0) > 0) return "media";
+  return "débil";
+}
+function priceCap(it) { let cap = 5000; try { const d = detx(it); cap = Math.min(cap, (BANDS[d.cat] || BANDS.otro)[2] * 4); } catch (e) {} if (S.budget) { const mult = { dia: 30, semana: 4.3, mes: 1, anio: 1 / 12 }[typeof budgetPer === "function" ? budgetPer() : "mes"] || 1; cap = Math.min(cap, Math.max(100, S.budget * mult * 3)); } return Math.round(cap); }
+const nName = (x) => String(x || "").toLowerCase().normalize("NFD").replace(/[^a-z0-9]/g, "");
+function ptsBreak() {
+  const out = {}, perDay = {}, seen = [];
+  const L = S.items.slice().sort((a, b) => (a.start || 0) - (b.start || 0));
+  for (const it of L) {
+    const r = { skip: 0, wait: 0, cheap: 0, vote: 0, buy: 0, ev: evid(it), notes: [] }, m = r.ev === "fuerte" ? 1 : r.ev === "media" ? .6 : .3;
+    const k = nName(it.name), dup = !it.ex && k && seen.some((x) => x.k === k && Math.abs(x.t - (it.start || 0)) < 30 * 24 * H); seen.push({ k, t: it.start || 0 });
+    const think = (it.decided || now()) - (it.start || 0), cap = priceCap(it), p = Math.min(it.price || 0, cap);
+    if (it.status === "skip") {
+      const dk = new Date(it.decided || now()).toDateString(); perDay[dk] = (perDay[dk] || 0) + 1;
+      let v = 10 + Math.round(p / 10);
+      if (dup) { v = 0; r.notes.push("ya la habías apuntado este mes"); }
+      else if (perDay[dk] > 5 && !it.ex) { v = 0; r.notes.push("más de 5 frenos el mismo día"); }
+      else { if (think < H && !it.ex) { v *= .5; r.notes.push("decidida en menos de una hora"); } v *= m; if ((it.price || 0) > cap) r.notes.push("precio contado hasta " + eur(cap)); }
+      r.skip = Math.round(v);
+    } else if (it.status === "buy") r.buy = 2;
+    if (it.votes && it.votes.length) r.vote = it.votes.some((v) => v.src === "link") ? 5 : 2;
+    if (it.cheaper > 0) {
+      if (it.inBudget === false) r.notes.push("te pasaste de tu tope: el ahorro no da puntos");
+      else r.cheap = Math.round(5 + Math.min(it.cheaper, cap) / 10);
+    }
+    const hrs = it.hours || 0;
+    if (it.status !== "impulse" && hrs >= 24 && !dup && (it.ex || think >= hrs * H * .98)) r.wait = Math.round((hrs >= 720 ? 20 : hrs >= 168 ? 10 : hrs >= 72 ? 6 : 3) * m);
+    r.total = r.skip + r.wait + r.cheap + r.vote + r.buy; out[it.id] = r;
+  }
+  return out;
+}
+var PTS_RULES = `<details class="ptsx"><summary>Cómo se ganan los puntos (y por qué no vale hacer trampa)</summary><ul>
+<li>No comprar algo: 10 puntos más 1 por cada 10 € que no gastas.</li>
+<li>Comprarlo más barato: 5 puntos más 1 por cada 10 € de ahorro, según el precio que confirmas al volver, y solo si no te pasas de tu tope del día, la semana, el mes o el año.</li>
+<li>Aguantar la espera entera: 3, 6, 10 o 20 puntos según elijas 24 horas, 3 días, una semana o 30 días. Se dan cuando la espera termina, no al apuntarla.</li>
+<li>Cuentan del todo si hay pruebas de que ibas a comprarlo: venía de una tienda (extensión o enlace), lo buscaste desde NotYet, lo votó tu grupo o confirmaste el precio. Con solo tienda y precio, el 60 %. Sin nada, el 30 %.</li>
+<li>No cuentan: la misma compra apuntada dos veces en un mes, ni más de 5 frenos el mismo día. Si decides en menos de una hora, la mitad.</li>
+<li>El precio se cuenta como mucho hasta un tope razonable para su categoría y para tu presupuesto: apuntar un coche de 90.000 € no da 9.000 puntos.</li></ul></details>`;
+{ const _ri6 = renderInicio; renderInicio = function () { _ri6.apply(this, arguments); try { const sc = $("#scoreCard"); if (sc && !sc.querySelector(".ptsx")) sc.insertAdjacentHTML("beforeend", PTS_RULES); } catch (e) {} }; }
+{ const _rh6 = renderHist; renderHist = function () { _rh6.apply(this, arguments); try { const PB = ptsBreak(); const done = S.items.filter((i) => i.status !== "wait").sort((a, b) => (b.decided || 0) - (a.decided || 0)); const f = histF === "skip" ? done.filter((i) => i.status === "skip") : histF === "buy" ? done.filter((i) => i.status !== "skip") : done; const show = histAll ? f : f.slice(0, 6); const rows = $$("#hist > div:not(.hchips)"); show.forEach((it, k) => { const r = PB[it.id], row = rows[k]; if (!r || !row) return; const sp = row.querySelector("span"); if (sp) sp.insertAdjacentHTML("beforeend", `<span class="hpt">+${r.total} puntos${r.ev !== "fuerte" && !it.ex ? (r.ev === "media" ? " - sin comprobar del todo" : " - sin pruebas de compra") : ""}${r.notes.length ? " - " + esc(r.notes.join(", ")) : ""}</span>`); }); } catch (e) {} }; }
 
 render(); route();
 setInterval(render, 60000);
