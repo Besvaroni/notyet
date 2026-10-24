@@ -95,4 +95,9 @@ async function send(){
 function alertMsg(t){let n=$("#err"); if(!n){n=document.createElement("p");n.id="err";n.className="tiny";n.style.color="var(--coral)";$("#send").after(n);} n.textContent=t;}
 load(); setInterval(()=>{if(P&&!document.hidden&&$(".res")) fetch(API+"/poll/"+id).then((r)=>r.json()).then((j)=>{if(j.ok){V=j.votes||[];const r=$(".res");if(r)r.outerHTML=resHTML();}}).catch(()=>{});},15000);
 })();
-</script></body></html>
+</script><script>
+(function(){const id=new URLSearchParams(location.search).get("p")||"";if(!/^[A-Za-z0-9_-]{10,24}$/.test(id))return;
+const put=()=>{if(document.getElementById("mine")||document.getElementById("ownq"))return;const a=document.createElement("p");a.id="ownq";a.style.cssText="text-align:center;margin:18px 16px 28px;font-size:.9rem";a.innerHTML='<a href="/app?voto='+encodeURIComponent(id)+'" style="color:#2F6BFF;font-weight:600">¿La has creado tú? Ábrela en NotYet para ver los votos y decidir</a>';document.body.appendChild(a);};
+setTimeout(put,1200);})();
+</script>
+</body></html>

@@ -318,17 +318,6 @@ details.card[open] summary::after{content:"−"}
 .goal .gbar i{display:block;height:100%;background:#fff;transition:width .8s var(--ease)}
 .goal .lock{position:absolute;top:10px;right:10px;font-size:.66rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;background:rgba(0,0,0,.35);border-radius:999px;padding:4px 9px;backdrop-filter:blur(4px)}
 .goal .pct{position:absolute;top:10px;left:12px;font-family:var(--f-mono);font-weight:700;font-size:.8rem;background:rgba(0,0,0,.35);border-radius:999px;padding:3px 8px}
-/* Fotos realistas de destinos, con fundido, zoom lento y entrada escalonada; si falta la foto se ve el dibujo */
-.goal{min-height:150px;transition:transform .35s var(--ease),box-shadow .35s ease;animation:goalIn .6s var(--ease) both}
-.goal:nth-child(2){animation-delay:.07s}.goal:nth-child(3){animation-delay:.14s}.goal:nth-child(n+4){animation-delay:.2s}
-.goal img.scene-ph{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-1;opacity:0;transform:scale(1.04);transition:opacity .9s ease}
-.goal img.scene-ph.on{opacity:1;animation:goalKB 16s ease-in-out infinite alternate}
-.goal:has(img.scene-ph.on)::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(to top,rgba(0,0,0,.78) 0%,rgba(0,0,0,.28) 50%,rgba(0,0,0,.1) 100%)}
-@media (hover:hover){.goal:hover{transform:translateY(-3px);box-shadow:0 16px 36px rgba(0,0,0,.35)}}
-.goal:active{transform:scale(.98)}
-@keyframes goalIn{from{opacity:0;transform:translateY(12px) scale(.98)}to{opacity:1;transform:none}}
-@keyframes goalKB{from{transform:scale(1.04) translate(0,0)}to{transform:scale(1.12) translate(-2%,-2%)}}
-@media (prefers-reduced-motion:reduce){.goal,.goal img.scene-ph.on{animation:none}}
 .gpick{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
 .gpick label{cursor:pointer;flex-direction:column;align-items:center;gap:4px;font-size:.66rem;text-align:center}
 .gpick input{position:absolute;opacity:0;width:1px;height:1px}
@@ -969,6 +958,55 @@ body.indemo .wrap{padding-top:52px}
 .wnote{min-height:0}
 }
 @media (min-width:821px) and (max-height:700px){.wsub{display:none}.wlogo{margin-bottom:6px}.wleg{font-size:.72rem}}
+
+/* Demo discreta en la bienvenida */
+.wl3{border:0;background:none;color:#8A94A3;font:inherit;font-size:.85rem;text-decoration:underline;cursor:pointer;padding:6px}
+/* Presentación animada */
+.onb{position:fixed;inset:0;z-index:520;background:#000;color:#f5f5f7;display:flex;flex-direction:column;overflow:hidden;transition:opacity .38s ease}
+.onb.out{opacity:0}
+.onbskip{position:absolute;top:max(14px,env(safe-area-inset-top));right:14px;z-index:2;border:0;background:rgba(255,255,255,.12);color:#fff;font:inherit;font-weight:600;font-size:.85rem;padding:8px 14px;border-radius:999px}
+.onbtrack{flex:1;display:flex;transition:transform .55s cubic-bezier(.2,.8,.2,1);min-height:0}
+.onbs{flex:0 0 100%;display:flex;flex-direction:column;justify-content:flex-end;padding:0 26px 12px;text-align:center;opacity:.25;transition:opacity .5s}
+.onbs.on{opacity:1}
+.onbs h2{font-family:var(--f-display);font-size:2.05rem;line-height:1.04;letter-spacing:-.035em;margin:18px 0 10px;color:#f5f5f7}
+.onbs p{color:#a1a1a6;font-size:.98rem;line-height:1.45;margin:0 auto;max-width:330px}
+.onbg{position:relative;height:min(46vh,360px);display:grid;place-items:center}
+.onbg:before{content:"";position:absolute;width:300px;height:300px;border-radius:50%;filter:blur(70px);opacity:.5;background:conic-gradient(from 0deg,#2F6BFF,#7B5CFF,#E5468F,#FF8A3D,#2F6BFF);animation:obspin 14s linear infinite}
+@keyframes obspin{to{transform:rotate(360deg)}}
+.g1 svg{position:relative;width:200px;height:200px}
+.g1 .otr{fill:none;stroke:#1c1c1e;stroke-width:12}
+.g1 .org{fill:none;stroke-width:12;stroke-linecap:round;stroke-dasharray:490;stroke-dashoffset:490;transform:rotate(-90deg);transform-origin:center}
+.onbs.on .g1 .org{animation:obring 2.2s .2s cubic-bezier(.2,.8,.2,1) forwards}
+@keyframes obring{to{stroke-dashoffset:110}}
+.g1 .opa{fill:#fff;opacity:0}.onbs.on .g1 .opa{animation:obfade .4s 1.2s forwards}
+@keyframes obfade{to{opacity:1}}
+.onbpay{position:absolute;bottom:18px;padding:10px 26px;border-radius:999px;background:#fff;color:#000;font-weight:800;opacity:0}.onbs.on .onbpay{animation:obpay 2.6s .1s ease forwards}
+@keyframes obpay{0%{opacity:0;transform:translateY(10px)}15%{opacity:1;transform:none}55%{opacity:1;transform:scale(.94)}70%{opacity:.35;transform:scale(.94)}100%{opacity:.35}}
+.g2{display:flex;flex-direction:column;justify-content:center;gap:10px;align-items:center}
+.ob{position:relative;background:#1c1c1e;color:#fff;border-radius:18px 18px 18px 6px;padding:10px 14px;font-size:.92rem;opacity:0;transform:translateY(12px)}
+.onbs.on .ob{animation:obup .5s forwards}.onbs.on .b2{animation-delay:.6s}.onbs.on .b3{animation-delay:1.2s}.onbs.on .b1{animation-delay:.1s}
+@keyframes obup{to{opacity:1;transform:none}}
+.obars{position:relative;display:flex;gap:14px;align-items:flex-end;height:80px;margin-top:10px}
+.obars i{width:34px;height:0;border-radius:8px;background:var(--c)}.onbs.on .obars i{animation:obh .9s 1.6s cubic-bezier(.2,.8,.2,1) forwards}
+@keyframes obh{to{height:var(--h)}}
+.g3{display:flex;flex-direction:column;gap:16px}
+.onum{position:relative;text-align:center}.onum b{display:block;font-family:var(--f-display);font-size:3.4rem;letter-spacing:-.04em;background:linear-gradient(90deg,#4C82FF,#8A6BFF 40%,#E5468F 75%,#FF8A3D);-webkit-background-clip:text;background-clip:text;color:transparent}.onum small{color:#a1a1a6}
+.ochart{position:relative;display:flex;gap:9px;align-items:flex-end;height:130px}
+.ochart i{width:20px;height:0;border-radius:6px;background:linear-gradient(180deg,#8A6BFF,#2F6BFF)}.onbs.on .ochart i{animation:obh .9s var(--d) cubic-bezier(.2,.8,.2,1) forwards}
+.g4{display:flex;flex-direction:column;gap:14px}
+.ophoto{position:relative;width:min(78vw,300px);height:min(30vh,210px);border-radius:24px;background:#1c1c1e center/cover;box-shadow:0 30px 70px rgba(0,0,0,.5)}
+.ogoal{position:relative;width:min(78vw,300px);text-align:left}.ogoal b{font-family:var(--f-display)}.ogoal small{color:#a1a1a6}
+.obar{height:10px;border-radius:5px;background:#2a2a2e;overflow:hidden;margin:8px 0 6px}.obar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#17A35A,#4CD08A)}.onbs.on .obar i{animation:obw 1.6s .3s cubic-bezier(.2,.8,.2,1) forwards}
+@keyframes obw{to{width:72%}}
+.onbnav{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 22px max(22px,env(safe-area-inset-bottom))}
+.onbdots{display:flex;gap:7px}.onbdots i{width:7px;height:7px;border-radius:99px;background:#3a3a3e;transition:width .3s,background .3s}.onbdots i.on{width:22px;background:#fff}
+.onbnext{border:0;background:#fff;color:#000;font:inherit;font-weight:800;padding:13px 26px;border-radius:999px;cursor:pointer}
+@media (prefers-reduced-motion:reduce){.onbtrack{transition:none}.onbg:before{animation:none}}
+/* Oferta de demo al entrar */
+.toffer{position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:600;width:min(92vw,380px);background:var(--surface);color:var(--ink);border-radius:20px;padding:16px;box-shadow:0 20px 60px rgba(0,0,0,.25);display:flex;flex-direction:column;gap:6px;animation:obup .4s ease}
+.toffer p{margin:0;color:var(--muted);font-size:.88rem}.toffer div{display:flex;gap:8px;margin-top:6px}
+/* Decisión en la votación */
+.pdec{margin-top:6px;padding:12px;border-radius:16px;background:var(--bg2);display:flex;flex-direction:column;gap:6px}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -1034,6 +1072,21 @@ body.indemo .wrap{padding-top:52px}
 </svg>
 
 <div class="wel" id="welcome" hidden role="dialog" aria-modal="true" aria-labelledby="welT">
+<div class="onb" id="onb" hidden aria-label="Presentación de NotYet">
+ <button type="button" class="onbskip" data-onb="skip">Saltar</button>
+ <div class="onbtrack" id="onbT">
+  <section class="onbs" data-i="0"><div class="onbg g1"><svg viewBox="0 0 200 200" aria-hidden="true"><defs><linearGradient id="og1" x1="0" x2="1"><stop offset="0" stop-color="#4C82FF"/><stop offset=".45" stop-color="#8A6BFF"/><stop offset=".75" stop-color="#E5468F"/><stop offset="1" stop-color="#FF8A3D"/></linearGradient></defs><circle cx="100" cy="100" r="78" class="otr"/><circle cx="100" cy="100" r="78" class="org" stroke="url(#og1)"/><rect x="82" y="76" width="12" height="48" rx="4" class="opa"/><rect x="106" y="76" width="12" height="48" rx="4" class="opa"/></svg><span class="onbpay">Pagar</span></div>
+   <h2>Antes de pagar,<br><span class="gtx">para un segundo.</span></h2><p>NotYet te frena justo antes de comprar por impulso. Nunca te bloquea.</p></section>
+  <section class="onbs" data-i="1"><div class="onbg g2"><div class="ob b1">✋ Espera, ya tienes unas</div><div class="ob b2">🔎 En outlet están a 79 €</div><div class="ob b3">✅ Si las vas a usar, sí</div><div class="obars"><i style="--h:38%;--c:#17A35A"></i><i style="--h:82%;--c:#FF5A5F"></i><i style="--h:56%;--c:#2F6BFF"></i></div></div>
+   <h2>Pregunta a tu gente.<br><span class="gtx">Votan con un enlace.</span></h2><p>Por WhatsApp, Telegram o Instagram. Sin instalar nada, y el resultado vuelve aquí.</p></section>
+  <section class="onbs" data-i="2"><div class="onbg g3"><div class="onum"><b id="onbN">0 €</b><small>no gastado este mes (ejemplo)</small></div><div class="ochart"><i style="--h:30%;--d:0.00s"></i><i style="--h:52%;--d:0.07s"></i><i style="--h:41%;--d:0.14s"></i><i style="--h:68%;--d:0.21s"></i><i style="--h:59%;--d:0.28s"></i><i style="--h:84%;--d:0.35s"></i><i style="--h:72%;--d:0.42s"></i><i style="--h:96%;--d:0.49s"></i></div></div>
+   <h2>Mira lo que<br><span class="gtx">no has gastado.</span></h2><p>Tus hábitos con gráficas claras: por mes, por categoría y compra a compra.</p></section>
+  <section class="onbs" data-i="3"><div class="onbg g4"><div class="ophoto" id="onbPh"></div><div class="ogoal"><b>Viaje a Roma</b><div class="obar"><i></i></div><small>72 % conseguido (ejemplo)</small></div></div>
+   <h2>Lo que no compras<br><span class="gtx">va a tus metas.</span></h2><p>Un viaje, un regalo o un colchón para imprevistos. Cada "no" suma.</p></section>
+ </div>
+ <div class="onbnav"><div class="onbdots" id="onbD"><i class="on"></i><i></i><i></i><i></i></div><button type="button" class="onbnext" data-onb="next">Siguiente</button></div>
+</div>
+
  <div class="welv" aria-hidden="true">
   <div class="wlglow"></div>
   <video class="wlvid" id="welVid" muted playsinline loop preload="none" poster="/media/notyet-film-9x16.jpg"></video>
@@ -1059,7 +1112,7 @@ body.indemo .wrap{padding-top:52px}
   </div>
   <p class="wnote" id="welNote" aria-live="polite"></p>
   <div class="wsep"><span>o</span></div>
-  <div class="walt"><button type="button" class="wl2" data-wl="demo">▶ Probar la demo con datos de ejemplo</button><button type="button" class="wl2 g" data-wl="local">Empezar sin cuenta</button></div>
+  <div class="walt"><button type="button" class="wl2 g" data-wl="local">Empezar sin cuenta</button><button type="button" class="wl3" data-wl="demo">Ver antes una demo con datos de ejemplo</button></div>
   <p class="wleg">Al continuar aceptas las <a href="/condiciones.html" target="_blank" rel="noopener">condiciones</a> y la <a href="/privacidad.html" target="_blank" rel="noopener">política de privacidad</a>. Sin cuenta, tus datos se quedan en este dispositivo.</p>
  </div>
 </div>
@@ -1846,7 +1899,7 @@ function ticketHTML(o) {
 /* ---------- Inicio ---------- */
 const GOALIMGS = ["paris", "playa", "piso", "boda", "coche", "fondo", "regalo", "portatil", "moto", "bebe", "mascota", "estudios", "bici"];
 const GOALNAMES = { paris: "Viaje", playa: "Playa", piso: "Piso", boda: "Boda", coche: "Coche", fondo: "Fondo", regalo: "Regalo", portatil: "Portátil", moto: "Moto", bebe: "Bebé", mascota: "Mascota", estudios: "Estudios", bici: "Bici" };
-const scene = (img) => { const k = GOALIMGS.includes(img) ? img : "fondo"; return `<svg class="scene" aria-hidden="true"><use href="#sc-${k}"/></svg><img class="scene-ph" src="/img/destinos/${k}.jpg" alt="" loading="lazy" decoding="async" onload="this.classList.add('on')" onerror="this.remove()">`; };
+const scene = (img) => `<svg class="scene" aria-hidden="true"><use href="#sc-${GOALIMGS.includes(img) ? img : "fondo"}"/></svg>`;
 function renderInicio() {
   const d = new Date();
   $("#monthTitle").textContent = MONTHS[d.getMonth()].charAt(0).toUpperCase() + MONTHS[d.getMonth()].slice(1);
@@ -3393,6 +3446,45 @@ async function pullExt() {
 }
 setTimeout(pullExt, 2500); setInterval(pullExt, 60000); document.addEventListener("visibilitychange", () => { if (!document.hidden) pullExt(); });
 { const _ra2 = renderAcct; renderAcct = function () { const r = _ra2.apply(this, arguments); try { const a = $("#acctCard"); if (a && SESS && !a.querySelector(".extl")) { const v = document.documentElement.dataset.notyetExt; a.insertAdjacentHTML("beforeend", v ? `<p class="tiny extl">🧩 <b>Extensión de Chrome vinculada.</b> Lo que frenas en el ordenador aparece aquí, en Inicio.</p>` : `<p class="tiny extl">🧩 ¿Compras desde el ordenador? <a href="/notyet-extension-chrome.zip" download>Instala la extensión de Chrome</a> y, al abrir esta página en ese Chrome, se vincula sola con tu cuenta.</p>`); } } catch (e) {} return r; }; }
+
+/* Presentación animada antes del acceso (móvil, la primera vez) */
+(function onbInit() {
+  const o = document.getElementById("onb"), w = document.getElementById("welcome"); if (!o || !w) return;
+  let seen = false; try { seen = !!localStorage.getItem("ny.onb"); } catch (e) {}
+  const mob = matchMedia("(max-width:820px)").matches;
+  let i = 0, timer = null; const N = 4, T = document.getElementById("onbT"), dots = [...document.querySelectorAll("#onbD i")];
+  const ph = document.getElementById("onbPh"); try { const a = catImgs().viajes; if (a && ph) ph.style.backgroundImage = `url(${CIMG_U(a[0][2], 700)})`; } catch (e) {}
+  const count = () => { const b = document.getElementById("onbN"); if (!b) return; const t0 = performance.now(); const tick = (t) => { const k = Math.min(1, (t - t0) / 1200); b.textContent = Math.round(477 * (1 - Math.pow(1 - k, 3))) + " €"; if (k < 1) requestAnimationFrame(tick); }; requestAnimationFrame(tick); };
+  const go = (n) => { i = Math.max(0, Math.min(N - 1, n)); T.style.transform = `translateX(${-i * 100}%)`; dots.forEach((d, k) => d.classList.toggle("on", k === i)); o.querySelectorAll(".onbs").forEach((sct, k) => sct.classList.toggle("on", k === i)); o.querySelector(".onbnext").textContent = i === N - 1 ? "Empezar" : "Siguiente"; if (i === 2) count(); clearTimeout(timer); if (!matchMedia("(prefers-reduced-motion: reduce)").matches) timer = setTimeout(() => { if (i < N - 1) go(i + 1); }, 5200); };
+  const done = () => { clearTimeout(timer); o.classList.add("out"); setTimeout(() => { o.hidden = true; }, 380); try { localStorage.setItem("ny.onb", "1"); } catch (e) {} };
+  o.addEventListener("click", (e) => { const b = e.target.closest("[data-onb]"); if (!b) return; if (b.dataset.onb === "skip") done(); else if (i === N - 1) done(); else go(i + 1); });
+  let x0 = null; o.addEventListener("touchstart", (e) => { x0 = e.touches[0].clientX; }, { passive: true }); o.addEventListener("touchend", (e) => { if (x0 == null) return; const dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 40) go(i + (dx < 0 ? 1 : -1)); x0 = null; });
+  const show = () => { if (seen || !mob || w.hidden) return; o.hidden = false; go(0); };
+  new MutationObserver(show).observe(w, { attributes: true, attributeFilter: ["hidden"] }); show();
+})();
+
+/* Al entrar por primera vez con tu cuenta, te ofrecemos la demo guiada */
+{ const _ae3 = acctEnter; acctEnter = async function () { const r = await _ae3.apply(this, arguments); try { if (!localStorage.getItem("ny.tourOffer")) { localStorage.setItem("ny.tourOffer", "1"); setTimeout(() => { const d = document.createElement("div"); d.className = "toffer"; d.innerHTML = `<b>¿Te enseñamos NotYet en un minuto?</b><p>Una demo guiada con datos de ejemplo. Tus datos no se tocan.</p><div><button type="button" class="btn small" data-to="go">Ver la demo guiada</button><button type="button" class="btn ghost small" data-to="no">Ahora no</button></div>`; document.body.appendChild(d); d.addEventListener("click", (e) => { const b = e.target.closest("[data-to]"); if (!b) return; d.remove(); if (b.dataset.to === "go") { const t = $("#btnTour"); if (t) t.click(); } }); }, 900); } } catch (e) {} return r; }; }
+
+/* Volver al punto exacto: al compartir una votación se recuerda; al volver del grupo, abre esa votación con los votos y la decisión */
+{ const _ep = ensurePoll; ensurePoll = async function (it) { const pl = await _ep.apply(this, arguments); if (pl) { try { localStorage.setItem("ny.resume", JSON.stringify({ id: it.id, at: now() })); } catch (e) {} } return pl; }; }
+document.addEventListener("click", (e) => { const a = e.target.closest("#pollCard .pnets a, #pollCard [data-pl='share'], #pollCard [data-pl='copy']"); if (!a) return; const it = S.items.find((i) => i.id === selectedVote); if (it) { try { localStorage.setItem("ny.resume", JSON.stringify({ id: it.id, at: now() })); } catch (x) {} } }, true);
+async function resumeVote(why) {
+  let r = null; try { r = JSON.parse(localStorage.getItem("ny.resume") || "null"); } catch (e) {}
+  if (!r || now() - r.at > 12 * H) return;
+  const it = S.items.find((i) => i.id === r.id); if (!it || it.status !== "wait" || !it.poll) { try { localStorage.removeItem("ny.resume"); } catch (e) {} return; }
+  if (why === "load" && (WEL_Q.get("voto") || /^#(amazon|zara|demo)/.test(location.hash))) return;
+  await syncPolls(true); selectedVote = it.id; showTab("comite"); render();
+  setTimeout(() => { const pc = $("#pollCard"); if (pc) pc.scrollIntoView({ behavior: "smooth", block: "start" }); }, 250);
+}
+setTimeout(() => resumeVote("load"), 900);
+document.addEventListener("visibilitychange", () => { if (!document.hidden) resumeVote("back"); });
+/* En la tarjeta de la votación: decide con un toque según lo que ha votado tu grupo */
+{ const _pc = pollCardHTML; pollCardHTML = function (it) { let h = _pc.apply(this, arguments); const vs = (it.votes || []).filter((v) => v.src); if (it.status === "wait" && vs.length) { const c = { buy: 0, wait: 0, cheap: 0 }; vs.forEach((v) => c[v.vote]++); const top = c.buy > c.wait + c.cheap ? "buy" : c.cheap >= c.wait && c.cheap > 0 ? "cheap" : "wait"; const msg = top === "buy" ? "Tu grupo dice que adelante." : top === "cheap" ? "Tu grupo dice que lo busques más barato." : "Tu grupo dice que te esperes."; h += `<div class="pdec"><b>${msg}</b><span class="tiny">${vs.length} ${vs.length === 1 ? "voto" : "votos"}. Tú decides:</span><div class="actions"><button type="button" class="btn green small" data-pdec="skip">No lo compro, lo ahorro</button>${top === "cheap" ? `<button type="button" class="btn small" data-pdec="cheap">Buscar más barato</button>` : ""}<button type="button" class="btn ghost small" data-pdec="buy">Lo compro</button></div></div>`; } return h; }; }
+document.addEventListener("click", (e) => { const b = e.target.closest("[data-pdec]"); if (!b) return; const it = S.items.find((i) => i.id === selectedVote); if (!it) return; const k = b.dataset.pdec;
+  if (k === "cheap") { selectedAn = it.id; showTab("analisis"); return; }
+  decide(it, k); try { localStorage.removeItem("ny.resume"); } catch (x) {} save(); render(); toast(k === "skip" ? "Hecho: lo que no gastas va a tu meta. Puntos sumados." : "Apuntado como comprado tras consultarlo. Buena decisión pensada.");
+});
 render(); route();
 setInterval(render, 60000);
 })();
