@@ -318,6 +318,17 @@ details.card[open] summary::after{content:"−"}
 .goal .gbar i{display:block;height:100%;background:#fff;transition:width .8s var(--ease)}
 .goal .lock{position:absolute;top:10px;right:10px;font-size:.66rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;background:rgba(0,0,0,.35);border-radius:999px;padding:4px 9px;backdrop-filter:blur(4px)}
 .goal .pct{position:absolute;top:10px;left:12px;font-family:var(--f-mono);font-weight:700;font-size:.8rem;background:rgba(0,0,0,.35);border-radius:999px;padding:3px 8px}
+/* Fotos realistas de destinos, con fundido, zoom lento y entrada escalonada; si falta la foto se ve el dibujo */
+.goal{min-height:150px;transition:transform .35s var(--ease),box-shadow .35s ease;animation:goalIn .6s var(--ease) both}
+.goal:nth-child(2){animation-delay:.07s}.goal:nth-child(3){animation-delay:.14s}.goal:nth-child(n+4){animation-delay:.2s}
+.goal img.scene-ph{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-1;opacity:0;transform:scale(1.04);transition:opacity .9s ease}
+.goal img.scene-ph.on{opacity:1;animation:goalKB 16s ease-in-out infinite alternate}
+.goal:has(img.scene-ph.on)::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(to top,rgba(0,0,0,.78) 0%,rgba(0,0,0,.28) 50%,rgba(0,0,0,.1) 100%)}
+@media (hover:hover){.goal:hover{transform:translateY(-3px);box-shadow:0 16px 36px rgba(0,0,0,.35)}}
+.goal:active{transform:scale(.98)}
+@keyframes goalIn{from{opacity:0;transform:translateY(12px) scale(.98)}to{opacity:1;transform:none}}
+@keyframes goalKB{from{transform:scale(1.04) translate(0,0)}to{transform:scale(1.12) translate(-2%,-2%)}}
+@media (prefers-reduced-motion:reduce){.goal,.goal img.scene-ph.on{animation:none}}
 .gpick{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
 .gpick label{cursor:pointer;flex-direction:column;align-items:center;gap:4px;font-size:.66rem;text-align:center}
 .gpick input{position:absolute;opacity:0;width:1px;height:1px}
@@ -743,6 +754,15 @@ input,select,textarea{border-radius:14px}
 .pc .ic .fav,.xrow .fav{position:absolute;top:8px;right:8px;width:34px;height:34px;border-radius:50%;border:0;background:rgba(255,255,255,.92);display:grid;place-items:center;cursor:pointer;z-index:2;box-shadow:0 2px 8px rgba(0,0,0,.08)}
 .fav svg{fill:none;stroke:#0B1024;stroke-width:2;transition:transform .2s}
 .fav.on svg{fill:#FF2D55;stroke:#FF2D55;transform:scale(1.08)}
+/* Corazón sin círculo blanco detrás */
+.pc .ic .fav{background:transparent;box-shadow:none}
+.pc .ic .fav svg{filter:drop-shadow(0 1px 2px rgba(255,255,255,.6))}
+/* Fotos realistas de producto (Grok): fundido al cargar y zoom suave; si no hay foto se ve el icono de siempre */
+.pc .ic img.pimg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .6s ease,transform .6s var(--ease);z-index:1}
+.pc .ic img.pimg.on{opacity:1}
+.pc .ic:has(img.pimg.on) .pe{opacity:0}
+.pc .ic:has(img.pimg.on) .fav:not(.on) svg{stroke:#fff;filter:drop-shadow(0 1px 3px rgba(0,0,0,.55))}
+@media (hover:hover){.pc:hover .ic img.pimg.on{transform:scale(1.06)}}
 .xrow .fav{position:static;flex:none;background:var(--bg2);box-shadow:none}
 body.xpon{overflow:hidden}
 .xp{position:fixed;inset:0;z-index:300;background:rgba(11,16,36,.35);display:flex;justify-content:center}
@@ -1923,7 +1943,7 @@ function ticketHTML(o) {
 /* ---------- Inicio ---------- */
 const GOALIMGS = ["paris", "playa", "piso", "boda", "coche", "fondo", "regalo", "portatil", "moto", "bebe", "mascota", "estudios", "bici"];
 const GOALNAMES = { paris: "Viaje", playa: "Playa", piso: "Piso", boda: "Boda", coche: "Coche", fondo: "Fondo", regalo: "Regalo", portatil: "Portátil", moto: "Moto", bebe: "Bebé", mascota: "Mascota", estudios: "Estudios", bici: "Bici" };
-const scene = (img) => `<svg class="scene" aria-hidden="true"><use href="#sc-${GOALIMGS.includes(img) ? img : "fondo"}"/></svg>`;
+const scene = (img) => { const k = GOALIMGS.includes(img) ? img : "fondo"; return `<svg class="scene" aria-hidden="true"><use href="#sc-${k}"/></svg><img class="scene-ph" src="/img/destinos/${k}.jpg" alt="" loading="lazy" decoding="async" onload="this.classList.add('on')" onerror="this.remove()">`; };
 function renderInicio() {
   const d = new Date();
   $("#monthTitle").textContent = MONTHS[d.getMonth()].charAt(0).toUpperCase() + MONTHS[d.getMonth()].slice(1);
@@ -2184,7 +2204,7 @@ function favToggle(id, from) {
 }
 function favPaint() { $$("[data-fav]").forEach((b) => { const on = isFav(b.dataset.fav); b.classList.toggle("on", on); b.setAttribute("aria-pressed", String(on)); b.setAttribute("aria-label", on ? "Quitar de favoritos" : "Guardar en favoritos"); }); const d = $("#favDot"); if (d) d.hidden = !(SESS && (S.favs || []).length); }
 const HEART = '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 20s-7.5-4.4-7.5-10A4.3 4.3 0 0 1 12 7.6 4.3 4.3 0 0 1 19.5 10c0 5.6-7.5 10-7.5 10z"/></svg>';
-{ const _ec = exCard; exCard = function (p, i) { let h = _ec.apply(this, arguments); if (EVCATS.includes(p.cat) && p.cat !== "experiencias") h = h.replace('<div class="pr">', '<div class="pr">desde '); return h.replace('<div class="ic">', `<div class="ic"><button type="button" class="fav${isFav(p.id) ? " on" : ""}" data-fav="${p.id}" aria-label="Guardar en favoritos">${HEART}</button>`); }; }
+{ const _ec = exCard; exCard = function (p, i) { let h = _ec.apply(this, arguments); if (EVCATS.includes(p.cat) && p.cat !== "experiencias") h = h.replace('<div class="pr">', '<div class="pr">desde '); return h.replace('<div class="ic">', `<div class="ic"><img class="pimg" src="/img/productos/${slug(p.name)}.jpg" alt="" loading="lazy" decoding="async" onload="this.classList.add('on')" onerror="this.remove()"><button type="button" class="fav${isFav(p.id) ? " on" : ""}" data-fav="${p.id}" aria-label="Guardar en favoritos">${HEART}</button>`); }; }
 
 // Panel a pantalla completa: categorías, favoritos y buscador
 let xpMode = null, xpQ = "", xpIdeasSeed = 0;
