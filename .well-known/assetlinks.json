@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "app.notyetapp",
+        "sha256_cert_fingerprints": ["D9:4B:C8:0C:2E:1D:64:DB:A1:46:1A:0D:FF:48:CD:5B:96:34:53:7A:8A:38:3B:48:F4:E6:A0:E7:35:19:C6:68"]
+      }
+    }]
