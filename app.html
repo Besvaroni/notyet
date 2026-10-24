@@ -16,6 +16,24 @@
 <meta name="apple-mobile-web-app-title" content="NotYet">
 <style>html{color-scheme:light dark}body{margin:0}img{max-width:100%}[hidden]{display:none!important}.upsell .actions{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 6px}
 .upsell h2{margin-top:4px}
+/* NotYet fotos: emoticonos sustituidos por fotos */
+.ny-on{position:relative;isolation:isolate;overflow:hidden}
+.t10c.ny-on{overflow:visible}
+.ny-fill{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;border-radius:inherit;animation:nyIn .7s ease both}
+.t10c.ny-on .ny-fill{z-index:0}.t10c.ny-on .n{z-index:1}
+.exh.ny-on .ny-fill{animation:nyIn .7s ease both,nyKB 18s ease-in-out infinite alternate}
+.exh.ny-on::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(0,0,0,.66) 0%,rgba(0,0,0,.28) 55%,rgba(0,0,0,.05) 100%)}
+.dg.ny-on::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(to top,rgba(0,0,0,.72) 0%,rgba(0,0,0,.25) 55%,rgba(0,0,0,.08) 100%)}
+.dg.ny-on .ny-fill{animation:nyIn .7s ease both,nyKB 18s ease-in-out infinite alternate}
+.ny-hide{visibility:hidden!important}
+.ny-inl{width:1.3em;height:1.3em;object-fit:cover;border-radius:.32em;display:inline-block;vertical-align:-.25em;box-shadow:0 2px 6px rgba(0,0,0,.15)}
+.ny-inlbox{filter:none!important;animation:none!important}
+.ptag{display:block;margin-top:2px;font-family:var(--f-body,inherit);font-size:.72rem;font-weight:600;letter-spacing:0;color:var(--muted,#6b7280)}
+.ptag.t-lujo{color:#9C7A2E}.ptag.t-premium{color:#5B5BD6}
+@keyframes nyIn{from{opacity:0}to{opacity:1}}
+@keyframes nyKB{from{transform:scale(1.03)}to{transform:scale(1.1) translate(-1.5%,-1.5%)}}
+@media (prefers-reduced-motion:reduce){.ny-fill{animation:none!important}}
+/* fin NotYet fotos css */
 </style>
 </head>
 <body>
@@ -2048,7 +2066,7 @@ function renderExplorar() {
       <div class="ic"><span class="pe">${pemo(p)}</span></div>
       <div class="br">${brandChip(p.brand, p.shop)}</div>
       <div class="nm">${esc(p.name)}</div>
-      <div class="pr">${eur(p.price, 2)} <span class="tiny">simulado</span></div>
+      <div class="pr">${eur(p.price, 2)} <span class="tiny">aprox.</span>${nyPriceTag(p)}</div>
       <div class="tz">${esc(p.say)}</div>
       <button class="btn small" type="button" data-want="${p.id}">Lo quiero</button>
     </article>`;
@@ -2078,7 +2096,7 @@ function exCard(p, i) { return `<article class="pc${p.id === pickPid ? " picked"
       <div class="ic"><span class="pe">${pemo(p)}</span></div>
       <div class="br">${brandChip(p.brand, p.shop)}</div>
       <div class="nm">${esc(p.name)}</div>${planMeta(p, i || 0)}
-      <div class="pr">${p.cat === "experiencias" ? "desde " : ""}${eur(p.price, p.price % 1 ? 2 : 0)} <span class="tiny">simulado</span></div>
+      <div class="pr">${p.cat === "experiencias" ? "desde " : ""}${eur(p.price, p.price % 1 ? 2 : 0)} <span class="tiny">aprox.</span>${nyPriceTag(p)}</div>
       <button class="btn small" type="button" data-want="${p.id}">Lo quiero</button>
     </article>`; }
 function exFeatured() { const keys = Object.keys(catsAll()).filter((k) => CATALOG.some((p) => p.cat === k)); return keys.map((k) => CATALOG.filter((p) => p.cat === k).sort((a, b) => b.price - a.price)[Math.min(1, CATALOG.filter((p) => p.cat === k).length - 1)]).filter(Boolean); }
@@ -3906,6 +3924,60 @@ var PTS_RULES = `<details class="ptsx"><summary>Cómo se ganan los puntos (y por
 
 render(); route();
 setInterval(render, 60000);
+/* ---------- NotYet fotos: emoticonos sustituidos por fotos realistas (Grok) y precio orientativo en tarjetas ---------- */
+function nyPriceTag(p) {
+  try {
+    if (typeof detx !== "function" || typeof BANDS === "undefined") return "";
+    const d = detx(p); const b = BANDS[d.cat] || BANDS.otro; if (!d || !d.tier || !b) return "";
+    const lab = { low: `hasta ${eur(b[0])}`, medio: `de ${eur(b[0])} a ${eur(b[1])}`, premium: `de ${eur(b[1])} a ${eur(b[2])}`, lujo: `desde ${eur(b[2])}` }[d.tier];
+    return `<span class="ptag t-${d.tier}" title="Rango orientativo de NotYet para esta categoría, no es un precio consultado">${esc(TIER_ES[d.tier])}: ${lab}</span>`;
+  } catch (e) { return ""; }
+}
+(function nyEmojiPhotos() {
+  const EMO_RE = /^\p{Extended_Pictographic}[️‍♀♂\p{Extended_Pictographic}]*$/u;
+  const norm = (e) => String(e || "").replace(/[️‍♀♂]/g, "");
+  const MAP = {}; const LEADS = new WeakSet();
+  const add = (e, src) => { const k = norm(e); if (k && !MAP[k]) MAP[k] = src; };
+  try { CITY.forEach((c, i) => add(c[1], "/img/emoji/ciudad-" + i + ".jpg")); } catch (e) {}
+  try { Object.entries(GSTYLE).forEach(([k, v]) => add(v[0], "/img/destinos/" + k + ".jpg")); } catch (e) {}
+  try { Object.entries(CEMO).forEach(([k, v]) => add(v, "/img/cat/" + k + ".jpg")); } catch (e) {}
+  [["⭐", "estrella"], ["🏷️", "etiqueta"], ["👪", "familia"], ["🧩", "puzzle"], ["🙋‍♀️", "favoritos"], ["❤️", "favoritos"], ["🛍️", "compras"]].forEach(([e, n]) => add(e, "/img/emoji/" + n + ".jpg"));
+  const FILL = ".t10c,.xth,.dg,.exh,.fhi,.rwi";
+  function prodOf(el) {
+    const host = el.closest("[data-want],[data-pid],.exh,.xrow,.t10,.gprod,.pk,.fv1");
+    if (!host) return null;
+    const id = (host.dataset && (host.dataset.want || host.dataset.pid)) || ((host.querySelector("[data-want]") || {}).dataset || {}).want;
+    let p = id && typeof byId === "function" ? byId(id) : null;
+    if (!p) { const nm = (host.querySelector(".t10t,.nm,b,.xn b") || {}).textContent; if (nm) p = (CATALOG || []).find((x) => x.name === nm.trim()) || { name: nm.trim() }; }
+    return p && p.name ? "/img/productos/" + slug(p.name) + ".jpg" : null;
+  }
+  function apply(el) {
+    if (el.dataset.nyph) return; const t = (el.textContent || "").trim(); if (!t || !EMO_RE.test(t)) return;
+    el.dataset.nyph = "1";
+    const inProd = el.closest("[data-want],[data-pid],.exh,.t10,.xrow.res,.gprod,.pk,.fv1");
+    const srcs = [inProd ? prodOf(el) : null, MAP[norm(t)]].filter(Boolean);
+    if (!srcs.length) return;
+    const box = el.closest(FILL); const img = new Image(); let k = 0;
+    img.alt = ""; img.decoding = "async"; img.className = box ? "ny-fill" : "ny-inl";
+    img.onerror = () => { k++; if (k < srcs.length) img.src = srcs[k]; else img.remove(); };
+    img.onload = () => { if (box) { box.classList.add("ny-on"); el.classList.add("ny-hide"); } else { el.textContent = ""; el.appendChild(img); el.classList.add("ny-inlbox"); } };
+    if (box) box.insertBefore(img, box.firstChild);
+    img.src = srcs[0];
+  }
+  function scan(root) {
+    const w = document.createTreeWalker(root || document.body, NodeFilter.SHOW_TEXT, null); const els = new Set(); let n;
+    while ((n = w.nextNode())) { const p = n.parentElement; if (p && p.childElementCount === 0 && !p.closest("script,style,textarea,input,.ny-inlbox") && EMO_RE.test((n.nodeValue || "").trim())) els.add(p); }
+    els.forEach(apply);
+    const w2 = document.createTreeWalker(root || document.body, NodeFilter.SHOW_TEXT, null); const lead = [];
+    while ((n = w2.nextNode())) { const v = n.nodeValue || ""; const m = v.match(/^\s*(\p{Extended_Pictographic}[\uFE0F\u200D\u2640\u2642\p{Extended_Pictographic}]*)\s+(\S.{0,40})$/u); if (m && !LEADS.has(n) && MAP[norm(m[1])] && n.parentElement && !n.parentElement.closest("script,style,textarea,.ny-inlbox,.toast")) lead.push([n, m]); }
+    lead.forEach(([node, m]) => { LEADS.add(node); if (node.parentElement && node.parentElement.closest("label,.chips")) { node.nodeValue = m[2]; return; } const img = new Image(); img.alt = ""; img.className = "ny-inl ny-lead"; img.onload = () => { if (!node.parentNode) return; node.parentNode.insertBefore(img, node); node.nodeValue = " " + m[2]; }; img.src = MAP[norm(m[1])]; });
+  }
+  let q = false; const mo = new MutationObserver(() => { if (q) return; q = true; requestAnimationFrame(() => { q = false; scan(); }); });
+  const start = () => { scan(); mo.observe(document.body, { childList: true, subtree: true, characterData: true }); };
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start); else start();
+})();
+/* fin NotYet fotos */
+
 })();
 </script>
 
